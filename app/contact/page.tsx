@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { ArrowLeading, Check, Send, Phone, Mail, MapPin, ArrowLeft } from 'lucide-react';
+import { Check, Send, Phone, Mail, ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
 
 export default function ContactPage() {
@@ -34,7 +34,7 @@ export default function ContactPage() {
                     {/* Info Side */}
                     <div className="space-y-12">
                         <div>
-                            <h1 className="text-5xl md:text-6xl font-black text-white mb-6">Let's Scale Your Business</h1>
+                            <h1 className="text-5xl md:text-6xl font-black text-white mb-6">Let&apos;s Scale Your Business</h1>
                             <p className="text-xl text-slate-400 leading-relaxed">
                                 Ready to automate your operations? Fill out the form and our AI Architect team will build a custom demo for your business within 24 hours.
                             </p>

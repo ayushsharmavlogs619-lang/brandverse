@@ -4,10 +4,7 @@ import { useState } from 'react';
 import {
   ArrowRight,
   Phone,
-  TrendingUp,
-  Clock,
   DollarSign,
-  Users,
   Check,
   X,
   ChevronDown,
@@ -16,7 +13,7 @@ import {
   Zap,
   Globe,
   Calendar
-} from 'lucide-react';
+} from "lucide-react";
 
 export default function Home() {
   const [calculatorValue, setCalculatorValue] = useState(10);
@@ -365,7 +362,7 @@ export default function Home() {
               📅 Schedule Demo Now
             </button>
           </div>
-          <p className="text-slate-500 font-medium tracking-wide italic">"No credit card required • 15-minute call • See real AI calls in action"</p>
+          <p className="text-slate-500 font-medium tracking-wide italic">&quot;No credit card required • 15-minute call • See real AI calls in action&quot;</p>
         </div>
       </section>
 
