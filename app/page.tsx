@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Link from 'next/link';
 import {
   ArrowRight,
   Phone,
@@ -57,9 +58,9 @@ export default function Home() {
             <a href="#pricing" className="hover:text-blue-400 transition-colors">Pricing</a>
             <a href="#faq" className="hover:text-blue-400 transition-colors">FAQ</a>
           </div>
-          <button className="px-5 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-full text-sm font-semibold transition-all shadow-lg shadow-blue-500/20">
+          <Link href="/contact" className="px-5 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-full text-sm font-semibold transition-all shadow-lg shadow-blue-500/20">
             Book Demo
-          </button>
+          </Link>
         </div>
       </nav>
 
@@ -88,10 +89,10 @@ export default function Home() {
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center pt-8">
-            <button className="group relative px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-2xl font-bold text-lg transition-all hover:scale-105 shadow-[0_0_40px_rgba(59,130,246,0.3)]">
+            <Link href="/contact" className="group relative px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-2xl font-bold text-lg transition-all hover:scale-105 shadow-[0_0_40px_rgba(59,130,246,0.3)] text-center">
               Schedule Your Free Demo
               <ArrowRight className="inline-block ml-2 group-hover:translate-x-1 transition-transform" />
-            </button>
+            </Link>
             <button className="px-8 py-4 bg-white/5 hover:bg-white/10 text-white rounded-2xl font-bold text-lg transition-all border border-white/10 backdrop-blur-sm">
               Listen to AI Demo
             </button>
@@ -206,9 +207,9 @@ export default function Home() {
             </div>
 
             <div className="text-center mt-12">
-              <button className="px-10 py-5 bg-white text-blue-600 rounded-2xl font-black text-xl hover:bg-slate-100 transition-all hover:scale-105">
+              <Link href="/contact" className="inline-block px-10 py-5 bg-white text-blue-600 rounded-2xl font-black text-xl hover:bg-slate-100 transition-all hover:scale-105">
                 Stop Losing Money Now
-              </button>
+              </Link>
             </div>
           </div>
         </div>
@@ -296,7 +297,7 @@ export default function Home() {
                 <li className="flex items-center gap-3"><Check className="w-5 h-5 text-blue-500" /> SMS Follow-ups</li>
                 <li className="flex items-center gap-3"><Check className="w-5 h-5 text-blue-500" /> 500 Minutes Included</li>
               </ul>
-              <button className="w-full py-4 rounded-xl border border-white/10 font-bold hover:bg-white/5 transition-all">Get Started</button>
+              <Link href="/contact" className="block w-full py-4 text-center rounded-xl border border-white/10 font-bold hover:bg-white/5 transition-all">Get Started</Link>
             </div>
 
             {/* Growth */}
@@ -310,7 +311,7 @@ export default function Home() {
                 <li className="flex items-center gap-3"><Check className="w-5 h-5" /> Custom Voice Cloning</li>
                 <li className="flex items-center gap-3"><Check className="w-5 h-5" /> Unlimited Minutes</li>
               </ul>
-              <button className="w-full py-5 rounded-2xl bg-white text-blue-600 font-black text-lg hover:bg-slate-100 transition-all shadow-xl">Get Started Now</button>
+              <Link href="/contact" className="block w-full py-5 text-center rounded-2xl bg-white text-blue-600 font-black text-lg hover:bg-slate-100 transition-all shadow-xl">Get Started Now</Link>
             </div>
 
             {/* Enterprise */}
@@ -323,7 +324,7 @@ export default function Home() {
                 <li className="flex items-center gap-3"><Check className="w-5 h-5 text-blue-500" /> API Access</li>
                 <li className="flex items-center gap-3"><Check className="w-5 h-5 text-blue-500" /> White Label Options</li>
               </ul>
-              <button className="w-full py-4 rounded-xl border border-white/10 font-bold hover:bg-white/5 transition-all">Contact Sales</button>
+              <Link href="/contact" className="block w-full py-4 text-center rounded-xl border border-white/10 font-bold hover:bg-white/5 transition-all">Contact Sales</Link>
             </div>
           </div>
         </div>
@@ -358,9 +359,9 @@ export default function Home() {
           <h2 className="text-5xl md:text-8xl font-black text-white">Ready to Never Miss Another Customer?</h2>
           <p className="text-2xl text-slate-400">Book a 15-minute demo and see your AI Voice Agent live in action.</p>
           <div className="flex flex-col md:flex-row gap-6 justify-center">
-            <button className="px-12 py-6 bg-blue-600 rounded-3xl text-xl font-black hover:bg-blue-700 transition-all hover:scale-105 shadow-[0_0_60px_rgba(59,130,246,0.5)]">
+            <Link href="/contact" className="inline-block px-12 py-6 bg-blue-600 rounded-3xl text-xl font-black hover:bg-blue-700 transition-all hover:scale-105 shadow-[0_0_60px_rgba(59,130,246,0.5)] text-center">
               📅 Schedule Demo Now
-            </button>
+            </Link>
           </div>
           <p className="text-slate-500 font-medium tracking-wide italic">&quot;No credit card required • 15-minute call • See real AI calls in action&quot;</p>
         </div>
@@ -401,10 +402,10 @@ export default function Home() {
 
       {/* Mobile Sticky CTA */}
       <div className="md:hidden fixed bottom-6 left-6 right-6 z-50">
-        <button className="w-full py-5 bg-blue-600 text-white rounded-3xl font-black text-lg shadow-2xl shadow-blue-500/50 flex items-center justify-center gap-3">
+        <Link href="/contact" className="flex w-full py-5 bg-blue-600 text-white rounded-3xl font-black text-lg shadow-2xl shadow-blue-500/50 items-center justify-center gap-3">
           <Phone className="w-5 h-5 fill-current" />
           Book Free Demo
-        </button>
+        </Link>
       </div>
     </div>
   );

@@ -3,18 +3,39 @@
 import { useState } from 'react';
 import { Check, Send, Phone, Mail, ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
+import { db } from '@/lib/firebase';
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 
 export default function ContactPage() {
     const [submitted, setSubmitted] = useState(false);
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const [error, setError] = useState<string | null>(null);
 
-    const handleSubmit = async (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setIsSubmitting(true);
-        // Simulate API call
-        await new Promise(resolve => setTimeout(resolve, 1500));
-        setIsSubmitting(false);
-        setSubmitted(true);
+        setError(null);
+
+        const formData = new FormData(e.currentTarget);
+        const data = {
+            firstName: formData.get('firstName') as string,
+            lastName: formData.get('lastName') as string,
+            email: formData.get('email') as string,
+            website: formData.get('website') as string,
+            message: formData.get('message') as string,
+            timestamp: serverTimestamp(),
+            status: 'new'
+        };
+
+        try {
+            await addDoc(collection(db, 'contact-submissions'), data);
+            setSubmitted(true);
+        } catch (err) {
+            console.error('Error submitting form:', err);
+            setError('Failed to submit. Please try again or email us directly.');
+        } finally {
+            setIsSubmitting(false);
+        }
     };
 
     return (
@@ -77,28 +98,34 @@ export default function ContactPage() {
                                     <div className="grid md:grid-cols-2 gap-6">
                                         <div className="space-y-2">
                                             <label className="text-sm font-bold text-slate-400 uppercase tracking-wider">First Name</label>
-                                            <input required type="text" className="w-full bg-black/40 border border-white/10 rounded-xl p-4 text-white focus:border-blue-500 outline-none transition-colors" placeholder="John" />
+                                            <input required type="text" name="firstName" className="w-full bg-black/40 border border-white/10 rounded-xl p-4 text-white focus:border-blue-500 outline-none transition-colors" placeholder="John" />
                                         </div>
                                         <div className="space-y-2">
                                             <label className="text-sm font-bold text-slate-400 uppercase tracking-wider">Last Name</label>
-                                            <input required type="text" className="w-full bg-black/40 border border-white/10 rounded-xl p-4 text-white focus:border-blue-500 outline-none transition-colors" placeholder="Doe" />
+                                            <input required type="text" name="lastName" className="w-full bg-black/40 border border-white/10 rounded-xl p-4 text-white focus:border-blue-500 outline-none transition-colors" placeholder="Doe" />
                                         </div>
                                     </div>
 
                                     <div className="space-y-2">
                                         <label className="text-sm font-bold text-slate-400 uppercase tracking-wider">Work Email</label>
-                                        <input required type="email" className="w-full bg-black/40 border border-white/10 rounded-xl p-4 text-white focus:border-blue-500 outline-none transition-colors" placeholder="john@company.com" />
+                                        <input required type="email" name="email" className="w-full bg-black/40 border border-white/10 rounded-xl p-4 text-white focus:border-blue-500 outline-none transition-colors" placeholder="john@company.com" />
                                     </div>
 
                                     <div className="space-y-2">
                                         <label className="text-sm font-bold text-slate-400 uppercase tracking-wider">Company Website</label>
-                                        <input type="url" className="w-full bg-black/40 border border-white/10 rounded-xl p-4 text-white focus:border-blue-500 outline-none transition-colors" placeholder="company.com" />
+                                        <input type="url" name="website" className="w-full bg-black/40 border border-white/10 rounded-xl p-4 text-white focus:border-blue-500 outline-none transition-colors" placeholder="company.com" />
                                     </div>
 
                                     <div className="space-y-2">
                                         <label className="text-sm font-bold text-slate-400 uppercase tracking-wider">How can we help?</label>
-                                        <textarea required rows={4} className="w-full bg-black/40 border border-white/10 rounded-xl p-4 text-white focus:border-blue-500 outline-none transition-colors resize-none" placeholder="Tell us about your current challenges..." />
+                                        <textarea required rows={4} name="message" className="w-full bg-black/40 border border-white/10 rounded-xl p-4 text-white focus:border-blue-500 outline-none transition-colors resize-none" placeholder="Tell us about your current challenges..." />
                                     </div>
+
+                                    {error && (
+                                        <div className="p-4 bg-red-500/10 border border-red-500/20 rounded-xl text-red-400 text-sm">
+                                            {error}
+                                        </div>
+                                    )}
 
                                     <button
                                         disabled={isSubmitting}
