@@ -16,6 +16,11 @@ import {
   Calendar
 } from "lucide-react";
 
+export const metadata = {
+  title: 'Brandverse — AI Voice Agents',
+  description: '24/7 AI voice agents for contractors and local businesses. Capture more leads, book more jobs, and reduce staffing costs.',
+};
+
 export default function Home() {
   const [calculatorValue, setCalculatorValue] = useState(10);
   const [openFaq, setOpenFaq] = useState<number | null>(null);

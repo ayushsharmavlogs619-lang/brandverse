@@ -1,4 +1,8 @@
 export default function PrivacyPage() {
+    export const metadata = {
+        title: 'Privacy Policy — Brandverse',
+        description: 'Brandverse privacy policy — how we collect, use, and protect your data and voice recordings.',
+    };
     return (
         <div className="min-h-screen bg-[#020617] text-slate-300 py-20 px-6">
             <div className="max-w-4xl mx-auto space-y-12">

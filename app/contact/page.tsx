@@ -6,6 +6,11 @@ import Link from 'next/link';
 import { db } from '@/lib/firebase';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 
+export const metadata = {
+    title: 'Contact — Brandverse',
+    description: 'Book a demo or request a free AI audit to see how Brandverse can recover lost revenue for your business.',
+};
+
 export default function ContactPage() {
     const [submitted, setSubmitted] = useState(false);
     const [isSubmitting, setIsSubmitting] = useState(false);
