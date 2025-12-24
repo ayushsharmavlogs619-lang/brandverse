@@ -1,8 +1,9 @@
+export const metadata = {
+    title: 'Terms & Conditions — Brandverse',
+    description: 'Terms and conditions for using Brandverse AI voice agent services.',
+};
+
 export default function TermsPage() {
-    export const metadata = {
-        title: 'Terms & Conditions — Brandverse',
-        description: 'Terms and conditions for using Brandverse AI voice agent services.',
-    };
     return (
         <div className="min-h-screen bg-[#020617] text-slate-300 py-20 px-6">
             <div className="max-w-4xl mx-auto space-y-12">
