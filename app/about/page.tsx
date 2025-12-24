@@ -1,9 +1,9 @@
 import Link from 'next/link';
-import { Globe, Zap, ShieldCheck, MessageSquare } from 'lucide-react';
+import { Shield, Zap, Target, Lock } from 'lucide-react';
 
 export const metadata = {
   title: 'About — Brandverse',
-  description: 'Learn about Brandverse: our mission, team, and how our AI voice agents deliver ROI for small businesses.',
+  description: 'Building the next generation of business automation.',
 };
 
 export default function AboutPage() {
@@ -16,118 +16,99 @@ export default function AboutPage() {
           </Link>
           <div className="hidden md:flex gap-8 text-sm font-medium">
             <Link href="/services" className="hover:text-blue-400 transition-colors">Services</Link>
-            <Link href="/portfolio" className="hover:text-blue-400 transition-colors">Portfolio</Link>
-            <Link href="/blog" className="hover:text-blue-400 transition-colors">Blog</Link>
+            <Link href="/portfolio" className="hover:text-blue-400 transition-colors">Case Studies</Link>
+            <Link href="/contact" className="hover:text-blue-400 transition-colors">Contact</Link>
           </div>
           <Link href="/contact" className="px-5 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-full text-sm font-semibold transition-all shadow-lg shadow-blue-500/20">Book Demo</Link>
         </div>
       </nav>
 
-      <main className="pt-32 pb-24 px-6 max-w-7xl mx-auto">
-        <div className="grid md:grid-cols-3 gap-12">
-          <section className="md:col-span-2 space-y-8">
-            <h1 className="text-5xl md:text-7xl font-black text-white leading-tight">About Brandverse</h1>
-            <p className="text-xl text-slate-400">We build AI voice agents that act like your best sales rep — friendly, reliable, and available 24/7. Our mission is to help small and medium businesses capture more leads, reduce overhead, and scale predictably.</p>
+      <main className="pt-32 pb-24 px-6">
+        <div className="max-w-4xl mx-auto space-y-24">
 
-            <div className="grid md:grid-cols-2 gap-6">
-              <div className="p-6 rounded-2xl bg-white/5 border border-white/10">
-                <h3 className="text-lg font-bold text-white mb-2">Why Brandverse?</h3>
-                <ul className="text-slate-400 space-y-2 text-sm">
-                  <li>Proven ROI — typical clients see 2x+ revenue within 3 months.</li>
-                  <li>Enterprise-grade reliability with SME-friendly pricing.</li>
-                  <li>Deep integrations — calendars, CRMs, SMS and more.</li>
-                </ul>
-              </div>
-
-              <div className="p-6 rounded-2xl bg-white/5 border border-white/10">
-                <h3 className="text-lg font-bold text-white mb-2">Our Values</h3>
-                <ul className="text-slate-400 space-y-2 text-sm">
-                  <li>Customer-first engineering and white-glove onboarding.</li>
-                  <li>Transparent pricing and measurable outcomes.</li>
-                  <li>Privacy and security by design for voice data.</li>
-                </ul>
-              </div>
+          {/* Mission Header */}
+          <section className="text-center space-y-8">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-500/10 text-blue-400 text-xs font-bold uppercase tracking-widest border border-blue-500/20">
+              Our Mission
             </div>
-
-            <section className="space-y-6">
-              <h2 className="text-2xl font-bold text-white">Our Story</h2>
-              <p className="text-slate-400 leading-relaxed">Founded by engineers and operators who built call automation at scale, Brandverse was created to make advanced AI accessible and affordable for local businesses. We observed the same pain — missed calls, lost jobs, and expensive front-desk staffing — and designed a product to replace cost centers with a growth engine.</p>
-            </section>
-
-            <section className="space-y-6">
-              <h2 className="text-2xl font-bold text-white">Leadership & Team</h2>
-              <p className="text-slate-400">Our small, cross-functional team combines AI research, voice UX, and operations experts. We provide personalized onboarding and an assigned AI Architect for every customer.</p>
-              <div className="grid sm:grid-cols-3 gap-6 pt-4">
-                <div className="p-4 rounded-xl bg-black/40 border border-white/5">
-                  <div className="font-bold text-white">Ayush Sharma</div>
-                  <div className="text-slate-400 text-sm">Founder & CEO — product, GTM</div>
-                </div>
-                <div className="p-4 rounded-xl bg-black/40 border border-white/5">
-                  <div className="font-bold text-white">Head of AI</div>
-                  <div className="text-slate-400 text-sm">Voice models & training</div>
-                </div>
-                <div className="p-4 rounded-xl bg-black/40 border border-white/5">
-                  <div className="font-bold text-white">Customer Success</div>
-                  <div className="text-slate-400 text-sm">Onboarding & growth</div>
-                </div>
-              </div>
-            </section>
+            <h1 className="text-5xl md:text-7xl font-black text-white tracking-tight leading-[1.1]">
+              We don't sell hype.<br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">
+                We build engines.
+              </span>
+            </h1>
+            <p className="text-xl text-slate-400 max-w-2xl mx-auto leading-relaxed">
+              The modern business landscape is filled with empty promises and "fake excellence."
+              At Brandverse, we replace chaos with code, and overhead with automation.
+            </p>
           </section>
 
-          <aside className="space-y-6">
-            <div className="p-6 rounded-2xl bg-gradient-to-br from-blue-600/20 to-purple-600/10 border border-white/10">
-              <h4 className="text-sm font-bold text-slate-300 uppercase tracking-wider mb-2">By the numbers</h4>
-              <div className="text-4xl font-black text-white">200%+</div>
-              <div className="text-slate-400 text-sm">Average ROI increase for clients in year one</div>
+          {/* Core Values */}
+          <section className="grid md:grid-cols-2 gap-6">
+            <div className="p-8 rounded-3xl bg-white/5 border border-white/10 hover:border-blue-500/30 transition-all group">
+              <Zap className="w-10 h-10 text-amber-400 mb-6 group-hover:scale-110 transition-transform" />
+              <h3 className="text-2xl font-bold text-white mb-4">Speed is Security</h3>
+              <p className="text-slate-400 leading-relaxed">
+                In a fast-moving market, slow response times kill deals. Our AI agents operate in milliseconds, ensuring you never miss an opportunity due to latency.
+              </p>
             </div>
 
-            <div className="p-6 rounded-2xl bg-white/5 border border-white/10">
-              <h4 className="font-bold text-white">Trusted Integrations</h4>
-              <div className="flex gap-3 pt-4 text-slate-400">
-                <Globe className="w-5 h-5" />
-                <Zap className="w-5 h-5" />
-                <ShieldCheck className="w-5 h-5" />
-                <MessageSquare className="w-5 h-5" />
+            <div className="p-8 rounded-3xl bg-white/5 border border-white/10 hover:border-blue-500/30 transition-all group">
+              <Target className="w-10 h-10 text-red-400 mb-6 group-hover:scale-110 transition-transform" />
+              <h3 className="text-2xl font-bold text-white mb-4">Results Over Rhetoric</h3>
+              <p className="text-slate-400 leading-relaxed">
+                We have zero tolerance for vanity metrics. We measure success in booked appointments, collected payments, and hours saved. Real work, real revenue.
+              </p>
+            </div>
+
+            <div className="p-8 rounded-3xl bg-white/5 border border-white/10 hover:border-blue-500/30 transition-all group">
+              <Shield className="w-10 h-10 text-blue-400 mb-6 group-hover:scale-110 transition-transform" />
+              <h3 className="text-2xl font-bold text-white mb-4">Built to Last</h3>
+              <p className="text-slate-400 leading-relaxed">
+                We don't rely on trends. We build resilient systems using enterprise-grade infrastructure that can weather any market condition.
+              </p>
+            </div>
+
+            <div className="p-8 rounded-3xl bg-white/5 border border-white/10 hover:border-blue-500/30 transition-all group">
+              <Lock className="w-10 h-10 text-green-400 mb-6 group-hover:scale-110 transition-transform" />
+              <h3 className="text-2xl font-bold text-white mb-4">Privacy First</h3>
+              <p className="text-slate-400 leading-relaxed">
+                Your data is your asset. We implement bank-level security protocols to ensure your customer conversations and business intelligence remain strictly yours.
+              </p>
+            </div>
+          </section>
+
+          {/* Vision Statement */}
+          <section className="relative p-12 rounded-[3rem] overflow-hidden border border-white/10">
+            <div className="absolute inset-0 bg-gradient-to-br from-blue-900/20 to-slate-900 -z-10" />
+            <div className="max-w-2xl">
+              <h2 className="text-3xl font-bold text-white mb-6">Why We Exist</h2>
+              <div className="space-y-6 text-slate-300 text-lg leading-relaxed">
+                <p>
+                  We founded Brandverse because we saw too many businesses trapped in the "corporate hamster wheel"—high effort, loud leadership, and low impact.
+                </p>
+                <p>
+                  We believe that the future belongs to those who leverage technology to reclaim their time. Our goal is simple: to provide the operational clarity and automation that allows founders to focus on growth, not admin.
+                </p>
+              </div>
+              <div className="mt-10 pt-10 border-t border-white/10 flex items-center gap-4">
+                <div className="w-12 h-12 rounded-full bg-blue-600 flex items-center justify-center font-bold text-white">
+                  AS
+                </div>
+                <div>
+                  <div className="text-white font-bold">Ayush Sharma</div>
+                  <div className="text-blue-400 text-sm">Founder, Brandverse.Tech</div>
+                </div>
               </div>
             </div>
+          </section>
 
-            <div className="p-6 rounded-2xl bg-black/40 border border-white/5 text-center">
-              <div className="text-sm text-slate-400">Ready to get started?</div>
-              <Link href="/contact" className="mt-4 inline-block px-6 py-3 bg-blue-600 text-white rounded-lg font-bold">Book Free Demo</Link>
-            </div>
-          </aside>
         </div>
       </main>
 
-      <footer className="py-20 px-6 border-t border-white/5 bg-[#020617]">
-        <div className="max-w-7xl mx-auto grid md:grid-cols-4 gap-12">
-          <div className="space-y-6">
-            <div className="text-2xl font-black text-white">BRANDVERSE</div>
-            <p className="text-slate-500 leading-relaxed">AI-powered solutions specifically designed for Small to Medium Sized Businesses.</p>
-          </div>
-          <div>
-            <h4 className="font-bold text-white mb-6 uppercase tracking-widest text-xs">Contact</h4>
-            <div className="space-y-2 text-slate-400">
-              <p>ayush@brandverse.tech</p>
-              <p>Live Chat Available 24/7</p>
-            </div>
-          </div>
-          <div>
-            <h4 className="font-bold text-white mb-6 uppercase tracking-widest text-xs">Quick Links</h4>
-            <div className="space-y-2 text-slate-400">
-              <Link href="/services" className="block hover:text-blue-500">Services</Link>
-              <Link href="/portfolio" className="block hover:text-blue-500">Case Studies</Link>
-              <Link href="/about" className="block hover:text-blue-500">About Us</Link>
-            </div>
-          </div>
-          <div>
-            <h4 className="font-bold text-white mb-6 uppercase tracking-widest text-xs">Legal</h4>
-            <div className="space-y-2 text-slate-400 text-sm">
-              <Link href="/privacy" className="block hover:text-blue-500">Privacy Policy</Link>
-              <Link href="/terms" className="block hover:text-blue-500">Terms & Conditions</Link>
-              <p className="pt-4">© 2025 Brandverse AI.</p>
-            </div>
-          </div>
+      <footer className="py-12 border-t border-white/5 bg-[#020617] text-center">
+        <div className="text-slate-500 text-sm">
+          © 2025 Brandverse.Tech Technologies. Built for performance.
         </div>
       </footer>
     </div>

@@ -5,13 +5,18 @@
 }
 
 :root {
-  --background: #030712;
-  --foreground: #f9fafb;
+  --background: #020617;
+  --foreground: #f8fafc;
+  --brand-blue: #3b82f6;
+  --brand-purple: #a855f7;
+  --brand-glow: rgba(59, 130, 246, 0.4);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-brand-blue: var(--brand-blue);
+  --color-brand-purple: var(--brand-purple);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
@@ -19,7 +24,7 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-family: var(--font-sans), system-ui, sans-serif;
 }
 
 /* Custom Range Slider */
@@ -53,4 +58,15 @@ input[type="range"]::-moz-range-thumb {
 input[type="range"]::-moz-range-thumb:hover {
   transform: scale(1.2);
   box-shadow: 0 0 20px rgba(59, 130, 246, 0.8);
+}
+
+@layer utilities {
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
 }

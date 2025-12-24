@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { Check, Send, Phone, Mail, ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
-import { db } from '@/lib/firebase';
+import { db } from '@/app/lib/firebase';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 
 
