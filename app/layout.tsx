@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
@@ -17,6 +18,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  // ... existing metadata ...
   title: "Brandverse — AI Voice Agents for SMBs",
   description: "Brandverse provides 24/7 AI voice agents that capture leads, book appointments, and drive revenue for local businesses.",
   metadataBase: new URL('https://brandverse-silk.vercel.app'),
@@ -70,6 +72,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        {/* Cookiebot CMP - MUST LOAD FIRST for GDPR compliance */}
+        <Script
+          id="cookiebot"
+          src="https://consent.cookiebot.com/uc.js"
+          data-cbid={process.env.NEXT_PUBLIC_COOKIEBOT_ID}
+          data-blockingmode="auto"
+          strategy="beforeInteractive"
+        />
         <StructuredData />
       </head>
       <body
