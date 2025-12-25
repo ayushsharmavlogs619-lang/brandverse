@@ -55,7 +55,7 @@ export default function PrivacyPage() {
                 </section>
 
                 <section className="space-y-6 text-slate-400 border-t border-white/5 pt-12">
-                    <p>By using Brandverse, you acknowledge that you have read and understood this Privacy Policy. If you have any questions regarding your data, please contact us at <span className="text-blue-400">privacy@brandverse.tech</span>.</p>
+                    <p>By using Brandverse, you acknowledge that you have read and understood this Privacy Policy. If you have any questions regarding your data, please contact us at <span className="text-blue-400">ayush@brandverse.tech</span>.</p>
                 </section>
             </div>
         </div>

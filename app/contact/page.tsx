@@ -82,7 +82,7 @@ export default function ContactPage() {
                                 <div>
                                     <h3 className="text-lg font-bold text-white mb-1">Email Us</h3>
                                     <p className="text-slate-400">Send us your requirements or general queries.</p>
-                                    <p className="text-purple-400 font-bold mt-2">hello@brandverse.tech</p>
+                                    <p className="text-purple-400 font-bold mt-2">ayush@brandverse.tech</p>
                                 </div>
                             </div>
                         </div>

@@ -17,7 +17,7 @@ export default function StructuredData() {
         "contactPoint": {
             "@type": "ContactPoint",
             "contactType": "Sales",
-            "email": "hello@brandverse.tech",
+            "email": "ayush@brandverse.tech",
             "availableLanguage": ["English"]
         },
         "areaServed": {
