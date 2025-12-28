@@ -19,6 +19,11 @@
   --color-brand-purple: var(--brand-purple);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --bg-brand-gradient: linear-gradient(135deg, #3b82f6, #8b5cf6);
+}
+
+.bg-brand-gradient {
+  background: linear-gradient(135deg, #3b82f6, #8b5cf6);
 }
 
 body {
