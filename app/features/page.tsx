@@ -1,139 +1,152 @@
+'use client';
 
 import { Globe, Zap, ShieldCheck, MessageSquare, Clock, BarChart3, Lock, Users } from "lucide-react";
 import Link from "next/link";
 
 export default function FeaturesPage() {
     return (
-        <div className="min-h-screen bg-[#020617] text-slate-200">
-            {/* Hero */}
-            <div className="pt-32 pb-20 px-6 max-w-7xl mx-auto text-center">
-                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-sm font-semibold mb-8">
-                    <Zap className="w-4 h-4 fill-current" />
-                    <span>Enterprise Grade Technology for SMBs</span>
-                </div>
-                <h1 className="text-4xl md:text-7xl font-black text-white mb-8 tracking-tight">
-                    More Than Just An
-                    <span className="block text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">
-                        Answering Machine
-                    </span>
-                </h1>
-                <p className="text-xl text-slate-400 max-w-3xl mx-auto leading-relaxed">
-                    Brandverse is a fully autonomous <strong>Revenue Operations Engine</strong>. It doesn't just take messages; it qualifies leads, updates your CRM, and manages your schedule while you sleep.
-                </p>
-            </div>
+        <div className="min-h-screen bg-[#020617] text-slate-200 selection:bg-blue-500/30">
+            <main className="space-y-32">
+                {/* Cinematic Hero */}
+                <section className="pt-32 pb-20 px-6 max-w-7xl mx-auto text-center space-y-10 relative">
+                    <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full -z-10">
+                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[500px] bg-blue-600/10 blur-[130px] rounded-full opacity-60" />
+                    </div>
+                    <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-[10px] font-black uppercase tracking-[0.2em] animate-fade-in text-glow-blue">
+                        <Zap className="w-3 h-3 fill-current" /> Enterprise Infrastructure
+                    </div>
+                    <h1 className="text-6xl md:text-[8.5rem] font-black text-white leading-[0.85] tracking-tighter uppercase italic">
+                        Atomic <br />
+                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-blue-600 to-indigo-600">Capabilities</span>
+                    </h1>
+                    <p className="text-xl md:text-2xl text-slate-400 max-w-3xl mx-auto font-bold leading-relaxed">
+                        Brandverse isn't a tool. It's an <span className="text-blue-400">autonomous revenue engine</span> engineered to eliminate operational friction and human error.
+                    </p>
+                </section>
 
-            {/* Core Grid */}
-            <div className="px-6 pb-32 max-w-7xl mx-auto">
-                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    {[
-                        {
-                            t: "Native-Level Multilingual",
-                            d: "Don't leave money on the table. Our AI instantly detects language (English/Spanish/French) and switches fluently. Expand your market reach by 40% overnight without hiring bilingual staff.",
-                            i: Globe
-                        },
-                        {
-                            t: "Deep CRM Integration",
-                            d: "We don't just email you a recording. We inject data directly into ServiceTitan, Salesforce, HubSpot, or HighLevel. Tags, notes, and appointment slots are updated in real-time.",
-                            i: Zap
-                        },
-                        {
-                            t: "Emergency Triage Logic",
-                            d: "Sleep soundly. The AI distinguishes between a 'dripping faucet' and a 'burst pipe'. Routine calls get booked for Monday; emergencies trigger an SMS blast to your on-call tech immediately.",
-                            i: ShieldCheck
-                        },
-                        {
-                            t: "Sentiment Analysis",
-                            d: "Know exactly how your customers feel. After every call, the AI rates the caller's mood and flagging 'at-risk' clients so you can follow up personally. Its customer retention on autopilot.",
-                            i: BarChart3
-                        },
-                        {
-                            t: "Infinite Scalability",
-                            d: "Marketing campaign went viral? No problem. Brandverse can handle 10, 100, or 1,000 concurrent calls instantly. Never hear a busy signal again.",
-                            i: Users
-                        },
-                        {
-                            t: "HIPAA & SOC2 Compliant",
-                            d: "Security isn't an afterthought. Your data is encrypted at rest and in transit. We adhere to the strictest privacy standards, suitable for medical and legal practices.",
-                            i: Lock
-                        }
-                    ].map((f, i) => (
-                        <div key={i} className="p-8 rounded-3xl bg-white/5 border border-white/5 hover:border-blue-500/30 hover:bg-white/10 transition-all group">
-                            <div className="w-14 h-14 rounded-2xl bg-blue-600/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                                <f.i className="w-7 h-7 text-blue-400" />
+                {/* Feature Bento Grid */}
+                <section className="px-6 pb-24 max-w-7xl mx-auto">
+                    <h2 className="sr-only">Core Capabilities</h2>
+                    <div className="grid md:grid-cols-12 gap-6">
+                        <article className="md:col-span-8 p-12 rounded-[3.5rem] bg-[#020617] border border-white/5 hover:border-blue-500/30 transition-all group relative overflow-hidden">
+                            <div className="absolute top-0 right-0 p-12 opacity-5 translate-x-10 -translate-y-10 group-hover:translate-x-0 group-hover:translate-y-0 transition-transform">
+                                <Globe className="w-64 h-64 text-blue-500" />
                             </div>
-                            <h3 className="text-2xl font-bold text-white mb-4">{f.t}</h3>
-                            <p className="text-slate-400 leading-relaxed">{f.d}</p>
-                        </div>
-                    ))}
-                </div>
-            </div>
+                            <div className="relative z-10 space-y-6">
+                                <div className="w-16 h-16 rounded-2xl bg-blue-600/20 flex items-center justify-center">
+                                    <Globe className="w-8 h-8 text-blue-400" />
+                                </div>
+                                <h3 className="text-4xl font-black text-white uppercase italic tracking-tighter">Native Multilingual</h3>
+                                <p className="text-slate-400 text-xl font-bold max-w-xl leading-relaxed">
+                                    AI that detects and switches between English, Spanish, and French in <span className="text-blue-400">sub-50ms</span>. Expand your market capture by 40%.
+                                </p>
+                            </div>
+                        </article>
 
-            {/* The "Old Way vs New Way" Block */}
-            <div className="bg-[#0b1121] py-32 px-6 border-y border-white/5">
-                <div className="max-w-7xl mx-auto">
-                    <h2 className="text-3xl md:text-5xl font-black text-white text-center mb-16">The Operational Shift</h2>
+                        <article className="md:col-span-4 p-12 rounded-[3.5rem] bg-brand-gradient text-white space-y-6 shadow-2xl shadow-blue-500/20 hover:scale-[1.02] transition-all">
+                            <Zap className="w-12 h-12 text-white fill-current" />
+                            <h3 className="text-3xl font-black uppercase italic tracking-tighter leading-none">Instant <br /> CRM Sync</h3>
+                            <p className="text-blue-50 font-bold leading-relaxed">
+                                Zero manual entry. Data is injected directly into ServiceTitan or HighLevel in real-time.
+                            </p>
+                        </article>
 
-                    <div className="grid md:grid-cols-2 gap-12">
-                        {/* Old Way */}
-                        <div className="p-10 rounded-3xl bg-red-500/5 border border-red-500/20 opacity-75 grayscale hover:grayscale-0 transition-all">
-                            <h3 className="text-red-400 font-black tracking-widest uppercase mb-8 flex items-center gap-3">
-                                <Clock className="w-6 h-6" /> The Old Way
-                            </h3>
-                            <ul className="space-y-6">
-                                <li className="flex gap-4 text-slate-400">
-                                    <span className="text-red-500 font-bold">✖</span>
-                                    <span>Missed calls during lunch breaks and after 5 PM</span>
-                                </li>
-                                <li className="flex gap-4 text-slate-400">
-                                    <span className="text-red-500 font-bold">✖</span>
-                                    <span>Paying $45,000/yr salary + benefits</span>
-                                </li>
-                                <li className="flex gap-4 text-slate-400">
-                                    <span className="text-red-500 font-bold">✖</span>
-                                    <span>Inconsistent moods affecting customer service</span>
-                                </li>
-                                <li className="flex gap-4 text-slate-400">
-                                    <span className="text-red-500 font-bold">✖</span>
-                                    <span>Slow response times leading to lost leads</span>
-                                </li>
-                            </ul>
-                        </div>
+                        <article className="md:col-span-4 p-12 rounded-[3.5rem] bg-[#020617] border border-white/5 hover:border-indigo-500/30 transition-all group">
+                            <div className="w-16 h-16 rounded-2xl bg-indigo-600/20 flex items-center justify-center mb-8">
+                                <ShieldCheck className="w-8 h-8 text-indigo-400" />
+                            </div>
+                            <h3 className="text-3xl font-black text-white uppercase italic tracking-tighter mb-4">Emergency Triage</h3>
+                            <p className="text-slate-400 font-bold leading-relaxed">
+                                Distinguishes between "scheduled maintenance" and "catastrophic failure" instantly.
+                            </p>
+                        </article>
 
-                        {/* New Way */}
-                        <div className="p-10 rounded-3xl bg-blue-500/10 border border-blue-500/30 shadow-2xl shadow-blue-500/10">
-                            <h3 className="text-blue-400 font-black tracking-widest uppercase mb-8 flex items-center gap-3">
-                                <Zap className="w-6 h-6" /> The Brandverse Way
-                            </h3>
-                            <ul className="space-y-6">
-                                <li className="flex gap-4 text-white">
-                                    <span className="text-blue-500 font-bold">✔</span>
-                                    <span>Instant pickup 24/7/365. Zero missed calls.</span>
-                                </li>
-                                <li className="flex gap-4 text-white">
-                                    <span className="text-blue-500 font-bold">✔</span>
-                                    <span>Flat monthly rate. No benefits. No drama.</span>
-                                </li>
-                                <li className="flex gap-4 text-white">
-                                    <span className="text-blue-500 font-bold">✔</span>
-                                    <span>Perfectly scripted, energetic responses every time.</span>
-                                </li>
-                                <li className="flex gap-4 text-white">
-                                    <span className="text-blue-500 font-bold">✔</span>
-                                    <span>Instant lead capture and calendar qualification.</span>
-                                </li>
-                            </ul>
+                        <article className="md:col-span-8 p-12 rounded-[3.5rem] bg-[#020617] border border-white/5 hover:border-emerald-500/30 transition-all flex flex-col md:flex-row gap-12 items-center">
+                            <div className="space-y-6 flex-1">
+                                <div className="w-16 h-16 rounded-2xl bg-emerald-600/20 flex items-center justify-center">
+                                    <BarChart3 className="w-8 h-8 text-emerald-400" />
+                                </div>
+                                <h3 className="text-4xl font-black text-white uppercase italic tracking-tighter">Sentiment Intel</h3>
+                                <p className="text-slate-400 font-bold leading-relaxed italic">
+                                    "We don't just record calls. We understand the emotional trajectory of every customer."
+                                </p>
+                            </div>
+                            <div className="flex-1 bg-white/5 rounded-[2.5rem] p-8 border border-white/5 w-full">
+                                <div className="space-y-4">
+                                    <div className="h-2 bg-emerald-500/20 rounded-full w-full overflow-hidden">
+                                        <div className="h-full bg-emerald-500 w-[85%]" />
+                                    </div>
+                                    <div className="flex justify-between text-[10px] font-black uppercase tracking-widest text-emerald-500">
+                                        <span>Positive Sentiment</span>
+                                        <span>85% Growth</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+                </section>
+
+                {/* The Operational Shift */}
+                <section className="py-32 bg-[#050505] relative overflow-hidden border-y border-white/5">
+                    <div className="absolute inset-0 bg-blue-600/5 blur-[150px] rounded-full -translate-x-1/2" />
+                    <div className="max-w-7xl mx-auto px-6 relative z-10">
+                        <h2 className="text-5xl md:text-8xl font-black text-white text-center mb-24 uppercase italic tracking-tighter">The Shift</h2>
+
+                        <div className="grid md:grid-cols-2 gap-12">
+                            <article className="p-16 rounded-[4rem] bg-black/40 border border-white/5 opacity-40 grayscale hover:grayscale-0 hover:opacity-100 transition-all">
+                                <h3 className="text-slate-500 font-black tracking-[0.3em] uppercase mb-12 flex items-center gap-3 italic">
+                                    Old Protocol
+                                </h3>
+                                <ul className="space-y-8">
+                                    <li className="flex gap-4 text-slate-500 font-bold text-lg">
+                                        <span className="text-red-500/50">✖</span>
+                                        <span>Missed leads after 5 PM</span>
+                                    </li>
+                                    <li className="flex gap-4 text-slate-500 font-bold text-lg">
+                                        <span className="text-red-500/50">✖</span>
+                                        <span>High overhead salaries</span>
+                                    </li>
+                                    <li className="flex gap-4 text-slate-500 font-bold text-lg">
+                                        <span className="text-red-500/50">✖</span>
+                                        <span>Inconsistent customer moods</span>
+                                    </li>
+                                </ul>
+                            </article>
+
+                            <article className="p-16 rounded-[4rem] bg-[#020617] border border-blue-500/30 shadow-[0_0_50px_rgba(59,130,246,0.1)] scale-105 relative">
+                                <div className="absolute -top-4 -right-4 bg-blue-500 text-white px-6 py-2 rounded-full text-[10px] font-black uppercase tracking-widest italic shadow-xl">Elite Grade</div>
+                                <h3 className="text-blue-500 font-black tracking-[0.3em] uppercase mb-12 flex items-center gap-3 italic text-glow-blue">
+                                    Brandverse Way
+                                </h3>
+                                <ul className="space-y-8">
+                                    <li className="flex gap-4 text-white font-bold text-lg italic">
+                                        <span className="text-blue-500">✔</span>
+                                        <span>Capture 100% of missed revenue</span>
+                                    </li>
+                                    <li className="flex gap-4 text-white font-bold text-lg italic">
+                                        <span className="text-blue-500">✔</span>
+                                        <span>Flat-rate, zero-overhead scaling</span>
+                                    </li>
+                                    <li className="flex gap-4 text-white font-bold text-lg italic">
+                                        <span className="text-blue-500">✔</span>
+                                        <span>Perfect, high-energy 24/7 support</span>
+                                    </li>
+                                </ul>
+                            </article>
                         </div>
                     </div>
-                </div>
-            </div>
+                </section>
 
-            {/* CTA */}
-            <div className="py-32 text-center px-6">
-                <h2 className="text-4xl font-bold text-white mb-8">Stop settling for "Good Enough"</h2>
-                <Link href="/contact" className="inline-flex items-center gap-2 px-8 py-4 bg-white text-black rounded-full font-bold text-lg hover:bg-slate-200 transition-all">
-                    Upgrade Your Business Today <Zap className="w-5 h-5 fill-current" />
-                </Link>
-            </div>
+                {/* Tactical CTA */}
+                <section className="py-40 text-center px-6 relative">
+                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-blue-600/10 blur-[100px] rounded-full" />
+                    <h2 className="text-5xl md:text-[8rem] font-black text-white mb-12 uppercase italic tracking-tighter leading-none">Defy The <span className="text-blue-500">Standard.</span></h2>
+                    <Link href="/contact" className="inline-flex items-center gap-3 px-12 py-7 bg-brand-gradient text-white rounded-[2rem] font-black uppercase tracking-widest text-sm shadow-2xl hover:scale-105 transition-all group">
+                        Upgrade Your Business Today
+                        <Zap className="w-5 h-5 fill-current group-hover:rotate-12 transition-transform" />
+                    </Link>
+                </section>
+            </main>
         </div>
     );
 }

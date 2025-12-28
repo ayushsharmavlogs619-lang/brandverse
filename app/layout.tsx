@@ -6,6 +6,8 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import Analytics from "./components/Analytics";
 import StructuredData from "./components/StructuredData";
+import PushEnrollment from "./components/PushEnrollment";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -86,6 +88,8 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <Analytics />
+        <SpeedInsights />
+        <PushEnrollment />
         <Navbar />
         {children}
         <Footer />

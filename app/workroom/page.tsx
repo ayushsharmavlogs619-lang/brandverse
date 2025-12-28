@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { chatAction } from './actions';
 import { Send, Bot, User, Loader2, Sparkles } from 'lucide-react';
+import Link from 'next/link';
 
 export default function WorkroomPage() {
     const [messages, setMessages] = useState<{ role: 'user' | 'ai', content: string }[]>([]);
@@ -38,7 +39,7 @@ export default function WorkroomPage() {
         <div className="flex flex-col h-screen bg-[#050505] text-white font-sans">
             {/* Header */}
             <header className="p-6 border-b border-white/10 flex justify-between items-center backdrop-blur-md sticky top-0 z-10">
-                <div className="flex items-center gap-3">
+                <Link href="/" className="flex items-center gap-3 hover:opacity-80 transition-opacity">
                     <div className="w-10 h-10 bg-red-600 rounded-lg flex items-center justify-center shadow-lg shadow-red-600/20">
                         <Sparkles className="text-white w-6 h-6" />
                     </div>
@@ -46,7 +47,7 @@ export default function WorkroomPage() {
                         <h1 className="text-xl font-bold tracking-tight">BRANDVERSE <span className="text-red-500 font-light underline decoration-red-500/30">WAR ROOM</span></h1>
                         <p className="text-xs text-zinc-500 uppercase tracking-widest font-semibold">Unlimited Tactical AI • Active</p>
                     </div>
-                </div>
+                </Link>
                 <div className="hidden md:flex items-center gap-4 text-sm bg-zinc-900/50 px-2 py-1 rounded-full border border-white/5">
                     <button
                         onClick={() => setModelType('flash')}
@@ -77,8 +78,8 @@ export default function WorkroomPage() {
                 {messages.length === 0 && (
                     <div className="h-full flex flex-col items-center justify-center text-center space-y-4 opacity-50">
                         <Bot size={64} className="text-red-500 mb-2 animate-bounce" />
-                        <h2 className="text-2xl font-bold">Welcome to the Inner Sanctum.</h2>
-                        <p className="max-w-md">The Season Ticket is active. No limits, no "upgrade" bullshit. Just work.</p>
+                        <h2 className="text-2xl font-bold uppercase italic tracking-tighter">Welcome to the Inner Sanctum.</h2>
+                        <p className="max-w-md font-bold text-zinc-400">The Season Ticket is active. No limits, no corporate restrictions. Just work.</p>
                     </div>
                 )}
 
@@ -92,7 +93,7 @@ export default function WorkroomPage() {
                                 {msg.role === 'user' ? <User size={16} /> : <Bot size={16} />}
                             </div>
                             <div className={`p-4 rounded-2xl ${msg.role === 'user' ? 'bg-red-600 text-white rounded-tr-none' : 'bg-zinc-900 border border-white/5 rounded-tl-none'} shadow-xl`}>
-                                <p className="leading-relaxed whitespace-pre-wrap">{msg.content}</p>
+                                <p className="leading-relaxed whitespace-pre-wrap font-medium">{msg.content}</p>
                             </div>
                         </div>
                     </div>
@@ -102,7 +103,7 @@ export default function WorkroomPage() {
                     <div className="flex justify-start">
                         <div className="flex gap-3 items-center text-zinc-500 bg-zinc-900/30 px-4 py-2 rounded-full border border-white/5">
                             <Loader2 className="animate-spin" size={16} />
-                            <span className="text-sm italic">Strategizing...</span>
+                            <span className="text-sm italic font-bold">Strategizing...</span>
                         </div>
                     </div>
                 )}
@@ -117,21 +118,22 @@ export default function WorkroomPage() {
                         name="message"
                         autoComplete="off"
                         placeholder="Plan your next move..."
-                        className="w-full bg-zinc-900/80 border border-white/10 px-6 py-4 rounded-2xl pr-16 focus:outline-none focus:ring-2 focus:ring-red-500/50 focus:border-red-500/50 transition-all placeholder:text-zinc-600 backdrop-blur-xl"
+                        className="w-full bg-zinc-900/80 border border-white/10 px-6 py-5 rounded-3xl pr-20 focus:outline-none focus:ring-2 focus:ring-red-500/50 focus:border-red-500/50 transition-all placeholder:text-zinc-600 font-bold backdrop-blur-3xl"
                         required
                         disabled={loading}
                     />
                     <button
                         type="submit"
                         disabled={loading}
-                        className="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 bg-red-600 rounded-xl flex items-center justify-center hover:bg-red-500 active:scale-95 transition-all disabled:opacity-50 shadow-lg shadow-red-600/30"
+                        aria-label="Send Message"
+                        className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-red-600 rounded-2xl flex items-center justify-center hover:bg-red-500 active:scale-95 transition-all disabled:opacity-50 shadow-2xl shadow-red-600/40"
                     >
-                        {loading ? <Loader2 className="animate-spin text-white" /> : <Send size={18} className="text-white fill-current" />}
+                        {loading ? <Loader2 className="animate-spin text-white" /> : <Send size={20} className="text-white fill-current" />}
                     </button>
                 </form>
-                <p className="text-center text-[10px] text-zinc-600 mt-4 uppercase tracking-[0.2em]">
-                    Powered by Brandverse Engine • No Corporate Restrictions • 2025
-                </p>
+                <div className="text-center text-[10px] text-zinc-600 mt-6 uppercase tracking-[0.3em] font-black">
+                    Powered by Brandverse Engine • 2025 • Secured Transmission
+                </div>
             </footer>
         </div>
     );

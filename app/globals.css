@@ -8,6 +8,7 @@
   --background: #020617;
   --foreground: #f8fafc;
   --brand-blue: #3b82f6;
+  --brand-blue-deep: #1d4ed8;
   --brand-purple: #a855f7;
   --brand-glow: rgba(59, 130, 246, 0.4);
 }
@@ -25,6 +26,15 @@
 .bg-brand-gradient {
   background: linear-gradient(135deg, #3b82f6, #8b5cf6);
 }
+
+.text-glow-blue {
+  text-shadow: 0 0 20px rgba(59, 130, 246, 0.6), 0 0 40px rgba(59, 130, 246, 0.2);
+}
+
+.text-glow {
+  text-shadow: 0 0 15px rgba(239, 68, 68, 0.5);
+}
+
 
 body {
   background: var(--background);

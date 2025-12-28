@@ -54,8 +54,19 @@ export default function PrivacyPage() {
                     </div>
                 </section>
 
+                <section className="space-y-6">
+                    <h2 className="text-2xl font-bold text-white flex items-center gap-3">
+                        <span className="w-8 h-8 rounded-lg bg-blue-600/20 flex items-center justify-center text-blue-400 text-sm">04</span>
+                        Cookie Protocol
+                    </h2>
+                    <div className="pl-11 space-y-4 text-slate-400">
+                        <p>We utilize a strictly transparent Cookie Policy governed by our Consent Management Architect. We categorize data usage into Necessary, Statistics, and Marketing layers.</p>
+                        <p>You can view our live system audit and reconfigure your preferences at any time on our dedicated <Link href="/cookies" className="text-blue-400 underline underline-offset-4 decoration-blue-500/30 font-bold">Cookies Audit</Link> page.</p>
+                    </div>
+                </section>
+
                 <section className="space-y-6 text-slate-400 border-t border-white/5 pt-12">
-                    <p>By using Brandverse, you acknowledge that you have read and understood this Privacy Policy. If you have any questions regarding your data, please contact us at <span className="text-blue-400">ayush@brandverse.tech</span>.</p>
+                    <p>By using Brandverse, you acknowledge that you have read and understood this Privacy Policy. If you have any questions regarding your data sovereignty, please contact us at <span className="text-blue-400">ayush@brandverse.tech</span>.</p>
                 </section>
             </div>
         </div>
