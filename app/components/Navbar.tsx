@@ -8,6 +8,8 @@ export default function Navbar() {
 
     const isActive = (path: string) => pathname === path ? "text-blue-400" : "hover:text-blue-400 transition-colors";
 
+    if (pathname === '/') return null;
+
     return (
         <nav className="fixed top-0 w-full z-50 bg-[#020617]/80 backdrop-blur-md border-b border-white/5">
             <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
@@ -18,6 +20,7 @@ export default function Navbar() {
                     <Link href="/features" className={isActive('/features')}>Features</Link>
                     <Link href="/process" className={isActive('/process')}>Process</Link>
                     <Link href="/pricing" className={isActive('/pricing')}>Pricing</Link>
+                    <Link href="/blog" className={isActive('/blog')}>Intelligence (Blog)</Link>
                     <Link href="/faq" className={isActive('/faq')}>FAQ</Link>
                 </div>
                 <Link href="/contact" className="px-5 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-full text-sm font-semibold transition-all shadow-lg shadow-blue-500/20">

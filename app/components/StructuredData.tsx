@@ -7,8 +7,8 @@ export default function StructuredData() {
         "name": "Brandverse",
         "alternateName": "Brandverse.tech",
         "description": "AI Voice Automation Agency providing 24/7 AI voice agents that capture leads, book appointments, and drive revenue for local businesses.",
-        "url": "https://brandverse-silk.vercel.app",
-        "logo": "https://brandverse-silk.vercel.app/favicon.ico",
+        "url": "https://brandverse.tech",
+        "logo": "https://brandverse.tech/favicon.ico",
         "sameAs": [
             "https://twitter.com/brandverse",
             "https://linkedin.com/company/brandverse",
@@ -34,7 +34,7 @@ export default function StructuredData() {
         "@context": "https://schema.org",
         "@type": "WebSite",
         "name": "Brandverse - AI Voice Agents for SMBs",
-        "url": "https://brandverse-silk.vercel.app",
+        "url": "https://brandverse.tech",
         "description": "24/7 AI voice agents that capture leads, book appointments, and drive revenue for local businesses.",
         "publisher": {
             "@type": "Organization",
@@ -79,7 +79,7 @@ export default function StructuredData() {
         "@context": "https://schema.org",
         "@type": "ProfessionalService",
         "name": "Brandverse",
-        "image": "https://brandverse-silk.vercel.app/favicon.ico",
+        "image": "https://brandverse.tech/favicon.ico",
         "priceRange": "$$",
         "address": {
             "@type": "PostalAddress",

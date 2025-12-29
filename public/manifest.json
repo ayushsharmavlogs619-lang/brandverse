@@ -1,0 +1,21 @@
+{
+  "name": "Brandverse",
+  "short_name": "Brandverse",
+  "description": "24/7 AI Voice Agents that capture leads, book appointments, and drive revenue.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#020617",
+  "theme_color": "#020617",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "64x64 32x32 24x24 16x16",
+      "type": "image/x-icon"
+    },
+    {
+      "src": "/og-image.png",
+      "type": "image/png",
+      "sizes": "1200x630"
+    }
+  ]
+}

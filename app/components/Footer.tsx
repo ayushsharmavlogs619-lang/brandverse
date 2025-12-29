@@ -1,7 +1,11 @@
+'use client';
 
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 export default function Footer() {
+
+
     return (
         <footer className="py-20 px-6 border-t border-white/5 bg-[#020617] text-slate-200">
             <div className="max-w-7xl mx-auto grid md:grid-cols-4 gap-12">
@@ -20,6 +24,7 @@ export default function Footer() {
                     <h4 className="font-bold text-white mb-6 uppercase tracking-widest text-xs">Quick Links</h4>
                     <div className="space-y-2 text-slate-400">
                         <Link href="/features" className="block hover:text-blue-500">Solutions</Link>
+                        <Link href="/blog" className="block hover:text-blue-500">Intelligence (Blog)</Link>
                         <Link href="/case-studies" className="block hover:text-blue-500">Case Studies</Link>
                         <Link href="/about" className="block hover:text-blue-500">About Us</Link>
                     </div>

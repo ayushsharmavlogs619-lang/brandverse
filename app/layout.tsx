@@ -6,6 +6,7 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import Analytics from "./components/Analytics";
 import StructuredData from "./components/StructuredData";
+import PushNotificationBanner from "./components/PushNotificationBanner";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -21,7 +22,7 @@ export const metadata: Metadata = {
   // ... existing metadata ...
   title: "Brandverse — AI Voice Agents for SMBs",
   description: "Brandverse provides 24/7 AI voice agents that capture leads, book appointments, and drive revenue for local businesses.",
-  metadataBase: new URL('https://brandverse-silk.vercel.app'),
+  metadataBase: new URL('https://brandverse.tech'),
   keywords: ['AI Voice Agents', 'AI Automation', 'Lead Generation', 'Voice AI', 'Business Automation', 'AI Phone Agent', 'Conversational AI', 'SMB Solutions'],
   authors: [{ name: 'Brandverse' }],
   creator: 'Brandverse',
@@ -29,13 +30,13 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: 'https://brandverse-silk.vercel.app',
+    url: 'https://brandverse.tech',
     title: 'Brandverse — AI Voice Agents for SMBs',
     description: '24/7 AI voice agents that capture leads, book appointments, and drive revenue for local businesses.',
     siteName: 'Brandverse',
     images: [
       {
-        url: '/og-image.jpg',
+        url: '/og-image.png',
         width: 1200,
         height: 630,
         alt: 'Brandverse - AI Voice Automation',
@@ -46,7 +47,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Brandverse — AI Voice Agents for SMBs',
     description: '24/7 AI voice agents that capture leads, book appointments, and drive revenue.',
-    images: ['/og-image.jpg'],
+    images: ['/og-image.png'],
   },
   robots: {
     index: true,
@@ -60,7 +61,7 @@ export const metadata: Metadata = {
     },
   },
   verification: {
-    google: 'your-google-site-verification-code',
+    google: 'GOOGLE_SITE_VERIFICATION_ID', // TODO: Replace with your actual Google Site Verification ID
   },
 };
 
@@ -89,6 +90,7 @@ export default function RootLayout({
         <Navbar />
         {children}
         <Footer />
+        <PushNotificationBanner />
       </body>
     </html>
   );

@@ -43,6 +43,7 @@ export default function Home() {
           <nav className="hidden lg:flex items-center gap-8 text-[11px] font-black uppercase tracking-widest text-slate-400">
             <Link href="#services" className="hover:text-blue-400 transition-colors">Digital Agents</Link>
             <Link href="#roi" className="hover:text-blue-400 transition-colors">ROI Engine</Link>
+            <Link href="/blog" className="hover:text-blue-400 transition-colors">Intelligence</Link>
             <Link href="/about" className="hover:text-blue-400 transition-colors">Manifesto</Link>
           </nav>
           <div className="flex items-center gap-4">
@@ -189,47 +190,7 @@ export default function Home() {
         </section>
       </main>
 
-      {/* 🛡️ FOOTER */}
-      <footer className="pt-24 pb-12 px-6 border-t border-white/5">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12 mb-20">
-          <div className="md:col-span-2 space-y-8">
-            <div className="flex items-center gap-3">
-              <div className="w-8 h-8 bg-brand-gradient rounded-lg flex items-center justify-center">
-                <Cpu className="text-white w-5 h-5" />
-              </div>
-              <span className="text-lg font-black uppercase tracking-tighter text-white">Brandverse</span>
-            </div>
-            <p className="text-slate-400 max-w-sm font-medium leading-relaxed">
-              We aren't a marketing agency. We are an operational engine. We build the systems that build the businesses.
-            </p>
-          </div>
-          <div className="space-y-6">
-            <h4 className="text-[10px] font-black uppercase tracking-widest text-slate-500">Tactical</h4>
-            <ul className="space-y-4 text-sm font-bold">
-              <li><Link href="#services" className="text-slate-300 hover:text-blue-400">AI Agents</Link></li>
-              <li><Link href="#roi" className="text-slate-300 hover:text-blue-400">ROI Engine</Link></li>
-              <li><Link href="/portfolio" className="text-slate-300 hover:text-blue-400">Case Studies</Link></li>
-            </ul>
-          </div>
-          <div className="space-y-6">
-            <h4 className="text-[10px] font-black uppercase tracking-widest text-slate-500">Legal</h4>
-            <ul className="space-y-4 text-sm font-bold">
-              <li><Link href="/privacy" className="text-slate-300 hover:text-blue-400">Privacy</Link></li>
-              <li><Link href="/terms" className="text-slate-300 hover:text-blue-400">Terms</Link></li>
-              <li><Link href="/contact" className="text-slate-300 hover:text-blue-400">Contact</Link></li>
-            </ul>
-          </div>
-        </div>
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6 pt-12 border-t border-white/5">
-          <p className="text-[10px] font-black uppercase tracking-widest text-slate-600">
-            © 2025 Brandverse.Tech Technologies. All rights reserved.
-          </p>
-          <div className="flex gap-8 text-[10px] font-black uppercase tracking-widest text-slate-400">
-            <span>Security Audited <Shield className="w-3 h-3 inline" /></span>
-            <span>Systems Live <Zap className="w-3 h-3 inline text-green-500" /></span>
-          </div>
-        </div>
-      </footer>
+
 
       <ChatWidget />
     </div>

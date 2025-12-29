@@ -8,6 +8,48 @@ export const metadata = {
 export default function BlogIndex() {
   const posts = [
     {
+      slug: 'why-never-regret-ai-agents',
+      title: 'Why Smart Business Owners Choose AI Voice Agents (And Never Look Back)',
+      excerpt: 'The decision that pays for itself in 48 hours. Zero regrets. Ever. Here\'s why thousands never return to human-only teams.',
+      date: 'Dec 29, 2024',
+      category: 'Value Proposition'
+    },
+    {
+      slug: 'cost-of-not-using-ai',
+      title: 'The True Cost of NOT Using AI Voice Agents in 2025',
+      excerpt: 'Every day you wait is $500-$2000 donated to competitors. A sobering breakdown of the hidden costs killing your margins.',
+      date: 'Dec 28, 2024',
+      category: 'Warning'
+    },
+    {
+      slug: '5-signs-youre-ready',
+      title: '5 Signs You\'re Ready for AI Voice Agents (And Why Waiting Costs You)',
+      excerpt: 'If you recognize 3+ of these signs, you\'re not "exploring"—you\'re leaving money on the table every single day.',
+      date: 'Dec 27, 2024',
+      category: 'Assessment'
+    },
+    {
+      slug: 'case-study-elite-climate',
+      title: 'Case Study: Elite Climate Control & Plumbing',
+      excerpt: 'How a skeptical HVAC owner automated 40% of his booking workflow and recovered $15k in missed calls in month one.',
+      date: 'Dec 22, 2024',
+      category: 'Case Study'
+    },
+    {
+      slug: 'case-study-apex-property',
+      title: 'Case Study: Apex Property Group',
+      excerpt: 'How we used personal branding and automation to scale a real estate portfolio alongside Ayush\'s operations expertise.',
+      date: 'Dec 18, 2024',
+      category: 'Case Study'
+    },
+    {
+      slug: 'case-study-brightsmile-dental',
+      title: 'Case Study: Brightsmile Dental',
+      excerpt: 'From vendor to "Backend Digital In-Charge": How Brandverse architected the entire patient flow for a chaotic dental clinic.',
+      date: 'Dec 15, 2024',
+      category: 'Case Study'
+    },
+    {
       slug: 'how-ai-boosts-leads',
       title: 'How AI Voice Agents Boost Leads by 200%',
       excerpt: 'Stop losing money to voicemail. Discover the math behind 24/7 instant lead response and how it doubles conversion rates for contractors.',
@@ -32,18 +74,6 @@ export default function BlogIndex() {
 
   return (
     <div className="min-h-screen bg-[#020617] text-slate-200 selection:bg-blue-500/30">
-      <nav className="fixed top-0 w-full z-50 bg-[#020617]/80 backdrop-blur-md border-b border-white/5">
-        <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-          <Link href="/" className="text-xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">BRANDVERSE</Link>
-          <div className="hidden md:flex gap-8 text-sm font-medium">
-            <Link href="/about" className="hover:text-blue-400 transition-colors">About</Link>
-            <Link href="/services" className="hover:text-blue-400 transition-colors">Services</Link>
-            <Link href="/portfolio" className="hover:text-blue-400 transition-colors">Portfolio</Link>
-          </div>
-          <Link href="/contact" className="px-5 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-full text-sm font-semibold transition-all shadow-lg shadow-blue-500/20">Book Demo</Link>
-        </div>
-      </nav>
-
       <main className="pt-32 pb-20 px-6 max-w-5xl mx-auto">
         <h1 className="text-5xl font-black text-white mb-6">Insights & Articles</h1>
         <p className="text-slate-400 mb-10">Practical guides and case studies about AI voice automation for local businesses.</p>
@@ -65,38 +95,6 @@ export default function BlogIndex() {
           ))}
         </div>
       </main>
-
-      <footer className="py-20 px-6 border-t border-white/5 bg-[#020617]">
-        <div className="max-w-7xl mx-auto grid md:grid-cols-4 gap-12">
-          <div className="space-y-6">
-            <div className="text-2xl font-black text-white">BRANDVERSE</div>
-            <p className="text-slate-500 leading-relaxed">AI-powered solutions specifically designed for Small to Medium Sized Businesses.</p>
-          </div>
-          <div>
-            <h4 className="font-bold text-white mb-6 uppercase tracking-widest text-xs">Contact</h4>
-            <div className="space-y-2 text-slate-400">
-              <p>ayush@brandverse.tech</p>
-              <p>Live Chat Available 24/7</p>
-            </div>
-          </div>
-          <div>
-            <h4 className="font-bold text-white mb-6 uppercase tracking-widest text-xs">Quick Links</h4>
-            <div className="space-y-2 text-slate-400">
-              <Link href="/about" className="block hover:text-blue-500">About</Link>
-              <Link href="/services" className="block hover:text-blue-500">Services</Link>
-              <Link href="/portfolio" className="block hover:text-blue-500">Portfolio</Link>
-            </div>
-          </div>
-          <div>
-            <h4 className="font-bold text-white mb-6 uppercase tracking-widest text-xs">Legal</h4>
-            <div className="space-y-2 text-slate-400 text-sm">
-              <Link href="/privacy" className="block hover:text-blue-500">Privacy Policy</Link>
-              <Link href="/terms" className="block hover:text-blue-500">Terms & Conditions</Link>
-              <p className="pt-4">© 2025 Brandverse AI.</p>
-            </div>
-          </div>
-        </div>
-      </footer>
     </div>
   );
 }

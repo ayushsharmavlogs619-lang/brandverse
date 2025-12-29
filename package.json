@@ -10,18 +10,23 @@
   },
   "dependencies": {
     "@google/generative-ai": "^0.24.1",
+    "@supabase/supabase-js": "^2.89.0",
+    "@vapi-ai/web": "^2.5.2",
     "@vercel/analytics": "^1.6.1",
     "firebase": "^12.7.0",
     "lucide-react": "^0.555.0",
     "next": "^16.1.1",
+    "node-fetch": "^3.3.2",
     "react": "^19.2.1",
-    "react-dom": "^19.2.1"
+    "react-dom": "^19.2.1",
+    "web-push": "^3.6.7"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@types/web-push": "^3.6.4",
     "eslint": "^9",
     "eslint-config-next": "^15.1.7",
     "tailwindcss": "^4",
