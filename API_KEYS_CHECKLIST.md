@@ -121,6 +121,27 @@ Copy this checklist and start collecting these keys. I've ordered them by priori
 
 ---
 
+### 9. **Calendly** (Meeting Booking)
+- **What it does**: Lets clients book appointments directly on your site
+- **Cost**: FREE (Basic plan is enough)
+- **Get it from**: https://calendly.com
+- **Steps**:
+  1. Create account
+  2. Create a "30 Minute Meeting" event
+  3. Copy the event link (e.g. `calendly.com/yourname/30min`)
+- **Add to `.env.local`**:
+  ```
+  NEXT_PUBLIC_CALENDLY_URL=https://calendly.com/yourusername/call
+  ```
+
+### 10. **Social Media Accounts** (To Create)
+- **LinkedIn**: Create "Brandverse Tech" Company Page
+- **X (Twitter)**: Create `@brandverse_tech`
+- **Instagram**: Create `@brandverse.tech`
+- **YouTube**: Create Brandverse Channel (for video demos)
+
+---
+
 ## 📋 FINAL CHECKLIST
 
 Your complete `.env.local` should look like this:
@@ -132,6 +153,7 @@ SUPABASE_SERVICE_KEY=eyJxxx...
 NEXT_PUBLIC_VAPID_PUBLIC_KEY=BHxxx...
 VAPID_PRIVATE_KEY=oQxxx...
 NEXT_PUBLIC_ADMIN_PASSWORD=YourStrongPassword
+NEXT_PUBLIC_CALENDLY_URL=https://calendly.com/yourname/call
 
 # === IMPORTANT (Do Next) ===
 NEXT_PUBLIC_COOKIEBOT_ID=abc123-xyz...
