@@ -57,6 +57,34 @@ export const articles: Article[] = [
         category: 'Financial Strategy'
     },
     {
+        slug: '24-7-sales-revolution',
+        title: 'Your 24/7 Sales Team: Why "Business Hours" Are Killing Your Growth',
+        excerpt: 'The modern consumer doesn\'t wait. Capture the 40% of leads you\'re ignoring.',
+        date: 'Dec 30, 2024',
+        category: 'Growth Strategy'
+    },
+    {
+        slug: 'stop-wasting-marketing-budget',
+        title: 'Stop Paying for Ads Until You Fix This One Phone Problem',
+        excerpt: 'Fix your lead capture rate before you spend another cent on Google Ads.',
+        date: 'Dec 30, 2024',
+        category: 'Marketing ROI'
+    },
+    {
+        slug: 'voice-ai-ethics-trust',
+        title: 'Will My Customers Hate It? The Truth About AI Voice Acceptance',
+        excerpt: 'Data shows customers prefer instant AI answers over voicemail.',
+        date: 'Dec 30, 2024',
+        category: 'Ethics & Trust'
+    },
+    {
+        slug: 'crm-automation-blueprint',
+        title: 'The Perfect Handoff: Connecting AI Voice Agents to Your CRM',
+        excerpt: 'An AI that answers phones AND updates Salesforce automatically.',
+        date: 'Dec 30, 2024',
+        category: 'Technical Guide'
+    },
+    {
         slug: 'how-ai-boosts-leads',
         title: 'How AI Voice Agents Boost Leads by 200%',
         excerpt: 'The math behind 24/7 instant lead response.',
