@@ -1,5 +1,4 @@
 import Navbar from '../components/Navbar';
-import Footer from '../components/Footer';
 import CalendlyEmbed from '../components/CalendlyEmbed';
 import { Mail, MessageSquare, Phone } from 'lucide-react';
 

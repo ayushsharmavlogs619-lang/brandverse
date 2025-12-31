@@ -69,4 +69,12 @@ input[type="range"]::-moz-range-thumb:hover {
     -ms-overflow-style: none;
     scrollbar-width: none;
   }
+
+  .bg-brand-gradient {
+    background: linear-gradient(135deg, var(--brand-blue) 0%, var(--brand-purple) 100%);
+  }
+
+  .text-glow {
+    text-shadow: 0 0 20px currentColor;
+  }
 }

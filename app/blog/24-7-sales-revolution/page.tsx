@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { ArrowLeft, Clock, Moon, TrendingUp, Phone, Calendar } from 'lucide-react';
+import { ArrowLeft, Clock, Moon, TrendingUp, Phone, Calendar, Zap } from 'lucide-react';
 import RelatedArticles from '../../components/RelatedArticles';
 
 export const metadata = {
