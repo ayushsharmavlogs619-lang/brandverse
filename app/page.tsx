@@ -18,7 +18,23 @@ import {
   Menu,
   ChevronRight,
   X,
-  ShieldCheck
+  ShieldCheck,
+  Wrench,
+  Home,
+  Briefcase,
+  Building2,
+  Stethoscope,
+  Car,
+  Sparkles,
+  TrendingUp,
+  Clock,
+  DollarSign,
+  Award,
+  Rocket,
+  Globe,
+  Code2,
+  Database,
+  Workflow
 } from 'lucide-react';
 import ChatWidget from './components/ChatWidget';
 
@@ -28,6 +44,60 @@ export default function Home() {
   const conversionRate = 0.4;
   const monthlyRevenue = Math.round(calculatorValue * avgJobValue * conversionRate * 4);
   const yearlyRevenue = monthlyRevenue * 12;
+
+  const industries = [
+    {
+      icon: Wrench,
+      name: "HVAC & Plumbing",
+      description: "24/7 emergency call handling, instant dispatch scheduling, and automated follow-ups that convert 78% of after-hours calls into booked jobs.",
+      results: "42% Revenue Increase",
+      color: "from-orange-500 to-red-500"
+    },
+    {
+      icon: Home,
+      name: "Real Estate",
+      description: "Qualify leads instantly, schedule property showings automatically, and nurture prospects with personalized voice outreach at scale.",
+      results: "3x Listing Appointments",
+      color: "from-blue-500 to-cyan-500"
+    },
+    {
+      icon: Briefcase,
+      name: "Law Firms",
+      description: "Screen case inquiries 24/7, book consultations instantly, and send automated intake forms while maintaining premium brand perception.",
+      results: "65% Intake Efficiency",
+      color: "from-purple-500 to-pink-500"
+    },
+    {
+      icon: Building2,
+      name: "Construction",
+      description: "Capture project bids after-hours, coordinate subcontractor schedules, and send automated quote follow-ups that close deals faster.",
+      results: "28% Faster Closing",
+      color: "from-yellow-500 to-orange-500"
+    },
+    {
+      icon: Stethoscope,
+      name: "Healthcare",
+      description: "HIPAA-compliant appointment booking, insurance verification, and patient recall campaigns that fill your schedule weeks in advance.",
+      results: "91% Booking Rate",
+      color: "from-green-500 to-emerald-500"
+    },
+    {
+      icon: Car,
+      name: "Auto Services",
+      description: "Instant service scheduling, parts availability checks, and post-service review requests that build your reputation on autopilot.",
+      results: "52% Review Growth",
+      color: "from-red-500 to-pink-500"
+    }
+  ];
+
+  const techStack = [
+    { name: "Next.js 15", description: "Bleeding-edge React Framework", icon: Code2 },
+    { name: "Supabase", description: "Real-time Database", icon: Database },
+    { name: "Firebase", description: "Cloud Infrastructure", icon: Globe },
+    { name: "Vapi AI", description: "Voice Intelligence Engine", icon: Mic },
+    { name: "Zapier/Make", description: "Tactical Automation", icon: Workflow },
+    { name: "Vercel", description: "Global Edge Deployment", icon: Rocket }
+  ];
 
   return (
     <div className="min-h-screen bg-[#020617] text-slate-100 selection:bg-blue-500/30 overflow-x-hidden pb-20 font-sans">
@@ -42,6 +112,7 @@ export default function Home() {
           </div>
           <nav className="hidden lg:flex items-center gap-8 text-[11px] font-black uppercase tracking-widest text-slate-400">
             <Link href="#services" className="hover:text-blue-400 transition-colors">Digital Agents</Link>
+            <Link href="#industries" className="hover:text-blue-400 transition-colors">Industries</Link>
             <Link href="#roi" className="hover:text-blue-400 transition-colors">ROI Engine</Link>
             <Link href="/blog" className="hover:text-blue-400 transition-colors">Intelligence</Link>
             <Link href="/about" className="hover:text-blue-400 transition-colors">Manifesto</Link>
@@ -74,9 +145,9 @@ export default function Home() {
               We build custom AI Voice Agents and Tactical Automation Engines that do the work of a 50-person team, 24/7/365.
             </p>
             <div className="flex flex-col sm:flex-row justify-center items-center gap-6 pt-6">
-              <button className="w-full sm:w-auto px-10 py-6 bg-brand-gradient text-white rounded-3xl font-black uppercase tracking-widest text-sm shadow-2xl animate-pulse-brand hover:scale-105 transition-all flex items-center justify-center gap-3">
+              <Link href="/contact" className="w-full sm:w-auto px-10 py-6 bg-brand-gradient text-white rounded-3xl font-black uppercase tracking-widest text-sm shadow-2xl animate-pulse-brand hover:scale-105 transition-all flex items-center justify-center gap-3">
                 Start Building <ArrowRight className="w-5 h-5" />
-              </button>
+              </Link>
               <Link href="/portfolio" className="text-sm font-black uppercase tracking-widest text-slate-500 hover:text-white transition-colors">
                 View Case Studies
               </Link>
@@ -118,6 +189,84 @@ export default function Home() {
                     Automate your entire cash-flow pipeline from quote to collection.
                   </p>
                 </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* 🏭 INDUSTRY-SPECIFIC SECTIONS */}
+        <section id="industries" className="py-32 px-6">
+          <div className="max-w-7xl mx-auto space-y-16">
+            <div className="text-center space-y-6">
+              <h2 className="text-5xl md:text-7xl font-black text-white uppercase italic tracking-tighter">
+                Built for <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">Your Industry</span>
+              </h2>
+              <p className="text-slate-400 text-lg max-w-3xl mx-auto font-bold">
+                We don't do generic. Every AI Agent is custom-engineered for your specific trade, compliance requirements, and customer expectations.
+              </p>
+            </div>
+
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {industries.map((industry, idx) => (
+                <div key={idx} className="group p-8 rounded-3xl bg-slate-900/40 border border-white/5 hover:border-white/20 transition-all space-y-6">
+                  <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${industry.color} opacity-20 group-hover:opacity-30 transition-opacity flex items-center justify-center`}>
+                    <industry.icon className="w-8 h-8 text-white" />
+                  </div>
+                  <div>
+                    <h3 className="text-2xl font-black text-white uppercase tracking-tight mb-3">{industry.name}</h3>
+                    <p className="text-slate-400 leading-relaxed mb-4">{industry.description}</p>
+                    <div className={`inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r ${industry.color} bg-opacity-10 border border-white/10`}>
+                      <TrendingUp className="w-4 h-4 text-white" />
+                      <span className="text-white font-black text-xs uppercase tracking-widest">{industry.results}</span>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* 🎯 THE BRANDVERSE DIFFERENCE */}
+        <section className="py-32 px-6 bg-black/40 border-y border-white/5">
+          <div className="max-w-7xl mx-auto">
+            <div className="text-center space-y-6 mb-20">
+              <h2 className="text-5xl md:text-7xl font-black text-white uppercase italic tracking-tighter">
+                Why <span className="text-blue-400">Brandverse</span>?
+              </h2>
+              <p className="text-slate-400 text-lg max-w-2xl mx-auto">
+                Most agencies sell you a template. We build you an <strong>Operating System</strong>.
+              </p>
+            </div>
+
+            <div className="grid md:grid-cols-3 gap-8">
+              <div className="p-8 rounded-3xl bg-slate-900/50 border border-white/5 space-y-4">
+                <div className="w-14 h-14 rounded-xl bg-blue-500/20 flex items-center justify-center">
+                  <Clock className="w-7 h-7 text-blue-400" />
+                </div>
+                <h4 className="text-2xl font-black text-white uppercase tracking-tight">48-Hour Deployment</h4>
+                <p className="text-slate-400 leading-relaxed">
+                  From kickoff to live production, we move at warp speed. Your competitors take 6 months. We take 2 days.
+                </p>
+              </div>
+
+              <div className="p-8 rounded-3xl bg-slate-900/50 border border-white/5 space-y-4">
+                <div className="w-14 h-14 rounded-xl bg-purple-500/20 flex items-center justify-center">
+                  <Code2 className="w-7 h-7 text-purple-400" />
+                </div>
+                <h4 className="text-2xl font-black text-white uppercase tracking-tight">100% Custom Code</h4>
+                <p className="text-slate-400 leading-relaxed">
+                  Zero drag-and-drop builders. We write production-grade Next.js apps that you <em>own</em>, not rent.
+                </p>
+              </div>
+
+              <div className="p-8 rounded-3xl bg-slate-900/50 border border-white/5 space-y-4">
+                <div className="w-14 h-14 rounded-xl bg-green-500/20 flex items-center justify-center">
+                  <Award className="w-7 h-7 text-green-400" />
+                </div>
+                <h4 className="text-2xl font-black text-white uppercase tracking-tight">Profit Guarantee</h4>
+                <p className="text-slate-400 leading-relaxed">
+                  If our AI doesn't generate 3x ROI in the first 90 days, we work for free until it does.
+                </p>
               </div>
             </div>
           </div>
@@ -171,6 +320,66 @@ export default function Home() {
                     </div>
                   </div>
                 </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* 🔧 TECH STACK SHOWCASE */}
+        <section className="py-32 px-6 bg-black/40 border-y border-white/5">
+          <div className="max-w-7xl mx-auto space-y-16">
+            <div className="text-center space-y-6">
+              <h2 className="text-5xl md:text-7xl font-black text-white uppercase italic tracking-tighter">
+                Enterprise <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400">Infrastructure</span>
+              </h2>
+              <p className="text-slate-400 text-lg max-w-2xl mx-auto">
+                Your business runs on cutting-edge technology, not outdated WordPress plugins.
+              </p>
+            </div>
+
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {techStack.map((tech, idx) => (
+                <div key={idx} className="group p-6 rounded-2xl bg-slate-900/40 border border-white/5 hover:border-blue-500/30 transition-all">
+                  <div className="flex items-start gap-4">
+                    <div className="w-12 h-12 rounded-xl bg-blue-500/10 flex items-center justify-center shrink-0">
+                      <tech.icon className="w-6 h-6 text-blue-400" />
+                    </div>
+                    <div>
+                      <h4 className="text-lg font-black text-white mb-1">{tech.name}</h4>
+                      <p className="text-sm text-slate-400">{tech.description}</p>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* 📈 SOCIAL PROOF */}
+        <section className="py-32 px-6">
+          <div className="max-w-7xl mx-auto space-y-16">
+            <div className="text-center space-y-6">
+              <h2 className="text-5xl md:text-7xl font-black text-white uppercase italic tracking-tighter">
+                The Numbers Don't Lie
+              </h2>
+            </div>
+
+            <div className="grid md:grid-cols-4 gap-8">
+              <div className="text-center space-y-3">
+                <div className="text-6xl font-black text-blue-400 italic">$2.4M+</div>
+                <div className="text-slate-400 font-bold uppercase tracking-widest text-xs">Revenue Generated</div>
+              </div>
+              <div className="text-center space-y-3">
+                <div className="text-6xl font-black text-purple-400 italic">42%</div>
+                <div className="text-slate-400 font-bold uppercase tracking-widest text-xs">Avg ROI Increase</div>
+              </div>
+              <div className="text-center space-y-3">
+                <div className="text-6xl font-black text-green-400 italic">87K+</div>
+                <div className="text-slate-400 font-bold uppercase tracking-widest text-xs">Calls Answered</div>
+              </div>
+              <div className="text-center space-y-3">
+                <div className="text-6xl font-black text-cyan-400 italic">24/7</div>
+                <div className="text-slate-400 font-bold uppercase tracking-widest text-xs">Uptime Guarantee</div>
               </div>
             </div>
           </div>
