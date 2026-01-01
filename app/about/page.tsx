@@ -132,8 +132,16 @@ export default function AboutPage() {
               <div className="p-6 rounded-3xl bg-white/5 border border-white/10 group hover:border-white/20 transition-all">
                 <div className="w-16 h-16 rounded-2xl bg-slate-800 flex items-center justify-center text-xl font-bold text-white mb-6 group-hover:scale-110 transition-transform">AN</div>
                 <h3 className="text-xl font-bold text-white mb-1">Arjun Nair</h3>
-                <div className="text-slate-500 font-bold uppercase tracking-widest text-[10px] mb-4">Director of Sales (EMEA)</div>
-                <p className="text-slate-500 text-sm leading-relaxed">Spearheading growth in South America, Africa, and Middle-East territories.</p>
+                <div className="text-slate-500 font-bold uppercase tracking-widest text-[10px] mb-4">Director of Sales (Middle East & Asia)</div>
+                <p className="text-slate-500 text-sm leading-relaxed">Driving strategic partnerships and growth across the Middle East and Asian markets.</p>
+              </div>
+
+              {/* Siddhant Mohapatra */}
+              <div className="p-6 rounded-3xl bg-white/5 border border-white/10 group hover:border-white/20 transition-all">
+                <div className="w-16 h-16 rounded-2xl bg-slate-800 flex items-center justify-center text-xl font-bold text-white mb-6 group-hover:scale-110 transition-transform">SM</div>
+                <h3 className="text-xl font-bold text-white mb-1">Siddhant Mohapatra</h3>
+                <div className="text-slate-500 font-bold uppercase tracking-widest text-[10px] mb-4">Director of Sales (Europe & South America)</div>
+                <p className="text-slate-500 text-sm leading-relaxed">Leading our expansion into European and LATAM territories with enterprise-grade solutions.</p>
               </div>
 
               {/* Amit Tiwari */}
