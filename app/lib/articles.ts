@@ -182,6 +182,69 @@ export const articles: Article[] = [
         date: 'Jan 2, 2025',
         category: 'Industry Focus'
     },
+    {
+        slug: 'crm-integration-guide',
+        title: 'CRM & Calendar Integration Guide',
+        excerpt: 'How to connect Brandverse to ServiceTitan, Housecall Pro, Calendly, and CRMs for seamless booking.',
+        date: 'Jan 3, 2025',
+        category: 'Technical Guide'
+    },
+    {
+        slug: 'measuring-success',
+        title: 'Measuring AI Agent Performance & KPIs',
+        excerpt: 'KPIs and dashboards you should track to measure the success of your AI voice agent.',
+        date: 'Jan 3, 2025',
+        category: 'Analytics'
+    },
+    {
+        slug: 'multilingual-outreach',
+        title: 'Multilingual Outreach Strategies',
+        excerpt: 'How to use multilingual AI agents to expand market reach and improve lead capture.',
+        date: 'Jan 3, 2025',
+        category: 'Growth Strategy'
+    },
+    {
+        slug: 'onboarding-checklist',
+        title: 'Onboarding Checklist for AI Agents',
+        excerpt: 'A step-by-step onboarding checklist to get your AI agent live and converting quickly.',
+        date: 'Jan 3, 2025',
+        category: 'Implementation'
+    },
+    {
+        slug: 'scaling-multi-location',
+        title: 'Scaling Across Multiple Locations',
+        excerpt: 'Best practices for deploying AI agents across franchises, multi-location businesses, and regional teams.',
+        date: 'Jan 3, 2025',
+        category: 'Growth Strategy'
+    },
+    {
+        slug: 'scripts-that-convert',
+        title: 'High-Converting Call Scripts (Examples)',
+        excerpt: 'Real script examples that convert callers into booked appointments.',
+        date: 'Jan 3, 2025',
+        category: 'Templates & Scripts'
+    },
+    {
+        slug: 'sms-followups',
+        title: 'Automated SMS Follow-ups that Convert',
+        excerpt: 'Best practices for SMS confirmations and follow-ups that increase show-rates and conversions.',
+        date: 'Jan 3, 2025',
+        category: 'Templates & Scripts'
+    },
+    {
+        slug: 'tcpa-gdpr-compliance',
+        title: 'Telecom & Privacy Compliance (TCPA/GDPR)',
+        excerpt: 'Practical checklist for TCPA and GDPR when deploying AI voice agents.',
+        date: 'Jan 3, 2025',
+        category: 'Legal & Compliance'
+    },
+    {
+        slug: 'voice-cloning-ethics',
+        title: 'Voice Cloning: Ethics & Best Practices',
+        excerpt: 'Guidance on using voice cloning responsibly and building consent-forward experiences for customers.',
+        date: 'Jan 3, 2025',
+        category: 'Ethics & Trust'
+    },
 ];
 
 /**
