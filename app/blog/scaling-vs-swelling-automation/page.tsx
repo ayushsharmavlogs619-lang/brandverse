@@ -71,7 +71,7 @@ export default function Post() {
                                     </li>
                                     <li className="flex gap-3 text-slate-400 leading-relaxed">
                                         <div className="w-1.5 h-1.5 mt-2 rounded-full bg-red-500 shrink-0"></div>
-                                        <span>Processes live in people’s heads ("Ask Dave how to do that").</span>
+                                        <span>Processes live in people’s heads (&quot;Ask Dave how to do that&quot;).</span>
                                     </li>
                                     <li className="flex gap-3 text-slate-400 leading-relaxed">
                                         <div className="w-1.5 h-1.5 mt-2 rounded-full bg-red-500 shrink-0"></div>
@@ -88,7 +88,7 @@ export default function Post() {
                                 <ul className="space-y-4">
                                     <li className="flex gap-3 text-slate-400 leading-relaxed">
                                         <div className="w-1.5 h-1.5 mt-2 rounded-full bg-green-500 shrink-0"></div>
-                                        <span>Solving problems by building systems (code > no-code > people).</span>
+                                        <span>Solving problems by building systems (code &gt; no-code &gt; people).</span>
                                     </li>
                                     <li className="flex gap-3 text-slate-400 leading-relaxed">
                                         <div className="w-1.5 h-1.5 mt-2 rounded-full bg-green-500 shrink-0"></div>
@@ -115,7 +115,7 @@ export default function Post() {
                         <div className="p-6 bg-violet-900/10 rounded-2xl border border-violet-500/20 mt-6 space-y-4">
                             <div className="flex items-center gap-3">
                                 <Code2 className="w-6 h-6 text-violet-400" />
-                                <h4 className="font-bold text-white text-lg">Example: The "Dashboard" Pivot</h4>
+                                <h4 className="font-bold text-white text-lg">Example: The &quot;Dashboard&quot; Pivot</h4>
                             </div>
                             <p className="text-slate-300 leading-relaxed">
                                 Instead of hiring 5 account managers to email clients weekly updates, we build a <strong>Client Portal</strong>. The clients log in and see their live stats, invoices, and project status.
@@ -129,7 +129,7 @@ export default function Post() {
                     <section className="space-y-6">
                         <h2 className="text-2xl font-black text-white uppercase italic tracking-wide">Future-Proofing Your Equity</h2>
                         <p className="text-slate-400 leading-8 text-lg">
-                            Finally, think about your exit. Investors do not pay high multiples for service businesses where "Dave" is the only guy who knows how shipment works.
+                            Finally, think about your exit. Investors do not pay high multiples for service businesses where &quot;Dave&quot; is the only guy who knows how shipment works.
                         </p>
                         <p className="text-slate-400 leading-8 text-lg">
                             Investors pay huge multiples for <strong>Intellectual Property and Automated Systems</strong>. By building a scalable tech infrastructure (Brandverse), you aren't just saving money today; you are 10x-ing your company's valuation for tomorrow.

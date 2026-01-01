@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { ArrowLeft, Car, RotateCw, Mail, Tool } from 'lucide-react';
+import { ArrowLeft, Car, RotateCw, Mail } from 'lucide-react';
 import RelatedArticles from '../../components/RelatedArticles';
 
 export const metadata = {

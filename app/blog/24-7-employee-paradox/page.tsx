@@ -25,7 +25,7 @@ export default function Post() {
                         <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500">Paradox</span>
                     </h1>
                     <p className="text-lg text-slate-400 font-medium leading-relaxed">
-                        Why the most profitable companies are actually the ones doing the "least" work.
+                        Why the most profitable companies are actually the ones doing the &quot;least&quot; work.
                     </p>
                 </div>
             </header>
@@ -50,7 +50,7 @@ export default function Post() {
                             We love humans. Humans are creative, empathetic, and strategic. But humans are terrible at repetition. We get bored, we make typos, we get tired, and we need sleep.
                         </p>
                         <p className="text-slate-400 leading-8 text-lg">
-                            Scripts (or "Agents") are the opposite. They love repetition. They never sleep. They never complain. And they cost pennies to run.
+                            Scripts (or &quot;Agents&quot;) are the opposite. They love repetition. They never sleep. They never complain. And they cost pennies to run.
                         </p>
                         <p className="text-slate-400 leading-8 text-lg">
                             The <strong>Paradox</strong> is this: To build a more "human" business where people actually enjoy their work, you need to ruthlessly eliminate human involvement in the mundane.
@@ -71,8 +71,8 @@ export default function Post() {
                                 <div className="group p-5 hover:bg-white/5 rounded-xl transition-colors border-b border-white/5 last:border-0">
                                     <div className="flex flex-col md:flex-row gap-4 md:items-center justify-between">
                                         <div className="space-y-1">
-                                            <h4 className="font-bold text-white group-hover:text-cyan-400 transition-colors">1. The "Lead Chase"</h4>
-                                            <p className="text-sm text-slate-400">Lead fills form -> Wait -> Email -> Wait -> Call.</p>
+                                            <h4 className="font-bold text-white group-hover:text-cyan-400 transition-colors">1. The &quot;Lead Chase&quot;</h4>
+                                            <p className="text-sm text-slate-400">Lead fills form &rarr; Wait &rarr; Email &rarr; Wait &rarr; Call.</p>
                                         </div>
                                         <div className="shrink-0 flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-green-400 bg-green-900/20 px-3 py-1 rounded-full">
                                             <FastForward className="w-3 h-3" />
@@ -87,7 +87,7 @@ export default function Post() {
                                 <div className="group p-5 hover:bg-white/5 rounded-xl transition-colors border-b border-white/5 last:border-0">
                                     <div className="flex flex-col md:flex-row gap-4 md:items-center justify-between">
                                         <div className="space-y-1">
-                                            <h4 className="font-bold text-white group-hover:text-cyan-400 transition-colors">2. The "Receipt Shoebox"</h4>
+                                            <h4 className="font-bold text-white group-hover:text-cyan-400 transition-colors">2. The &quot;Receipt Shoebox&quot;</h4>
                                             <p className="text-sm text-slate-400">Collecting invoices, matching to bank, manual entry.</p>
                                         </div>
                                         <div className="shrink-0 flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-green-400 bg-green-900/20 px-3 py-1 rounded-full">
@@ -96,14 +96,14 @@ export default function Post() {
                                         </div>
                                     </div>
                                     <p className="mt-3 text-slate-400 text-sm leading-relaxed">
-                                        <strong>The Brandverse Fix:</strong> Auto-forward gmail receipts to parser -> Extract JSON data -> Push to Accounting Software -> Slack notification on high expenses.
+                                        <strong>The Brandverse Fix:</strong> Auto-forward gmail receipts to parser &rarr; Extract JSON data &rarr; Push to Accounting Software &rarr; Slack notification on high expenses.
                                     </p>
                                 </div>
 
                                 <div className="group p-5 hover:bg-white/5 rounded-xl transition-colors border-b border-white/5 last:border-0">
                                     <div className="flex flex-col md:flex-row gap-4 md:items-center justify-between">
                                         <div className="space-y-1">
-                                            <h4 className="font-bold text-white group-hover:text-cyan-400 transition-colors">3. The "Onboarding Drag"</h4>
+                                            <h4 className="font-bold text-white group-hover:text-cyan-400 transition-colors">3. The &quot;Onboarding Drag&quot;</h4>
                                             <p className="text-sm text-slate-400">Sending contracts, waiting, sending welcomes, creating logins.</p>
                                         </div>
                                         <div className="shrink-0 flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-green-400 bg-green-900/20 px-3 py-1 rounded-full">
@@ -112,7 +112,7 @@ export default function Post() {
                                         </div>
                                     </div>
                                     <p className="mt-3 text-slate-400 text-sm leading-relaxed">
-                                        <strong>The Brandverse Fix:</strong> One click "New Client" -> Generates Contract -> Upon Sign -> Stripe Subscription Created -> Access Creds Generated -> Welcome Email Sent with Video Guide.
+                                        <strong>The Brandverse Fix:</strong> One click &quot;New Client&quot; &rarr; Generates Contract &rarr; Upon Sign &rarr; Stripe Subscription Created &rarr; Access Creds Generated &rarr; Welcome Email Sent with Video Guide.
                                     </p>
                                 </div>
 

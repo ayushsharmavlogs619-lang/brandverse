@@ -32,17 +32,17 @@ export default function Post() {
                     <div className="p-6 rounded-2xl bg-white/5 border-l-4 border-teal-500">
                         <h2 className="text-lg font-bold text-white mb-2">The Orthotic Production Lag</h2>
                         <p className="text-slate-300 leading-relaxed">
-                            Patients anxious about their custom orthotics call the front desk constantly. "Are they ready yet?" This ties up your staff.
+                            Patients anxious about their custom orthotics call the front desk constantly. &quot;Are they ready yet?&quot; This ties up your staff.
                         </p>
                         <p className="text-slate-300 leading-relaxed mt-4">
-                            <strong>The Fix:</strong> An automated SMS/Voice system that updates the patient at every stage: "Scanned" -> "Fabricating" -> "Ready for Pickup." It proactively stops the inbound call volume.
+                            <strong>The Fix:</strong> An automated SMS/Voice system that updates the patient at every stage: &quot;Scanned&quot; &rarr; &quot;Fabricating&quot; &rarr; &quot;Ready for Pickup.&quot; It proactively stops the inbound call volume.
                         </p>
                     </div>
 
                     <section className="space-y-6">
                         <h2 className="text-2xl font-bold text-white">Waitlist Warrior</h2>
                         <p className="text-slate-400 leading-relaxed">
-                            When a patient cancels a Tuesday 10 AM slot, your AI agent instantly texts the top 5 people on your "Urgent" waitlist: "We had a last minute opening for tomorrow at 10 AM. First to reply YES gets it."
+                            When a patient cancels a Tuesday 10 AM slot, your AI agent instantly texts the top 5 people on your &quot;Urgent&quot; waitlist: &quot;We had a last minute opening for tomorrow at 10 AM. First to reply YES gets it.&quot;
                         </p>
                         <p className="text-slate-400 leading-relaxed">
                             The slot fills in 3 minutes. Your revenue for the day stays intact.

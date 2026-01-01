@@ -1,9 +1,6 @@
 import Link from 'next/link';
 
-export const metadata = {
-  title: 'Blog — Brandverse',
-  description: 'Insights and articles about AI voice automation, onboarding, scripts, and case studies for local businesses.',
-};
+
 
 import { articles } from '../lib/articles';
 

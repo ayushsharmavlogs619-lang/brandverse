@@ -45,7 +45,7 @@ import {
 import ChatWidget from './components/ChatWidget';
 import { articles } from './lib/articles';
 
-export default function Home() {
+export default function Page() {
   const [calculatorValue, setCalculatorValue] = useState(10);
   const avgJobValue = 300;
   const conversionRate = 0.4;
