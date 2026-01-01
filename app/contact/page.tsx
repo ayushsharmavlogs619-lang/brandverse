@@ -40,6 +40,16 @@ export default function ContactPage() {
                             </div>
 
                             <div className="flex items-start gap-4">
+                                <div className="p-3 rounded-lg bg-emerald-500/20 text-emerald-400">
+                                    <Phone className="w-6 h-6" />
+                                </div>
+                                <div>
+                                    <div className="text-sm text-slate-500 font-bold uppercase tracking-wider">Phone</div>
+                                    <a href="tel:+918851005278" className="text-white hover:text-emerald-400 transition-colors">+91 88510 05278</a>
+                                </div>
+                            </div>
+
+                            <div className="flex items-start gap-4">
                                 <div className="p-3 rounded-lg bg-purple-500/20 text-purple-400">
                                     <MessageSquare className="w-6 h-6" />
                                 </div>

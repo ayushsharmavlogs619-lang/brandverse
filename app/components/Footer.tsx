@@ -1,4 +1,4 @@
-import { Twitter, Linkedin, Instagram, Youtube, Mail } from 'lucide-react';
+import { Twitter, Linkedin, Instagram, Youtube, Mail, Phone } from 'lucide-react';
 import Link from 'next/link';
 
 export default function Footer() {
@@ -31,6 +31,10 @@ export default function Footer() {
                         <a href="mailto:ayush@brandverse.tech" className="flex items-center gap-3 text-slate-400 hover:text-white transition-colors group">
                             <Mail className="w-4 h-4 group-hover:text-blue-400" />
                             ayush@brandverse.tech
+                        </a>
+                        <a href="tel:+918851005278" className="flex items-center gap-3 text-slate-400 hover:text-white transition-colors group">
+                            <Phone className="w-4 h-4 group-hover:text-green-400" />
+                            +91 88510 05278
                         </a>
                         <div className="p-4 rounded-xl bg-green-500/10 border border-green-500/20 text-xs font-bold text-green-400 flex items-center gap-2">
                             <span className="relative flex h-2 w-2">
