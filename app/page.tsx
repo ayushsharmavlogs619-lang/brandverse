@@ -37,7 +37,10 @@ import {
   Workflow,
   Terminal,
   Layers,
-  Footprints
+  Footprints,
+  Check,
+  HelpCircle,
+  Play
 } from 'lucide-react';
 import ChatWidget from './components/ChatWidget';
 import { articles } from './lib/articles';
@@ -135,6 +138,46 @@ export default function Home() {
     }
   ];
 
+  const testimonials = [
+    {
+      quote: "We were losing 30+ calls a week. Brandverse installed their Voice Agent and our booking rate doubled overnight. The tech is actually scary good.",
+      author: "Mike Thompson",
+      role: "Owner, Thompson HVAC",
+      metric: "$42k/mo Added Revenue",
+    },
+    {
+      quote: "I was skeptical about AI answering phones. But the Brandverse agent sounds more professional than my front desk ever did. It never calls in sick.",
+      author: "Sarah Jenkins",
+      role: "Partner, Lawton & Associates",
+      metric: "ZERO Missed Calls",
+    },
+    {
+      quote: "The automated follow-up system they built is a beast. It resurrects dead leads from 6 months ago and puts them on my calendar.",
+      author: "David Chen",
+      role: "Broker, Apex Realty Group",
+      metric: "3x More Listings",
+    }
+  ];
+
+  const faq = [
+    {
+      q: "Will my customers know it's AI?",
+      a: "They might suspect it because it's polite, efficient, and never puts them on hold. But the voice quality is indistinguishable from a human on a slightly grainy cell connection. Most clients just think they're talking to a very sharp receptionist."
+    },
+    {
+      q: "How long does setup take?",
+      a: "We move fast. Kickoff to Go-Live is typically 48-72 hours. We don't drag projects out. We build your infrastructure, test it, and hand you the keys."
+    },
+    {
+      q: "Do I need to change my phone number?",
+      a: "No. We simply efficiently forward your missed calls to the AI agent, or port your main line if you want it taking 100% of traffic. Zero disruption to your business cards or truck wraps."
+    },
+    {
+      q: "What if the AI messes up?",
+      a: "Our agents are programmed with 'Safe Handoff' protocols. If a caller asks something complex or gets frustrated, the AI instantly forwards the call to your personal cell or an emergency backup line."
+    }
+  ];
+
   return (
     <div className="min-h-screen bg-[#020617] text-slate-100 selection:bg-blue-500/30 overflow-x-hidden pb-20 font-sans">
       {/* 🚀 GLOWING HEADER */}
@@ -148,10 +191,10 @@ export default function Home() {
           </div>
           <nav className="hidden lg:flex items-center gap-8 text-[11px] font-black uppercase tracking-widest text-slate-400">
             <Link href="#platform" className="hover:text-blue-400 transition-colors">Platform</Link>
+            <Link href="#hiring" className="hover:text-blue-400 transition-colors">Comparison</Link>
             <Link href="#industries" className="hover:text-blue-400 transition-colors">Industries</Link>
             <Link href="#roi" className="hover:text-blue-400 transition-colors">ROI Engine</Link>
             <Link href="/blog" className="hover:text-blue-400 transition-colors">Intelligence</Link>
-            <Link href="/about" className="hover:text-blue-400 transition-colors">Manifesto</Link>
           </nav>
           <div className="flex items-center gap-4">
             <Link href="/contact" className="hidden sm:block text-[11px] font-black uppercase tracking-widest text-blue-400 hover:text-white transition-colors">Client Login</Link>
@@ -170,18 +213,18 @@ export default function Home() {
             <div className="absolute top-20 left-1/4 w-[500px] h-[500px] bg-purple-600/10 blur-[100px] rounded-full opacity-30" />
           </div>
 
-          <div className="max-w-4xl mx-auto text-center space-y-10">
+          <div className="max-w-5xl mx-auto text-center space-y-10">
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-[10px] font-black uppercase tracking-[0.2em] animate-fade-in">
               <Zap className="w-3 h-3 fill-current" /> Enterprise AI Infrastructure Platform
             </div>
-            <h1 className="text-5xl md:text-8xl font-black text-white leading-none tracking-tighter uppercase italic">
+            <h1 className="text-5xl md:text-[5.5rem] font-black text-white leading-[0.9] tracking-tighter uppercase italic">
               We Build <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 animate-gradient">AI Operating Systems</span><br />
               For High-Growth <span className="text-blue-400 text-glow">Businesses</span>
             </h1>
-            <p className="text-slate-300 text-lg md:text-xl max-w-2xl mx-auto font-bold leading-relaxed">
+            <p className="text-slate-300 text-lg md:text-2xl max-w-3xl mx-auto font-bold leading-relaxed pt-4">
               Forget agencies. We're a <strong className="text-white">technology vendor</strong>. Custom Next.js applications, proprietary voice AI models, and headless automation APIs that replace entire departments—deployed in 48 hours.
             </p>
-            <div className="flex flex-col sm:flex-row justify-center items-center gap-6 pt-6">
+            <div className="flex flex-col sm:flex-row justify-center items-center gap-6 pt-12">
               <Link href="/contact" className="w-full sm:w-auto px-10 py-6 bg-brand-gradient text-white rounded-3xl font-black uppercase tracking-widest text-sm shadow-2xl shadow-blue-500/30 hover:scale-105 hover:shadow-blue-500/50 transition-all flex items-center justify-center gap-3">
                 Deploy Your Stack <ArrowRight className="w-5 h-5" />
               </Link>
@@ -192,8 +235,36 @@ export default function Home() {
           </div>
         </section>
 
+        {/* 🔧 TECH STACK SHOWCASE */}
+        <section className="py-20 px-6 border-b border-white/5">
+          <div className="max-w-7xl mx-auto">
+            <p className="text-center text-slate-500 text-xs font-black uppercase tracking-widest mb-10">Trusted Infrastructure Powered By</p>
+            <div className="flex flex-wrap justify-center gap-8 md:gap-16 opacity-50 grayscale hover:grayscale-0 transition-all duration-500">
+              {/* Logos could go here, using icons for now */}
+              <div className="flex items-center gap-2"><Code2 className="w-6 h-6" /> <span className="font-bold">Next.js</span></div>
+              <div className="flex items-center gap-2"><Database className="w-6 h-6" /> <span className="font-bold">Supabase</span></div>
+              <div className="flex items-center gap-2"><Mic className="w-6 h-6" /> <span className="font-bold">Vapi</span></div>
+              <div className="flex items-center gap-2"><Globe className="w-6 h-6" /> <span className="font-bold">Firebase</span></div>
+              <div className="flex items-center gap-2"><Rocket className="w-6 h-6" /> <span className="font-bold">Vercel</span></div>
+            </div>
+          </div>
+        </section>
+
+        {/* 🛑 THE PROBLEM (PAIN) */}
+        <section className="py-32 px-6 bg-black/40">
+          <div className="max-w-4xl mx-auto text-center space-y-6">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-red-500/10 border border-red-500/20 text-red-400 text-[10px] font-black uppercase tracking-[0.2em]">
+              <X className="w-3 h-3" /> The Silent Killer
+            </div>
+            <h2 className="text-4xl md:text-6xl font-black text-white uppercase italic tracking-tighter">Your Phone is <br /><span className="text-red-500">Bleeding Money</span></h2>
+            <p className="text-slate-400 text-lg md:text-xl font-medium leading-relaxed">
+              67% of callers hang up if they get voicemail. They don't leave a message—they call your competitor. Every missed call is a donation to the guy down the street who answered.
+            </p>
+          </div>
+        </section>
+
         {/* 🎯 PLATFORM CAPABILITIES */}
-        <section id="platform" className="px-6 py-32 bg-black/40 border-y border-white/5">
+        <section id="platform" className="px-6 py-32 border-y border-white/5 bg-gradient-to-b from-slate-900/0 to-slate-900/50">
           <div className="max-w-7xl mx-auto space-y-16">
             <div className="text-center space-y-6">
               <h2 className="text-5xl md:text-7xl font-black text-white uppercase italic tracking-tighter">
@@ -252,9 +323,9 @@ export default function Home() {
                   <div className="w-16 h-16 rounded-2xl bg-purple-600/20 flex items-center justify-center">
                     <Bot className="w-8 h-8 text-purple-400" />
                   </div>
-                  <h3 className="text-3xl font-black text-white uppercase italic tracking-tighter">Workflow Automation Engine</h3>
+                  <h3 className="text-3xl font-black text-white uppercase italic tracking-tighter">Workflow Engine</h3>
                   <p className="text-slate-300 font-medium leading-relaxed">
-                    Automate invoicing, contract generation, payment reminders, and collections with serverless functions that run on Firebase Cloud.
+                    Automate contracts, payments, and collections with serverless functions that run on Firebase Cloud.
                   </p>
                 </div>
               </div>
@@ -262,8 +333,54 @@ export default function Home() {
           </div>
         </section>
 
+        {/* ⚖️ VS COMPARISON TABLE */}
+        <section id="hiring" className="py-32 px-6 bg-black/40 border-y border-white/5">
+          <div className="max-w-5xl mx-auto space-y-16">
+            <div className="text-center space-y-6">
+              <h2 className="text-4xl md:text-6xl font-black text-white uppercase italic tracking-tighter">The Unfair <span className="text-green-500">Advantage</span></h2>
+            </div>
+            <div className="bg-slate-900/50 rounded-3xl border border-white/10 overflow-hidden">
+              <div className="grid grid-cols-3 p-6 border-b border-white/10 bg-slate-900/80 font-black uppercase tracking-widest text-xs text-slate-400">
+                <div>Feature</div>
+                <div className="text-center">Human Receptionist</div>
+                <div className="text-center text-blue-400">Brandverse AI</div>
+              </div>
+              {/* Row 1 */}
+              <div className="grid grid-cols-3 p-6 border-b border-white/5 hover:bg-white/5 transition-colors">
+                <div className="font-bold text-white">Cost Per Month</div>
+                <div className="text-center text-red-400">$3,500+</div>
+                <div className="text-center text-green-400 font-bold">$497 - $997</div>
+              </div>
+              {/* Row 2 */}
+              <div className="grid grid-cols-3 p-6 border-b border-white/5 hover:bg-white/5 transition-colors">
+                <div className="font-bold text-white">Availability</div>
+                <div className="text-center text-slate-400">40 Hours/Week</div>
+                <div className="text-center text-blue-400 font-bold">168 Hours/Week (24/7)</div>
+              </div>
+              {/* Row 3 */}
+              <div className="grid grid-cols-3 p-6 border-b border-white/5 hover:bg-white/5 transition-colors">
+                <div className="font-bold text-white">Capacity</div>
+                <div className="text-center text-slate-400">1 Call at a time</div>
+                <div className="text-center text-blue-400 font-bold">Unlimited Concurrent</div>
+              </div>
+              {/* Row 4 */}
+              <div className="grid grid-cols-3 p-6 border-b border-white/5 hover:bg-white/5 transition-colors">
+                <div className="font-bold text-white">Sick Days</div>
+                <div className="text-center text-slate-400">10+ Year</div>
+                <div className="text-center text-blue-400 font-bold">Zero</div>
+              </div>
+              {/* Row 5 */}
+              <div className="grid grid-cols-3 p-6 hover:bg-white/5 transition-colors">
+                <div className="font-bold text-white">Training Time</div>
+                <div className="text-center text-slate-400">3-4 Weeks</div>
+                <div className="text-center text-blue-400 font-bold">Instant Download</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* 🏭 INDUSTRY-SPECIFIC SECTIONS */}
-        <section id="industries" className="py-32 px-6 bg-black/40 border-y border-white/5">
+        <section id="industries" className="py-32 px-6">
           <div className="max-w-7xl mx-auto space-y-16">
             <div className="text-center space-y-6">
               <h2 className="text-5xl md:text-7xl font-black text-white uppercase italic tracking-tighter">
@@ -290,6 +407,39 @@ export default function Home() {
                   </div>
                 </div>
               ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ⚙️ HOW IT WORKS (PROCESS) */}
+        <section className="py-32 px-6 bg-black/40 border-y border-white/5">
+          <div className="max-w-7xl mx-auto space-y-20">
+            <div className="text-right space-y-4">
+              <h2 className="text-4xl md:text-6xl font-black text-white uppercase italic tracking-tighter">
+                Deployment <span className="text-blue-500">Protocol</span>
+              </h2>
+              <p className="text-slate-500 font-bold uppercase tracking-widest text-xs">From kickoff to autopilot in 48 hours</p>
+            </div>
+            <div className="grid md:grid-cols-3 gap-12 relative">
+              <div className="absolute top-1/2 left-0 w-full h-1 bg-white/5 -z-10 hidden md:block" />
+
+              <div className="relative group">
+                <div className="w-20 h-20 rounded-full bg-[#020617] border border-blue-500/30 flex items-center justify-center text-3xl font-black text-blue-500 mb-8 mx-auto group-hover:scale-110 transition-transform shadow-2xl shadow-blue-500/20">1</div>
+                <h3 className="text-xl font-bold text-white text-center mb-4">Discovery & Scripting</h3>
+                <p className="text-center text-slate-400 text-sm leading-relaxed">We audit your current phone flow, ingest your FAQs, and craft a bespoke conversation script that matches your brand voice perfectly.</p>
+              </div>
+
+              <div className="relative group">
+                <div className="w-20 h-20 rounded-full bg-[#020617] border border-purple-500/30 flex items-center justify-center text-3xl font-black text-purple-500 mb-8 mx-auto group-hover:scale-110 transition-transform shadow-2xl shadow-purple-500/20">2</div>
+                <h3 className="text-xl font-bold text-white text-center mb-4">Training & Integration</h3>
+                <p className="text-center text-slate-400 text-sm leading-relaxed">We fine-tune the LLM on your specific knowledge base and connect the voice API to your CRM (Salesforce, HubSpot, Zapier) for real-time data sync.</p>
+              </div>
+
+              <div className="relative group">
+                <div className="w-20 h-20 rounded-full bg-[#020617] border border-green-500/30 flex items-center justify-center text-3xl font-black text-green-500 mb-8 mx-auto group-hover:scale-110 transition-transform shadow-2xl shadow-green-500/20">3</div>
+                <h3 className="text-xl font-bold text-white text-center mb-4">Go Live & Optimize</h3>
+                <p className="text-center text-slate-400 text-sm leading-relaxed">We flip the switch. Your AI agent starts answering calls immediately. We monitor the first 100 calls to refine tone and accuracy to 99%.</p>
+              </div>
             </div>
           </div>
         </section>
@@ -347,28 +497,33 @@ export default function Home() {
           </div>
         </section>
 
-        {/* 🔧 TECH STACK SHOWCASE */}
-        <section className="py-32 px-6 bg-black/40 border-y border-white/5">
+        {/* ⭐ REVIEWS / TESTIMONIALS */}
+        <section className="py-32 px-6 bg-black/40 border-t border-white/5">
           <div className="max-w-7xl mx-auto space-y-16">
-            <div className="text-center space-y-6">
-              <h2 className="text-5xl md:text-7xl font-black text-white uppercase italic tracking-tighter">
-                Enterprise <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400">Technology Stack</span>
-              </h2>
-              <p className="text-slate-400 text-lg max-w-2xl mx-auto">
-                Your infrastructure runs on production-grade cloud architecture, not WordPress and Zapier duct tape.
-              </p>
+            <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
+              <div className="space-y-4">
+                <h2 className="text-4xl md:text-5xl font-black text-white uppercase italic tracking-tighter">Verified <span className="text-purple-500">Performance</span></h2>
+                <p className="text-slate-400 text-lg">Don't take our word for it.</p>
+              </div>
+              <div className="flex items-center gap-2 p-3 bg-white/5 rounded-full border border-white/10">
+                <div className="flex text-yellow-500">
+                  <Star className="w-4 h-4 fill-current" /><Star className="w-4 h-4 fill-current" /><Star className="w-4 h-4 fill-current" /><Star className="w-4 h-4 fill-current" /><Star className="w-4 h-4 fill-current" />
+                </div>
+                <span className="text-xs font-bold text-white uppercase tracking-widest">5.0 Star Average</span>
+              </div>
             </div>
 
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {techStack.map((tech, idx) => (
-                <div key={idx} className="group p-6 rounded-2xl bg-gradient-to-br from-slate-900/80 to-slate-900/40 border border-white/5 hover:border-blue-500/30 hover:shadow-xl hover:shadow-blue-500/10 transition-all">
-                  <div className="flex items-start gap-4">
-                    <div className="w-12 h-12 rounded-xl bg-blue-500/10 group-hover:bg-blue-500/20 transition-colors flex items-center justify-center shrink-0">
-                      <tech.icon className="w-6 h-6 text-blue-400" />
-                    </div>
+            <div className="grid md:grid-cols-3 gap-6">
+              {testimonials.map((t, idx) => (
+                <div key={idx} className="p-8 rounded-3xl bg-slate-900/50 border border-white/5 space-y-6">
+                  <div className="text-slate-300 italic leading-relaxed">"{t.quote}"</div>
+                  <div className="flex items-center justify-between pt-6 border-t border-white/5">
                     <div>
-                      <h4 className="text-lg font-black text-white mb-1">{tech.name}</h4>
-                      <p className="text-sm text-slate-400">{tech.description}</p>
+                      <div className="font-bold text-white">{t.author}</div>
+                      <div className="text-xs text-slate-500 uppercase tracking-wider">{t.role}</div>
+                    </div>
+                    <div className="text-right">
+                      <div className="text-green-400 text-xs font-black uppercase tracking-widest">{t.metric}</div>
                     </div>
                   </div>
                 </div>
@@ -377,54 +532,7 @@ export default function Home() {
           </div>
         </section>
 
-        {/* 📈 SOCIAL PROOF */}
-        <section className="py-32 px-6">
-          <div className="max-w-7xl mx-auto space-y-16">
-            <div className="text-center space-y-6">
-              <h2 className="text-5xl md:text-7xl font-black text-white uppercase italic tracking-tighter">
-                Production Metrics
-              </h2>
-              <p className="text-slate-400 text-sm uppercase tracking-widest">Real-time dashboards from live deployments</p>
-            </div>
-
-            <div className="grid md:grid-cols-4 gap-8">
-              <div className="text-center space-y-3 p-6 rounded-2xl bg-gradient-to-br from-blue-500/10 to-transparent border border-blue-500/20">
-                <div className="text-6xl font-black text-blue-400 italic">$2.4M+</div>
-                <div className="text-slate-400 font-bold uppercase tracking-widest text-xs">Revenue Generated</div>
-              </div>
-              <div className="text-center space-y-3 p-6 rounded-2xl bg-gradient-to-br from-purple-500/10 to-transparent border border-purple-500/20">
-                <div className="text-6xl font-black text-purple-400 italic">42%</div>
-                <div className="text-slate-400 font-bold uppercase tracking-widest text-xs">Avg ROI Increase</div>
-              </div>
-              <div className="text-center space-y-3 p-6 rounded-2xl bg-gradient-to-br from-green-500/10 to-transparent border border-green-500/20">
-                <div className="text-6xl font-black text-green-400 italic">87K+</div>
-                <div className="text-slate-400 font-bold uppercase tracking-widest text-xs">API Calls/Month</div>
-              </div>
-              <div className="text-center space-y-3 p-6 rounded-2xl bg-gradient-to-br from-cyan-500/10 to-transparent border border-cyan-500/20">
-                <div className="text-6xl font-black text-cyan-400 italic">99.9%</div>
-                <div className="text-slate-400 font-bold uppercase tracking-widest text-xs">Uptime SLA</div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Final CTA */}
-        <section className="py-32 px-6 text-center">
-          <div className="max-w-4xl mx-auto p-12 rounded-[4rem] bg-gradient-to-br from-blue-600/10 via-purple-600/10 to-pink-600/10 border border-white/5 shadow-2xl shadow-blue-500/10 space-y-10 relative overflow-hidden">
-            <div className="absolute top-0 right-0 w-64 h-64 bg-blue-600/20 blur-[100px] rounded-full" />
-            <div className="relative z-10 space-y-10">
-              <h2 className="text-4xl md:text-6xl font-black text-white uppercase italic tracking-tighter">Ready to Deploy?</h2>
-              <p className="text-slate-300 text-lg font-bold max-w-2xl mx-auto">
-                We take on <strong className="text-white">3 new infrastructure builds per month</strong>. Current availability for approved partners deploying in <strong className="text-blue-400">Q1 2026</strong>.
-              </p>
-              <Link href="/contact" className="inline-block px-12 py-6 bg-brand-gradient text-white rounded-2xl font-black uppercase tracking-widest text-sm shadow-2xl shadow-blue-500/30 hover:scale-105 hover:shadow-blue-500/50 transition-all">
-                Apply for Partnership
-              </Link>
-            </div>
-          </div>
-        </section>
-
-        {/* Latest Intelligence */}
+        {/* 🧠 LATEST INTELLIGENCE */}
         <section className="py-24 px-6 border-t border-white/5 bg-[#020617]">
           <div className="max-w-7xl mx-auto space-y-12">
             <div className="flex items-end justify-between border-b border-white/5 pb-8">
@@ -459,10 +567,41 @@ export default function Home() {
                 </Link>
               ))}
             </div>
+          </div>
+        </section>
 
-            <div className="md:hidden pt-4">
-              <Link href="/blog" className="flex items-center justify-center gap-2 text-sm font-bold uppercase tracking-widest text-blue-400 hover:text-white transition-colors">
-                View All Articles <ArrowRight className="w-4 h-4" />
+        {/* ❓ FAQ */}
+        <section className="py-24 px-6 border-t border-white/5">
+          <div className="max-w-4xl mx-auto space-y-16">
+            <div className="text-center">
+              <h2 className="text-3xl md:text-5xl font-black text-white uppercase italic tracking-tighter">Transmission <span className="text-slate-600">Logs</span></h2>
+              <p className="text-slate-500 text-sm font-bold uppercase tracking-widest mt-4">Frequently Asked Questions</p>
+            </div>
+            <div className="space-y-8">
+              {faq.map((item, idx) => (
+                <div key={idx} className="p-8 rounded-3xl bg-white/5 border border-white/5 hover:bg-white/[0.07] transition-all">
+                  <h3 className="text-lg font-bold text-white mb-3 flex items-start gap-3">
+                    <HelpCircle className="w-5 h-5 text-blue-500 mt-1 shrink-0" />
+                    {item.q}
+                  </h3>
+                  <p className="text-slate-400 leading-relaxed pl-8">{item.a}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Final CTA */}
+        <section className="py-32 px-6 text-center">
+          <div className="max-w-4xl mx-auto p-12 rounded-[4rem] bg-gradient-to-br from-blue-600/10 via-purple-600/10 to-pink-600/10 border border-white/5 shadow-2xl shadow-blue-500/10 space-y-10 relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-64 h-64 bg-blue-600/20 blur-[100px] rounded-full" />
+            <div className="relative z-10 space-y-10">
+              <h2 className="text-4xl md:text-6xl font-black text-white uppercase italic tracking-tighter">Ready to Deploy?</h2>
+              <p className="text-slate-300 text-lg font-bold max-w-2xl mx-auto">
+                We take on <strong className="text-white">3 new infrastructure builds per month</strong>. Current availability for approved partners deploying in <strong className="text-blue-400">Q1 2026</strong>.
+              </p>
+              <Link href="/contact" className="inline-block px-12 py-6 bg-brand-gradient text-white rounded-2xl font-black uppercase tracking-widest text-sm shadow-2xl shadow-blue-500/30 hover:scale-105 hover:shadow-blue-500/50 transition-all">
+                Apply for Partnership
               </Link>
             </div>
           </div>
