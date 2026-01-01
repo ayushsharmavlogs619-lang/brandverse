@@ -14,6 +14,11 @@ const categoryColors: Record<string, { text: string; border: string }> = {
     'Case Study': { text: 'text-blue-400', border: 'border-blue-500/30' },
     'Financial Strategy': { text: 'text-cyan-400', border: 'border-cyan-500/30' },
     'Growth': { text: 'text-orange-400', border: 'border-orange-500/30' },
+    'Business Strategy': { text: 'text-violet-400', border: 'border-violet-500/30' },
+    'Marketing Intelligence': { text: 'text-emerald-400', border: 'border-emerald-500/30' },
+    'Operational Efficiency': { text: 'text-cyan-400', border: 'border-cyan-500/30' },
+    'Brand Authority': { text: 'text-amber-400', border: 'border-amber-500/30' },
+    'Profit Protection': { text: 'text-red-400', border: 'border-red-500/30' },
 };
 
 export default function RelatedArticles({ currentSlug }: RelatedArticlesProps) {

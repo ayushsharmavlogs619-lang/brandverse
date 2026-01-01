@@ -8,6 +8,41 @@ export interface Article {
 
 export const articles: Article[] = [
     {
+        slug: 'scaling-vs-swelling-automation',
+        title: 'Scaling vs. Swelling: The Difference That Kills Companies',
+        excerpt: 'Most businesses don\'t scale; they swell. Learn how to grow your revenue without bloating your payroll.',
+        date: 'Jan 1, 2025',
+        category: 'Business Strategy'
+    },
+    {
+        slug: 'cure-data-blindness-analytics',
+        title: 'Cure Data Blindness: Stop Guessing Where Your Money Is',
+        excerpt: 'You are flying blind. Precision analytics reveals exactly where you are losing revenue in your funnel.',
+        date: 'Jan 1, 2025',
+        category: 'Marketing Intelligence'
+    },
+    {
+        slug: '24-7-employee-paradox',
+        title: 'The 24/7 Employee Paradox: Doing More by Doing Less',
+        excerpt: 'Stop hiring humans for robot jobs. Get the output of a 10-person team for a fraction of the cost.',
+        date: 'Jan 1, 2025',
+        category: 'Operational Efficiency'
+    },
+    {
+        slug: 'hidden-cost-good-enough-web-design',
+        title: 'The Hidden Cost of "Good Enough" Web Design',
+        excerpt: 'A "good enough" website is costing you your best clients. Premium design is the only way to command premium prices.',
+        date: 'Jan 1, 2025',
+        category: 'Brand Authority'
+    },
+    {
+        slug: 'stop-burning-cash-customer-support',
+        title: 'Stop Burning Cash on Customer Support',
+        excerpt: 'Manual support is bleeding your margins. AI Agents resolve 90% of queries instantly for pennies.',
+        date: 'Jan 1, 2025',
+        category: 'Profit Protection'
+    },
+    {
         slug: 'why-never-regret-ai-agents',
         title: 'Why Smart Business Owners Choose AI Voice Agents (And Never Look Back)',
         excerpt: 'The decision that pays for itself in 48 hours. Zero regrets. Ever.',

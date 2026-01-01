@@ -3,8 +3,9 @@ import { ArrowLeft, Clock, Moon, TrendingUp, Phone, Calendar, Zap } from 'lucide
 import RelatedArticles from '../../components/RelatedArticles';
 
 export const metadata = {
-    title: 'Your 24/7 Sales Team: Why "Business Hours" Are Killing Your Growth — Brandverse',
+    title: 'Your 24/7 Sales Team: Why "Business Hours" Are Killing Your Growth | Brandverse',
     description: 'The modern consumer doesn\'t wait for 9 AM. Learn how an always-on AI sales team captures the 40% of leads you\'re currently ignoring.',
+    keywords: ['24/7 sales team', 'after hours lead capture', 'AI sales agents', 'missed call automation', 'increase conversion from leads'],
 };
 
 export default function Post() {
@@ -31,6 +32,14 @@ export default function Post() {
 
             <main className="px-6 py-20">
                 <article className="max-w-3xl mx-auto space-y-16">
+
+                    {/* AEO: Quick Answer Block */}
+                    <div className="p-6 rounded-2xl bg-white/5 border-l-4 border-indigo-500">
+                        <h2 className="text-lg font-bold text-white mb-2">How many leads are lost after business hours?</h2>
+                        <p className="text-slate-300 leading-relaxed">
+                            Data across service industries shows that approximately <strong>42%</strong> of high-intent leads call between 5 PM and 9 AM or on weekends. Since voicemails are only returned <strong>15%</strong> of the time, relying on "business hours" means you are likely forfeiting nearly half of your potential revenue to competitors who answer immediately.
+                        </p>
+                    </div>
 
                     <section className="space-y-6">
                         <h2 className="text-2xl font-black text-white uppercase italic tracking-wide">The "Amazon Effect" on Local Services</h2>

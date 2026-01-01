@@ -3,8 +3,9 @@ import { ArrowLeft, Trash2, StopCircle, DollarSign, Filter, Search } from 'lucid
 import RelatedArticles from '../../components/RelatedArticles';
 
 export const metadata = {
-    title: 'Stop Paying for Ads Until You Fix This One Phone Problem — Brandverse',
-    description: 'You are pouring water into a bucket with a hole in the bottom. Fix your lead capture rate before you spend another cent on Google Ads.',
+    title: 'Stop Paying for Ads Until You Fix This One Phone Problem | Brandverse',
+    description: 'You are pouring water into a leaky bucket. Learn why 35% of your paid traffic is wasted on unanswered calls and how AI fixes it.',
+    keywords: ['leaky marketing funnel', 'missed call cost', 'ad spend ROI', 'marketing conversion optimization', 'AI lead capture'],
 };
 
 export default function Post() {
@@ -31,6 +32,14 @@ export default function Post() {
 
             <main className="px-6 py-20">
                 <article className="max-w-3xl mx-auto space-y-16">
+
+                    {/* AEO: Quick Answer Block */}
+                    <div className="p-6 rounded-2xl bg-white/5 border-l-4 border-orange-500">
+                        <h2 className="text-lg font-bold text-white mb-2">Why are my ads generating calls but no sales?</h2>
+                        <p className="text-slate-300 leading-relaxed">
+                            The most common reason is the "Leaky Bucket" syndrome: approximately <strong>30-35%</strong> of inbound calls from ads go to voicemail or are missed entirely. For a business spending $5,000/month on ads, this means <strong>$1,750</strong> is wasted solely on unanswered calls. Fixing call handling often doubles ROI without increasing ad spend.
+                        </p>
+                    </div>
 
                     <section className="space-y-6">
                         <h2 className="text-2xl font-black text-white uppercase italic tracking-wide">The "Leaky Bucket" Syndrome</h2>
