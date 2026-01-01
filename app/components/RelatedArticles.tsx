@@ -19,6 +19,7 @@ const categoryColors: Record<string, { text: string; border: string }> = {
     'Operational Efficiency': { text: 'text-cyan-400', border: 'border-cyan-500/30' },
     'Brand Authority': { text: 'text-amber-400', border: 'border-amber-500/30' },
     'Profit Protection': { text: 'text-red-400', border: 'border-red-500/30' },
+    'Industry Focus': { text: 'text-sky-400', border: 'border-sky-500/30' },
 };
 
 export default function RelatedArticles({ currentSlug }: RelatedArticlesProps) {

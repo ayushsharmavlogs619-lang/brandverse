@@ -126,6 +126,62 @@ export const articles: Article[] = [
         date: 'Dec 12, 2024',
         category: 'Growth'
     },
+    {
+        slug: 'hvac-dispatch-automation',
+        title: 'Why 78% of Emergency Plumbing Calls Go to Voicemail',
+        excerpt: 'Stop losing jobs to competitors. Learn how AI dispatchers verify emergencies and book jobs 24/7.',
+        date: 'Jan 2, 2025',
+        category: 'Industry Focus'
+    },
+    {
+        slug: 'real-estate-lead-speed',
+        title: 'The 5-Minute Lead Rule: How Top Realtors Automate Follow-Up',
+        excerpt: 'Lead response time is the #1 predictor of conversion. Automate your Zillow lead nurture.',
+        date: 'Jan 2, 2025',
+        category: 'Industry Focus'
+    },
+    {
+        slug: 'legal-intake-ethics',
+        title: 'Stop Missing Clients: The Ethics of AI Legal Intake',
+        excerpt: 'Law firms lose high-value cases to missed calls. Use AI for secure, instant client intake.',
+        date: 'Jan 2, 2025',
+        category: 'Industry Focus'
+    },
+    {
+        slug: 'construction-bidding-automation',
+        title: 'Automating Bids: How to Quote Jobs While You Sleep',
+        excerpt: 'Stop driving for tire kickers. Pre-qualify construction leads automatically.',
+        date: 'Jan 2, 2025',
+        category: 'Industry Focus'
+    },
+    {
+        slug: 'healthcare-no-show-cure',
+        title: 'The No-Show Cure: AI Appointment Reminders for Clinics',
+        excerpt: 'Eliminate schedule gaps with conversational AI that fills cancellations instantly.',
+        date: 'Jan 2, 2025',
+        category: 'Industry Focus'
+    },
+    {
+        slug: 'auto-service-retention',
+        title: 'Fill Your Bays: Automating Service Reminders for Auto Shops',
+        excerpt: 'Predictive maintenance texts that drive repeat business without postcard waste.',
+        date: 'Jan 2, 2025',
+        category: 'Industry Focus'
+    },
+    {
+        slug: 'podiatry-patient-growth',
+        title: 'Step Up Your Practice: Filling Cancellations with AI in Podiatry',
+        excerpt: 'Automate orthotic updates and fill last-minute slots from your waitlist.',
+        date: 'Jan 2, 2025',
+        category: 'Industry Focus'
+    },
+    {
+        slug: 'dermatology-cosmetic-bookings',
+        title: 'Cosmetic Consultations on Autopilot: Filtering Serious Patients',
+        excerpt: 'Use AI deposit collection to filter out tire kickers from high-value patients.',
+        date: 'Jan 2, 2025',
+        category: 'Industry Focus'
+    },
 ];
 
 /**
