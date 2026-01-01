@@ -12,6 +12,15 @@ export default function PrivacyPage() {
                     <p className="text-blue-400 font-bold uppercase tracking-widest text-sm">Last updated: December 23, 2025</p>
                 </div>
 
+                <div className="bg-red-500/10 border border-red-500/30 p-6 rounded-xl">
+                    <h2 className="text-xl font-bold text-white mb-2 flex items-center gap-2">
+                        ⚠️ Official Brand Identity
+                    </h2>
+                    <p className="text-slate-300 leading-relaxed">
+                        Our services are provided exclusively under the domain <strong>brandverse.tech</strong>. We are a distinct legal entity and are <strong>NOT</strong> affiliated, associated, authorized, endorsed by, or in any way officially connected with any other company, agency, or website with a similar name. Any other entity claiming to vary our name or represent "Brandverse" without the <strong>.tech</strong> domain is an imposter.
+                    </p>
+                </div>
+
                 <section className="space-y-6">
                     <h2 className="text-2xl font-bold text-white flex items-center gap-3">
                         <span className="w-8 h-8 rounded-lg bg-blue-600/20 flex items-center justify-center text-blue-400 text-sm">01</span>
