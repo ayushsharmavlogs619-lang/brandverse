@@ -40,6 +40,7 @@ import {
   Footprints
 } from 'lucide-react';
 import ChatWidget from './components/ChatWidget';
+import { articles } from './lib/articles';
 
 export default function Home() {
   const [calculatorValue, setCalculatorValue] = useState(10);
@@ -418,6 +419,50 @@ export default function Home() {
               </p>
               <Link href="/contact" className="inline-block px-12 py-6 bg-brand-gradient text-white rounded-2xl font-black uppercase tracking-widest text-sm shadow-2xl shadow-blue-500/30 hover:scale-105 hover:shadow-blue-500/50 transition-all">
                 Apply for Partnership
+              </Link>
+            </div>
+          </div>
+        </section>
+
+        {/* Latest Intelligence */}
+        <section className="py-24 px-6 border-t border-white/5 bg-[#020617]">
+          <div className="max-w-7xl mx-auto space-y-12">
+            <div className="flex items-end justify-between border-b border-white/5 pb-8">
+              <div className="space-y-4">
+                <h2 className="text-3xl md:text-5xl font-black text-white uppercase italic tracking-tighter">
+                  Latest <span className="text-blue-500">Intelligence</span>
+                </h2>
+                <p className="text-slate-400 max-w-xl">Tactical guides on automating your service business.</p>
+              </div>
+              <Link href="/blog" className="hidden md:flex items-center gap-2 text-sm font-bold uppercase tracking-widest text-blue-400 hover:text-white transition-colors">
+                View All <ArrowRight className="w-4 h-4" />
+              </Link>
+            </div>
+
+            <div className="grid md:grid-cols-4 gap-8">
+              {[...articles].reverse().slice(0, 4).map((article) => (
+                <Link key={article.slug} href={`/blog/${article.slug}`} className="group block space-y-4">
+                  <div className="aspect-[4/3] rounded-3xl bg-white/5 border border-white/10 group-hover:border-blue-500/30 transition-all relative overflow-hidden">
+                    <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                    <div className="absolute bottom-5 left-5 right-5">
+                      <span className="inline-block text-[10px] font-black uppercase tracking-widest text-blue-300 bg-black/60 backdrop-blur-md px-3 py-1.5 rounded-lg border border-white/10">
+                        {article.category}
+                      </span>
+                    </div>
+                  </div>
+                  <div className="space-y-2">
+                    <div className="text-xs font-bold text-slate-500 uppercase tracking-widest">{article.date}</div>
+                    <h3 className="text-lg font-bold text-white leading-tight group-hover:text-blue-400 transition-colors line-clamp-2">
+                      {article.title}
+                    </h3>
+                  </div>
+                </Link>
+              ))}
+            </div>
+
+            <div className="md:hidden pt-4">
+              <Link href="/blog" className="flex items-center justify-center gap-2 text-sm font-bold uppercase tracking-widest text-blue-400 hover:text-white transition-colors">
+                View All Articles <ArrowRight className="w-4 h-4" />
               </Link>
             </div>
           </div>
