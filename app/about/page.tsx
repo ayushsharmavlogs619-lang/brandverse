@@ -192,11 +192,7 @@ export default function AboutPage() {
         </div>
       </main>
 
-      <footer className="py-12 border-t border-white/5 bg-[#020617] text-center">
-        <div className="text-slate-500 text-sm">
-          © 2025 Brandverse.Tech Technologies. Built for performance.
-        </div>
-      </footer>
+
     </div>
   );
 }
