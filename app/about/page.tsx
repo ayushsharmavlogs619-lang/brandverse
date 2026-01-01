@@ -78,8 +78,7 @@ export default function AboutPage() {
             </div>
           </section>
 
-          {/* Vision Statement */}
-          {/* The Team */}
+          {/* Leadership Team */}
           <section className="space-y-16">
             <div className="text-center space-y-4">
               <h2 className="text-3xl md:text-5xl font-black text-white uppercase italic tracking-tighter">Leadership</h2>
@@ -112,12 +111,12 @@ export default function AboutPage() {
                 <p className="text-slate-500 text-sm leading-relaxed">Ensuring enterprise-grade compliance, data sovereignty, and regulatory adherence across all deployments.</p>
               </div>
 
-              {/* Rohit Monga */}
+              {/* Krishanu Maik */}
               <div className="p-6 rounded-3xl bg-white/5 border border-white/10 group hover:border-white/20 transition-all">
-                <div className="w-16 h-16 rounded-2xl bg-slate-800 flex items-center justify-center text-xl font-bold text-white mb-6 group-hover:scale-110 transition-transform">RM</div>
-                <h3 className="text-xl font-bold text-white mb-1">Rohit Monga</h3>
-                <div className="text-slate-500 font-bold uppercase tracking-widest text-[10px] mb-4">Senior Solutions Architect</div>
-                <p className="text-slate-500 text-sm leading-relaxed">Lead engineer for custom integrations and complex backend workflows.</p>
+                <div className="w-16 h-16 rounded-2xl bg-slate-800 flex items-center justify-center text-xl font-bold text-white mb-6 group-hover:scale-110 transition-transform">KM</div>
+                <h3 className="text-xl font-bold text-white mb-1">Krishanu Maik</h3>
+                <div className="text-slate-500 font-bold uppercase tracking-widest text-[10px] mb-4">Director of Sales (APAC)</div>
+                <p className="text-slate-500 text-sm leading-relaxed">Leading expansion and partnerships across Australia, New Zealand, and Asia-Pacific markets.</p>
               </div>
 
               {/* Siddhant Mohapatra */}
@@ -128,12 +127,20 @@ export default function AboutPage() {
                 <p className="text-slate-500 text-sm leading-relaxed">Leading our expansion into European and LATAM territories with enterprise-grade solutions.</p>
               </div>
 
-              {/* Krishanu Maik */}
+              {/* Rohit Monga (Boss) */}
+              <div className="p-6 rounded-3xl bg-purple-900/10 border border-purple-500/20 group hover:bg-purple-900/20 transition-all">
+                <div className="w-16 h-16 rounded-2xl bg-slate-800 flex items-center justify-center text-xl font-bold text-white mb-6 group-hover:scale-110 transition-transform">RM</div>
+                <h3 className="text-xl font-bold text-white mb-1">Rohit Monga</h3>
+                <div className="text-purple-400 font-bold uppercase tracking-widest text-[10px] mb-4">Director of Backend Engineering</div>
+                <p className="text-slate-400 text-sm leading-relaxed">Head of Backend Systems. Overseeing core processing pipelines, reliability, and architectural decisions.</p>
+              </div>
+
+              {/* Harsh Varma (Subordinate) */}
               <div className="p-6 rounded-3xl bg-white/5 border border-white/10 group hover:border-white/20 transition-all">
-                <div className="w-16 h-16 rounded-2xl bg-slate-800 flex items-center justify-center text-xl font-bold text-white mb-6 group-hover:scale-110 transition-transform">KM</div>
-                <h3 className="text-xl font-bold text-white mb-1">Krishanu Maik</h3>
-                <div className="text-slate-500 font-bold uppercase tracking-widest text-[10px] mb-4">Director of Sales (APAC)</div>
-                <p className="text-slate-500 text-sm leading-relaxed">Leading expansion and partnerships across Australia, New Zealand, and Asia-Pacific markets.</p>
+                <div className="w-16 h-16 rounded-2xl bg-slate-800 flex items-center justify-center text-xl font-bold text-white mb-6 group-hover:scale-110 transition-transform">HV</div>
+                <h3 className="text-xl font-bold text-white mb-1">Harsh Varma</h3>
+                <div className="text-slate-500 font-bold uppercase tracking-widest text-[10px] mb-4">Backend Systems Architect</div>
+                <p className="text-slate-500 text-sm leading-relaxed">Architecting scalable backend infrastructure and robust integrations under Rohit's leadership.</p>
               </div>
 
               {/* Arjun Nair */}
