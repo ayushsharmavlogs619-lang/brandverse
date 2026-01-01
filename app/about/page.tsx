@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { Shield, Zap, Target, Lock } from 'lucide-react';
+import TeamMember from '../components/TeamMember';
 
 export const metadata = {
   title: 'About — Brandverse',
@@ -7,6 +8,75 @@ export const metadata = {
 };
 
 export default function AboutPage() {
+  const team = [
+    {
+      name: "Ayush Sharma",
+      role: "Founder & CEO",
+      description: "Visionary leader driving the transition from manual operations to autonomous enterprise infrastructure.",
+      initials: "AS",
+      imageSrc: "/team/ayush.jpg",
+      color: "blue" as const
+    },
+    {
+      name: "Arjun Sen",
+      role: "Co-Founder & CTO",
+      description: "The architectural genius behind our core technology stack. His code lives on in every system we deploy.",
+      initials: "AS",
+      imageSrc: "/team/arjun-sen.jpg",
+      color: "purple" as const,
+      isLegacy: true
+    },
+    {
+      name: "Raveena Kataria",
+      role: "Co-Founder & Legal Counsel",
+      description: "Ensuring enterprise-grade compliance, data sovereignty, and regulatory adherence across all deployments.",
+      initials: "RK",
+      imageSrc: "/team/raveena.jpg",
+    },
+    {
+      name: "Krishanu Maik",
+      role: "Director of Sales (APAC)",
+      description: "Leading expansion and partnerships across Australia, New Zealand, and Asia-Pacific markets.",
+      initials: "KM",
+      imageSrc: "/team/krishanu.jpg",
+    },
+    {
+      name: "Siddhant Mohapatra",
+      role: "Director of Sales (Europe & South America)",
+      description: "Leading our expansion into European and LATAM territories with enterprise-grade solutions.",
+      initials: "SM",
+      imageSrc: "/team/siddhant.jpg",
+    },
+    {
+      name: "Rohit Monga",
+      role: "Director of Backend Engineering",
+      description: "Head of Backend Systems. Overseeing core processing pipelines, reliability, and architectural decisions.",
+      initials: "RM",
+      imageSrc: "/team/rohit.jpg",
+    },
+    {
+      name: "Harsh Varma",
+      role: "Backend Systems Architect",
+      description: "Architecting scalable backend infrastructure and robust integrations under Rohit's leadership.",
+      initials: "HV",
+      imageSrc: "/team/harsh.jpg",
+    },
+    {
+      name: "Arjun Nair",
+      role: "Director of Sales (Middle East & Asia)",
+      description: "Driving strategic partnerships and growth across the Middle East and Asian markets.",
+      initials: "AN",
+      imageSrc: "/team/arjun-nair.jpg",
+    },
+    {
+      name: "Amit Tiwari",
+      role: "Head of Customer Success",
+      description: "Ensuring every partner deployment achieves maximum ROI and long-term stability.",
+      initials: "AT",
+      imageSrc: "/team/amit.jpg",
+    }
+  ];
+
   return (
     <div className="min-h-screen bg-[#020617] text-slate-200 selection:bg-blue-500/30">
       <nav className="fixed top-0 w-full z-50 bg-[#020617]/80 backdrop-blur-md border-b border-white/5">
@@ -86,78 +156,11 @@ export default function AboutPage() {
             </div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {/* Ayush Sharma */}
-              <div className="p-6 rounded-3xl bg-blue-900/10 border border-blue-500/20 group hover:bg-blue-900/20 transition-all">
-                <div className="w-16 h-16 rounded-2xl bg-blue-600 flex items-center justify-center text-xl font-bold text-white mb-6 shadow-lg shadow-blue-500/20 group-hover:scale-110 transition-transform">AS</div>
-                <h3 className="text-2xl font-bold text-white mb-1">Ayush Sharma</h3>
-                <div className="text-blue-400 font-bold uppercase tracking-widest text-xs mb-4">Founder & CEO</div>
-                <p className="text-slate-400 text-sm leading-relaxed">Visionary leader driving the transition from manual operations to autonomous enterprise infrastructure.</p>
-              </div>
-
-              {/* Arjun Sen */}
-              <div className="p-6 rounded-3xl bg-purple-900/10 border border-purple-500/20 group hover:bg-purple-900/20 transition-all relative overflow-hidden">
-                <div className="absolute top-4 right-4 text-[10px] font-black uppercase tracking-widest text-purple-400/50">Legacy</div>
-                <div className="w-16 h-16 rounded-2xl bg-purple-600 flex items-center justify-center text-xl font-bold text-white mb-6 shadow-lg shadow-purple-500/20 group-hover:scale-110 transition-transform">AS</div>
-                <h3 className="text-2xl font-bold text-white mb-1">Arjun Sen</h3>
-                <div className="text-purple-400 font-bold uppercase tracking-widest text-xs mb-4">Co-Founder & CTO</div>
-                <p className="text-slate-400 text-sm leading-relaxed">The architectural genius behind our core technology stack. His code lives on in every system we deploy.</p>
-              </div>
-
-              {/* Raveena Kataria */}
-              <div className="p-6 rounded-3xl bg-white/5 border border-white/10 group hover:border-white/20 transition-all">
-                <div className="w-16 h-16 rounded-2xl bg-slate-700 flex items-center justify-center text-xl font-bold text-white mb-6 group-hover:scale-110 transition-transform">RK</div>
-                <h3 className="text-2xl font-bold text-white mb-1">Raveena Kataria</h3>
-                <div className="text-slate-400 font-bold uppercase tracking-widest text-xs mb-4">Co-Founder & Legal Counsel</div>
-                <p className="text-slate-500 text-sm leading-relaxed">Ensuring enterprise-grade compliance, data sovereignty, and regulatory adherence across all deployments.</p>
-              </div>
-
-              {/* Krishanu Maik */}
-              <div className="p-6 rounded-3xl bg-white/5 border border-white/10 group hover:border-white/20 transition-all">
-                <div className="w-16 h-16 rounded-2xl bg-slate-800 flex items-center justify-center text-xl font-bold text-white mb-6 group-hover:scale-110 transition-transform">KM</div>
-                <h3 className="text-xl font-bold text-white mb-1">Krishanu Maik</h3>
-                <div className="text-slate-500 font-bold uppercase tracking-widest text-[10px] mb-4">Director of Sales (APAC)</div>
-                <p className="text-slate-500 text-sm leading-relaxed">Leading expansion and partnerships across Australia, New Zealand, and Asia-Pacific markets.</p>
-              </div>
-
-              {/* Siddhant Mohapatra */}
-              <div className="p-6 rounded-3xl bg-white/5 border border-white/10 group hover:border-white/20 transition-all">
-                <div className="w-16 h-16 rounded-2xl bg-slate-800 flex items-center justify-center text-xl font-bold text-white mb-6 group-hover:scale-110 transition-transform">SM</div>
-                <h3 className="text-xl font-bold text-white mb-1">Siddhant Mohapatra</h3>
-                <div className="text-slate-500 font-bold uppercase tracking-widest text-[10px] mb-4">Director of Sales (Europe & South America)</div>
-                <p className="text-slate-500 text-sm leading-relaxed">Leading our expansion into European and LATAM territories with enterprise-grade solutions.</p>
-              </div>
-
-              {/* Rohit Monga (Boss) */}
-              <div className="p-6 rounded-3xl bg-purple-900/10 border border-purple-500/20 group hover:bg-purple-900/20 transition-all">
-                <div className="w-16 h-16 rounded-2xl bg-slate-800 flex items-center justify-center text-xl font-bold text-white mb-6 group-hover:scale-110 transition-transform">RM</div>
-                <h3 className="text-xl font-bold text-white mb-1">Rohit Monga</h3>
-                <div className="text-purple-400 font-bold uppercase tracking-widest text-[10px] mb-4">Director of Backend Engineering</div>
-                <p className="text-slate-400 text-sm leading-relaxed">Head of Backend Systems. Overseeing core processing pipelines, reliability, and architectural decisions.</p>
-              </div>
-
-              {/* Harsh Varma (Subordinate) */}
-              <div className="p-6 rounded-3xl bg-white/5 border border-white/10 group hover:border-white/20 transition-all">
-                <div className="w-16 h-16 rounded-2xl bg-slate-800 flex items-center justify-center text-xl font-bold text-white mb-6 group-hover:scale-110 transition-transform">HV</div>
-                <h3 className="text-xl font-bold text-white mb-1">Harsh Varma</h3>
-                <div className="text-slate-500 font-bold uppercase tracking-widest text-[10px] mb-4">Backend Systems Architect</div>
-                <p className="text-slate-500 text-sm leading-relaxed">Architecting scalable backend infrastructure and robust integrations under Rohit's leadership.</p>
-              </div>
-
-              {/* Arjun Nair */}
-              <div className="p-6 rounded-3xl bg-white/5 border border-white/10 group hover:border-white/20 transition-all">
-                <div className="w-16 h-16 rounded-2xl bg-slate-800 flex items-center justify-center text-xl font-bold text-white mb-6 group-hover:scale-110 transition-transform">AN</div>
-                <h3 className="text-xl font-bold text-white mb-1">Arjun Nair</h3>
-                <div className="text-slate-500 font-bold uppercase tracking-widest text-[10px] mb-4">Director of Sales (Middle East & Asia)</div>
-                <p className="text-slate-500 text-sm leading-relaxed">Driving strategic partnerships and growth across the Middle East and Asian markets.</p>
-              </div>
-
-              {/* Amit Tiwari */}
-              <div className="p-6 rounded-3xl bg-white/5 border border-white/10 group hover:border-white/20 transition-all lg:col-span-3 lg:w-1/3 lg:mx-auto">
-                <div className="w-16 h-16 rounded-2xl bg-slate-800 flex items-center justify-center text-xl font-bold text-white mb-6 group-hover:scale-110 transition-transform">AT</div>
-                <h3 className="text-xl font-bold text-white mb-1">Amit Tiwari</h3>
-                <div className="text-slate-500 font-bold uppercase tracking-widest text-[10px] mb-4">Head of Customer Success</div>
-                <p className="text-slate-500 text-sm leading-relaxed">Ensuring every partner deployment achieves maximum ROI and long-term stability.</p>
-              </div>
+              {team.map((member, idx) => (
+                <div key={idx} className={member.name === "Amit Tiwari" ? "lg:col-span-3 lg:w-1/3 lg:mx-auto" : ""}>
+                  <TeamMember {...member} color={member.color} />
+                </div>
+              ))}
             </div>
           </section>
 
@@ -175,7 +178,7 @@ export default function AboutPage() {
                 </p>
               </div>
               <div className="mt-10 pt-10 border-t border-white/10 flex items-center gap-4">
-                <div className="w-12 h-12 rounded-full bg-blue-600 flex items-center justify-center font-bold text-white">
+                <div className="w-12 h-12 rounded-full bg-blue-600 flex items-center justify-center font-bold text-white shadow-lg shadow-blue-500/20">
                   AS
                 </div>
                 <div>
