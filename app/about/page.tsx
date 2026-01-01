@@ -79,6 +79,74 @@ export default function AboutPage() {
           </section>
 
           {/* Vision Statement */}
+          {/* The Team */}
+          <section className="space-y-16">
+            <div className="text-center space-y-4">
+              <h2 className="text-3xl md:text-5xl font-black text-white uppercase italic tracking-tighter">Leadership</h2>
+              <p className="text-slate-400 max-w-2xl mx-auto">The minds building the infrastructure of tomorrow.</p>
+            </div>
+
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {/* Ayush Sharma */}
+              <div className="p-6 rounded-3xl bg-blue-900/10 border border-blue-500/20 group hover:bg-blue-900/20 transition-all">
+                <div className="w-16 h-16 rounded-2xl bg-blue-600 flex items-center justify-center text-xl font-bold text-white mb-6 shadow-lg shadow-blue-500/20 group-hover:scale-110 transition-transform">AS</div>
+                <h3 className="text-2xl font-bold text-white mb-1">Ayush Sharma</h3>
+                <div className="text-blue-400 font-bold uppercase tracking-widest text-xs mb-4">Founder & CEO</div>
+                <p className="text-slate-400 text-sm leading-relaxed">Visionary leader driving the transition from manual operations to autonomous enterprise infrastructure.</p>
+              </div>
+
+              {/* Arjun Sen */}
+              <div className="p-6 rounded-3xl bg-purple-900/10 border border-purple-500/20 group hover:bg-purple-900/20 transition-all relative overflow-hidden">
+                <div className="absolute top-4 right-4 text-[10px] font-black uppercase tracking-widest text-purple-400/50">Legacy</div>
+                <div className="w-16 h-16 rounded-2xl bg-purple-600 flex items-center justify-center text-xl font-bold text-white mb-6 shadow-lg shadow-purple-500/20 group-hover:scale-110 transition-transform">AS</div>
+                <h3 className="text-2xl font-bold text-white mb-1">Arjun Sen</h3>
+                <div className="text-purple-400 font-bold uppercase tracking-widest text-xs mb-4">Co-Founder & CTO</div>
+                <p className="text-slate-400 text-sm leading-relaxed">The architectural genius behind our core technology stack. His code lives on in every system we deploy.</p>
+              </div>
+
+              {/* Raveena Kataria */}
+              <div className="p-6 rounded-3xl bg-white/5 border border-white/10 group hover:border-white/20 transition-all">
+                <div className="w-16 h-16 rounded-2xl bg-slate-700 flex items-center justify-center text-xl font-bold text-white mb-6 group-hover:scale-110 transition-transform">RK</div>
+                <h3 className="text-2xl font-bold text-white mb-1">Raveena Kataria</h3>
+                <div className="text-slate-400 font-bold uppercase tracking-widest text-xs mb-4">Co-Founder & Legal Counsel</div>
+                <p className="text-slate-500 text-sm leading-relaxed">Ensuring enterprise-grade compliance, data sovereignty, and regulatory adherence across all deployments.</p>
+              </div>
+
+              {/* Rohit Monga */}
+              <div className="p-6 rounded-3xl bg-white/5 border border-white/10 group hover:border-white/20 transition-all">
+                <div className="w-16 h-16 rounded-2xl bg-slate-800 flex items-center justify-center text-xl font-bold text-white mb-6 group-hover:scale-110 transition-transform">RM</div>
+                <h3 className="text-xl font-bold text-white mb-1">Rohit Monga</h3>
+                <div className="text-slate-500 font-bold uppercase tracking-widest text-[10px] mb-4">Senior Solutions Architect</div>
+                <p className="text-slate-500 text-sm leading-relaxed">Lead engineer for custom integrations and complex backend workflows.</p>
+              </div>
+
+              {/* Krishanu Maik */}
+              <div className="p-6 rounded-3xl bg-white/5 border border-white/10 group hover:border-white/20 transition-all">
+                <div className="w-16 h-16 rounded-2xl bg-slate-800 flex items-center justify-center text-xl font-bold text-white mb-6 group-hover:scale-110 transition-transform">KM</div>
+                <h3 className="text-xl font-bold text-white mb-1">Krishanu Maik</h3>
+                <div className="text-slate-500 font-bold uppercase tracking-widest text-[10px] mb-4">Director of Sales (APAC)</div>
+                <p className="text-slate-500 text-sm leading-relaxed">Leading expansion and partnerships across Australia, New Zealand, and Asia-Pacific markets.</p>
+              </div>
+
+              {/* Arjun Nair */}
+              <div className="p-6 rounded-3xl bg-white/5 border border-white/10 group hover:border-white/20 transition-all">
+                <div className="w-16 h-16 rounded-2xl bg-slate-800 flex items-center justify-center text-xl font-bold text-white mb-6 group-hover:scale-110 transition-transform">AN</div>
+                <h3 className="text-xl font-bold text-white mb-1">Arjun Nair</h3>
+                <div className="text-slate-500 font-bold uppercase tracking-widest text-[10px] mb-4">Director of Sales (EMEA)</div>
+                <p className="text-slate-500 text-sm leading-relaxed">Spearheading growth in South America, Africa, and Middle-East territories.</p>
+              </div>
+
+              {/* Amit Tiwari */}
+              <div className="p-6 rounded-3xl bg-white/5 border border-white/10 group hover:border-white/20 transition-all lg:col-span-3 lg:w-1/3 lg:mx-auto">
+                <div className="w-16 h-16 rounded-2xl bg-slate-800 flex items-center justify-center text-xl font-bold text-white mb-6 group-hover:scale-110 transition-transform">AT</div>
+                <h3 className="text-xl font-bold text-white mb-1">Amit Tiwari</h3>
+                <div className="text-slate-500 font-bold uppercase tracking-widest text-[10px] mb-4">Head of Customer Success</div>
+                <p className="text-slate-500 text-sm leading-relaxed">Ensuring every partner deployment achieves maximum ROI and long-term stability.</p>
+              </div>
+            </div>
+          </section>
+
+          {/* Vision Statement */}
           <section className="relative p-12 rounded-[3rem] overflow-hidden border border-white/10">
             <div className="absolute inset-0 bg-gradient-to-br from-blue-900/20 to-slate-900 -z-10" />
             <div className="max-w-2xl">
@@ -97,7 +165,7 @@ export default function AboutPage() {
                 </div>
                 <div>
                   <div className="text-white font-bold">Ayush Sharma</div>
-                  <div className="text-blue-400 text-sm">Founder, Brandverse.Tech</div>
+                  <div className="text-blue-400 text-sm">Founder & CEO, Brandverse.Tech</div>
                 </div>
               </div>
             </div>
