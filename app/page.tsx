@@ -5,11 +5,16 @@ import Link from 'next/link';
 import {
   Zap,
   ArrowRight,
-  ChevronRight,
   Mic,
   Bot,
+  ChevronRight,
   X,
-  ShieldCheck
+  ShieldCheck,
+  Globe,
+  BarChart3,
+  Users,
+  Lock,
+  Target
 } from 'lucide-react';
 import ChatWidget from './components/ChatWidget';
 
@@ -109,6 +114,74 @@ export default function Home() {
           </div>
         </section>
 
+        {/* 🚀 TACTICAL ADVANTAGE */}
+        <section className="px-6 py-24">
+          <div className="max-w-7xl mx-auto">
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+              {[
+                {
+                  t: "Native Multilingual",
+                  d: "Instant English/Spanish/French detection and switching.",
+                  i: Globe,
+                  c: "from-blue-500/10 to-transparent"
+                },
+                {
+                  t: "Deep CRM Sync",
+                  d: "Direct data injection into ServiceTitan, Salesforce, and HubSpot.",
+                  i: Zap,
+                  c: "from-purple-500/10 to-transparent"
+                },
+                {
+                  t: "Sentiment Analysis",
+                  d: "Post-call mood rating to flag at-risk clients automatically.",
+                  i: BarChart3,
+                  c: "from-red-500/10 to-transparent"
+                },
+                {
+                  t: "Infinite Scale",
+                  d: "Handle 1,000 concurrent calls without a single busy signal.",
+                  i: Users,
+                  c: "from-green-500/10 to-transparent"
+                }
+              ].map((f, i) => (
+                <div key={i} className={`p-8 rounded-[2.5rem] bg-gradient-to-b ${f.c} border border-white/5 hover:border-white/10 transition-all group`}>
+                  <div className="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                    <f.i className="w-6 h-6 text-slate-300" />
+                  </div>
+                  <h3 className="text-xl font-black text-white uppercase italic tracking-tighter mb-2">{f.t}</h3>
+                  <p className="text-slate-500 text-sm font-bold leading-relaxed">{f.d}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* 🛠 THE INFRASTRUCTURE (PROCESS) */}
+        <section className="px-6 py-24 bg-white/[0.02] border-y border-white/5">
+          <div className="max-w-4xl mx-auto space-y-16">
+            <div className="text-center space-y-4">
+              <h2 className="text-4xl md:text-6xl font-black text-white uppercase italic tracking-tighter">
+                THE <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">DEPLOYMENT</span>
+              </h2>
+              <p className="text-slate-500 font-bold uppercase tracking-widest text-xs">From Zero to Operational in 7 Days</p>
+            </div>
+
+            <div className="grid md:grid-cols-3 gap-12">
+              {[
+                { s: "01", t: "Discovery", d: "We map your busy times, common objections, and pricing logic." },
+                { s: "02", t: "Script Design", d: "We build your custom personality and technical training data." },
+                { s: "03", t: "Live Pilot", d: "System goes live with real-time human-in-the-loop tuning." }
+              ].map((step, i) => (
+                <div key={i} className="relative space-y-4">
+                  <div className="text-6xl font-black text-white/5 absolute -top-10 -left-4 select-none">{step.s}</div>
+                  <h4 className="text-2xl font-black text-white uppercase italic tracking-tight relative z-10">{step.t}</h4>
+                  <p className="text-slate-400 font-medium leading-relaxed">{step.d}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
         {/* 🧮 ROI CALCULATOR SECTION */}
         <section id="roi" className="py-32 px-6 md:px-0 relative overflow-hidden">
           <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-blue-600/5 blur-[150px] -z-10" />
@@ -160,20 +233,6 @@ export default function Home() {
                 </div>
               </div>
             </div>
-          </div>
-        </section>
-
-        {/* Final CTA */}
-        <section className="py-40 px-6 text-center relative">
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-blue-600/10 blur-[150px] -z-10 rounded-full" />
-          <div className="max-w-4xl mx-auto p-16 md:p-24 rounded-[5rem] bg-slate-900/20 backdrop-blur-3xl border border-white/5 space-y-12 shadow-3xl">
-            <h2 className="text-5xl md:text-7xl font-black text-white uppercase italic tracking-tighter leading-none">Ready to build <br /> <span className="text-blue-500">The Machine?</span></h2>
-            <p className="text-slate-400 text-xl font-bold max-w-lg mx-auto leading-relaxed">
-              We only take on 3 new infrastructure projects per month to ensure absolute dominance for our partners.
-            </p>
-            <Link href="/contact" className="inline-block px-14 py-8 bg-brand-gradient text-white rounded-3xl font-black uppercase tracking-widest text-sm shadow-4xl hover:scale-105 transition-all">
-              Apply to Partner
-            </Link>
           </div>
         </section>
       </main>
