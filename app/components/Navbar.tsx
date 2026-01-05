@@ -3,7 +3,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Cpu, Sparkles, ChevronRight } from 'lucide-react';
+import { Cpu, ChevronRight } from 'lucide-react';
 
 export default function Navbar() {
     const pathname = usePathname();

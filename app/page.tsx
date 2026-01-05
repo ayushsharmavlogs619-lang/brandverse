@@ -12,9 +12,7 @@ import {
   ShieldCheck,
   Globe,
   BarChart3,
-  Users,
-  Lock,
-  Target
+  Users
 } from 'lucide-react';
 import ChatWidget from './components/ChatWidget';
 
