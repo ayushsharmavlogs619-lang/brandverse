@@ -13,16 +13,40 @@ import {
   ShieldCheck,
   Globe,
   BarChart3,
-  Users
+  Users,
+  Check,
+  ChevronDown,
+  Phone,
+  Calendar,
+  DollarSign,
+  MessageSquare,
+  Shield
 } from 'lucide-react';
 import ChatWidget from './components/ChatWidget';
 
 export default function Home() {
   const [calculatorValue, setCalculatorValue] = useState(10);
+  const [openFaq, setOpenFaq] = useState<number | null>(null);
+
   const avgJobValue = 300;
   const conversionRate = 0.4;
   const monthlyRevenue = Math.round(calculatorValue * avgJobValue * conversionRate * 4);
   const yearlyRevenue = monthlyRevenue * 12;
+
+  const faqs = [
+    {
+      q: "Does it sound like a robot?",
+      a: "No. We use advanced neural voice technology with ultra-low latency. It handles interruptions, sarcasm, and regional accents with 99% human parity."
+    },
+    {
+      q: "Can it actually book appointments?",
+      a: "Yes. It integrates directly with your Google Calendar, Calendly, or ServiceTitan to book jobs in real-time without double-booking."
+    },
+    {
+      q: "How long is the setup?",
+      a: "We can have your custom AI agent live and answering calls in as little as 48-72 hours after the initial discovery call."
+    }
+  ];
 
   return (
     <div className="min-h-screen bg-[#020617] text-slate-100 selection:bg-blue-500/30 overflow-x-hidden pb-20 font-sans">
@@ -159,6 +183,42 @@ export default function Home() {
           </div>
         </section>
 
+        {/* 📋 Comparison Table */}
+        <section className="py-24 px-6 bg-[#03081a] border-y border-white/5">
+          <div className="max-w-5xl mx-auto">
+            <h2 className="text-4xl md:text-5xl font-black text-white text-center mb-16 uppercase italic">Human vs <span className="text-blue-500">Brandverse AI</span></h2>
+            <div className="overflow-x-auto rounded-[2.5rem] border border-white/10 bg-black/40 backdrop-blur-3xl">
+              <table className="w-full text-left border-collapse">
+                <thead>
+                  <tr className="border-b border-white/10 bg-white/5">
+                    <th className="p-6 text-sm font-black uppercase tracking-widest text-slate-400">Feature</th>
+                    <th className="p-6 text-sm font-black uppercase tracking-widest text-slate-400 text-center text-red-500">Typical Hire</th>
+                    <th className="p-6 text-sm font-black uppercase tracking-widest text-slate-400 text-center text-blue-400">Our AI Scout</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-white/5 text-slate-300">
+                  {[
+                    { f: "Availability", h: "40 hrs/week", a: "168 hrs/week (24/7)", win: true },
+                    { f: "Response Time", h: "3-5 Minutes", a: "< 2 Rings", win: true },
+                    { f: "Monthly Cost", h: "$3,000 - $5,000+", a: "Fixed Subscriptions", win: true },
+                    { f: "Scalability", h: "1 Call at a time", a: "Infinite Concurrent", win: true },
+                    { f: "Sick Days", h: "10+ per year", a: "Zero. Ever.", win: true },
+                    { f: "Attitude", h: "Unpredictable", a: "Always Professional", win: true }
+                  ].map((row, i) => (
+                    <tr key={i} className="hover:bg-white/5 transition-colors">
+                      <td className="p-6 font-medium">{row.f}</td>
+                      <td className="p-6 text-center text-slate-500">{row.h}</td>
+                      <td className="p-6 text-center font-bold text-white bg-blue-500/5">
+                        {row.win ? <span className="text-green-400">{row.a}</span> : row.a}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
         {/* 🛠 THE INFRASTRUCTURE (PROCESS) */}
         <section className="px-6 py-24 bg-white/[0.02] border-y border-white/5">
           <div className="max-w-4xl mx-auto space-y-16">
@@ -171,9 +231,9 @@ export default function Home() {
 
             <div className="grid md:grid-cols-3 gap-12">
               {[
-                { s: "01", t: "Discovery", d: "We map your busy times, common objections, and pricing logic." },
-                { s: "02", t: "Script Design", d: "We build your custom personality and technical training data." },
-                { s: "03", t: "Live Pilot", d: "System goes live with real-time human-in-the-loop tuning." }
+                { s: "01", t: "Discovery", d: "We map your busy times, common objections, and pricing logic.", i: Phone },
+                { s: "02", t: "Script Design", d: "We build your custom personality and technical training data.", i: Calendar },
+                { s: "03", t: "Live Pilot", d: "System goes live with real-time human-in-the-loop tuning.", i: DollarSign }
               ].map((step, i) => (
                 <div key={i} className="relative space-y-4">
                   <div className="text-6xl font-black text-white/5 absolute -top-10 -left-4 select-none">{step.s}</div>
@@ -236,6 +296,92 @@ export default function Home() {
                 </div>
               </div>
             </div>
+          </div>
+        </section>
+
+        {/* 💰 Pricing */}
+        <section id="pricing" className="py-24 px-6">
+          <div className="max-w-7xl mx-auto">
+            <h2 className="text-4xl md:text-6xl font-black text-white text-center mb-20 uppercase tracking-tighter italic">Simple, Transparent <span className="text-blue-500">Pricing</span></h2>
+
+            <div className="grid md:grid-cols-3 gap-8 items-center">
+              {/* Starter */}
+              <div className="p-10 rounded-[2.5rem] bg-white/5 border border-white/10 text-center hover:border-white/20 transition-all">
+                <h3 className="text-2xl font-bold mb-4 uppercase italic">Starter</h3>
+                <div className="text-5xl font-black mb-6">$497<span className="text-lg text-slate-500 font-normal">/mo</span></div>
+                <ul className="text-slate-400 space-y-4 mb-10 text-left">
+                  <li className="flex items-center gap-3"><Check className="w-5 h-5 text-blue-500" /> 24/7 Call Answering</li>
+                  <li className="flex items-center gap-3"><Check className="w-5 h-5 text-blue-500" /> Appointment Booking</li>
+                  <li className="flex items-center gap-3"><Check className="w-5 h-5 text-blue-500" /> SMS Follow-ups</li>
+                  <li className="flex items-center gap-3"><Check className="w-5 h-5 text-blue-500" /> 500 Minutes Included</li>
+                </ul>
+                <Link href="/contact" className="block w-full py-4 text-center rounded-2xl border border-white/10 font-black uppercase tracking-widest text-xs hover:bg-white/5 transition-all">Get Started</Link>
+              </div>
+
+              {/* Growth */}
+              <div className="p-12 rounded-[3.5rem] bg-blue-600 border border-blue-400 relative shadow-2xl shadow-blue-500/40 -translate-y-4 group">
+                <div className="absolute top-0 right-10 -translate-y-1/2 bg-white text-blue-600 px-6 py-2 rounded-full text-[10px] font-black tracking-[0.2em] uppercase shadow-xl">Most Popular</div>
+                <h3 className="text-2xl font-bold mb-4 uppercase italic text-white">Growth</h3>
+                <div className="text-7xl font-black mb-6 text-white">$997<span className="text-lg text-blue-200 font-normal">/mo</span></div>
+                <ul className="text-blue-50 space-y-4 mb-10 text-left">
+                  <li className="flex items-center gap-3 font-bold"><Check className="w-5 h-5" /> Everything in Starter</li>
+                  <li className="flex items-center gap-3"><Check className="w-5 h-5" /> CRM Integration</li>
+                  <li className="flex items-center gap-3"><Check className="w-5 h-5" /> Custom Voice Cloning</li>
+                  <li className="flex items-center gap-3"><Check className="w-5 h-5" /> Unlimited Minutes</li>
+                </ul>
+                <Link href="/contact" className="block w-full py-5 text-center rounded-3xl bg-white text-blue-600 font-black text-xl hover:scale-105 transition-all shadow-2xl">Get Started Now</Link>
+              </div>
+
+              {/* Enterprise */}
+              <div className="p-10 rounded-[2.5rem] bg-white/5 border border-white/10 text-center hover:border-white/20 transition-all">
+                <h3 className="text-2xl font-bold mb-4 uppercase italic">Enterprise</h3>
+                <div className="text-5xl font-black mb-6 text-white">Custom</div>
+                <ul className="text-slate-400 space-y-4 mb-10 text-left">
+                  <li className="flex items-center gap-3"><Check className="w-5 h-5 text-blue-500" /> Multi-location Routing</li>
+                  <li className="flex items-center gap-3"><Check className="w-5 h-5 text-blue-500" /> Account Manager</li>
+                  <li className="flex items-center gap-3"><Check className="w-5 h-5 text-blue-500" /> API Access</li>
+                  <li className="flex items-center gap-3"><Check className="w-5 h-5 text-blue-500" /> White Label Options</li>
+                </ul>
+                <Link href="/contact" className="block w-full py-4 text-center rounded-2xl border border-white/10 font-black uppercase tracking-widest text-xs hover:bg-white/5 transition-all">Contact Sales</Link>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ❓ FAQ Section */}
+        <section id="faq" className="py-24 px-6 bg-[#03081a]">
+          <div className="max-w-3xl mx-auto">
+            <h2 className="text-4xl md:text-5xl font-black text-white text-center mb-16 uppercase italic">Frequently Asked <span className="text-blue-500">Questions</span></h2>
+            <div className="space-y-4">
+              {faqs.map((faq, i) => (
+                <div key={i} className="rounded-3xl border border-white/5 bg-white/[0.02] overflow-hidden">
+                  <button
+                    onClick={() => setOpenFaq(openFaq === i ? null : i)}
+                    className="w-full p-8 text-left flex justify-between items-center group"
+                  >
+                    <span className="text-lg font-bold group-hover:text-blue-400 transition-colors uppercase italic tracking-tight">{faq.q}</span>
+                    <ChevronDown className={`w-5 h-5 transition-transform duration-500 ${openFaq === i ? 'rotate-180 text-blue-500' : 'text-slate-500'}`} />
+                  </button>
+                  <div className={`transition-all duration-500 ease-in-out overflow-hidden ${openFaq === i ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}>
+                    <p className="p-8 pt-0 text-slate-400 leading-relaxed border-t border-white/5 font-medium">{faq.a}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* 🚀 Final CTA */}
+        <section className="py-32 px-6 text-center">
+          <div className="max-w-4xl mx-auto space-y-12">
+            <h2 className="text-5xl md:text-9xl font-black text-white uppercase italic tracking-tighter leading-[0.8]">Ready to <span className="text-blue-500">Never Miss</span> Another Customer?</h2>
+            <p className="text-2xl text-slate-400 font-bold">Book a 15-minute demo and see your AI Voice Agent live in action.</p>
+            <div className="flex flex-col md:flex-row gap-6 justify-center pt-8">
+              <Link href="/contact" className="inline-block px-12 py-7 bg-brand-gradient text-white rounded-[2rem] text-xl font-black uppercase tracking-widest hover:scale-105 transition-all shadow-4xl shadow-blue-600/20">
+                📅 Schedule Demo Now
+              </Link>
+            </div>
+            <p className="text-slate-500 font-black uppercase tracking-[0.2em] text-[10px]">&quot;No credit card required • 15-minute call • See real AI calls in action&quot;</p>
           </div>
         </section>
       </main>
