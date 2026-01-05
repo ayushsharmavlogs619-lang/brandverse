@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import {
   Zap,
   ArrowRight,
@@ -31,10 +32,14 @@ export default function Home() {
         <section className="relative pt-24 pb-32 px-6 overflow-hidden">
           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full -z-10">
             <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1200px] h-[800px] bg-blue-600/5 blur-[150px] rounded-full opacity-40 animate-pulse" />
-            <img
+            <Image
               src="/images/hero_revenue_engine.png"
               alt=""
+              width={1200}
+              height={800}
               className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-6xl opacity-20 mix-blend-screen pointer-events-none"
+              priority={false}
+              unoptimized
             />
           </div>
 
@@ -73,7 +78,7 @@ export default function Home() {
               {/* Voice Agents */}
               <article className="md:col-span-8 group p-12 rounded-[3.5rem] bg-[#020617] border border-white/5 hover:border-blue-500/30 transition-all overflow-hidden relative">
                 <div className="absolute inset-0 opacity-10 group-hover:opacity-20 transition-opacity">
-                  <img src="/images/ai_voice_aura.png" alt="" className="w-full h-full object-cover" />
+                  <Image src="/images/ai_voice_aura.png" alt="" width={800} height={600} className="w-full h-full object-cover" unoptimized />
                 </div>
                 <div className="relative z-10 space-y-8">
                   <div className="w-20 h-20 rounded-2xl bg-blue-600/20 flex items-center justify-center shadow-lg shadow-blue-500/10 backdrop-blur-md">
@@ -94,7 +99,7 @@ export default function Home() {
               {/* Automation Bots */}
               <article className="md:col-span-4 p-12 rounded-[3.5rem] bg-[#020617] border border-white/5 hover:border-purple-500/30 transition-all group relative overflow-hidden">
                 <div className="absolute inset-0 opacity-10 group-hover:opacity-20 transition-opacity">
-                  <img src="/images/automation_matrix.png" alt="" className="w-full h-full object-cover" />
+                  <Image src="/images/automation_matrix.png" alt="" width={400} height={400} className="w-full h-full object-cover" unoptimized />
                 </div>
                 <div className="space-y-8 relative z-10">
                   <div className="w-20 h-20 rounded-2xl bg-purple-600/20 flex items-center justify-center shadow-lg shadow-purple-500/10 backdrop-blur-md">
