@@ -8,6 +8,20 @@ export const metadata = {
 export default function BlogIndex() {
   const posts = [
     {
+      slug: 'hidden-cost-manual-admin',
+      title: 'The Silent Killer of SMB Growth (And How To Stop It)',
+      excerpt: 'There is a thief in your business. It doesn\'t steal inventory, it steals focus. Discover the terrifying math behind "Context Switching" and operational drag.',
+      date: 'Jan 08, 2026',
+      category: 'Operations',
+    },
+    {
+      slug: '24-7-sales-team-blueprint',
+      title: 'Why Your Sales Team Doesn\'t Need Sleep',
+      excerpt: 'The 9-to-5 is dead. Learn how to deploy an army of AI Agents to capture leads at 11 PM on a Sunday, without paying a single dollar in overtime.',
+      date: 'Jan 08, 2026',
+      category: 'Automation',
+    },
+    {
       slug: 'how-ai-boosts-leads',
       title: 'How AI Voice Agents Boost Leads by 200%',
       excerpt: 'Stop losing money to voicemail. Discover the math behind 24/7 instant lead response and how it doubles conversion rates for contractors.',

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+
 import Link from 'next/link';
 import {
   Zap,
@@ -12,13 +12,9 @@ import {
   ShieldCheck
 } from 'lucide-react';
 import ChatWidget from './components/ChatWidget';
+import ROICalculator from './components/ROICalculator';
 
 export default function Home() {
-  const [calculatorValue, setCalculatorValue] = useState(10);
-  const avgJobValue = 300;
-  const conversionRate = 0.4;
-  const monthlyRevenue = Math.round(calculatorValue * avgJobValue * conversionRate * 4);
-  const yearlyRevenue = monthlyRevenue * 12;
 
   return (
     <div className="min-h-screen bg-[#020617] text-slate-100 selection:bg-blue-500/30 overflow-x-hidden pb-20 font-sans">
@@ -109,59 +105,7 @@ export default function Home() {
           </div>
         </section>
 
-        {/* 🧮 ROI CALCULATOR SECTION */}
-        <section id="roi" className="py-32 px-6 md:px-0 relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-blue-600/5 blur-[150px] -z-10" />
-          <div className="max-w-5xl mx-auto space-y-16">
-            <div className="text-center space-y-4">
-              <h2 className="text-5xl md:text-7xl font-black text-white uppercase italic tracking-tighter">
-                CALCULATE YOUR <span className="text-blue-500 text-glow-blue">ALPHA.</span>
-              </h2>
-              <p className="text-slate-500 font-black uppercase tracking-widest text-xs">See what happens when you stop trading time for money</p>
-            </div>
-
-            <div className="bg-slate-900/20 backdrop-blur-3xl rounded-[4.5rem] border border-white/5 p-8 md:p-20 shadow-3xl relative overflow-hidden">
-              <div className="absolute top-0 right-0 w-80 h-80 bg-blue-600/10 blur-[100px]" />
-              <div className="space-y-16">
-                <div className="space-y-8">
-                  <div className="flex justify-between items-end">
-                    <h3 className="text-2xl text-blue-500 font-black uppercase tracking-tighter italic">Weekly Missed Calls</h3>
-                    <div className="text-8xl font-black text-white text-glow-blue italic drop-shadow-2xl">{calculatorValue}</div>
-                  </div>
-                  <input
-                    type="range"
-                    title="Adjust Weekly Missed Calls"
-                    aria-label="Adjust Weekly Missed Calls"
-                    min="5"
-                    max="50"
-                    step="1"
-                    value={calculatorValue}
-                    onChange={(e) => setCalculatorValue(parseInt(e.target.value))}
-                    className="w-full h-4 bg-white/5 rounded-full appearance-none cursor-pointer accent-blue-500 hover:bg-white/10 transition-colors"
-                  />
-                </div>
-
-                <div className="grid md:grid-cols-2 gap-10">
-                  <div className="p-10 rounded-[3rem] bg-black/60 border border-white/5 hover:border-red-500/20 transition-all group">
-                    <h4 className="text-blue-500/50 text-[10px] font-black uppercase tracking-[.3em] mb-6">Monthly Lost Revenue</h4>
-                    <div className="text-6xl font-black text-white italic tracking-tighter">${monthlyRevenue.toLocaleString()}</div>
-                    <div className="text-slate-500 text-[10px] mt-8 font-black uppercase tracking-widest flex items-center gap-3">
-                      <X className="w-4 h-4 text-red-600" /> Currently Leaking to Competitors
-                    </div>
-                  </div>
-
-                  <div className="p-10 rounded-[3rem] bg-brand-gradient border border-blue-400/30 shadow-4xl shadow-blue-500/20">
-                    <h4 className="text-white/60 text-[10px] font-black uppercase tracking-[.3em] mb-6 text-white">Yearly Recoverable</h4>
-                    <div className="text-6xl font-black text-white italic tracking-tighter">${yearlyRevenue.toLocaleString()}</div>
-                    <div className="text-white text-[10px] mt-8 font-black uppercase tracking-widest flex items-center gap-3">
-                      <ShieldCheck className="w-4 h-4 text-white" /> Recovered with Brandverse
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
+        <ROICalculator />
 
         {/* Final CTA */}
         <section className="py-40 px-6 text-center relative">
