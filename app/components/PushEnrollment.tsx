@@ -29,7 +29,7 @@ function PushEnrollmentContent() {
     }, [status]);
 
     async function handleEnroll() {
-        if (!messaging) return;
+        if (!messaging || !db) return;
 
         try {
             const permission = await Notification.requestPermission();
@@ -38,7 +38,7 @@ function PushEnrollmentContent() {
                     vapidKey: 'BMYt_HqY5i8_9vP7_XqXv_T_eY_v_S_v_G_v_H_v_I_v_J_v_K_v_L' // Users should replace this with their actual VAPID key
                 });
 
-                if (token) {
+                if (token && db) {
                     // Check if token already exists
                     const q = query(collection(db, 'push-subscribers'), where('token', '==', token));
                     const snapshot = await getDocs(q);
