@@ -30,6 +30,7 @@ function PushEnrollmentContent() {
 
     async function handleEnroll() {
         if (!messaging || !db) return;
+        const firestore = db; // Capture for type narrowing
 
         try {
             const permission = await Notification.requestPermission();
@@ -38,13 +39,13 @@ function PushEnrollmentContent() {
                     vapidKey: 'BMYt_HqY5i8_9vP7_XqXv_T_eY_v_S_v_G_v_H_v_I_v_J_v_K_v_L' // Users should replace this with their actual VAPID key
                 });
 
-                if (token && db) {
+                if (token) {
                     // Check if token already exists
-                    const q = query(collection(db, 'push-subscribers'), where('token', '==', token));
+                    const q = query(collection(firestore, 'push-subscribers'), where('token', '==', token));
                     const snapshot = await getDocs(q);
 
                     if (snapshot.empty) {
-                        await addDoc(collection(db, 'push-subscribers'), {
+                        await addDoc(collection(firestore, 'push-subscribers'), {
                             token,
                             userAgent: navigator.userAgent,
                             timestamp: serverTimestamp(),
