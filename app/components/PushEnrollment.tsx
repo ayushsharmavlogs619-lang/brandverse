@@ -2,10 +2,11 @@
 
 import { useState, useEffect } from 'react';
 import { Bell, ShieldCheck, X, Zap } from 'lucide-react';
-import { db, messaging, getToken } from '@/lib/firebase';
+import { db, messaging, getToken, isFirebaseConfigured } from '@/lib/firebase';
 import { collection, addDoc, query, where, getDocs, serverTimestamp } from 'firebase/firestore';
 
-export default function PushEnrollment() {
+// Return null early if Firebase is not configured
+function PushEnrollmentContent() {
     const [status, setStatus] = useState<'idle' | 'prompting' | 'success' | 'blocked' | 'hidden'>('idle');
     const [isClient, setIsClient] = useState(false);
 
@@ -112,4 +113,12 @@ export default function PushEnrollment() {
             </div>
         </div>
     );
+}
+
+// Wrapper that only renders if Firebase is configured
+export default function PushEnrollment() {
+    if (!isFirebaseConfigured) {
+        return null;
+    }
+    return <PushEnrollmentContent />;
 }

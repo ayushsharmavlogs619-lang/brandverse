@@ -1,8 +1,8 @@
-import { initializeApp, getApps } from "firebase/app";
-import { getFirestore } from "firebase/firestore";
-import { getAuth } from "firebase/auth";
-import { getAnalytics, isSupported } from "firebase/analytics";
-import { getMessaging, getToken, onMessage } from "firebase/messaging";
+import { initializeApp, getApps, FirebaseApp } from "firebase/app";
+import { getFirestore, Firestore } from "firebase/firestore";
+import { getAuth, Auth } from "firebase/auth";
+import { getAnalytics, isSupported, Analytics } from "firebase/analytics";
+import { getMessaging, getToken, onMessage, Messaging } from "firebase/messaging";
 
 const firebaseConfig = {
     apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -14,15 +14,40 @@ const firebaseConfig = {
     measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID
 };
 
-// Initialize Firebase
-const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApps()[0];
-const db = getFirestore(app);
-const auth = getAuth(app);
+// Check if Firebase config is valid (has at least apiKey and projectId)
+const isFirebaseConfigured = !!(firebaseConfig.apiKey && firebaseConfig.projectId);
 
-// Initialize Messaging conditionally (only in browser)
-const messaging = typeof window !== 'undefined' ? getMessaging(app) : null;
+// Initialize Firebase only if configured
+let app: FirebaseApp | null = null;
+let db: Firestore | null = null;
+let auth: Auth | null = null;
+let messaging: Messaging | null = null;
+let analytics: Promise<Analytics | null> | null = null;
 
-// Initialize Analytics conditionally (only in browser)
-const analytics = typeof window !== 'undefined' ? isSupported().then(yes => yes ? getAnalytics(app) : null) : null;
+if (isFirebaseConfigured) {
+    try {
+        app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApps()[0];
+        db = getFirestore(app);
+        auth = getAuth(app);
 
-export { app, db, auth, analytics, messaging, getToken, onMessage };
+        // Initialize Messaging conditionally (only in browser)
+        if (typeof window !== 'undefined') {
+            try {
+                messaging = getMessaging(app);
+            } catch (e) {
+                console.warn('Firebase Messaging not available:', e);
+            }
+        }
+
+        // Initialize Analytics conditionally (only in browser)
+        if (typeof window !== 'undefined') {
+            analytics = isSupported().then(yes => yes ? getAnalytics(app!) : null);
+        }
+    } catch (error) {
+        console.warn('Firebase initialization failed:', error);
+    }
+} else {
+    console.warn('Firebase not configured. Add environment variables to enable Firebase features.');
+}
+
+export { app, db, auth, analytics, messaging, getToken, onMessage, isFirebaseConfigured };
