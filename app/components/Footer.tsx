@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { Cpu, Shield, Zap, Mail, MessageCircle, ArrowUpRight, Sparkles } from 'lucide-react';
+import { Cpu, Shield, Zap, Mail, ArrowUpRight, Sparkles } from 'lucide-react';
 
 export default function Footer() {
     return (
@@ -16,7 +16,7 @@ export default function Footer() {
             <div className="relative max-w-7xl mx-auto">
                 {/* Main Footer Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 lg:gap-8 mb-16">
-                    
+
                     {/* Brand Section - Takes more space */}
                     <div className="lg:col-span-4 space-y-6">
                         <div className="flex items-center gap-3 group">
@@ -141,8 +141,8 @@ export default function Footer() {
                         </h4>
                         <ul className="space-y-4">
                             <li>
-                                <a 
-                                    href="mailto:ayush@brandverse.tech" 
+                                <a
+                                    href="mailto:ayush@brandverse.tech"
                                     className="group flex items-center gap-3 text-sm text-slate-400 hover:text-white transition-colors duration-200"
                                 >
                                     <div className="w-8 h-8 rounded-lg bg-slate-800/50 border border-slate-700/50 flex items-center justify-center group-hover:border-blue-500/50 group-hover:bg-blue-500/10 transition-all duration-200">
@@ -151,20 +151,7 @@ export default function Footer() {
                                     <span>ayush@brandverse.tech</span>
                                 </a>
                             </li>
-                            <li>
-                                <div className="flex items-center gap-3 text-sm text-slate-400">
-                                    <div className="w-8 h-8 rounded-lg bg-slate-800/50 border border-slate-700/50 flex items-center justify-center">
-                                        <MessageCircle className="w-4 h-4" />
-                                    </div>
-                                    <div className="flex flex-col">
-                                        <span>Live Chat</span>
-                                        <span className="text-[10px] text-green-400 flex items-center gap-1">
-                                            <span className="w-1.5 h-1.5 bg-green-400 rounded-full animate-pulse" />
-                                            Available 24/7
-                                        </span>
-                                    </div>
-                                </div>
-                            </li>
+
                         </ul>
                     </div>
                 </div>
