@@ -65,7 +65,7 @@ export default function CookiesPage() {
                         </p>
                         <div className="pt-6">
                             <button
-                                onClick={() => { if (window.Cookiebot) window.Cookiebot.renew() }}
+                                onClick={() => { if ((window as any).Cookiebot) (window as any).Cookiebot.renew() }}
                                 className="px-8 py-4 bg-white/5 border border-white/10 rounded-2xl text-white font-black uppercase tracking-widest text-[10px] hover:bg-white/10 transition-all"
                             >
                                 Reconfigure Consent Module
