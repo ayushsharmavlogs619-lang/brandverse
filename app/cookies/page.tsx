@@ -2,6 +2,12 @@
 
 import { Shield, Lock, Eye } from 'lucide-react';
 
+declare global {
+    interface Window {
+        Cookiebot?: any;
+    }
+}
+
 export default function CookiesPage() {
     return (
         <div className="min-h-screen bg-[#020617] text-slate-300 py-32 px-6">
@@ -65,7 +71,9 @@ export default function CookiesPage() {
                         </p>
                         <div className="pt-6">
                             <button
-                                onClick={() => { if ((window as any).Cookiebot) (window as any).Cookiebot.renew() }}
+                                onClick={() => {
+                                    if (window.Cookiebot) window.Cookiebot.renew();
+                                }}
                                 className="px-8 py-4 bg-white/5 border border-white/10 rounded-2xl text-white font-black uppercase tracking-widest text-[10px] hover:bg-white/10 transition-all"
                             >
                                 Reconfigure Consent Module
