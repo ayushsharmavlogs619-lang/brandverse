@@ -92,9 +92,9 @@ export default function AboutPage() {
                 <h2 className="text-3xl font-black text-white uppercase italic tracking-tighter">Global Expansion</h2>
               </div>
               <div className="grid md:grid-cols-3 gap-6">
-                <TeamMember name="Siddhant Mohapatra" role="Director: Americas & Europe" initials="SM" color="emerald" />
-                <TeamMember name="Arjun Nair" role="Director: MEA" initials="AN" color="emerald" />
-                <TeamMember name="Krishanu Malik" role="Director: APAC" initials="KM" color="emerald" />
+                <TeamMember name="Siddhant Mohapatra" role="Head of Sales: Americas & Europe" initials="SM" color="emerald" />
+                <TeamMember name="Arjun Nair" role="Head of Sales: MEA" initials="AN" color="emerald" />
+                <TeamMember name="Krishanu Malik" role="Head of Sales: APAC" initials="KM" color="emerald" />
               </div>
             </section>
 
