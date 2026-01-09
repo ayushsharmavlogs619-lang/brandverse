@@ -67,7 +67,7 @@ export default function AboutPage() {
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                 <TeamMember name="Ayush Sharma" role="Founder & CEO" initials="AS" color="blue" />
                 <TeamMember name="Arjun Sen" role="Co-Founder & CTO" initials="ASen" color="blue" />
-                <TeamMember name="Raveena Kataria" role="Co-Founder & Legal Counsel" initials="RK" color="blue" />
+                <TeamMember name="Raveena Kataria" role="Co-Founder, Legal & Head of Media" initials="RK" color="blue" />
               </div>
             </section>
 
@@ -78,9 +78,9 @@ export default function AboutPage() {
                 <h2 className="text-3xl font-black text-white uppercase italic tracking-tighter">Infrastructure Division</h2>
               </div>
               <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <TeamMember name="Anil Vedi" role="Lead Systems Architect" initials="AV" color="purple" />
-                <TeamMember name="Rohit Monga" role="Backend Engineer" initials="RM" color="purple" />
-                <TeamMember name="Harsh Varma" role="Backend Engineer" initials="HV" color="purple" />
+                <TeamMember name="Anil Vedi" role="Lead Architect & Systems Engineer" initials="AV" color="purple" />
+                <TeamMember name="Rohit Monga" role="Lead Systems Engineer" initials="RM" color="purple" />
+                <TeamMember name="Harsh Varma" role="Lead Systems Engineer" initials="HV" color="purple" />
                 <TeamMember name="Amit Tiwari" role="Head of Customer Success" initials="AT" color="purple" />
               </div>
             </section>
