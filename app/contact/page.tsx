@@ -27,6 +27,12 @@ export default function ContactPage() {
             status: 'new'
         };
 
+        if (!db) {
+            setError('Database connection unavailable. Please ensure Firebase is configured.');
+            setIsSubmitting(false);
+            return;
+        }
+
         try {
             await addDoc(collection(db, 'contact-submissions'), data);
             setSubmitted(true);
