@@ -1,10 +1,10 @@
 'use client';
 
 import { useState } from 'react';
-import { Check, Send, Phone, Mail, ArrowLeft, Zap, Shield } from 'lucide-react';
-import Link from 'next/link';
+import { Check, Send, Phone, Mail, Clock, Shield } from 'lucide-react';
 import { db } from '@/app/lib/firebase';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+import CalendlyEmbed from '@/app/components/CalendlyEmbed';
 
 export default function ContactPage() {
     const [submitted, setSubmitted] = useState(false);
@@ -40,7 +40,9 @@ export default function ContactPage() {
 
     return (
         <div className="min-h-screen bg-[#020617] text-slate-200 selection:bg-blue-500/30">
-            <main className="pt-32 pb-20 px-6 max-w-7xl mx-auto">
+            <main className="pt-32 pb-20 px-6 max-w-7xl mx-auto space-y-24">
+
+                {/* Main Split Layout */}
                 <div className="grid lg:grid-cols-2 gap-20">
 
                     {/* Info Side */}
@@ -53,7 +55,7 @@ export default function ContactPage() {
                                 Secure Your <span className="text-blue-500 text-glow-blue">Alpha.</span>
                             </h1>
                             <p className="text-xl text-slate-400 font-bold leading-relaxed max-w-lg">
-                                Ready to scale your output without increasing headcount? Submit your technical requirements for a <span className="text-blue-400 underline decoration-blue-500/30">system audit</span>.
+                                Ready to scale your output without increasing headcount? Submit your technical requirements or <span className="text-blue-400">book a strategy lock-in</span> instantly.
                             </p>
                         </section>
 
@@ -87,29 +89,13 @@ export default function ContactPage() {
                                 </div>
                             </article>
                         </section>
-
-                        {/* Strategic Intelligence Sidebar */}
-                        <section className="pt-12 border-t border-white/5">
-                            <h3 className="text-[10px] font-black uppercase tracking-widest text-slate-500 mb-8">System Status Indicators</h3>
-                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                <div className="flex items-center gap-3 bg-white/5 p-4 rounded-2xl border border-white/5">
-                                    <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_8px_rgba(16,185,129,0.8)]" />
-                                    <span className="text-[10px] font-black uppercase tracking-widest text-slate-300">AI Models: Live</span>
-                                </div>
-                                <div className="flex items-center gap-3 bg-white/5 p-4 rounded-2xl border border-white/5">
-                                    <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.5)]" />
-                                    <span className="text-[10px] font-black uppercase tracking-widest text-slate-300">Secure Enc: Active</span>
-                                </div>
-                            </div>
-                        </section>
                     </div>
 
-                    {/* Form Side */}
+                    {/* Form / Success Side */}
                     <section className="relative">
-                        <h2 className="sr-only">Deployment Submission Form</h2>
                         <div className="absolute -inset-4 bg-blue-500/5 blur-3xl -z-10 rounded-[4rem]" />
                         <div className="p-1 md:p-1.5 rounded-[3.5rem] bg-gradient-to-br from-blue-500/30 to-transparent shadow-4xl shadow-blue-500/10">
-                            <div className="p-10 md:p-16 rounded-[3rem] bg-[#020617] border border-white/5 relative overflow-hidden">
+                            <div className="p-10 md:p-12 rounded-[3rem] bg-[#020617] border border-white/5 relative overflow-hidden min-h-[600px] flex flex-col justify-center">
 
                                 {!submitted ? (
                                     <form onSubmit={handleSubmit} className="space-y-8 relative z-10">
@@ -133,11 +119,6 @@ export default function ContactPage() {
                                             <div className="group relative">
                                                 <label className="absolute left-6 top-4 text-[10px] font-black uppercase tracking-widest text-slate-500 group-focus-within:text-blue-400 transition-colors">Work Email</label>
                                                 <input required type="email" name="email" className="w-full bg-slate-900/50 border border-white/5 rounded-2xl px-6 pt-10 pb-4 text-white font-bold focus:outline-none focus:border-blue-500/50 transition-all focus:bg-slate-900/80" placeholder="john@company.com" />
-                                            </div>
-
-                                            <div className="group relative">
-                                                <label className="absolute left-6 top-4 text-[10px] font-black uppercase tracking-widest text-slate-500 group-focus-within:text-blue-400 transition-colors">Company Website</label>
-                                                <input type="url" name="website" className="w-full bg-slate-900/50 border border-white/5 rounded-2xl px-6 pt-10 pb-4 text-white font-bold focus:outline-none focus:border-blue-500/50 transition-all focus:bg-slate-900/80" placeholder="company.com" />
                                             </div>
 
                                             <div className="group relative">
@@ -169,23 +150,45 @@ export default function ContactPage() {
                                         </p>
                                     </form>
                                 ) : (
-                                    <div className="py-20 text-center space-y-8 animate-fade-in">
-                                        <div className="w-24 h-24 bg-blue-500/20 rounded-full flex items-center justify-center mx-auto border border-blue-500/30">
-                                            <Check className="w-12 h-12 text-blue-400" />
+                                    <div className="py-6 text-center space-y-8 animate-fade-in w-full h-full flex flex-col justify-center">
+                                        <div className="space-y-4">
+                                            <div className="w-16 h-16 bg-blue-500/20 rounded-full flex items-center justify-center mx-auto border border-blue-500/30">
+                                                <Check className="w-8 h-8 text-blue-400" />
+                                            </div>
+                                            <h2 className="text-3xl font-black text-white uppercase italic tracking-tighter">Transmission Confirmed</h2>
+                                            <p className="text-slate-400 font-bold max-w-sm mx-auto">
+                                                Our architects have your file. <br />
+                                                <span className="text-blue-400">Final Step: Lock in your strategy session below.</span>
+                                            </p>
                                         </div>
-                                        <h2 className="text-4xl font-black text-white uppercase italic tracking-tighter">Transmission Successful</h2>
-                                        <p className="text-slate-400 font-bold max-w-xs mx-auto">
-                                            Your deployment request has been received. Our architects are currently reviewing your infrastructure requirements.
-                                        </p>
-                                        <button onClick={() => setSubmitted(false)} className="text-blue-400 font-black uppercase tracking-widest text-[10px] border-b border-blue-500/20 pb-1 hover:text-white transition-colors">
-                                            New Submission Protocol
-                                        </button>
+                                        <div className="-mx-6 md:-mx-8 border-t border-white/5 pt-4">
+                                            {/* Auto-load the Calendar on Success */}
+                                            <CalendlyEmbed height="500px" />
+                                        </div>
                                     </div>
                                 )}
                             </div>
                         </div>
                     </section>
                 </div>
+
+                {/* Direct Booking Section - Below Fold */}
+                <section id="book" className="pt-20 border-t border-white/5 relative">
+                    <div className="text-center space-y-6 mb-16">
+                        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-[10px] font-black uppercase tracking-[0.2em]">
+                            Direct Access
+                        </div>
+                        <h2 className="text-4xl md:text-6xl font-black text-white uppercase italic tracking-tighter">Skip The Queue.</h2>
+                        <p className="text-slate-400 text-xl font-bold max-w-2xl mx-auto">
+                            Know what you want? Book a time directly with our Lead Architect for a 30-minute system blueprinting session.
+                        </p>
+                    </div>
+
+                    <div className="max-w-4xl mx-auto">
+                        <CalendlyEmbed />
+                    </div>
+                </section>
+
             </main>
         </div>
     );
