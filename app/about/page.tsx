@@ -1,16 +1,43 @@
-import { Shield, Zap, Target, Lock } from 'lucide-react';
+import { Shield, Zap, Target, Lock, Globe, Database, Users, Briefcase } from 'lucide-react';
 
 export const metadata = {
   title: 'About — Brandverse',
   description: 'Building the next generation of business automation with autonomous AI infrastructure.',
 };
 
+const TeamMember = ({ name, role, initials, color = "blue" }: { name: string, role: string, initials: string, color?: "blue" | "purple" | "emerald" | "amber" }) => {
+  const colorClasses = {
+    blue: "from-blue-500 to-indigo-600 border-blue-500/20 text-blue-400 bg-blue-500/10",
+    purple: "from-purple-500 to-pink-600 border-purple-500/20 text-purple-400 bg-purple-500/10",
+    emerald: "from-emerald-500 to-green-600 border-emerald-500/20 text-emerald-400 bg-emerald-500/10",
+    amber: "from-amber-500 to-orange-600 border-amber-500/20 text-amber-400 bg-amber-500/10"
+  };
+
+  return (
+    <div className={`p-6 md:p-8 rounded-[2rem] bg-[#020617] border border-white/5 hover:border-white/10 transition-all group flex items-start gap-6`}>
+      <div className={`w-16 h-16 md:w-20 md:h-20 rounded-2xl bg-gradient-to-br ${colorClasses[color]} bg-opacity-10 p-[1px] shrink-0`}>
+        <div className="w-full h-full bg-[#020617] rounded-[0.9rem] flex items-center justify-center font-black text-xl md:text-2xl text-white italic opacity-80 group-hover:opacity-100 transition-opacity">
+          {initials}
+        </div>
+      </div>
+      <div>
+        <h3 className="text-xl md:text-2xl font-black text-white uppercase italic tracking-tighter leading-tight group-hover:text-white/90 transition-colors">
+          {name}
+        </h3>
+        <h4 className={`text-[10px] font-black uppercase tracking-[0.2em] mt-2 opacity-80 ${color === 'blue' ? 'text-blue-400' : color === 'purple' ? 'text-purple-400' : color === 'emerald' ? 'text-emerald-400' : 'text-amber-400'}`}>
+          {role}
+        </h4>
+      </div>
+    </div>
+  );
+};
+
 export default function AboutPage() {
   return (
-    <div className="min-h-screen bg-[#020617] text-slate-200 selection:bg-blue-500/30">
+    <div className="min-h-screen bg-[#020617] text-slate-200 selection:bg-blue-500/30 font-sans">
 
-      <main className="pt-32 pb-24 px-6">
-        <div className="max-w-5xl mx-auto space-y-32">
+      <main className="pt-32 pb-24 px-6 md:px-12">
+        <div className="max-w-7xl mx-auto space-y-40">
 
           {/* Manifesto Header */}
           <section className="text-center space-y-12 relative py-20">
@@ -18,112 +45,100 @@ export default function AboutPage() {
               <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-blue-600/10 blur-[100px] rounded-full" />
             </div>
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-[10px] font-black uppercase tracking-[0.2em]">
-              System Manifesto
+              The Organization
             </div>
-            <h1 className="text-5xl md:text-[10rem] font-black text-white tracking-tighter leading-none uppercase italic">
-              Code Over <span className="text-blue-500 text-glow-blue">Chaos.</span>
+            <h1 className="text-5xl md:text-[6rem] lg:text-[8rem] font-black text-white tracking-tighter leading-[0.85] uppercase italic">
+              Global <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-600 text-glow-blue">Command.</span>
             </h1>
-            <p className="text-xl md:text-3xl text-slate-400 max-w-3xl mx-auto font-bold leading-relaxed">
-              We replace empty corporate rhetoric with <span className="text-blue-400">autonomous infrastructure</span>. We don't build sites; we build operational machines.
+            <p className="text-xl md:text-3xl text-slate-400 max-w-3xl mx-auto font-bold leading-relaxed pt-8">
+              Decentralized Intelligence. Unified Execution.
             </p>
           </section>
 
-          {/* Core Values - Next Level */}
-          <section className="grid md:grid-cols-2 gap-8">
-            <h2 className="sr-only">Core Values</h2>
+          {/* LEADERSHIP MATRIX */}
+          <div className="space-y-24">
 
-            <article className="p-12 rounded-[3.5rem] bg-[#020617] border border-white/5 hover:border-blue-500/30 transition-all group overflow-hidden relative">
-              <div className="absolute top-0 right-0 p-12 opacity-[0.03] group-hover:scale-110 transition-transform">
-                <Zap className="w-48 h-48 text-blue-500" />
+            {/* C-SUITE */}
+            <section className="space-y-12">
+              <div className="flex items-center gap-4 border-b border-white/5 pb-6">
+                <div className="p-3 bg-blue-500/10 rounded-xl"><Briefcase className="w-6 h-6 text-blue-400" /></div>
+                <h2 className="text-3xl font-black text-white uppercase italic tracking-tighter">Executive Board</h2>
               </div>
-              <div className="relative z-10 space-y-6">
-                <div className="w-16 h-16 rounded-2xl bg-blue-600/20 flex items-center justify-center">
-                  <Zap className="w-8 h-8 text-blue-400" />
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <TeamMember name="Ayush Sharma" role="Founder & CEO" initials="AS" color="blue" />
+                <TeamMember name="Arjun Sen" role="Co-Founder & CTO" initials="ASen" color="blue" />
+                <TeamMember name="Raveena Kataria" role="Co-Founder & Legal Counsel" initials="RK" color="blue" />
+              </div>
+            </section>
+
+            {/* TECH INFRASTRUCTURE */}
+            <section className="space-y-12">
+              <div className="flex items-center gap-4 border-b border-white/5 pb-6">
+                <div className="p-3 bg-purple-500/10 rounded-xl"><Database className="w-6 h-6 text-purple-400" /></div>
+                <h2 className="text-3xl font-black text-white uppercase italic tracking-tighter">Infrastructure Division</h2>
+              </div>
+              <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <TeamMember name="Anil Vedi" role="Lead Systems Architect" initials="AV" color="purple" />
+                <TeamMember name="Rohit Monga" role="Backend Engineer" initials="RM" color="purple" />
+                <TeamMember name="Harsh Varma" role="Backend Engineer" initials="HV" color="purple" />
+                <TeamMember name="Amit Tiwari" role="Head of Customer Success" initials="AT" color="purple" />
+              </div>
+            </section>
+
+            {/* GLOBAL SALES */}
+            <section className="space-y-12">
+              <div className="flex items-center gap-4 border-b border-white/5 pb-6">
+                <div className="p-3 bg-emerald-500/10 rounded-xl"><Globe className="w-6 h-6 text-emerald-400" /></div>
+                <h2 className="text-3xl font-black text-white uppercase italic tracking-tighter">Global Expansion</h2>
+              </div>
+              <div className="grid md:grid-cols-3 gap-6">
+                <TeamMember name="Siddhant Mohapatra" role="Director: Americas & Europe" initials="SM" color="emerald" />
+                <TeamMember name="Arjun Nair" role="Director: MEA" initials="AN" color="emerald" />
+                <TeamMember name="Krishanu Malik" role="Director: APAC" initials="KM" color="emerald" />
+              </div>
+            </section>
+
+          </div>
+
+          {/* VALUES GRID (Kept but moved down) */}
+          <section className="pt-20 border-t border-white/5">
+            <div className="text-center mb-20 space-y-6">
+              <h2 className="text-4xl font-black text-white uppercase italic tracking-tighter">Our Core Doctrines</h2>
+              <p className="text-slate-400 font-bold">The code we live by.</p>
+            </div>
+            <div className="grid md:grid-cols-2 gap-8">
+              <article className="p-12 rounded-[3.5rem] bg-[#020617] border border-white/5 hover:border-blue-500/30 transition-all group overflow-hidden relative">
+                <div className="absolute top-0 right-0 p-12 opacity-[0.03] group-hover:scale-110 transition-transform">
+                  <Zap className="w-48 h-48 text-blue-500" />
                 </div>
-                <h3 className="text-3xl font-black text-white uppercase italic tracking-tighter">Speed is Security</h3>
-                <p className="text-slate-400 text-lg font-bold leading-relaxed">
-                  Slow is dead. Our AI agents operate in <span className="text-blue-400">sub-200ms</span> latency, capturing opportunities before your competitors even see the notification.
-                </p>
-              </div>
-            </article>
-
-            <article className="p-12 rounded-[3.5rem] bg-[#020617] border border-white/5 hover:border-red-500/30 transition-all group overflow-hidden relative">
-              <div className="absolute top-0 right-0 p-12 opacity-[0.03] group-hover:scale-110 transition-transform">
-                <Target className="w-48 h-48 text-red-500" />
-              </div>
-              <div className="relative z-10 space-y-6">
-                <div className="w-16 h-16 rounded-2xl bg-red-600/20 flex items-center justify-center">
-                  <Target className="w-8 h-8 text-red-400" />
-                </div>
-                <h3 className="text-3xl font-black text-white uppercase italic tracking-tighter">Absolute Revenue</h3>
-                <p className="text-slate-400 text-lg font-bold leading-relaxed">
-                  We measure success in <span className="bold text-red-500">dollars settled</span>, not clicks received. If it doesn't move the bottom line, we don't build it.
-                </p>
-              </div>
-            </article>
-
-            <article className="p-12 rounded-[3.5rem] bg-[#020617] border border-white/5 hover:border-emerald-500/30 transition-all group overflow-hidden relative">
-              <div className="absolute top-0 right-0 p-12 opacity-[0.03] group-hover:scale-110 transition-transform">
-                <Shield className="w-48 h-48 text-emerald-500" />
-              </div>
-              <div className="relative z-10 space-y-6">
-                <div className="w-16 h-16 rounded-2xl bg-emerald-600/20 flex items-center justify-center">
-                  <Shield className="w-8 h-8 text-emerald-400" />
-                </div>
-                <h3 className="text-3xl font-black text-white uppercase italic tracking-tighter">Resilient Systems</h3>
-                <p className="text-slate-400 text-lg font-bold leading-relaxed">
-                  Built on enterprise-grade stacks. Our systems are designed to weather <span className="text-emerald-400">1,000% traffic spikes</span> without breaking a sweat.
-                </p>
-              </div>
-            </article>
-
-            <article className="p-12 rounded-[3.5rem] bg-[#020617] border border-white/5 hover:border-indigo-500/30 transition-all group overflow-hidden relative">
-              <div className="absolute top-0 right-0 p-12 opacity-[0.03] group-hover:scale-110 transition-transform">
-                <Lock className="w-48 h-48 text-indigo-500" />
-              </div>
-              <div className="relative z-10 space-y-6">
-                <div className="w-16 h-16 rounded-2xl bg-indigo-600/20 flex items-center justify-center">
-                  <Lock className="w-8 h-8 text-indigo-400" />
-                </div>
-                <h3 className="text-3xl font-black text-white uppercase italic tracking-tighter">Data Sovereignty</h3>
-                <p className="text-slate-400 text-lg font-bold leading-relaxed">
-                  Your customer data is your <span className="text-indigo-400">most valuable asset</span>. We implement bank-level encryption to ensure it remains yours alone.
-                </p>
-              </div>
-            </article>
-          </section>
-
-          {/* Founder's Vision - High Impact */}
-          <section className="relative p-1 md:p-1.5 rounded-[5rem] bg-gradient-to-br from-blue-600/30 via-transparent to-indigo-600/30 overflow-hidden shadow-4xl shadow-blue-500/10">
-            <div className="relative p-16 md:p-24 rounded-[4.8rem] bg-[#020617] overflow-hidden">
-              <div className="absolute inset-0 opacity-20 pointer-events-none group-hover:opacity-30 transition-opacity">
-                <img src="/images/hq_war_room.png" alt="" className="w-full h-full object-cover" />
-              </div>
-              <div className="absolute top-0 right-0 w-1/2 h-full bg-blue-600/5 blur-[150px] pointer-events-none" />
-              <div className="max-w-3xl relative z-10 space-y-12">
-                <h2 className="text-5xl md:text-8xl font-black text-white uppercase italic tracking-tighter leading-none">The <span className="text-blue-500">Vision.</span></h2>
-                <div className="space-y-10 text-xl md:text-2xl text-slate-400 font-bold leading-relaxed">
-                  <p>
-                    Most "agencies" are just middle-men for mediocre talent. Brandverse is different. We are engineers building the <span className="text-blue-400">foundational tech</span> that allows businesses to scale without the headache of infinite hiring.
-                  </p>
-                  <p>
-                    We exist to give founders their time back. Code doesn't take sick days. Code doesn't have bad moods. Code just works.
+                <div className="relative z-10 space-y-6">
+                  <div className="w-16 h-16 rounded-2xl bg-blue-600/20 flex items-center justify-center">
+                    <Zap className="w-8 h-8 text-blue-400" />
+                  </div>
+                  <h3 className="text-3xl font-black text-white uppercase italic tracking-tighter">Speed is Security</h3>
+                  <p className="text-slate-400 text-lg font-bold leading-relaxed">
+                    Slow is dead. We operate in <span className="text-blue-400">sub-200ms</span> latency.
                   </p>
                 </div>
-                <div className="pt-16 border-t border-white/10 flex items-center gap-8">
-                  <div className="w-24 h-24 rounded-3xl bg-brand-gradient p-1 shadow-2xl">
-                    <div className="w-full h-full bg-[#020617] rounded-[1.4rem] flex items-center justify-center font-black text-3xl text-white italic">
-                      AS
-                    </div>
-                  </div>
-                  <div>
-                    <h3 className="text-3xl font-black text-white uppercase italic tracking-tight">Ayush Sharma</h3>
-                    <h4 className="text-blue-400 text-xs font-black uppercase tracking-[0.3em] mt-1">Architect & Founder</h4>
-                  </div>
+              </article>
+
+              <article className="p-12 rounded-[3.5rem] bg-[#020617] border border-white/5 hover:border-indigo-500/30 transition-all group overflow-hidden relative">
+                <div className="absolute top-0 right-0 p-12 opacity-[0.03] group-hover:scale-110 transition-transform">
+                  <Lock className="w-48 h-48 text-indigo-500" />
                 </div>
-              </div>
+                <div className="relative z-10 space-y-6">
+                  <div className="w-16 h-16 rounded-2xl bg-indigo-600/20 flex items-center justify-center">
+                    <Lock className="w-8 h-8 text-indigo-400" />
+                  </div>
+                  <h3 className="text-3xl font-black text-white uppercase italic tracking-tighter">Data Sovereignty</h3>
+                  <p className="text-slate-400 text-lg font-bold leading-relaxed">
+                    We treat your data like state secrets. Bank-level encryption is standard.
+                  </p>
+                </div>
+              </article>
             </div>
           </section>
+
         </div>
       </main>
     </div>
