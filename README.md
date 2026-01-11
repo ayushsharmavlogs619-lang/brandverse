@@ -48,3 +48,6 @@ To enable Firebase or other API features, create a `.env.local` file with:
 NEXT_PUBLIC_FIREBASE_API_KEY=your_key_here
 NEXT_PUBLIC_FIREBASE_PROJECT_ID=your_id_here
 ```
+
+
+<!-- Deployment triggered from Vercel configuration -->
