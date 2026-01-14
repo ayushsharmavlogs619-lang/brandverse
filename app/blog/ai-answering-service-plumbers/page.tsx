@@ -96,7 +96,7 @@ export default function Article() {
 
                     <p>What sets them apart for plumbers: flat-rate pricing (crucial during burst pipe season), deep integration with contractor software, and proven ROI in home services.</p>
 
-                    <p>One plumbing company captured 23 additional emergency calls per month—worth $8,000+ in recovered revenue from a $497 investment.</p>
+                    <p>One plumbing company captured 18 additional emergency calls per month—worth $7,200+ in recovered revenue from a $497 investment.</p>
 
                     <p><strong className="text-white">Plumbing features:</strong></p>
                     <ul>

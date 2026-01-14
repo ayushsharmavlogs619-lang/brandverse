@@ -4,6 +4,7 @@ import Script from "next/script";
 import "./globals.css";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import ChatWidget from "./components/ChatWidget";
 import Analytics from "./components/Analytics";
 import StructuredData from "./components/StructuredData";
 import PushEnrollment from "./components/PushEnrollment";
@@ -91,6 +92,7 @@ export default function RootLayout({
         <PushEnrollment />
         <Navbar />
         {children}
+        <ChatWidget />
         <Footer />
       </body>
     </html>
