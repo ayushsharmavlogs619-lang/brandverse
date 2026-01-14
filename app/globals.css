@@ -5,76 +5,77 @@
 }
 
 :root {
-  --background: #020617;
+  --background: #0a0a0f;
   --foreground: #f8fafc;
   --brand-blue: #3b82f6;
   --brand-blue-deep: #1d4ed8;
-  --brand-purple: #a855f7;
-  --brand-glow: rgba(59, 130, 246, 0.4);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-brand-blue: var(--brand-blue);
-  --color-brand-purple: var(--brand-purple);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-  --bg-brand-gradient: linear-gradient(135deg, #3b82f6, #8b5cf6);
 }
-
-.bg-brand-gradient {
-  background: linear-gradient(135deg, #3b82f6, #8b5cf6);
-}
-
-.text-glow-blue {
-  text-shadow: 0 0 20px rgba(59, 130, 246, 0.6), 0 0 40px rgba(59, 130, 246, 0.2);
-}
-
-.text-glow {
-  text-shadow: 0 0 15px rgba(239, 68, 68, 0.5);
-}
-
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-sans), system-ui, sans-serif;
+  font-family: var(--font-sans), system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/* Custom Range Slider */
-input[type="range"]::-webkit-slider-thumb {
-  appearance: none;
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #3b82f6, #8b5cf6);
-  cursor: pointer;
-  box-shadow: 0 0 15px rgba(59, 130, 246, 0.5);
-  transition: all 0.2s;
+/* Prose overrides for SEO content sections */
+.prose {
+  --tw-prose-body: #94a3b8;
+  --tw-prose-headings: #ffffff;
+  --tw-prose-lead: #94a3b8;
+  --tw-prose-links: #3b82f6;
+  --tw-prose-bold: #ffffff;
 }
 
-input[type="range"]::-webkit-slider-thumb:hover {
-  transform: scale(1.2);
-  box-shadow: 0 0 20px rgba(59, 130, 246, 0.8);
+.prose p {
+  margin-bottom: 1.5em;
 }
 
-input[type="range"]::-moz-range-thumb {
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #3b82f6, #8b5cf6);
-  cursor: pointer;
-  border: none;
-  box-shadow: 0 0 15px rgba(59, 130, 246, 0.5);
-  transition: all 0.2s;
+.prose h2 {
+  margin-top: 0;
 }
 
-input[type="range"]::-moz-range-thumb:hover {
-  transform: scale(1.2);
-  box-shadow: 0 0 20px rgba(59, 130, 246, 0.8);
+.prose h3,
+.prose h4 {
+  color: #ffffff;
 }
 
+/* Subtle focus states */
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+/* Custom scrollbar for webkit browsers */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0a0a0f;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #1e293b;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #334155;
+}
+
+/* Utility classes */
 @layer utilities {
   .scrollbar-hide::-webkit-scrollbar {
     display: none;
@@ -84,4 +85,10 @@ input[type="range"]::-moz-range-thumb:hover {
     -ms-overflow-style: none;
     scrollbar-width: none;
   }
+}
+
+/* Selection color */
+::selection {
+  background: rgba(59, 130, 246, 0.3);
+  color: #ffffff;
 }

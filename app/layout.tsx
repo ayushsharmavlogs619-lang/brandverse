@@ -20,34 +20,33 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  // ... existing metadata ...
-  title: "Brandverse — AI Voice Agents for SMBs",
-  description: "Brandverse provides 24/7 AI voice agents that capture leads, book appointments, and drive revenue for local businesses.",
-  metadataBase: new URL('https://brandverse-silk.vercel.app'),
-  keywords: ['AI Voice Agents', 'AI Automation', 'Lead Generation', 'Voice AI', 'Business Automation', 'AI Phone Agent', 'Conversational AI', 'SMB Solutions'],
+  title: "Brandverse — AI Chatbots & Voice Agents for Business",
+  description: "AI chatbots trained on your website content. AI voice agents that answer calls 24/7. One platform for complete customer engagement automation.",
+  metadataBase: new URL('https://brandverse.tech'),
+  keywords: ['AI chatbot for websites', 'AI voice agent', 'website AI assistant', 'AI customer support', 'conversational AI', 'train AI on content', 'automated customer service', 'AI phone answering'],
   authors: [{ name: 'Brandverse' }],
   creator: 'Brandverse',
   publisher: 'Brandverse',
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: 'https://brandverse-silk.vercel.app',
-    title: 'Brandverse — AI Voice Agents for SMBs',
-    description: '24/7 AI voice agents that capture leads, book appointments, and drive revenue for local businesses.',
+    url: 'https://brandverse.tech',
+    title: 'Brandverse — AI Chatbots & Voice Agents',
+    description: 'AI chatbots for your website. AI voice agents for your phones. Every customer conversation, handled.',
     siteName: 'Brandverse',
     images: [
       {
         url: '/og-image.jpg',
         width: 1200,
         height: 630,
-        alt: 'Brandverse - AI Voice Automation',
+        alt: 'Brandverse - AI Customer Engagement',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Brandverse — AI Voice Agents for SMBs',
-    description: '24/7 AI voice agents that capture leads, book appointments, and drive revenue.',
+    title: 'Brandverse — AI Chatbots & Voice Agents',
+    description: 'AI chatbots for websites. AI voice agents for calls. 24/7 customer engagement on autopilot.',
     images: ['/og-image.jpg'],
   },
   robots: {

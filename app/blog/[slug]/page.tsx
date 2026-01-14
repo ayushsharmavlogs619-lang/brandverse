@@ -70,6 +70,12 @@ const BLOG_POSTS: Record<string, { title: string; date: string; category: string
   }
 };
 
+export function generateStaticParams() {
+  return Object.keys(BLOG_POSTS).map((slug) => ({
+    slug: slug,
+  }));
+}
+
 export default async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
   const resolvedParams = await params;
   const post = BLOG_POSTS[resolvedParams.slug];

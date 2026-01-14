@@ -24,6 +24,18 @@ export default function Footer() {
 
                 <div>
                     <h4 className="text-sm font-semibold tracking-wide text-neutral-300 uppercase mb-3">
+                        FREE TOOLS
+                    </h4>
+                    <ul className="space-y-2 text-sm text-neutral-400">
+                        <li><Link href="/tools/missed-call-calculator" className="hover:text-white transition-colors">Missed Call Calculator</Link></li>
+                        <li><Link href="/tools/ai-receptionist-roi-calculator" className="hover:text-white transition-colors">AI ROI Calculator</Link></li>
+                        <li><Link href="/tools/call-script-generator" className="hover:text-white transition-colors">Script Generator</Link></li>
+                        <li><Link href="/tools" className="hover:text-white text-blue-400 transition-colors">View All 8 Tools →</Link></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 className="text-sm font-semibold tracking-wide text-neutral-300 uppercase mb-3">
                         LEGAL
                     </h4>
                     <ul className="space-y-2 text-sm text-neutral-400">

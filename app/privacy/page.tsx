@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 export const metadata = {
     title: 'Privacy Policy — Brandverse',
     description: 'Brandverse privacy policy — how we collect, use, and protect your data and voice recordings.',

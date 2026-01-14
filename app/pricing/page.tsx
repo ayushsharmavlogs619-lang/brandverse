@@ -1,104 +1,169 @@
 'use client';
 
-import { Check, Zap } from 'lucide-react';
+import { Check, MessageCircle, Mic, Target, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 
 export default function PricingPage() {
   return (
-    <div className="min-h-screen bg-[#020617] text-slate-200 selection:bg-blue-500/30">
-      <main className="pt-32 pb-24 px-6 max-w-7xl mx-auto space-y-32">
-        {/* Tier Header */}
-        <section className="text-center space-y-10 relative">
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full -z-10">
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-blue-600/5 blur-[120px] rounded-full" />
-          </div>
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-[10px] font-black uppercase tracking-[0.2em]">
-            Investment Structure
-          </div>
-          <h1 className="text-6xl md:text-[9.5rem] font-black text-white leading-[0.85] tracking-tighter uppercase italic text-glow-blue">
-            Scale Your <br />
-            <span className="text-blue-500">Output.</span>
-          </h1>
-          <p className="text-xl md:text-2xl text-slate-400 max-w-2xl mx-auto font-bold leading-relaxed">
-            Transparent, performance-driven pricing built for businesses that demand <span className="text-blue-400">absolute efficiency</span>.
+    <div className="min-h-screen bg-[#0a0a0f] text-slate-200 selection:bg-blue-500/30">
+      <main className="pt-32 pb-24 px-6 max-w-6xl mx-auto">
+
+        {/* Header */}
+        <section className="text-center mb-20">
+          <h1 className="text-5xl md:text-6xl font-semibold text-white mb-6">Simple Pricing. Real Results.</h1>
+          <p className="text-xl text-slate-400 max-w-2xl mx-auto">
+            No hidden fees. No per-message charges. Just flat rates and undeniable ROI.
           </p>
         </section>
 
-        {/* Pricing Cards */}
-        <section className="grid md:grid-cols-3 gap-8">
-          <h2 className="sr-only">Strategic Tier Modules</h2>
-          {[
-            {
-              name: "Starter Protocol",
-              price: "850",
-              desc: "Engineered for local dominance.",
-              features: ["1 AI Voice Agent", "500 Minutes Included", "Standard CRM Sync", "Email Support", "Business Hours Coverage"],
-              cta: "Initiate Starter",
-              popular: false
-            },
-            {
-              name: "Growth Engine",
-              price: "1,950",
-              desc: "The industry standard for scaling.",
-              features: ["3 AI Voice Agents", "1,500 Minutes Included", "Priority CRM Injection", "24/7/365 Deployment", "Emergency Triage Logic", "Sentiment Analysis"],
-              cta: "Launch Growth",
-              popular: true
-            },
-            {
-              name: "Enterprise Core",
-              price: "Custom",
-              desc: "Maximum operational velocity.",
-              features: ["Unlimited Voice Agents", "Custom Minute Volume", "Full API Integration", "Dedicated AI Architect", "White-Glove Onboarding", "Custom System Training"],
-              cta: "Deploy Enterprise",
-              popular: false
-            }
-          ].map((tier, i) => (
-            <article key={i} className={`p-10 md:p-12 rounded-[3.5rem] bg-[#020617] border relative overflow-hidden transition-all hover:scale-[1.02] ${tier.popular ? 'border-blue-500/50 shadow-[0_0_50px_rgba(59,130,246,0.15)] ring-1 ring-blue-500/20' : 'border-white/5 hover:border-white/20'}`}>
-              {tier.popular && (
-                <div className="absolute top-10 right-10 bg-blue-500 text-white px-5 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest italic animate-pulse shadow-2xl">Most ROI</div>
-              )}
+        {/* AI Products Pricing */}
+        <section className="mb-24">
+          <h2 className="text-2xl font-semibold text-white mb-8">AI Products</h2>
+          <div className="grid md:grid-cols-3 gap-6">
 
-              <div className="space-y-8 relative z-10">
-                <div className="space-y-3">
-                  <h3 className={`text-xs font-black uppercase tracking-[0.3em] ${tier.popular ? 'text-blue-400' : 'text-slate-500'}`}>{tier.name}</h3>
-                  <div className="flex items-baseline gap-1">
-                    <span className="text-6xl font-black text-white italic tracking-tighter">{tier.price === 'Custom' ? '' : '$'}{tier.price}</span>
-                    {tier.price !== "Custom" && <span className="text-slate-500 font-bold text-sm">/mo</span>}
-                  </div>
-                  <p className="text-slate-400 font-bold text-base leading-snug">{tier.desc}</p>
+            {/* Starter */}
+            <div className="p-8 rounded-2xl bg-white/[0.02] border border-white/10 hover:border-white/20 transition-all">
+              <h3 className="text-xl font-semibold text-white mb-2">Starter</h3>
+              <p className="text-slate-500 text-sm mb-6">For small teams getting started</p>
+              <div className="text-4xl font-bold text-white mb-6">$497<span className="text-lg text-slate-500 font-normal">/mo</span></div>
+              <ul className="space-y-3 mb-8">
+                {["AI Chatbot OR Voice Agent", "1 Website / Phone Line", "5,000 messages included", "Email support", "Basic analytics"].map((f, i) => (
+                  <li key={i} className="flex items-center gap-3 text-slate-300 text-sm">
+                    <Check className="w-4 h-4 text-blue-400" />
+                    {f}
+                  </li>
+                ))}
+              </ul>
+              <Link href="/contact" className="block w-full py-3 text-center rounded-xl border border-white/10 text-white font-medium hover:bg-white/5 transition-all">
+                Get Started
+              </Link>
+            </div>
+
+            {/* Growth - Featured */}
+            <div className="p-8 rounded-2xl bg-blue-600 border border-blue-400 shadow-lg shadow-blue-600/20 relative">
+              <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 bg-white text-blue-600 text-xs font-bold rounded-full">
+                MOST POPULAR
+              </div>
+              <h3 className="text-xl font-semibold text-white mb-2">Growth</h3>
+              <p className="text-blue-200 text-sm mb-6">For scaling businesses</p>
+              <div className="text-4xl font-bold text-white mb-6">$997<span className="text-lg text-blue-200 font-normal">/mo</span></div>
+              <ul className="space-y-3 mb-8">
+                {["AI Chatbot + Voice Agent", "3 Websites / Phone Lines", "Unlimited messages", "CRM integrations", "Priority support", "Advanced analytics"].map((f, i) => (
+                  <li key={i} className="flex items-center gap-3 text-white text-sm">
+                    <Check className="w-4 h-4" />
+                    {f}
+                  </li>
+                ))}
+              </ul>
+              <Link href="/contact" className="block w-full py-3 text-center rounded-xl bg-white text-blue-600 font-medium hover:bg-blue-50 transition-all">
+                Get Started
+              </Link>
+            </div>
+
+            {/* Enterprise */}
+            <div className="p-8 rounded-2xl bg-white/[0.02] border border-white/10 hover:border-white/20 transition-all">
+              <h3 className="text-xl font-semibold text-white mb-2">Enterprise</h3>
+              <p className="text-slate-500 text-sm mb-6">For large organizations</p>
+              <div className="text-4xl font-bold text-white mb-6">Custom</div>
+              <ul className="space-y-3 mb-8">
+                {["Everything in Growth", "Unlimited sites & lines", "Custom integrations", "Dedicated account manager", "SLA guarantees", "White-label options"].map((f, i) => (
+                  <li key={i} className="flex items-center gap-3 text-slate-300 text-sm">
+                    <Check className="w-4 h-4 text-blue-400" />
+                    {f}
+                  </li>
+                ))}
+              </ul>
+              <Link href="/contact" className="block w-full py-3 text-center rounded-xl border border-white/10 text-white font-medium hover:bg-white/5 transition-all">
+                Contact Sales
+              </Link>
+            </div>
+          </div>
+        </section>
+
+        {/* SMMA Pricing */}
+        <section className="mb-24">
+          <h2 className="text-2xl font-semibold text-white mb-8">Paid Ads Management (SMMA)</h2>
+          <div className="p-8 md:p-12 rounded-2xl bg-gradient-to-r from-purple-600/10 to-transparent border border-purple-500/20">
+            <div className="grid md:grid-cols-2 gap-12 items-center">
+              <div>
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-500/10 border border-purple-500/20 text-purple-400 text-xs font-medium mb-6">
+                  <Target className="w-3 h-3" />
+                  Highest ROI Service
                 </div>
-
-                <div className="space-y-6 pt-10 border-t border-white/5">
-                  <h4 className="sr-only">Inclusions</h4>
-                  {tier.features.map((f, fi) => (
-                    <div key={fi} className="flex items-center gap-4">
-                      <div className={`w-6 h-6 rounded-full flex items-center justify-center shrink-0 ${tier.popular ? 'bg-blue-500 text-white' : 'bg-white/10 text-slate-400'}`}>
-                        <Check className="w-3.5 h-3.5 stroke-[3]" />
-                      </div>
-                      <span className="text-slate-300 font-bold text-sm tracking-tight">{f}</span>
-                    </div>
+                <h3 className="text-3xl font-semibold text-white mb-4">$1,000/month</h3>
+                <p className="text-slate-400 text-lg leading-relaxed mb-6">
+                  We manage your Meta, Google & TikTok ads. You pay your ad spend directly to the platforms.
+                  We handle strategy, creative, optimization, and reporting.
+                </p>
+                <ul className="space-y-3 mb-8">
+                  {[
+                    "Full management of Meta, Google & TikTok ads",
+                    "You own all ad accounts (full transparency)",
+                    "Weekly performance reports",
+                    "Unlimited creative iterations",
+                    "No long-term contracts"
+                  ].map((f, i) => (
+                    <li key={i} className="flex items-center gap-3 text-slate-300">
+                      <Check className="w-5 h-5 text-purple-400" />
+                      {f}
+                    </li>
                   ))}
-                </div>
-
-                <Link href="/contact" className={`w-full py-6 rounded-2xl font-black uppercase tracking-widest text-xs flex items-center justify-center gap-3 transition-all ${tier.popular ? 'bg-brand-gradient text-white shadow-2xl shadow-blue-500/30' : 'bg-white/5 text-white hover:bg-white/10 border border-white/10'}`}>
-                  {tier.cta} <Zap className={`w-4 h-4 ${tier.popular ? 'fill-current' : ''}`} />
+                </ul>
+                <Link href="/contact" className="inline-flex items-center gap-2 px-6 py-3 bg-purple-600 hover:bg-purple-500 text-white rounded-xl font-medium transition-all">
+                  Get Started with SMMA <ArrowRight className="w-4 h-4" />
                 </Link>
               </div>
-            </article>
-          ))}
-        </section>
-
-        {/* Satisfaction Block */}
-        <section className="max-w-4xl mx-auto p-16 md:p-20 rounded-[4rem] bg-[#020617] border border-white/5 text-center space-y-10 relative overflow-hidden group">
-          <div className="absolute inset-0 bg-blue-600/5 blur-[100px] -z-10 group-hover:bg-blue-600/10 transition-colors" />
-          <h2 className="text-4xl md:text-5xl font-black text-white uppercase italic tracking-tighter leading-tight">The Efficiency <span className="text-blue-500">Guarantee.</span></h2>
-          <p className="text-slate-400 text-xl font-bold leading-relaxed max-w-2xl mx-auto">
-            We are so confident in our AI systems that we offer a <span className="text-blue-400">30-day performance audit</span>. If your business doesn't see a measurable increase in operational speed, we'll refund your setup fee.
-          </p>
-          <div className="pt-8 border-t border-white/5">
-            <h3 className="text-[10px] text-slate-600 font-black uppercase tracking-[0.4em]">Operational Security Protocol Secured</h3>
+              <div className="bg-[#12121a] rounded-xl border border-white/10 p-8">
+                <h4 className="text-lg font-semibold text-white mb-6">Real Client Results</h4>
+                <div className="space-y-6">
+                  <div className="flex justify-between items-center pb-4 border-b border-white/5">
+                    <span className="text-slate-400">You Pay Us</span>
+                    <span className="text-2xl font-bold text-white">$1,000/mo</span>
+                  </div>
+                  <div className="flex justify-between items-center pb-4 border-b border-white/5">
+                    <span className="text-slate-400">You Make Back</span>
+                    <span className="text-2xl font-bold text-green-400">$6,000 - $13,000+</span>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span className="text-slate-400">Your ROI</span>
+                    <span className="text-2xl font-bold text-purple-400">6-13x</span>
+                  </div>
+                </div>
+                <p className="mt-6 text-slate-500 text-sm">
+                  *Based on real results from a dental practice client.
+                </p>
+              </div>
+            </div>
           </div>
         </section>
+
+        {/* FAQ */}
+        <section className="mb-24">
+          <h2 className="text-2xl font-semibold text-white mb-8">Common Questions</h2>
+          <div className="grid md:grid-cols-2 gap-6">
+            {[
+              { q: "What's the difference between message-based and unlimited?", a: "Starter plans have a message cap. Growth and above are truly unlimited—no surprises." },
+              { q: "Can I switch plans later?", a: "Yes. Upgrade or downgrade anytime. Changes take effect on your next billing cycle." },
+              { q: "What's included in ad spend?", a: "Your ad spend goes directly to Meta/Google/TikTok. We charge $1K/mo flat for management." },
+              { q: "Is there a setup fee?", a: "No setup fees. No hidden costs. The price you see is the price you pay." }
+            ].map((faq, i) => (
+              <div key={i} className="p-6 rounded-xl bg-white/[0.02] border border-white/5">
+                <h3 className="text-white font-medium mb-2">{faq.q}</h3>
+                <p className="text-slate-500 text-sm">{faq.a}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* CTA */}
+        <section className="text-center p-12 rounded-2xl bg-white/[0.02] border border-white/5">
+          <h2 className="text-3xl font-semibold text-white mb-4">Not Sure Which Plan?</h2>
+          <p className="text-slate-400 mb-8">Let's talk. We'll figure out what makes sense for your business.</p>
+          <Link href="/contact" className="inline-flex items-center gap-2 px-8 py-4 bg-blue-600 hover:bg-blue-500 text-white rounded-xl font-medium text-lg transition-all">
+            Schedule a Call <ArrowRight className="w-5 h-5" />
+          </Link>
+        </section>
+
       </main>
     </div>
   );
