@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import CalendlyCTA from '@/app/components/CalendlyCTA';
 
 export const metadata = {
     title: 'Lead Response Time Statistics: Why Speed Matters (2026 Data) | Brandverse',

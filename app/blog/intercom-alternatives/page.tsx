@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import CalendlyCTA from '@/app/components/CalendlyCTA';
 
 export const metadata = {
     title: 'Best Intercom Alternatives for Small Business in 2026 | Brandverse',

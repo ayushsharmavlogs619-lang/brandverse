@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import CalendlyCTA from '@/app/components/CalendlyCTA';
 
 export const metadata = {
     title: 'Best AI Marketing Tools for Med Spas & Aesthetics in 2026 | Brandverse',
@@ -180,6 +181,8 @@ export default function Article() {
                         Book Your Demo →
                     </Link>
                 </div>
+
+                <CalendlyCTA />
 
             </article>
         </div>

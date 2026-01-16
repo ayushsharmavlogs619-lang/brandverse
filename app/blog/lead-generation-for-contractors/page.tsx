@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import CalendlyCTA from '@/app/components/CalendlyCTA';
 
 export const metadata = {
     title: 'Lead Generation for Contractors: 7 Proven Strategies for 2026 | Brandverse',

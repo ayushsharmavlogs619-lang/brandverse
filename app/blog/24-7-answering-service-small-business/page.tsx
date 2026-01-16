@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import CalendlyCTA from '@/app/components/CalendlyCTA';
 
 export const metadata = {
     title: '24/7 Answering Service for Small Business: Complete Guide | Brandverse',
@@ -157,6 +158,8 @@ export default function Article() {
                         Book Your Demo →
                     </Link>
                 </div>
+
+                <CalendlyCTA />
 
             </article>
         </div>

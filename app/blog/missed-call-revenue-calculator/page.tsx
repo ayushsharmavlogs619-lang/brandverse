@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import CalendlyCTA from '@/app/components/CalendlyCTA';
 
 export const metadata = {
     title: 'Missed Call Revenue Calculator: How Much Are You Losing? | Brandverse',

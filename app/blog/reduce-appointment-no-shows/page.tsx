@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import CalendlyCTA from '@/app/components/CalendlyCTA';
 
 export const metadata = {
     title: 'Appointment No-Show Rate: How to Calculate & Reduce It | Brandverse',
@@ -175,6 +176,8 @@ export default function Article() {
                     </div>
 
                 </div>
+
+                <CalendlyCTA />
 
             </article>
         </div>

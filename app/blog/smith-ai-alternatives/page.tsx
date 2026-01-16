@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import CalendlyCTA from '@/app/components/CalendlyCTA';
 
 export const metadata = {
     title: 'Best Smith.ai Alternatives in 2026: Pricing, Features & Reviews | Brandverse',

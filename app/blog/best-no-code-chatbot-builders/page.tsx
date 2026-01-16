@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import CalendlyCTA from '@/app/components/CalendlyCTA';
 
 export const metadata = {
     title: 'Best No-Code Chatbot Builders in 2026: Complete Comparison | Brandverse',

@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import CalendlyCTA from '@/app/components/CalendlyCTA';
 
 export const metadata = {
     title: 'Best AI Chatbot for Real Estate Agents in 2026 | Brandverse',
@@ -213,6 +214,8 @@ export default function Article() {
                         Book Your Free Demo →
                     </Link>
                 </div>
+
+                <CalendlyCTA />
 
             </article>
         </div>
