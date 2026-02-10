@@ -18,10 +18,16 @@ export default function Post() {
           <p>We walk through conservative, base, and aggressive scenarios so you can decide which outcome fits your business.</p>
         </section>
 
-        <div className="mt-8">
-          <Link href="/blog" className="text-blue-400 font-bold">← Back to articles</Link>
+
+
+        <CalendlyCTA />
+
+        <div className="mt-12 text-center">
+          <Link href="/blog" className="text-slate-500 hover:text-blue-400 font-bold uppercase tracking-widest text-sm transition-colors">
+            ← Back to Blog
+          </Link>
         </div>
-      </main>
-    </div>
+      </main >
+    </div >
   );
 }

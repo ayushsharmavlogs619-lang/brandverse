@@ -86,6 +86,22 @@ export default function ContactPage() {
                                     <h4 className="text-purple-400 font-bold text-sm mt-1 uppercase tracking-widest text-[10px]">Response Time: &lt; 2hrs</h4>
                                 </div>
                             </article>
+
+                            <article className="flex items-start gap-6 p-8 rounded-[2.5rem] bg-brand-gradient text-white relative overflow-hidden group shadow-2xl shadow-blue-500/20">
+                                <div className="absolute top-0 right-0 p-8 opacity-20 group-hover:scale-110 transition-transform">
+                                    <Zap className="w-32 h-32 text-white fill-current" />
+                                </div>
+                                <div className="w-14 h-14 rounded-2xl bg-white/20 flex items-center justify-center text-white shrink-0 relative z-10 backdrop-blur-md">
+                                    <Zap className="w-6 h-6 fill-current" />
+                                </div>
+                                <div className="relative z-10 flex-1">
+                                    <h3 className="text-xs font-black text-white/60 uppercase tracking-[0.3em] mb-2">Instant Capture</h3>
+                                    <p className="text-2xl font-black text-white italic mb-4">Book Calibration</p>
+                                    <Link href="https://calendly.com/ayushsharmavlogs619/30min" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-6 py-2 bg-white text-blue-600 rounded-xl font-black uppercase tracking-widest text-[10px] hover:bg-blue-50 transition-all">
+                                        Secure Slot Now
+                                    </Link>
+                                </div>
+                            </article>
                         </section>
 
                         {/* Strategic Intelligence Sidebar */}

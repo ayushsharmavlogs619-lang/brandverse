@@ -111,7 +111,7 @@ export default function PortfolioPage() {
         <section className="py-40 text-center px-6 relative overflow-hidden">
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-blue-600/10 blur-[150px] rounded-full" />
           <h2 className="text-5xl md:text-[7rem] font-black text-white mb-12 uppercase italic tracking-tighter leading-none">Your Turn To <span className="text-blue-500 text-glow-blue">Dominate.</span></h2>
-          <Link href="/contact" className="inline-flex items-center gap-4 px-12 py-8 bg-brand-gradient text-white rounded-3xl font-black uppercase tracking-widest text-sm shadow-2xl hover:scale-105 transition-all group">
+          <Link href="https://calendly.com/ayushsharmavlogs619/30min" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-4 px-12 py-8 bg-brand-gradient text-white rounded-3xl font-black uppercase tracking-widest text-sm shadow-2xl hover:scale-105 transition-all group">
             Apply For System Deployment
             <Zap className="w-6 h-6 fill-current group-hover:rotate-12 transition-transform" />
           </Link>

@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import CalendlyCTA from '@/app/components/CalendlyCTA';
 
 export const metadata = {
   title: 'Voice Cloning: Ethics & Best Practices — Brandverse',
@@ -16,9 +17,13 @@ export default function Post() {
           <p>We outline consent flows, secure storage, and audit logs that make voice cloning safe for brands and customers alike.</p>
         </section>
 
-        <div className="mt-8">
-          <Link href="/blog" className="text-blue-400 font-bold">← Back to articles</Link>
+        <div className="mt-12 text-center">
+          <Link href="/blog" className="text-slate-500 hover:text-blue-400 font-bold uppercase tracking-widest text-sm transition-colors">
+            ← Back to Blog
+          </Link>
         </div>
+
+        <CalendlyCTA />
       </main>
     </div>
   );

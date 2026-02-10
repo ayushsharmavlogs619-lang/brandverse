@@ -32,7 +32,7 @@ export default function Article() {
                 <div className="bg-blue-600/10 border border-blue-500/20 rounded-2xl p-8 mb-12">
                     <h3 className="text-xl font-semibold text-white mb-3">Get Custom Pricing</h3>
                     <p className="text-slate-400 mb-4">Book a call to get a quote specific to your call volume and needs.</p>
-                    <Link href="/contact" className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-500 text-white rounded-xl font-medium transition-all">
+                    <Link href="https://calendly.com/ayushsharmavlogs619/30min" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-500 text-white rounded-xl font-medium transition-all">
                         Get Your Quote →
                     </Link>
                 </div>
@@ -184,17 +184,14 @@ export default function Article() {
 
                 </div>
 
-                <div className="mt-16 p-8 bg-gradient-to-r from-blue-600/10 to-purple-600/10 border border-white/10 rounded-2xl text-center">
-                    <h3 className="text-2xl font-semibold text-white mb-4">Get Your Custom Quote</h3>
-                    <p className="text-slate-400 mb-6 max-w-xl mx-auto">
-                        Book a call and we&apos;ll calculate pricing based on your specific call volume and needs.
-                    </p>
-                    <Link href="/contact" className="inline-flex items-center gap-2 px-8 py-4 bg-blue-600 hover:bg-blue-500 text-white rounded-xl font-medium text-lg transition-all">
-                        Get Your Quote →
+                <CalendlyCTA />
+
+                <div className="mt-12 text-center">
+                    <Link href="/blog" className="text-slate-500 hover:text-blue-400 font-bold uppercase tracking-widest text-sm transition-colors">
+                        ← Back to Blog
                     </Link>
                 </div>
-
-            </article>
-        </div>
+            </article >
+        </div >
     );
 }

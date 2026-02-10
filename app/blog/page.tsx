@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import CalendlyCTA from '@/app/components/CalendlyCTA';
 
 export const metadata = {
   title: 'Blog — Brandverse',
@@ -282,6 +283,9 @@ export default function BlogIndex() {
               </Link>
             </article>
           ))}
+        </div>
+        <div className="mt-20">
+          <CalendlyCTA />
         </div>
       </main>
     </div>

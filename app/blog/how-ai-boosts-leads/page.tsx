@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import CalendlyCTA from '@/app/components/CalendlyCTA';
 
 export default function SamplePost() {
   return (
@@ -27,10 +28,15 @@ export default function SamplePost() {
             <p className="text-slate-400">Clients typically see dramatic increases in booked appointments and reduced cost-per-lead after tuning the agent to their business.</p>
           </section>
 
-          <div className="mt-12">
-            <Link href="/blog" className="text-blue-400 font-bold">← Back to articles</Link>
+          <div className="mt-12 text-center">
+            <Link href="/blog" className="text-slate-500 hover:text-blue-400 font-bold uppercase tracking-widest text-sm transition-colors">
+              ← Back to Blog
+            </Link>
           </div>
+
         </article>
+
+        <CalendlyCTA />
       </main>
     </div>
   );

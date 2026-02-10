@@ -32,7 +32,7 @@ export default function Article() {
                 <div className="bg-blue-600/10 border border-blue-500/20 rounded-2xl p-8 mb-12">
                     <h3 className="text-xl font-semibold text-white mb-3">See Real Estate AI in Action</h3>
                     <p className="text-slate-400 mb-4">Book a demo to see how agents are converting website visitors into qualified leads 24/7.</p>
-                    <Link href="/contact" className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-500 text-white rounded-xl font-medium transition-all">
+                    <Link href="https://calendly.com/ayushsharmavlogs619/30min" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-500 text-white rounded-xl font-medium transition-all">
                         Book Your Free Demo →
                     </Link>
                 </div>
@@ -210,7 +210,7 @@ export default function Article() {
                     <p className="text-slate-400 mb-6 max-w-xl mx-auto">
                         Book a demo and see how AI chatbots work for real estate—with a walkthrough of qualification, booking, and CRM integration.
                     </p>
-                    <Link href="/contact" className="inline-flex items-center gap-2 px-8 py-4 bg-blue-600 hover:bg-blue-500 text-white rounded-xl font-medium text-lg transition-all">
+                    <Link href="https://calendly.com/ayushsharmavlogs619/30min" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-8 py-4 bg-blue-600 hover:bg-blue-500 text-white rounded-xl font-medium text-lg transition-all">
                         Book Your Free Demo →
                     </Link>
                 </div>

@@ -35,7 +35,7 @@ export default function Article() {
                 <div className="bg-blue-600/10 border border-blue-500/20 rounded-2xl p-8 mb-12">
                     <h3 className="text-xl font-semibold text-white mb-3">Want to See AI Reception in Action?</h3>
                     <p className="text-slate-400 mb-4">Book a 15-minute demo call and we&apos;ll show you exactly how AI answers your business calls.</p>
-                    <Link href="/contact" className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-500 text-white rounded-xl font-medium transition-all">
+                    <Link href="https://calendly.com/ayushsharmavlogs619/30min" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-500 text-white rounded-xl font-medium transition-all">
                         Book Your Free Demo →
                     </Link>
                 </div>
@@ -207,7 +207,7 @@ export default function Article() {
                         See how Brandverse AI receptionists work for your specific business.
                         We&apos;ll show you a live demo and calculate your potential ROI.
                     </p>
-                    <Link href="/contact" className="inline-flex items-center gap-2 px-8 py-4 bg-blue-600 hover:bg-blue-500 text-white rounded-xl font-medium text-lg transition-all">
+                    <Link href="https://calendly.com/ayushsharmavlogs619/30min" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-8 py-4 bg-blue-600 hover:bg-blue-500 text-white rounded-xl font-medium text-lg transition-all">
                         Book Your Free Demo →
                     </Link>
                     <p className="text-slate-600 text-sm mt-4">No credit card required • 15-minute call • See real results</p>

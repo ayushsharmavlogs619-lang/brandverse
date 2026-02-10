@@ -28,105 +28,7 @@ import {
   Rocket
 } from 'lucide-react';
 
-function ROICalculator() {
-  const [visitors, setVisitors] = useState(10000);
-  const [missedCalls, setMissedCalls] = useState(150);
-  const [dealValue, setDealValue] = useState(500);
-
-  // Conversion assumptions
-  const chatConversionRate = 0.02; // 2% of visitors start a chat
-  const leadCaptureImprovement = 0.30; // 30% improvement in lead capture
-  const missedCallRecoveryRate = 0.70; // 70% of missed calls recovered
-
-  const monthlyLostRevenue = missedCalls * dealValue * 0.25; // Assuming 25% of missed calls would have been deals
-  const recoverableRevenue = (missedCalls * missedCallRecoveryRate * dealValue * 0.25) + (visitors * chatConversionRate * leadCaptureImprovement * dealValue);
-  const annualImpact = recoverableRevenue * 12;
-
-  return (
-    <section className="px-6 py-24">
-      <div className="max-w-5xl mx-auto">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-semibold text-white mb-4">
-            Calculate Your ROI
-          </h2>
-          <p className="text-slate-400 max-w-2xl mx-auto">
-            See how much revenue you're leaving on the table with missed conversations.
-          </p>
-        </div>
-
-        <div className="bg-[#12121a] rounded-2xl border border-white/10 p-8 md:p-12">
-          <div className="grid md:grid-cols-2 gap-12">
-            <div className="space-y-8">
-              <div className="space-y-4">
-                <label className="text-sm text-slate-400 block">Monthly Website Visitors: <span className="text-white font-bold">{visitors.toLocaleString()}</span></label>
-                <input
-                  type="range"
-                  min="1000"
-                  max="100000"
-                  step="1000"
-                  value={visitors}
-                  onChange={(e) => setVisitors(Number(e.target.value))}
-                  className="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-blue-600"
-                />
-              </div>
-              <div className="space-y-4">
-                <label className="text-sm text-slate-400 block">Monthly Missed Calls: <span className="text-white font-bold">{missedCalls}</span></label>
-                <input
-                  type="range"
-                  min="0"
-                  max="1000"
-                  step="10"
-                  value={missedCalls}
-                  onChange={(e) => setMissedCalls(Number(e.target.value))}
-                  className="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-blue-600"
-                />
-              </div>
-              <div className="space-y-4">
-                <label className="text-sm text-slate-400 block">Average Deal Value: <span className="text-white font-bold">${dealValue}</span></label>
-                <input
-                  type="range"
-                  min="50"
-                  max="5000"
-                  step="50"
-                  value={dealValue}
-                  onChange={(e) => setDealValue(Number(e.target.value))}
-                  className="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-blue-600"
-                />
-              </div>
-            </div>
-
-            <div className="bg-blue-600/10 rounded-xl p-8 border border-blue-500/20">
-              <h3 className="text-lg font-medium text-blue-400 mb-6">Your Potential Recovery</h3>
-              <div className="space-y-6">
-                <div>
-                  <div className="text-sm text-slate-400 mb-1">Monthly Revenue Lost</div>
-                  <div className="text-3xl font-bold text-red-400">
-                    ${Math.round(monthlyLostRevenue).toLocaleString()}
-                  </div>
-                </div>
-                <div>
-                  <div className="text-sm text-slate-400 mb-1">Recoverable with Brandverse</div>
-                  <div className="text-3xl font-bold text-green-400">
-                    ${Math.round(recoverableRevenue).toLocaleString()}
-                  </div>
-                </div>
-                <div>
-                  <div className="text-sm text-slate-400 mb-1">Annual Impact</div>
-                  <div className="text-4xl font-bold text-white">
-                    ${Math.round(annualImpact).toLocaleString()}
-                  </div>
-                </div>
-              </div>
-              <Link href="/contact" className="mt-8 block w-full py-4 bg-blue-600 hover:bg-blue-500 text-white text-center rounded-xl font-medium transition-all">
-                Get Your Custom Analysis
-              </Link>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
+import ROICalculator from './components/ROICalculator';
 export default function Home() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [activeProduct, setActiveProduct] = useState<'chatbot' | 'voice'>('chatbot');
@@ -334,13 +236,15 @@ export default function Home() {
             {/* CTAs */}
             <div className="flex flex-col sm:flex-row justify-center items-center gap-4 mt-12">
               <Link
-                href="/contact"
+                href="https://calendly.com/ayushsharmavlogs619/30min"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="px-8 py-4 bg-blue-600 hover:bg-blue-500 text-white rounded-xl font-medium text-base transition-all flex items-center gap-2 shadow-lg shadow-blue-600/25"
               >
                 Get Started <ArrowRight className="w-4 h-4" />
               </Link>
               <Link
-                href="/how-it-works"
+                href="/process"
                 className="px-8 py-4 text-slate-300 hover:text-white border border-white/10 hover:border-white/20 rounded-xl font-medium text-base transition-all"
               >
                 See How It Works
@@ -352,7 +256,7 @@ export default function Home() {
         {/* ═══════════════════════════════════════════════════════════════════
             SECTION 2: DUAL PRODUCT CARDS
         ═══════════════════════════════════════════════════════════════════ */}
-        <section className="px-6 py-24 bg-[#08080c] border-y border-white/5">
+        <section id="services" className="px-6 py-24 bg-[#08080c] border-y border-white/5">
           <div className="max-w-6xl mx-auto">
             <h2 className="text-3xl md:text-4xl font-semibold text-white text-center mb-6">
               Three Ways to 10x Your Revenue
@@ -737,7 +641,7 @@ export default function Home() {
                     </li>
                   ))}
                 </ul>
-                <Link href="/contact" className="block w-full py-3 text-center rounded-xl border border-white/10 text-white font-medium hover:bg-white/5 transition-all">
+                <Link href="https://calendly.com/ayushsharmavlogs619/30min" target="_blank" rel="noopener noreferrer" className="block w-full py-3 text-center rounded-xl border border-white/10 text-white font-medium hover:bg-white/5 transition-all">
                   Get Started
                 </Link>
               </div>
@@ -758,7 +662,7 @@ export default function Home() {
                     </li>
                   ))}
                 </ul>
-                <Link href="/contact" className="block w-full py-3 text-center rounded-xl bg-white text-blue-600 font-medium hover:bg-blue-50 transition-all">
+                <Link href="https://calendly.com/ayushsharmavlogs619/30min" target="_blank" rel="noopener noreferrer" className="block w-full py-3 text-center rounded-xl bg-white text-blue-600 font-medium hover:bg-blue-50 transition-all">
                   Get Started
                 </Link>
               </div>
@@ -776,7 +680,7 @@ export default function Home() {
                     </li>
                   ))}
                 </ul>
-                <Link href="/contact" className="block w-full py-3 text-center rounded-xl border border-white/10 text-white font-medium hover:bg-white/5 transition-all">
+                <Link href="https://calendly.com/ayushsharmavlogs619/30min" target="_blank" rel="noopener noreferrer" className="block w-full py-3 text-center rounded-xl border border-white/10 text-white font-medium hover:bg-white/5 transition-all">
                   Contact Sales
                 </Link>
               </div>
@@ -1298,13 +1202,17 @@ export default function Home() {
             </p>
             <div className="flex flex-col sm:flex-row justify-center items-center gap-4 pt-4">
               <Link
-                href="/contact"
+                href="https://calendly.com/ayushsharmavlogs619/30min"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="px-10 py-5 bg-blue-600 hover:bg-blue-500 text-white rounded-xl font-medium text-lg transition-all shadow-lg shadow-blue-600/25"
               >
                 Get Started Today
               </Link>
               <Link
-                href="/contact"
+                href="https://calendly.com/ayushsharmavlogs619/30min"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="text-slate-400 hover:text-white transition-colors text-base"
               >
                 Talk to Sales →

@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { MessageCircle, Mic, Target, Check, ArrowRight, Zap } from 'lucide-react';
+import ROICalculator from '@/app/components/ROICalculator';
 
 export const metadata = {
   title: 'Services — Brandverse',
@@ -47,7 +48,7 @@ export default function ServicesPage() {
                     </li>
                   ))}
                 </ul>
-                <Link href="/contact" className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-500 text-white rounded-xl font-medium transition-all">
+                <Link href="https://calendly.com/ayushsharmavlogs619/30min" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-500 text-white rounded-xl font-medium transition-all">
                   Get AI Chatbot <ArrowRight className="w-4 h-4" />
                 </Link>
               </div>
@@ -96,7 +97,7 @@ export default function ServicesPage() {
                     </li>
                   ))}
                 </ul>
-                <Link href="/contact" className="inline-flex items-center gap-2 px-6 py-3 bg-green-600 hover:bg-green-500 text-white rounded-xl font-medium transition-all">
+                <Link href="https://calendly.com/ayushsharmavlogs619/30min" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-6 py-3 bg-green-600 hover:bg-green-500 text-white rounded-xl font-medium transition-all">
                   Get Voice Agent <ArrowRight className="w-4 h-4" />
                 </Link>
               </div>
@@ -127,7 +128,7 @@ export default function ServicesPage() {
                     </li>
                   ))}
                 </ul>
-                <Link href="/contact" className="inline-flex items-center gap-2 px-6 py-3 bg-purple-600 hover:bg-purple-500 text-white rounded-xl font-medium transition-all">
+                <Link href="https://calendly.com/ayushsharmavlogs619/30min" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-6 py-3 bg-purple-600 hover:bg-purple-500 text-white rounded-xl font-medium transition-all">
                   Get SMMA <ArrowRight className="w-4 h-4" />
                 </Link>
               </div>
@@ -175,11 +176,14 @@ export default function ServicesPage() {
           </div>
         </section>
 
+        {/* ROI Calculator integration */}
+        <ROICalculator />
+
         {/* CTA */}
         <section className="text-center p-12 rounded-2xl bg-gradient-to-r from-blue-600/10 via-purple-600/10 to-green-600/10 border border-white/5">
           <h2 className="text-3xl font-semibold text-white mb-4">Ready to Stop Leaving Money on the Table?</h2>
           <p className="text-slate-400 mb-8">Pick the service that fits. We&apos;ll handle the rest.</p>
-          <Link href="/contact" className="inline-flex items-center gap-2 px-8 py-4 bg-blue-600 hover:bg-blue-500 text-white rounded-xl font-medium text-lg transition-all">
+          <Link href="https://calendly.com/ayushsharmavlogs619/30min" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-8 py-4 bg-blue-600 hover:bg-blue-500 text-white rounded-xl font-medium text-lg transition-all">
             Let&apos;s Talk <ArrowRight className="w-5 h-5" />
           </Link>
         </section>

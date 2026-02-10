@@ -1,4 +1,5 @@
 import { Shield, Zap, Target, Lock } from 'lucide-react';
+import CalendlyCTA from '@/app/components/CalendlyCTA';
 
 export const metadata = {
   title: 'About — Brandverse',
@@ -124,6 +125,10 @@ export default function AboutPage() {
               </div>
             </div>
           </section>
+
+          <div className="mt-20">
+            <CalendlyCTA />
+          </div>
         </div>
       </main>
     </div>

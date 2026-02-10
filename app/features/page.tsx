@@ -141,7 +141,7 @@ export default function FeaturesPage() {
                 <section className="py-40 text-center px-6 relative">
                     <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-blue-600/10 blur-[100px] rounded-full" />
                     <h2 className="text-5xl md:text-[8rem] font-black text-white mb-12 uppercase italic tracking-tighter leading-none">Defy The <span className="text-blue-500">Standard.</span></h2>
-                    <Link href="/contact" className="inline-flex items-center gap-3 px-12 py-7 bg-brand-gradient text-white rounded-[2rem] font-black uppercase tracking-widest text-sm shadow-2xl hover:scale-105 transition-all group">
+                    <Link href="https://calendly.com/ayushsharmavlogs619/30min" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-3 px-12 py-7 bg-brand-gradient text-white rounded-[2rem] font-black uppercase tracking-widest text-sm shadow-2xl hover:scale-105 transition-all group">
                         Upgrade Your Business Today
                         <Zap className="w-5 h-5 fill-current group-hover:rotate-12 transition-transform" />
                     </Link>

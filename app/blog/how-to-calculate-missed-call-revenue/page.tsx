@@ -148,20 +148,15 @@ export default function Article() {
                         </table>
                     </div>
 
-                    <h2 className="text-2xl font-semibold text-white mt-12 mb-6">Use the Calculator Now</h2>
-
-                    <p>Don't guess. Use our free calculator to get your exact number based on real industry data.</p>
-
-                    <div className="my-8 p-8 bg-gradient-to-r from-blue-600/10 to-purple-600/10 border border-blue-500/20 rounded-2xl text-center">
-                        <h3 className="text-2xl font-semibold text-white mb-3">Free Missed Call Revenue Calculator</h3>
-                        <p className="text-slate-400 mb-6">Takes 60 seconds. No email required.</p>
-                        <Link href="/tools/missed-call-calculator" className="inline-flex items-center gap-2 px-8 py-4 bg-blue-600 hover:bg-blue-500 text-white rounded-xl font-semibold text-lg transition-all">
-                            Calculate Your Lost Revenue →
-                        </Link>
-                    </div>
-
                 </div>
 
+                <CalendlyCTA />
+
+                <div className="mt-12 text-center">
+                    <Link href="/blog" className="text-slate-500 hover:text-blue-400 font-bold uppercase tracking-widest text-sm transition-colors">
+                        ← Back to Blog
+                    </Link>
+                </div>
             </article>
         </div>
     );

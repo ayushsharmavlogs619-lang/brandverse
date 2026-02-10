@@ -95,7 +95,7 @@ export default function FAQPage() {
           <MessageCircle className="w-12 h-12 mx-auto mb-4 text-blue-200" />
           <h3 className="text-2xl font-bold mb-2">Still have questions?</h3>
           <p className="mb-8 text-blue-100">Our founders read every email. Sends us a message and we'll reply within an hour.</p>
-          <Link href="/contact" className="inline-block px-8 py-3 bg-white text-blue-600 rounded-xl font-bold hover:bg-slate-100 transition-colors">
+          <Link href="https://calendly.com/ayushsharmavlogs619/30min" target="_blank" rel="noopener noreferrer" className="inline-block px-8 py-3 bg-white text-blue-600 rounded-xl font-bold hover:bg-slate-100 transition-colors">
             Contact Support
           </Link>
         </div>

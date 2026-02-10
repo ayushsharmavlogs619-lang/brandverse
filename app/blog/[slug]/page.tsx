@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
+import CalendlyCTA from '@/app/components/CalendlyCTA';
 
 export const metadata = {
   title: 'Blog — Brandverse',
@@ -104,12 +105,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
           <div dangerouslySetInnerHTML={{ __html: post.content }} />
         </article>
 
-        <div className="mt-16 pt-12 border-t border-white/10 text-center">
-          <h3 className="text-2xl font-bold text-white mb-4">Ready to automate your business?</h3>
-          <Link href="/contact" className="inline-block px-8 py-4 bg-blue-600 rounded-xl font-black text-white hover:bg-blue-700 transition-all">
-            Schedule Your Demo
-          </Link>
-        </div>
+        <CalendlyCTA />
       </main>
     </div>
   );

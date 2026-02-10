@@ -41,7 +41,7 @@ export default function Footer() {
                     <ul className="space-y-2 text-sm text-neutral-400">
                         <li><Link href="/privacy" className="hover:text-white transition-colors">Privacy</Link></li>
                         <li><Link href="/terms" className="hover:text-white transition-colors">Terms</Link></li>
-                        <li><Link href="/contact" className="hover:text-white transition-colors">Contact</Link></li>
+                        <li><Link href="https://calendly.com/ayushsharmavlogs619/30min" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">Contact</Link></li>
                     </ul>
                 </div>
             </div>
@@ -49,7 +49,7 @@ export default function Footer() {
             <div className="border-t border-neutral-800">
                 <div className="max-w-6xl mx-auto px-6 py-4 flex flex-col md:flex-row items-center justify-between gap-3">
                     <p className="text-xs text-neutral-500">
-                        © 2025 BRANDVERSE.TECH TECHNOLOGIES. ALL RIGHTS RESERVED.
+                        © 2026 BRANDVERSE.TECH TECHNOLOGIES. ALL RIGHTS RESERVED.
                     </p>
                     <p className="text-xs text-neutral-500">
                         SECURITY AUDITED • SYSTEMS LIVE

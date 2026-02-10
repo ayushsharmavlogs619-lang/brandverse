@@ -32,7 +32,7 @@ export default function Article() {
                 <div className="bg-purple-600/10 border border-purple-500/20 rounded-2xl p-8 mb-12">
                     <h3 className="text-xl font-semibold text-white mb-3">Want Us to Run Your Google Ads?</h3>
                     <p className="text-slate-400 mb-4">We manage Google, Meta & TikTok ads for $1K/month. Clients typically see 6-13x returns.</p>
-                    <Link href="/contact" className="inline-flex items-center gap-2 px-6 py-3 bg-purple-600 hover:bg-purple-500 text-white rounded-xl font-medium transition-all">
+                    <Link href="https://calendly.com/ayushsharmavlogs619/30min" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-6 py-3 bg-purple-600 hover:bg-purple-500 text-white rounded-xl font-medium transition-all">
                         Book Your Strategy Call →
                     </Link>
                 </div>
@@ -231,7 +231,7 @@ export default function Article() {
                     <p className="text-slate-400 mb-6 max-w-xl mx-auto">
                         Book a strategy call and we&apos;ll analyze your market, estimate realistic performance, and build a custom Google Ads plan.
                     </p>
-                    <Link href="/contact" className="inline-flex items-center gap-2 px-8 py-4 bg-purple-600 hover:bg-purple-500 text-white rounded-xl font-medium text-lg transition-all">
+                    <Link href="https://calendly.com/ayushsharmavlogs619/30min" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-8 py-4 bg-purple-600 hover:bg-purple-500 text-white rounded-xl font-medium text-lg transition-all">
                         Book Your Strategy Call →
                     </Link>
                 </div>

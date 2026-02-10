@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import CalendlyCTA from '@/app/components/CalendlyCTA';
 
 export const metadata = {
     title: 'Top 10 Virtual Receptionist Services Compared (2026) | Brandverse',
@@ -31,7 +32,7 @@ export default function Article() {
                 <div className="bg-blue-600/10 border border-blue-500/20 rounded-2xl p-8 mb-12">
                     <h3 className="text-xl font-semibold text-white mb-3">Want a Performance-Based Alternative?</h3>
                     <p className="text-slate-400 mb-4">Most receptionists are a cost center. Brandverse AI is a revenue driver. See why our clients see 6-13x returns.</p>
-                    <Link href="/contact" className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-500 text-white rounded-xl font-medium transition-all">
+                    <Link href="https://calendly.com/ayushsharmavlogs619/30min" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-500 text-white rounded-xl font-medium transition-all">
                         Compare Your Options →
                     </Link>
                 </div>
@@ -95,16 +96,13 @@ export default function Article() {
                     <p>In 2026, the &quot;safe&quot; bet is no longer a human pool—it&apos;s a well-trained AI. The reliability, speed, and cost-efficiency of AI virtual receptionists like Brandverse have made them the default choice for growing small businesses.</p>
                 </div>
 
-                <div className="mt-16 p-8 bg-gradient-to-r from-blue-600/10 to-purple-600/10 border border-white/10 rounded-2xl text-center">
-                    <h3 className="text-2xl font-semibold text-white mb-4">Ready to See the Difference?</h3>
-                    <p className="text-slate-400 mb-6 max-w-xl mx-auto">
-                        Book a 15-minute demo. We&apos;ll show you our AI in action and help you decide if it&apos;s the right fit for your business.
-                    </p>
-                    <Link href="/contact" className="inline-flex items-center gap-2 px-8 py-4 bg-blue-600 hover:bg-blue-500 text-white rounded-xl font-medium text-lg transition-all">
-                        Book Your Free Demo →
+                <div className="mt-12 text-center">
+                    <Link href="/blog" className="text-slate-500 hover:text-blue-400 font-bold uppercase tracking-widest text-sm transition-colors">
+                        ← Back to Blog
                     </Link>
                 </div>
 
+                <CalendlyCTA />
             </article>
         </div>
     );

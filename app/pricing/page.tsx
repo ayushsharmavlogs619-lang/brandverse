@@ -34,7 +34,7 @@ export default function PricingPage() {
                   </li>
                 ))}
               </ul>
-              <Link href="/contact" className="block w-full py-3 text-center rounded-xl border border-white/10 text-white font-medium hover:bg-white/5 transition-all">
+              <Link href="https://calendly.com/ayushsharmavlogs619/30min" target="_blank" rel="noopener noreferrer" className="block w-full py-3 text-center rounded-xl border border-white/10 text-white font-medium hover:bg-white/5 transition-all">
                 Get Started
               </Link>
             </div>
@@ -55,7 +55,7 @@ export default function PricingPage() {
                   </li>
                 ))}
               </ul>
-              <Link href="/contact" className="block w-full py-3 text-center rounded-xl bg-white text-blue-600 font-medium hover:bg-blue-50 transition-all">
+              <Link href="https://calendly.com/ayushsharmavlogs619/30min" target="_blank" rel="noopener noreferrer" className="block w-full py-3 text-center rounded-xl bg-white text-blue-600 font-medium hover:bg-blue-50 transition-all">
                 Get Started
               </Link>
             </div>
@@ -73,7 +73,7 @@ export default function PricingPage() {
                   </li>
                 ))}
               </ul>
-              <Link href="/contact" className="block w-full py-3 text-center rounded-xl border border-white/10 text-white font-medium hover:bg-white/5 transition-all">
+              <Link href="https://calendly.com/ayushsharmavlogs619/30min" target="_blank" rel="noopener noreferrer" className="block w-full py-3 text-center rounded-xl border border-white/10 text-white font-medium hover:bg-white/5 transition-all">
                 Contact Sales
               </Link>
             </div>
@@ -109,7 +109,7 @@ export default function PricingPage() {
                     </li>
                   ))}
                 </ul>
-                <Link href="/contact" className="inline-flex items-center gap-2 px-6 py-3 bg-purple-600 hover:bg-purple-500 text-white rounded-xl font-medium transition-all">
+                <Link href="https://calendly.com/ayushsharmavlogs619/30min" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-6 py-3 bg-purple-600 hover:bg-purple-500 text-white rounded-xl font-medium transition-all">
                   Get Started with SMMA <ArrowRight className="w-4 h-4" />
                 </Link>
               </div>
@@ -159,7 +159,7 @@ export default function PricingPage() {
         <section className="text-center p-12 rounded-2xl bg-white/[0.02] border border-white/5">
           <h2 className="text-3xl font-semibold text-white mb-4">Not Sure Which Plan?</h2>
           <p className="text-slate-400 mb-8">Let's talk. We'll figure out what makes sense for your business.</p>
-          <Link href="/contact" className="inline-flex items-center gap-2 px-8 py-4 bg-blue-600 hover:bg-blue-500 text-white rounded-xl font-medium text-lg transition-all">
+          <Link href="https://calendly.com/ayushsharmavlogs619/30min" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-8 py-4 bg-blue-600 hover:bg-blue-500 text-white rounded-xl font-medium text-lg transition-all">
             Schedule a Call <ArrowRight className="w-5 h-5" />
           </Link>
         </section>

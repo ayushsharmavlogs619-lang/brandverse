@@ -1,0 +1,138 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // ============================================
+    // HELPER FUNCTIONS
+    // ============================================
+    
+    // Check if user is authenticated
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+    
+    // Get the user's client ID from their token
+    function getUserClientId() {
+      return get(/databases/$(database)/documents/portal_users/$(request.auth.uid)).data.clientId;
+    }
+    
+    // Check if user belongs to a specific client
+    function belongsToClient(clientId) {
+      return isAuthenticated() && getUserClientId() == clientId;
+    }
+    
+    // Check if user is admin of their client
+    function isClientAdmin() {
+      return isAuthenticated() && 
+        get(/databases/$(database)/documents/portal_users/$(request.auth.uid)).data.role == 'admin';
+    }
+    
+    // Check if user is system admin
+    function isSystemAdmin() {
+      return isAuthenticated() && request.auth.token.admin == true;
+    }
+    
+    // ============================================
+    // CLIENTS COLLECTION
+    // ============================================
+    match /clients/{clientId} {
+      // Anyone can read client info (for branding on login page)
+      allow read: if true;
+      
+      // Only system admins can create clients
+      allow create: if isSystemAdmin();
+      
+      // Client admins can update their own client
+      allow update: if isClientAdmin() && belongsToClient(clientId);
+      
+      // Only system admins can delete clients
+      allow delete: if isSystemAdmin();
+    }
+    
+    // ============================================
+    // PORTAL USERS COLLECTION
+    // ============================================
+    match /portal_users/{userId} {
+      // Users can read their own document
+      allow read: if isAuthenticated() && request.auth.uid == userId;
+      
+      // Client admins can read all users in their client
+      allow read: if isClientAdmin() && belongsToClient(resource.data.clientId);
+      
+      // System admins can read all users
+      allow read: if isSystemAdmin();
+      
+      // Only system admins and client admins can create users
+      allow create: if isSystemAdmin() || 
+        (isClientAdmin() && request.resource.data.clientId == getUserClientId());
+      
+      // Users can update their own profile (limited fields)
+      allow update: if isAuthenticated() && request.auth.uid == userId &&
+        request.resource.data.diff(resource.data).affectedKeys()
+          .hasOnly(['displayName', 'photoURL', 'updatedAt']);
+      
+      // Client admins can update users in their client
+      allow update: if isClientAdmin() && belongsToClient(resource.data.clientId);
+      
+      // System admins can update any user
+      allow update: if isSystemAdmin();
+      
+      // Only system admins can delete users
+      allow delete: if isSystemAdmin();
+    }
+    
+    // ============================================
+    // DEPLOYMENTS COLLECTION
+    // ============================================
+    match /deployments/{deploymentId} {
+      // Users can read deployments from their client
+      allow read: if belongsToClient(resource.data.clientId);
+      
+      // Only client admins can create deployments
+      allow create: if isClientAdmin() && 
+        request.resource.data.clientId == getUserClientId();
+      
+      // Client admins can update their deployments
+      allow update: if isClientAdmin() && belongsToClient(resource.data.clientId);
+      
+      // Client admins can delete their deployments
+      allow delete: if isClientAdmin() && belongsToClient(resource.data.clientId);
+    }
+    
+    // ============================================
+    // ACTIVITY LOGS COLLECTION
+    // ============================================
+    match /activity_logs/{logId} {
+      // Users can read activity logs from their client
+      allow read: if belongsToClient(resource.data.clientId);
+      
+      // Only the server can write activity logs (via Admin SDK)
+      allow write: if false;
+    }
+    
+    // ============================================
+    // SESSIONS COLLECTION (optional tracking)
+    // ============================================
+    match /sessions/{sessionId} {
+      // Users can read their own sessions
+      allow read: if isAuthenticated() && resource.data.userId == request.auth.uid;
+      
+      // Only server can write sessions
+      allow write: if false;
+    }
+    
+    // ============================================
+    // INVITES COLLECTION
+    // ============================================
+    match /invites/{inviteId} {
+      // Anyone can read (to validate invite code)
+      allow read: if true;
+      
+      // Only client admins can create invites
+      allow create: if isClientAdmin();
+      
+      // Only system admins can update/delete
+      allow update, delete: if isSystemAdmin();
+    }
+  }
+}

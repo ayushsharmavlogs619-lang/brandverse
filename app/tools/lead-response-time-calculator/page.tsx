@@ -282,7 +282,7 @@ export default function LeadResponseTimeCalculator() {
                     </p>
                     <div className="flex flex-col sm:flex-row gap-4 justify-center">
                         <Link
-                            href="/contact"
+                            href="https://calendly.com/ayushsharmavlogs619/30min" target="_blank" rel="noopener noreferrer"
                             className="inline-flex items-center gap-2 px-8 py-4 bg-blue-600 hover:bg-blue-500 text-white rounded-xl font-semibold text-lg transition-all"
                         >
                             Book Free Demo <ArrowRight className="w-5 h-5" />

@@ -32,7 +32,7 @@ export default function Article() {
                 <div className="bg-blue-600/10 border border-blue-500/20 rounded-2xl p-8 mb-12">
                     <h3 className="text-xl font-semibold text-white mb-3">Don&apos;t Want to Build It Yourself?</h3>
                     <p className="text-slate-400 mb-4">We build and train AI chatbots for you. Live in 7 days, no technical work required on your end.</p>
-                    <Link href="/contact" className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-500 text-white rounded-xl font-medium transition-all">
+                    <Link href="https://calendly.com/ayushsharmavlogs619/30min" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-500 text-white rounded-xl font-medium transition-all">
                         Get Your Chatbot Built →
                     </Link>
                 </div>
@@ -215,7 +215,7 @@ export default function Article() {
                     <p className="text-slate-400 mb-6 max-w-xl mx-auto">
                         Skip the DIY. Book a call and we&apos;ll have your custom AI chatbot live within 7 days.
                     </p>
-                    <Link href="/contact" className="inline-flex items-center gap-2 px-8 py-4 bg-blue-600 hover:bg-blue-500 text-white rounded-xl font-medium text-lg transition-all">
+                    <Link href="https://calendly.com/ayushsharmavlogs619/30min" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-8 py-4 bg-blue-600 hover:bg-blue-500 text-white rounded-xl font-medium text-lg transition-all">
                         Get Your Chatbot Built →
                     </Link>
                 </div>

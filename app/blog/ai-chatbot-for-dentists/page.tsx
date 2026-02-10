@@ -32,7 +32,7 @@ export default function Article() {
                 <div className="bg-blue-600/10 border border-blue-500/20 rounded-2xl p-8 mb-12">
                     <h3 className="text-xl font-semibold text-white mb-3">See Dental AI in Action</h3>
                     <p className="text-slate-400 mb-4">Book a demo to see how dental practices are using AI chatbots to book more appointments and reduce staff workload.</p>
-                    <Link href="/contact" className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-500 text-white rounded-xl font-medium transition-all">
+                    <Link href="https://calendly.com/ayushsharmavlogs619/30min" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-500 text-white rounded-xl font-medium transition-all">
                         Book Your Free Demo →
                     </Link>
                 </div>
@@ -204,7 +204,7 @@ export default function Article() {
                     <p className="text-slate-400 mb-6 max-w-xl mx-auto">
                         Book a 15-minute demo and we&apos;ll show you exactly how AI chatbots work for dental practices—with a custom ROI calculation for your situation.
                     </p>
-                    <Link href="/contact" className="inline-flex items-center gap-2 px-8 py-4 bg-blue-600 hover:bg-blue-500 text-white rounded-xl font-medium text-lg transition-all">
+                    <Link href="https://calendly.com/ayushsharmavlogs619/30min" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-8 py-4 bg-blue-600 hover:bg-blue-500 text-white rounded-xl font-medium text-lg transition-all">
                         Book Your Free Demo →
                     </Link>
                 </div>

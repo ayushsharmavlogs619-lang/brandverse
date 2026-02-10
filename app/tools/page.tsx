@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { Phone, TrendingUp, Clock, Moon, PieChart, Mic, Users, Target, ArrowRight } from 'lucide-react';
+import { Phone, TrendingUp, Clock, Moon, PieChart, Mic, Users, Target, ArrowRight, CalendarX } from 'lucide-react';
 
 export const metadata = {
     title: 'Free AI & Business Growth Tools | Brandverse',
@@ -78,6 +78,15 @@ const tools = [
         color: 'text-yellow-400',
         bg: 'bg-yellow-500/10',
         border: 'border-yellow-500/20'
+    },
+    {
+        title: 'No-Show Calculator',
+        description: 'Calculate the true cost of appointment no-shows and recovery potential.',
+        href: '/tools/appointment-no-show-calculator',
+        icon: CalendarX,
+        color: 'text-purple-400',
+        bg: 'bg-purple-500/10',
+        border: 'border-purple-500/20'
     }
 ];
 
@@ -123,7 +132,7 @@ export default function ToolsPage() {
                     <p className="text-slate-400 mb-8 max-w-2xl mx-auto">
                         We build custom AI agents and tools that integration directly with your CRM and workflows.
                     </p>
-                    <Link href="/contact" className="inline-flex items-center gap-2 px-8 py-4 bg-blue-600 hover:bg-blue-500 text-white rounded-xl font-semibold transition-all">
+                    <Link href="https://calendly.com/ayushsharmavlogs619/30min" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-8 py-4 bg-blue-600 hover:bg-blue-500 text-white rounded-xl font-semibold transition-all">
                         Discuss Your Needs <ArrowRight className="w-5 h-5" />
                     </Link>
                 </div>

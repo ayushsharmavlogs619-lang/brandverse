@@ -80,7 +80,7 @@ export default function ProcessPage() {
                         <span className="px-6 py-3 rounded-xl bg-white/5 border border-white/10 text-slate-300">That's It.</span>
                     </div>
                     <div className="mt-12">
-                        <Link href="/contact" className="px-10 py-5 bg-blue-600 hover:bg-blue-700 text-white rounded-2xl font-black text-lg transition-all shadow-lg hover:shadow-blue-500/25">
+                        <Link href="https://calendly.com/ayushsharmavlogs619/30min" target="_blank" rel="noopener noreferrer" className="px-10 py-5 bg-blue-600 hover:bg-blue-700 text-white rounded-2xl font-black text-lg transition-all shadow-lg hover:shadow-blue-500/25">
                             Start The Process
                         </Link>
                     </div>

@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import CalendlyCTA from '@/app/components/CalendlyCTA';
 
 export const metadata = {
   title: 'Automated SMS Follow-ups — Brandverse',
@@ -16,9 +17,13 @@ export default function Post() {
           <p>Simple confirmation + 24hr reminder sequences dramatically increase appointment show rates and reduce no-shows.</p>
         </section>
 
-        <div className="mt-8">
-          <Link href="/blog" className="text-blue-400 font-bold">← Back to articles</Link>
+        <div className="mt-12 text-center">
+          <Link href="/blog" className="text-slate-500 hover:text-blue-400 font-bold uppercase tracking-widest text-sm transition-colors">
+            ← Back to Blog
+          </Link>
         </div>
+
+        <CalendlyCTA />
       </main>
     </div>
   );
