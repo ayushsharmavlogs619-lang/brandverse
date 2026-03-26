@@ -44,6 +44,7 @@ export interface Client {
     updatedAt?: Date;
     plan: 'free' | 'pro' | 'enterprise';
     ownerId?: string;
+    featureFlags?: Record<string, boolean>;
 }
 
 /**
@@ -123,12 +124,24 @@ export interface DashboardStats {
 }
 
 /**
+ * Analytics Timeseries Data Point
+ */
+export interface AnalyticsTimeseriesData {
+    day: string;
+    conversations: number;
+    leads: number;
+    conversions: number;
+    date: Date;
+}
+
+/**
  * Dashboard data
  */
 export interface DashboardData {
     stats: DashboardStats;
     recentActivity: ActivityLog[];
     deployments: Deployment[];
+    timeseries?: AnalyticsTimeseriesData[];
 }
 
 /**

@@ -64,10 +64,44 @@ export default function AdminSettingsPage() {
                 </div>
             </div>
 
-            {/* Coming Soon Notice */}
+            {/* Feature Flags */}
+            <div className="mt-12 bg-white/5 rounded-xl border border-white/10 p-6">
+                <div className="flex items-center justify-between mb-8">
+                    <div>
+                        <h2 className="text-lg font-semibold flex items-center gap-2">
+                            <span>🏳️</span> Feature Flags (Beta)
+                        </h2>
+                        <p className="text-xs opacity-50">Enable or disable experimental features across the platform</p>
+                    </div>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    {[
+                        { id: 'beta_dashboard', name: 'Beta Dashboard', desc: 'New high-performance dashboard layout', active: true },
+                        { id: 'advanced_analytics', name: 'Advanced Analytics', desc: 'Granular conversation tracking and export', active: false },
+                        { id: 'ai_voice_v2', name: 'AI Voice v2', desc: 'Next-gen low latency voice models', active: true },
+                        { id: 'log_streaming', name: 'Log Streaming', desc: 'Real-time activity logs for admins', active: false },
+                        { id: 'db_backups', name: 'DB Backups', desc: 'Daily automated Firestore snapshots', active: false },
+                    ].map((flag) => (
+                        <div key={flag.id} className="p-4 rounded-lg bg-white/5 border border-white/5 hover:border-white/20 transition-all group">
+                            <div className="flex items-center justify-between mb-2">
+                                <span className={`text-[10px] font-bold uppercase tracking-widest px-2 py-0.5 rounded ${flag.active ? 'bg-blue-500/10 text-blue-400' : 'bg-gray-500/10 text-gray-500'}`}>
+                                    {flag.id}
+                                </span>
+                                <div className={`w-8 h-4 rounded-full relative transition-colors ${flag.active ? 'bg-blue-500/40' : 'bg-white/10'}`}>
+                                    <div className={`absolute top-0.5 w-3 h-3 bg-white rounded-full transition-all ${flag.active ? 'right-0.5 shadow-[0_0_8px_rgba(255,255,255,0.5)]' : 'left-0.5 opacity-40'}`}></div>
+                                </div>
+                            </div>
+                            <h3 className="font-medium text-sm mb-1">{flag.name}</h3>
+                            <p className="text-xs opacity-40 leading-relaxed">{flag.desc}</p>
+                        </div>
+                    ))}
+                </div>
+            </div>
+
             <div className="mt-12 p-8 border border-white/5 bg-white/[0.02] rounded-2xl text-center">
                 <p className="text-sm opacity-40">
-                    Additional system controls (Log streaming, DB backups, Feature Flags) coming in v1.1.0
+                    Additional system controls (Security auditing, RBAC controls) coming in v1.1.0
                 </p>
             </div>
         </div>

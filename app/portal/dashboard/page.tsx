@@ -7,36 +7,8 @@ import { headers } from 'next/headers';
 import { getSession } from '@/lib/portal/sessions';
 import { getClientBySubdomain, getClientCSSVariables } from '@/lib/portal/clients';
 import { getSubdomain } from '@/lib/portal/subdomain';
-import { adminDb } from '@/lib/firebase/admin';
-
-// Mock data for demo - replace with real Firestore queries
-async function getDashboardData(clientId: string) {
-    // TODO: Replace with real Firestore queries
-    const stats = {
-        totalDeployments: 12,
-        activeDeployments: 8,
-        totalConversations: 15420,
-        conversionRate: 23.5,
-        avgResponseTime: 1.2,
-    };
-
-    const recentActivity = [
-        { id: '1', action: 'New conversation started', time: '2 min ago', user: 'Customer', icon: '💬' },
-        { id: '2', action: 'Lead captured successfully', time: '15 min ago', user: 'AI Agent', icon: '🎯' },
-        { id: '3', action: 'Deployment updated', time: '1 hour ago', user: 'Admin', icon: '🔄' },
-        { id: '4', action: 'New team member added', time: '3 hours ago', user: 'Admin', icon: '👤' },
-        { id: '5', action: 'Monthly report generated', time: '1 day ago', user: 'System', icon: '📊' },
-    ];
-
-    const deployments = [
-        { id: '1', name: 'Main Website Chat', type: 'chat', status: 'active', conversations: 8420 },
-        { id: '2', name: 'Phone Assistant', type: 'voice', status: 'active', conversations: 4280 },
-        { id: '3', name: 'Support Bot', type: 'chat', status: 'active', conversations: 2720 },
-        { id: '4', name: 'Sales Outreach', type: 'voice', status: 'paused', conversations: 0 },
-    ];
-
-    return { stats, recentActivity, deployments };
-}
+import { getDashboardStats } from '@/lib/portal/analytics';
+import { getDeploymentsByClient } from '@/lib/portal/deployments';
 
 export default async function DashboardPage() {
     const session = await getSession();
@@ -48,7 +20,14 @@ export default async function DashboardPage() {
     const cssVars = client ? getClientCSSVariables(client) : {};
     const primaryColor = cssVars['--portal-primary'] || '#6366f1';
 
-    const { stats, recentActivity, deployments } = await getDashboardData(session?.clientId || '');
+    const clientId = session?.clientId || '';
+    const stats = await getDashboardStats(clientId);
+    const deployments = await getDeploymentsByClient(clientId);
+
+    // Provide a simple welcome activity if empty
+    const recentActivity = [
+        { id: '1', action: 'Portal accessed successfully', time: 'Just now', user: session?.email || 'Admin', icon: '👋' }
+    ];
 
     return (
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -84,7 +63,7 @@ export default async function DashboardPage() {
                 />
                 <StatCard
                     label="Conversion Rate"
-                    value={`${stats.conversionRate}%`}
+                    value={`${stats.conversionRate.toFixed(1)}%`}
                     icon="🎯"
                     color="#f59e0b"
                 />
@@ -100,45 +79,63 @@ export default async function DashboardPage() {
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                 {/* Deployments */}
                 <div className="lg:col-span-2 bg-white/5 backdrop-blur-xl rounded-xl border border-white/10 p-6">
-                    <div className="flex items-center justify-between mb-4">
+                    <div className="flex items-center justify-between mb-6">
                         <h2 className="text-lg font-semibold">Your Deployments</h2>
-                        <a
-                            href="/portal/dashboard/deployments"
-                            className="text-sm font-medium opacity-60 hover:opacity-100"
-                            style={{ color: primaryColor }}
-                        >
-                            View All →
-                        </a>
-                    </div>
-                    <div className="space-y-3">
-                        {deployments.map((deployment) => (
-                            <div
-                                key={deployment.id}
-                                className="flex items-center justify-between p-4 rounded-lg bg-white/5 hover:bg-white/10 transition-colors"
+                        {deployments.length > 0 && (
+                            <a
+                                href="/portal/dashboard/deployments"
+                                className="text-sm font-medium opacity-60 hover:opacity-100 transition-opacity"
+                                style={{ color: primaryColor }}
                             >
-                                <div className="flex items-center gap-4">
-                                    <div
-                                        className="w-10 h-10 rounded-lg flex items-center justify-center text-lg"
-                                        style={{ backgroundColor: primaryColor + '20' }}
-                                    >
-                                        {deployment.type === 'voice' ? '📞' : '💬'}
-                                    </div>
-                                    <div>
-                                        <p className="font-medium">{deployment.name}</p>
-                                        <p className="text-sm opacity-60">{deployment.type} • {formatNumber(deployment.conversations)} conversations</p>
-                                    </div>
-                                </div>
-                                <span
-                                    className={`px-2 py-1 rounded-full text-xs font-medium ${deployment.status === 'active'
-                                            ? 'bg-green-500/20 text-green-400'
-                                            : 'bg-yellow-500/20 text-yellow-400'
-                                        }`}
-                                >
-                                    {deployment.status}
-                                </span>
-                            </div>
-                        ))}
+                                View All →
+                            </a>
+                        )}
                     </div>
+                    
+                    {deployments.length === 0 ? (
+                        <div className="text-center py-12 border border-dashed border-white/10 rounded-xl bg-white/[0.02]">
+                            <div className="w-16 h-16 mx-auto bg-white/5 rounded-2xl flex items-center justify-center text-3xl mb-4">🤖</div>
+                            <h3 className="text-lg font-medium mb-2">No active deployments</h3>
+                            <p className="text-sm opacity-60 max-w-sm mx-auto mb-6">Create your first AI agent to start handling conversations and capturing leads automatically.</p>
+                            <a 
+                                href="/portal/dashboard/deployments/new"
+                                className="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-white font-medium hover:opacity-90 transition-opacity"
+                                style={{ backgroundColor: primaryColor }}
+                            >
+                                <span>+</span> Create Agent
+                            </a>
+                        </div>
+                    ) : (
+                        <div className="space-y-3">
+                            {deployments.slice(0, 5).map((deployment) => (
+                                <div
+                                    key={deployment.id}
+                                    className="flex items-center justify-between p-4 rounded-lg bg-white/5 hover:bg-white/10 transition-colors"
+                                >
+                                    <div className="flex items-center gap-4">
+                                        <div
+                                            className="w-10 h-10 rounded-lg flex items-center justify-center text-lg"
+                                            style={{ backgroundColor: primaryColor + '20' }}
+                                        >
+                                            {deployment.type === 'voice' ? '📞' : '💬'}
+                                        </div>
+                                        <div>
+                                            <p className="font-medium">{deployment.name}</p>
+                                            <p className="text-sm opacity-60 capitalize">{deployment.type} • {formatNumber(deployment.stats.totalConversations)} conversations</p>
+                                        </div>
+                                    </div>
+                                    <span
+                                        className={`px-3 py-1 rounded-full text-xs font-medium tracking-wide ${deployment.status === 'active'
+                                                ? 'bg-green-500/20 text-green-400'
+                                                : deployment.status === 'paused' ? 'bg-yellow-500/20 text-yellow-400' : 'bg-gray-500/20 text-gray-400'
+                                            }`}
+                                    >
+                                        {deployment.status}
+                                    </span>
+                                </div>
+                            ))}
+                        </div>
+                    )}
                 </div>
 
                 {/* Recent Activity */}

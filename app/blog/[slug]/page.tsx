@@ -1,85 +1,22 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import CalendlyCTA from '@/app/components/CalendlyCTA';
+import { BLOG_POSTS } from '@/lib/blog';
 
 export const metadata = {
   title: 'Blog — Brandverse',
   description: 'Insights about AI voice agents and business automation.',
 };
 
-// Mock data store
-const BLOG_POSTS: Record<string, { title: string; date: string; category: string; content: string }> = {
-  'how-ai-boosts-leads': {
-    title: 'How AI Voice Agents Boost Leads by 200%',
-    date: 'Dec 12, 2024',
-    category: 'Growth',
-    content: `
-      <p class="mb-6 text-xl text-slate-300 leading-relaxed">
-        Let's face it: relying on voicemail is like throwing money into a black hole. In 2024, if you don't answer the phone, your customer calls the next business on Google. It's that simple.
-      </p>
-      <h2 class="text-3xl font-bold text-white mt-12 mb-6">The "Speed to Lead" Problem</h2>
-      <p class="mb-6 text-slate-400 leading-relaxed">
-        Statistics show that lead qualification drops by 80% if you wait more than 5 minutes to respond. Yet, most contractors are busy on job sites and can't answer calls instantly.
-        <br/><br/>
-        This is where AI Voice Agents bridge the gap. Unlike a human receptionist who takes breaks, goes home at 5 PM, and can only handle one call at a time, an AI agent is:
-      </p>
-      <ul class="list-disc pl-6 space-y-2 text-slate-400 mb-8">
-        <li>Available 24/7/365</li>
-        <li>Instantly scalable (can handle 100 calls at once)</li>
-        <li>Always cheerful and professional</li>
-      </ul>
-      <h2 class="text-3xl font-bold text-white mt-12 mb-6">Real World Math</h2>
-      <p class="mb-6 text-slate-400 leading-relaxed">
-        If you miss 10 calls a week, and your average customer value is $500, that's $5,000 a week in potential revenue lost. An AI agent might cost $497/month. The ROI is immediate.
-      </p>
-    `
-  },
-  'human-vs-ai-receptionist': {
-    title: 'Human vs. AI Receptionist: The Real Cost Breakdown',
-    date: 'Dec 08, 2024',
-    category: 'Comparison',
-    content: `
-      <p class="mb-6 text-xl text-slate-300 leading-relaxed">
-        Hiring staff is expensive. It's not just the salary—it's the taxes, benefits, training time, and turnover. Let's look at the numbers.
-      </p>
-      <h2 class="text-3xl font-bold text-white mt-12 mb-6">The True Cost of a Human</h2>
-      <p class="mb-6 text-slate-400 leading-relaxed">
-        A decent receptionist costs at least $3,000/month (often more). Add in payroll taxes and benefits, and you're looking at $40k-$50k per year.
-        <br/><br/>
-        And what do you get? 40 hours of coverage a week. That leaves 128 hours a week where your business is technically "closed."
-      </p>
-      <h2 class="text-3xl font-bold text-white mt-12 mb-6">The AI Advantage</h2>
-      <p class="mb-6 text-slate-400 leading-relaxed">
-        Brandverse AI plans start at a fraction of a full-time salary. You get 168 hours of coverage per week. No sick days. No bad attitudes. No training ramp-up.
-      </p>
-    `
-  },
-  'future-of-service-business': {
-    title: 'The Future of Service Businesses is "Always On"',
-    date: 'Nov 28, 2024',
-    category: 'Industry Trends',
-    content: `
-      <p class="mb-6 text-xl text-slate-300 leading-relaxed">
-        The "Amazon Effect" has changed customer expectations forever. People want instant answers, instant booking, and instant confirmation.
-      </p>
-      <p class="mb-6 text-slate-400 leading-relaxed">
-        Service businesses that cling to "9-to-5" hours are being left behind. If a pipe bursts at 2 AM or a furnace dies on Christmas Eve, the customer isn't going to leave a voicemail and wait. They are going to keep calling until someone answers.
-        <br/><br/>
-        That "someone" needs to be you. And with AI, it can be—without you actually waking up.
-      </p>
-    `
-  }
-};
-
 export function generateStaticParams() {
-  return Object.keys(BLOG_POSTS).map((slug) => ({
-    slug: slug,
+  return BLOG_POSTS.map((post) => ({
+    slug: post.slug,
   }));
 }
 
 export default async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
   const resolvedParams = await params;
-  const post = BLOG_POSTS[resolvedParams.slug];
+  const post = BLOG_POSTS.find(p => p.slug === resolvedParams.slug);
 
   if (!post) {
     notFound();
@@ -102,7 +39,13 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
         </header>
 
         <article className="prose prose-invert prose-lg max-w-none text-slate-400">
-          <div dangerouslySetInnerHTML={{ __html: post.content }} />
+          {post.content ? (
+            <div dangerouslySetInnerHTML={{ __html: post.content }} />
+          ) : (
+            <div className="py-20 text-center border border-white/5 bg-white/5 rounded-2xl">
+              <p className="text-slate-500 italic">This article content is being migrated to the new system. Please check back shortly!</p>
+            </div>
+          )}
         </article>
 
         <CalendlyCTA />
