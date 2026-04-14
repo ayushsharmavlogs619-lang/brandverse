@@ -19,6 +19,25 @@ export default async function AdminLayout({
     // For this demo, we'll check if the user is in the 'admin' role of the 'system' client (if we had one)
     // OR we can check email against an env var list
 
+    // If no Firebase keys, enable 'Local Master' mode for easier dev/outreach
+    if (!process.env.NEXT_PUBLIC_FIREBASE_API_KEY) {
+        console.warn('MISSION CRITICAL: Operating in Local Master mode (No Firebase Keys).');
+        return (
+            <div className="min-h-screen bg-slate-900 text-white flex">
+                <aside className="w-64 border-r border-white/10 p-6 flex flex-col">
+                    <div className="mb-8 font-black uppercase italic tracking-tighter text-blue-500">
+                        Brandverse <span className="text-white">Local</span>
+                    </div>
+                    <nav className="flex-1 space-y-1">
+                        <NavLink href="/admin/leads" icon="🎯">Mission Intel</NavLink>
+                        <NavLink href="/admin" icon="🏢">Fleet (Offline)</NavLink>
+                    </nav>
+                </aside>
+                <main className="flex-1 overflow-auto">{children}</main>
+            </div>
+        );
+    }
+
     const session = await getSession();
 
     if (!session) {
@@ -26,12 +45,9 @@ export default async function AdminLayout({
     }
 
     // Check if user is a system admin
-    // For production: Use custom claims like token.claims.admin
-    // For demo: Check against env var or specific email
     const adminEmail = process.env.ADMIN_EMAIL || 'admin@brandverse.tech';
 
     if (session.email !== adminEmail) {
-        // Not a system admin
         redirect('/portal/dashboard');
     }
 
@@ -48,6 +64,7 @@ export default async function AdminLayout({
 
                 <nav className="flex-1 space-y-1">
                     <NavLink href="/admin" icon="🏢">Clients</NavLink>
+                    <NavLink href="/admin/leads" icon="🎯">Leads</NavLink>
                     <NavLink href="/admin/users" icon="👥">Users</NavLink>
                     <NavLink href="/admin/settings" icon="⚙️">Settings</NavLink>
                 </nav>

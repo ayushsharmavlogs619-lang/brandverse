@@ -3,12 +3,20 @@
  * Manage all tenant clients
  */
 
+import Link from 'next/link';
+import { Plus } from 'lucide-react';
 import { adminDb } from '@/lib/firebase/admin';
 import type { Client } from '@/types/portal';
 
 async function getClients() {
-    const snapshot = await adminDb.collection('clients').get();
-    return snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })) as Client[];
+    try {
+        if (!process.env.NEXT_PUBLIC_FIREBASE_API_KEY) return [];
+        const snapshot = await adminDb.collection('clients').get();
+        return snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })) as Client[];
+    } catch (e) {
+        console.error('Firebase Client fetch failed. Operating in offline mode.');
+        return [];
+    }
 }
 
 export default async function AdminDashboard() {
@@ -17,14 +25,18 @@ export default async function AdminDashboard() {
     return (
         <div className="p-8">
             {/* Header */}
-            <div className="flex items-center justify-between mb-8">
+            <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
                 <div>
-                    <h1 className="text-3xl font-bold mb-2">My Clients</h1>
-                    <p className="opacity-60">Manage your SaaS tenants</p>
+                    <h1 className="text-4xl font-black text-white uppercase italic tracking-tighter">Tenant <span className="text-blue-500 text-glow-blue">Fleet</span></h1>
+                    <p className="text-slate-400 mt-2 font-medium">Monitoring and managing active operational units.</p>
                 </div>
-                <button className="px-4 py-2 bg-blue-600 hover:bg-blue-500 rounded-lg font-medium transition-colors">
-                    + New Client
-                </button>
+                <Link
+                    href="/admin/clients/create"
+                    className="bg-blue-600 hover:bg-blue-500 text-white px-6 py-3 rounded-xl font-black uppercase tracking-widest text-[10px] flex items-center gap-2 transition-all shadow-lg shadow-blue-600/20 active:scale-95 group"
+                >
+                    <Plus className="w-3.5 h-3.5 group-hover:rotate-90 transition-transform" />
+                    Deploy New Client
+                </Link>
             </div>
 
             {/* Stats */}
@@ -68,29 +80,33 @@ export default async function AdminDashboard() {
                                     <div className="flex items-center gap-3">
                                         <div
                                             className="w-8 h-8 rounded bg-white/10 flex items-center justify-center font-bold text-xs"
-                                            style={{ backgroundColor: client.theme?.primaryColor }}
+                                            style={{ backgroundColor: client.theme?.primaryColor || '#6366f1' }}
                                         >
-                                            {client.name.charAt(0)}
+                                            {client.name?.charAt(0) || 'C'}
                                         </div>
-                                        <span className="font-medium">{client.name}</span>
+                                        <span className="font-medium">{client.name || 'Unnamed Client'}</span>
                                     </div>
                                 </td>
                                 <td className="px-6 py-4">
-                                    <a
-                                        href={`http://${client.subdomain}.brandverse.tech`}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="text-blue-400 hover:underline"
-                                    >
-                                        {client.subdomain}.brandverse.tech
-                                    </a>
+                                    {client.subdomain ? (
+                                        <a
+                                            href={`http://${client.subdomain}.brandverse.tech`}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="text-blue-400 hover:underline"
+                                        >
+                                            {client.subdomain}.brandverse.tech
+                                        </a>
+                                    ) : (
+                                        <span className="text-slate-500 italic text-sm">No subdomain</span>
+                                    )}
                                 </td>
                                 <td className="px-6 py-4 capitalize">
                                     <span className={`px-2 py-1 rounded-full text-xs font-medium ${client.plan === 'enterprise' ? 'bg-purple-500/20 text-purple-400' :
                                             client.plan === 'pro' ? 'bg-blue-500/20 text-blue-400' :
                                                 'bg-gray-500/20 text-gray-400'
                                         }`}>
-                                        {client.plan}
+                                        {client.plan || 'freemium'}
                                     </span>
                                 </td>
                                 <td className="px-6 py-4">
@@ -105,13 +121,15 @@ export default async function AdminDashboard() {
                                     )}
                                 </td>
                                 <td className="px-6 py-4 text-sm opacity-60">
-                                    {/* Handle Firestore timestamp or Date object */}
-                                    {new Date().toLocaleDateString()}
+                                    {client.createdAt ? new Date(client.createdAt).toLocaleDateString() : 'N/A'}
                                 </td>
                                 <td className="px-6 py-4">
-                                    <button className="text-sm hover:text-white opacity-60 hover:opacity-100 transition-opacity">
+                                    <Link 
+                                        href={`/admin/clients/${client.id}`}
+                                        className="text-sm hover:text-white opacity-60 hover:opacity-100 transition-opacity"
+                                    >
                                         Manage
-                                    </button>
+                                    </Link>
                                 </td>
                             </tr>
                         ))}

@@ -122,6 +122,17 @@ service cloud.firestore {
     }
     
     // ============================================
+    // CONTACT SUBMISSIONS (LEADS)
+    // ============================================
+    match /contact-submissions/{submissionId} {
+      // Anyone can submit a lead
+      allow create: if true;
+      
+      // Only system admins can read or manage leads
+      allow read, update, delete: if isSystemAdmin();
+    }
+
+    // ============================================
     // INVITES COLLECTION
     // ============================================
     match /invites/{inviteId} {

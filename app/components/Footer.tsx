@@ -36,12 +36,13 @@ export default function Footer() {
 
                 <div>
                     <h4 className="text-sm font-semibold tracking-wide text-neutral-300 uppercase mb-3">
-                        LEGAL
+                        CONNECT
                     </h4>
-                    <ul className="space-y-2 text-sm text-neutral-400">
-                        <li><Link href="/privacy" className="hover:text-white transition-colors">Privacy</Link></li>
-                        <li><Link href="/terms" className="hover:text-white transition-colors">Terms</Link></li>
-                        <li><Link href="https://calendly.com/ayushsharmavlogs619/30min" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">Contact</Link></li>
+                    <ul className="space-y-2 text-sm text-neutral-400 font-medium">
+                        <li className="text-white">8851005278</li>
+                        <li><a href="mailto:ayush@brandverse.tech" className="hover:text-white transition-colors">ayush@brandverse.tech</a></li>
+                        <li><Link href="/privacy" className="hover:text-white transition-colors">Privacy Policy</Link></li>
+                        <li><Link href="/terms" className="hover:text-white transition-colors">Terms of Service</Link></li>
                     </ul>
                 </div>
             </div>

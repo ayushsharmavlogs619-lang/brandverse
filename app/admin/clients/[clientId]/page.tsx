@@ -25,7 +25,7 @@ async function getClientUsers(clientId: string) {
 export default async function ClientDetailsPage({
     params
 }: {
-    params: { clientId: string }
+    params: Promise<{ clientId: string }>
 }) {
     const { clientId } = await params;
     const client = await getClient(clientId);
@@ -43,9 +43,9 @@ export default async function ClientDetailsPage({
                 <div className="flex items-center gap-4">
                     <div
                         className="w-16 h-16 rounded-xl flex items-center justify-center text-3xl font-bold shadow-lg"
-                        style={{ backgroundColor: client.theme.primaryColor }}
+                        style={{ backgroundColor: client.theme?.primaryColor || '#6366f1' }}
                     >
-                        {client.name.charAt(0)}
+                        {client.name?.charAt(0) || 'C'}
                     </div>
                     <div>
                         <h1 className="text-3xl font-bold">{client.name}</h1>
@@ -151,10 +151,10 @@ export default async function ClientDetailsPage({
                                 <div className="flex items-center gap-3">
                                     <div
                                         className="w-10 h-10 rounded-lg shadow-sm"
-                                        style={{ backgroundColor: client.theme.primaryColor }}
+                                        style={{ backgroundColor: client.theme?.primaryColor || '#6366f1' }}
                                     />
                                     <code className="text-sm bg-white/10 px-2 py-1 rounded">
-                                        {client.theme.primaryColor}
+                                        {client.theme?.primaryColor || '#6366f1'}
                                     </code>
                                 </div>
                             </div>
@@ -163,10 +163,10 @@ export default async function ClientDetailsPage({
                                 <div className="flex items-center gap-3">
                                     <div
                                         className="w-10 h-10 rounded-lg shadow-sm"
-                                        style={{ backgroundColor: client.theme.secondaryColor }}
+                                        style={{ backgroundColor: client.theme?.secondaryColor || '#4f46e5' }}
                                     />
                                     <code className="text-sm bg-white/10 px-2 py-1 rounded">
-                                        {client.theme.secondaryColor}
+                                        {client.theme?.secondaryColor || '#4f46e5'}
                                     </code>
                                 </div>
                             </div>

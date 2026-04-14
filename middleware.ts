@@ -1,11 +1,14 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 import { getSubdomain } from './lib/portal/subdomain';
-import { isValidClient } from './lib/portal/clients';
 
 /**
  * Middleware for multi-tenant portal subdomain detection
  * Runs on every request to /portal/* routes
+ * 
+ * NOTE: We do NOT import firebase-admin here because Edge Runtime
+ * does not support dynamic code evaluation (eval). Client validation
+ * against Firestore happens server-side in the page components.
  */
 export function middleware(request: NextRequest) {
     const host = request.headers.get('host') || '';
@@ -45,24 +48,7 @@ export function middleware(request: NextRequest) {
         );
     }
 
-    // Validate the client exists
-    if (!isValidClient(subdomain)) {
-        return new NextResponse(
-            JSON.stringify({
-                error: 'Organization Not Found',
-                message: `The organization "${subdomain}" was not found or is inactive.`,
-                status: 404,
-            }),
-            {
-                status: 404,
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            }
-        );
-    }
-
-    // Valid subdomain - add to headers for downstream use
+    // Pass subdomain along — actual Firestore validation happens in server components
     const response = NextResponse.next();
     response.headers.set('x-client-subdomain', subdomain);
 

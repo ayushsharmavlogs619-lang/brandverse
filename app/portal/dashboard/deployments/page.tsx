@@ -150,5 +150,6 @@ export default async function DeploymentsPage() {
                     </table>
                 )}
         </div>
+        </div>
     );
 }

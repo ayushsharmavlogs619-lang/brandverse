@@ -21,10 +21,10 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Brandverse — AI Chatbots & Voice Agents for Business",
-  description: "AI chatbots trained on your website content. AI voice agents that answer calls 24/7. One platform for complete customer engagement automation.",
+  title: "Brandverse — The Operational Engine for Absolute ROI",
+  description: "Deploy 24/7 AI Voice Agents and Chatbots that capture leads and automate operations on autopilot. We don't build sites; we build high-performance revenue infrastructure.",
   metadataBase: new URL('https://brandverse.tech'),
-  keywords: ['AI chatbot for websites', 'AI voice agent', 'website AI assistant', 'AI customer support', 'conversational AI', 'train AI on content', 'automated customer service', 'AI phone answering'],
+  keywords: ['AI Voice Agents', 'AI Answering Service', 'Operational Automation', 'Lead Capture AI', 'ROI Engine', 'Autonomous Business Systems', 'Brandverse'],
   authors: [{ name: 'Brandverse' }],
   creator: 'Brandverse',
   publisher: 'Brandverse',
@@ -32,22 +32,22 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'en_US',
     url: 'https://brandverse.tech',
-    title: 'Brandverse — AI Chatbots & Voice Agents',
-    description: 'AI chatbots for your website. AI voice agents for your phones. Every customer conversation, handled.',
+    title: 'Brandverse — The Operational Engine for Absolute ROI',
+    description: 'Autonomous AI Voice Agents and Chatbots that capture leads 24/7. High-performance infrastructure for modern businesses.',
     siteName: 'Brandverse',
     images: [
       {
         url: '/og-image.jpg',
         width: 1200,
         height: 630,
-        alt: 'Brandverse - AI Customer Engagement',
+        alt: 'Brandverse - Operational ROI Engine',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Brandverse — AI Chatbots & Voice Agents',
-    description: 'AI chatbots for websites. AI voice agents for calls. 24/7 customer engagement on autopilot.',
+    title: 'Brandverse — AI Voice Agents & Absolute ROI',
+    description: 'Deploy autonomous AI agents that answer every call and capture every lead. We build the systems that build your business.',
     images: ['/og-image.jpg'],
   },
   robots: {

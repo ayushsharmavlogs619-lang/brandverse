@@ -10,8 +10,8 @@ const LOCAL_PATTERNS = ['localhost', '127.0.0.1'];
 
 /**
  * Extract subdomain from a hostname
- * @param host - The full hostname (e.g., "phantomcat.brandverse.tech")
- * @returns The subdomain or null if none found
+ * @param host - The full hostname (e.g., "client-a.brandverse.tech")
+ * @returns The subdomain or null if no subdomain is present (e.g., just "brandverse.tech")
  */
 export function getSubdomain(host: string): string | null {
   if (!host) return null;
@@ -19,11 +19,11 @@ export function getSubdomain(host: string): string | null {
   // Remove port if present
   const hostname = host.split(':')[0].toLowerCase();
 
-  // Handle localhost development (e.g., phantomcat.localhost)
+  // Handle localhost development (e.g., client-a.localhost)
   for (const local of LOCAL_PATTERNS) {
     if (hostname.endsWith(`.${local}`) || hostname === local) {
       const parts = hostname.split('.');
-      // phantomcat.localhost -> ['phantomcat', 'localhost']
+      // client-a.localhost -> ['client-a', 'localhost']
       if (parts.length >= 2 && parts[0] !== local && parts[0] !== '') {
         return parts[0];
       }
@@ -34,7 +34,7 @@ export function getSubdomain(host: string): string | null {
   // Handle production domains
   for (const domain of PRODUCTION_DOMAINS) {
     if (hostname.endsWith(`.${domain}`)) {
-      // phantomcat.brandverse.tech -> phantomcat
+      // client-a.brandverse.tech -> client-a
       const subdomain = hostname.replace(`.${domain}`, '');
       // Ensure it's not empty and doesn't contain dots (nested subdomains)
       if (subdomain && !subdomain.includes('.')) {

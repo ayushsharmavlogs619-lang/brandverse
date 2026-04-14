@@ -218,9 +218,9 @@ brandverse/
 #### `clients` - Client company data
 ```typescript
 {
-  id: "phantomcat"  // Subdomain
-  name: "Phantom Cat AI"
-  subdomain: "phantomcat"
+  id: "client-a"  // Subdomain
+  name: "Client A Inc"
+  subdomain: "client-a"
   theme: {
     primaryColor: "#FF6B6B"
     secondaryColor: "#FFB8B8"
@@ -244,8 +244,8 @@ brandverse/
 ```typescript
 {
   id: uid  // Firebase Auth UID
-  clientId: "phantomcat"
-  email: "user@phantomcat.shop"
+  clientId: "client-a"
+  email: "user@client-a.com"
   fullName: "John Doe"
   role: "admin" | "user" | "viewer"
   avatar: "https://..."
