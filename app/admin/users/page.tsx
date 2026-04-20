@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 async function getUsers() {
     const snapshot = await adminDb.collection('portal_users').limit(50).get();
-    return snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    return snapshot.docs.map((doc: any) => ({ id: doc.id, ...doc.data() }));
 }
 
 export default async function AdminUsersPage() {

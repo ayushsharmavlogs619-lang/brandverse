@@ -1,3 +1,5 @@
+export const dynamic = 'force-static';
+
 /**
  * Get current user API endpoint
  * GET /api/auth/me

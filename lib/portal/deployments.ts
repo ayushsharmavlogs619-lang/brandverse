@@ -23,7 +23,7 @@ export async function getDeploymentsByClient(clientId: string): Promise<Deployme
             .orderBy('createdAt', 'desc')
             .get();
 
-        return snapshot.docs.map(doc => {
+        return snapshot.docs.map((doc: any) => {
             const data = doc.data();
             return {
                 id: doc.id,

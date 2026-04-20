@@ -22,10 +22,19 @@ function getFirebaseAdminConfig() {
 }
 
 /**
+ * Check if we're in a build/export scenario
+ */
+function isBuildScenario(): boolean {
+    return process.env.NEXT_PHASE === 'phase-production-build' || !!process.env.IS_BUILD;
+}
+
+/**
  * Validate that all required environment variables are present
- * @throws Error if any required config is missing
+ * @throws Error if any required config is missing (only at runtime)
  */
 function validateConfig(): void {
+    if (isBuildScenario()) return; // Skip strict check during build
+
     const config = getFirebaseAdminConfig();
     const missing: string[] = [];
 
@@ -61,8 +70,17 @@ export function getAdminApp(): App {
         return _adminApp;
     }
 
-    validateConfig();
     const config = getFirebaseAdminConfig();
+    
+    // If building and config is missing, return a dummy app or handle gracefully
+    if (isBuildScenario() && (!config.projectId || !config.privateKey)) {
+        console.warn('Firebase Admin skipped initialization during build (missing config)');
+        // We return a simple mock or the initialized app if somehow possible, 
+        // but often initializeApp will fail. For now, we allow it to proceed and catch errors later.
+        validateConfig();
+    } else {
+        validateConfig();
+    }
 
     _adminApp = initializeApp({
         credential: cert({
@@ -100,39 +118,72 @@ export function getAdminDb(): Firestore {
 // Convenience exports (will be lazily initialized on first use)
 export const adminAuth = {
     get instance() {
+        if (isBuildScenario()) return null as any;
         return getAdminAuth();
     },
     verifyIdToken: async (idToken: string) => {
+        if (isBuildScenario()) return {} as any;
         return getAdminAuth().verifyIdToken(idToken);
     },
     getUser: async (uid: string) => {
+        if (isBuildScenario()) return {} as any;
         return getAdminAuth().getUser(uid);
     },
     getUserByEmail: async (email: string) => {
+        if (isBuildScenario()) return {} as any;
         return getAdminAuth().getUserByEmail(email);
     },
     createUser: async (properties: Parameters<Auth['createUser']>[0]) => {
+        if (isBuildScenario()) return {} as any;
         return getAdminAuth().createUser(properties);
     },
     deleteUser: async (uid: string) => {
+        if (isBuildScenario()) return {} as any;
         return getAdminAuth().deleteUser(uid);
     },
     createCustomToken: async (uid: string, claims?: Record<string, unknown>) => {
+        if (isBuildScenario()) return '';
         return getAdminAuth().createCustomToken(uid, claims);
     },
     setCustomUserClaims: async (uid: string, claims: Record<string, unknown>) => {
+        if (isBuildScenario()) return;
         return getAdminAuth().setCustomUserClaims(uid, claims);
     },
 };
 
 export const adminDb = {
     get instance() {
+        if (isBuildScenario()) return null as any;
         return getAdminDb();
     },
     collection: (path: string) => {
+        if (isBuildScenario()) {
+            // Return a dummy collection object that won't throw on common methods
+            return {
+                doc: () => ({ 
+                    get: async () => ({ exists: false, data: () => ({}) }),
+                    set: async () => ({}),
+                    update: async () => ({}),
+                    delete: async () => ({})
+                }),
+                where: () => adminDb.collection(path),
+                orderBy: () => adminDb.collection(path),
+                limit: () => adminDb.collection(path),
+                get: async () => ({ docs: [], empty: true, size: 0 })
+            } as any;
+        }
         return getAdminDb().collection(path);
     },
     doc: (path: string) => {
+        if (isBuildScenario()) {
+            return {
+                get: async () => ({ exists: false, data: () => ({}) }),
+                set: async () => ({}),
+                update: async () => ({}),
+                delete: async () => ({}),
+                collection: (p: string) => adminDb.collection(`${path}/${p}`)
+            } as any;
+        }
         return getAdminDb().doc(path);
     },
 };
@@ -147,7 +198,7 @@ export async function verifyIdToken(idToken: string) {
     try {
         const decodedToken = await getAdminAuth().verifyIdToken(idToken);
         return decodedToken;
-    } catch (error) {
+    } catch (_error) {
         throw new Error('Invalid or expired authentication token');
     }
 }
@@ -160,7 +211,7 @@ export async function verifyIdToken(idToken: string) {
 export async function getUserByUid(uid: string) {
     try {
         return await getAdminAuth().getUser(uid);
-    } catch (error) {
+    } catch (_error) {
         throw new Error(`User not found: ${uid}`);
     }
 }

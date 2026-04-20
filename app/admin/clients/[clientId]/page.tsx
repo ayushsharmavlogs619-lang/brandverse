@@ -19,7 +19,13 @@ async function getClientUsers(clientId: string) {
         .limit(10)
         .get();
 
-    return snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })) as PortalUser[];
+    return snapshot.docs.map((doc: any) => ({ id: doc.id, ...doc.data() })) as PortalUser[];
+}
+
+export const dynamic = 'force-static';
+
+export function generateStaticParams() {
+    return [{ clientId: 'default' }];
 }
 
 export default async function ClientDetailsPage({

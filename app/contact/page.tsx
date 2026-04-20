@@ -95,7 +95,7 @@ export default function ContactPage() {
                                 </div>
                                 <div className="relative z-10">
                                     <h3 className="text-xs font-black text-slate-500 uppercase tracking-[0.3em] mb-2">Direct Line</h3>
-                                    <p className="text-2xl font-black text-white italic">8851005278</p>
+                                    <p className="text-2xl font-black text-white italic">+918851005278</p>
                                     <h4 className="text-blue-400 font-bold text-sm mt-1 uppercase tracking-widest text-[10px]">Priority Support Active</h4>
                                 </div>
                             </article>

@@ -47,4 +47,6 @@ service-account.json
 *.tsbuildinfo
 next-env.d.ts
 
-.vercel
+# wrangler
+.wrangler/
+dist/

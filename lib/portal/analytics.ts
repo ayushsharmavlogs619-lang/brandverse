@@ -3,7 +3,6 @@
  * Aggregates stats for the portal dashboard
  */
 
-import { adminDb } from '@/lib/firebase/admin';
 import type { DashboardStats, AnalyticsTimeseriesData } from '@/types/portal';
 import { getDeploymentsByClient } from './deployments';
 

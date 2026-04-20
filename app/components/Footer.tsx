@@ -39,7 +39,7 @@ export default function Footer() {
                         CONNECT
                     </h4>
                     <ul className="space-y-2 text-sm text-neutral-400 font-medium">
-                        <li className="text-white">8851005278</li>
+                        <li className="text-white">+918851005278</li>
                         <li><a href="mailto:ayush@brandverse.tech" className="hover:text-white transition-colors">ayush@brandverse.tech</a></li>
                         <li><Link href="/privacy" className="hover:text-white transition-colors">Privacy Policy</Link></li>
                         <li><Link href="/terms" className="hover:text-white transition-colors">Terms of Service</Link></li>

@@ -1,0 +1,55 @@
+﻿npx.cmd : Vercel CLI 50.1.3
+At line:1 char:87
++ ... "__cloudflare_pages"; npx.cmd -y vercel build > 
+vercel_build.log 2>&1
++                           
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (Vercel CLI 50.1. 
+   3:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+WARN! Build not running on Vercel. System environment 
+variables will not be available.
+WARNING: You should not upload the `.next` directory.
+Installing dependencies...
+npm error code ERESOLVE
+npm error ERESOLVE could not resolve
+npm error
+npm error While resolving: @cloudflare/next-on-pages@1.13.16
+npm error Found: next@16.1.1
+npm error node_modules/next
+npm error   next@"^16.1.1" from the root project
+npm error   peerOptional next@">= 13" from 
+@vercel/analytics@1.6.1
+npm error   node_modules/@vercel/analytics
+npm error     @vercel/analytics@"^1.6.1" from the root project
+npm error   1 more (@vercel/speed-insights)
+npm error
+npm error Could not resolve dependency:
+npm error peer next@">=14.3.0 && <=15.5.2" from 
+@cloudflare/next-on-pages@1.13.16
+npm error node_modules/@cloudflare/next-on-pages
+npm error   dev @cloudflare/next-on-pages@"^1.13.16" from the 
+root project
+npm error
+npm error Conflicting peer dependency: next@15.4.11
+npm error node_modules/next
+npm error   peer next@">=14.3.0 && <=15.5.2" from 
+@cloudflare/next-on-pages@1.13.16
+npm error   node_modules/@cloudflare/next-on-pages
+npm error     dev @cloudflare/next-on-pages@"^1.13.16" from 
+the root project
+npm error
+npm error Fix the upstream dependency conflict, or retry
+npm error this command with --force or --legacy-peer-deps
+npm error to accept an incorrect (and potentially broken) 
+dependency resolution.
+npm error
+npm error
+npm error For a full report see:
+npm error C:\Users\ayush\AppData\Local\npm-cache\_logs\2026-03
+-26T23_28_31_192Z-eresolve-report.txt
+npm error A complete log of this run can be found in: C:\Users
+\ayush\AppData\Local\npm-cache\_logs\2026-03-26T23_28_31_192Z-
+debug-0.log
+Error: Command "npm install" exited with 1

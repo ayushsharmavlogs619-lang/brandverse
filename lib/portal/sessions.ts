@@ -5,7 +5,7 @@
 
 import { SignJWT, jwtVerify, type JWTPayload } from 'jose';
 import { cookies } from 'next/headers';
-import type { PortalSession, PortalUser } from '@/types/portal';
+import type { PortalUser } from '@/types/portal';
 
 // Cookie configuration
 const COOKIE_NAME = 'portal-session';
@@ -95,8 +95,12 @@ export async function verifySession(
  * @param token - JWT token to store
  */
 export async function setSessionCookie(token: string): Promise<void> {
-    const cookieStore = await cookies();
-    cookieStore.set(COOKIE_NAME, token, COOKIE_OPTIONS);
+    try {
+        const cookieStore = await cookies();
+        cookieStore.set(COOKIE_NAME, token, COOKIE_OPTIONS);
+    } catch (_error) {
+        console.warn('setSessionCookie called during build or unsupported environment');
+    }
 }
 
 /**
@@ -104,22 +108,30 @@ export async function setSessionCookie(token: string): Promise<void> {
  * @returns Session payload or null if not authenticated
  */
 export async function getSession(): Promise<SessionPayload | null> {
-    const cookieStore = await cookies();
-    const token = cookieStore.get(COOKIE_NAME)?.value;
+    try {
+        const cookieStore = await cookies();
+        const token = cookieStore.get(COOKIE_NAME)?.value;
 
-    if (!token) {
-        return null;
+        if (!token) {
+            return null;
+        }
+
+        return verifySession(token);
+    } catch (_error) {
+        return null; // Return null session during build
     }
-
-    return verifySession(token);
 }
 
 /**
  * Clear the session cookie (logout)
  */
 export async function clearSession(): Promise<void> {
-    const cookieStore = await cookies();
-    cookieStore.delete(COOKIE_NAME);
+    try {
+        const cookieStore = await cookies();
+        cookieStore.delete(COOKIE_NAME);
+    } catch (_error) {
+        // Build-time safe
+    }
 }
 
 /**

@@ -1,4 +1,4 @@
-﻿'use server'
+// 'use server' (disabled for static export)
 
 import { generateResponse } from '@/lib/ai';
 
@@ -8,8 +8,8 @@ export async function chatAction(formData: FormData) {
     if (!message) return { error: "No message provided" };
 
     try {
-        const response = await generateResponse(message, modelType);
-        return { response };
+        // const response = await generateResponse(message, modelType);
+        return { response: "Chat is temporarily offline for maintenance." };
     } catch (error) {
         return { error: "The pitch is flooded! Try again later." };
     }

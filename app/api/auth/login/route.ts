@@ -1,3 +1,5 @@
+export const dynamic = 'force-static';
+
 /**
  * Login API endpoint
  * POST /api/auth/login

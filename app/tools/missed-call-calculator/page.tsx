@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { DollarSign, Phone, TrendingDown, ArrowRight } from 'lucide-react';
+import { Phone, TrendingDown, ArrowRight } from 'lucide-react';
 
 export default function MissedCallCalculator() {
     const [industry, setIndustry] = useState('hvac');

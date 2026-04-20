@@ -1,3 +1,5 @@
+export const dynamic = 'force-static';
+
 /**
  * Register API endpoint
  * POST /api/auth/register

@@ -9,7 +9,7 @@ async function getLeads() {
     // 1. Get from Firestore
     try {
         const snapshot = await adminDb.collection('contact-submissions').orderBy('timestamp', 'desc').get();
-        const firestoreLeads = snapshot.docs.map(doc => ({ 
+        const firestoreLeads = snapshot.docs.map((doc: any) => ({ 
             id: doc.id, 
             ...doc.data(),
             timestamp: doc.data().timestamp?.toDate().toLocaleDateString() || 'N/A',

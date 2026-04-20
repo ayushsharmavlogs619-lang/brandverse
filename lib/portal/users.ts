@@ -95,7 +95,7 @@ export async function getClientUsers(clientId: string): Promise<PortalUser[]> {
             .where('isActive', '==', true)
             .get();
 
-        return snapshot.docs.map((doc) => {
+        return snapshot.docs.map((doc: any) => {
             const data = doc.data();
             return {
                 id: doc.id,

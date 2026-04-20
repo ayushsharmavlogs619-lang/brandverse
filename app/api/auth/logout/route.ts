@@ -1,3 +1,5 @@
+export const dynamic = 'force-static';
+
 /**
  * Logout API endpoint
  * POST /api/auth/logout

@@ -12,7 +12,7 @@ async function getClients() {
     try {
         if (!process.env.NEXT_PUBLIC_FIREBASE_API_KEY) return [];
         const snapshot = await adminDb.collection('clients').get();
-        return snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })) as Client[];
+        return snapshot.docs.map((doc: any) => ({ id: doc.id, ...doc.data() })) as Client[];
     } catch (e) {
         console.error('Firebase Client fetch failed. Operating in offline mode.');
         return [];

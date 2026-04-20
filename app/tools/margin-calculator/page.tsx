@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { DollarSign, PieChart, TrendingUp, ArrowRight } from 'lucide-react';
+import { PieChart, TrendingUp, ArrowRight } from 'lucide-react';
 
 export default function MarginCalculator() {
     const [revenue, setRevenue] = useState(50000); // Monthly revenue
