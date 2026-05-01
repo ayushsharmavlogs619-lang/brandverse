@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { ArrowLeft, Wrench, Clock, MapPin, Smartphone } from 'lucide-react';
 import RelatedArticles from '../../components/RelatedArticles';
+import CTASection from '../../components/CTASection';
 
 export const metadata = {
     title: 'Why 78% of Emergency Plumbing Calls Go to Voicemail (And How to Fix It) | Brandverse',
@@ -70,7 +71,27 @@ export default function Post() {
                             </div>
                         </div>
                     </div>
+
+                    {/* 🎯 MID-ARTICLE CTA */}
+                    <CTASection 
+                        title="Stop Sending Emergency Jobs to Competitors."
+                        subtitle="Every night you're closed, you're losing high-margin emergency jobs. AI dispatchers capture 24/7."
+                        primaryText="Automate My Dispatch"
+                        secondaryText="See HVAC Demo"
+                        variant="blog"
+                    />
+
                 </article>
+
+                    {/* 🎯 END-ARTICLE CTA */}
+                    <CTASection 
+                        title="Your Next Emergency Call Should Be Captured."
+                        subtitle="Don't let another high-margin job go to voicemail. Deploy AI dispatch and capture every emergency, 24/7."
+                        primaryText="Start Capturing Jobs"
+                        secondaryText="Book Emergency Demo"
+                        variant="form"
+                    />
+
                 <RelatedArticles currentSlug="hvac-dispatch-automation" />
             </main>
         </div>

@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { ArrowLeft, Calculator, CheckCircle2, DollarSign, Users, X } from 'lucide-react';
 import { useState } from 'react';
+import CTASection from '../../components/CTASection';
 
 export default function Post() {
   const [missedCalls, setMissedCalls] = useState(15);
@@ -123,6 +124,15 @@ export default function Post() {
             </div>
           </section>
 
+          {/* 🎯 MID-ARTICLE CTA */}
+          <CTASection 
+            title="Your Numbers Are Staring Back at You."
+            subtitle="You just calculated your exact losses. The question isn't 'if' you should automate, it's 'how fast' can we deploy."
+            primaryText="Book My ROI Audit"
+            secondaryText="See Live Examples"
+            variant="blog"
+          />
+
           {/* Section 3: The Human vs AI Cost Table */}
           <section className="space-y-6">
             <h2 className="text-2xl font-black text-white uppercase italic tracking-wide">The Spreadsheet Logic</h2>
@@ -177,19 +187,14 @@ export default function Post() {
             </p>
           </section>
 
-          {/* CTA Box */}
-          <div className="bg-brand-gradient p-10 rounded-3xl text-center space-y-6 shadow-2xl shadow-blue-500/20">
-            <h3 className="text-3xl font-black text-white italic">Ready to stop losing revenue?</h3>
-            <p className="text-blue-100 font-medium max-w-lg mx-auto">
-              Book a 15-minute audit. We'll verify your call volume and build a custom ROI report for your territory.
-            </p>
-            <Link
-              href="/contact"
-              className="inline-flex items-center gap-2 bg-white text-blue-600 px-8 py-4 rounded-xl font-black uppercase tracking-widest text-sm hover:scale-105 transition-transform"
-            >
-              Start Your Audit <DollarSign className="w-4 h-4" />
-            </Link>
-          </div>
+          {/* 🎯 END-ARTICLE CTA */}
+          <CTASection 
+            title="The Only Thing Worse Than Losing Money Is Doing Nothing About It."
+            subtitle="You have the exact numbers. The ROI is clear. Let's turn your missed calls into your biggest profit center."
+            primaryText="Deploy My Solution"
+            secondaryText="View Case Studies"
+            variant="form"
+          />
 
         </article>
       </main>

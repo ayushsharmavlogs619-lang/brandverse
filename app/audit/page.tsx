@@ -4,6 +4,8 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { ArrowLeft, CheckCircle2, AlertTriangle, Phone, Mail, ArrowRight, ShieldCheck, Loader2 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
+import { submitAuditRequest } from './actions';
+import CTASection from '../components/CTASection';
 
 export default function AuditPage() {
     const router = useRouter();
@@ -18,10 +20,21 @@ export default function AuditPage() {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setLoading(true);
-        // Simulate API call
-        await new Promise(resolve => setTimeout(resolve, 1500));
-        // Redirect to thank you (we'll build this next)
-        router.push('/audit/thank-you');
+        
+        try {
+            const result = await submitAuditRequest(formData);
+            
+            if (result.success) {
+                // Lead saved to Firebase - redirect to thank you
+                router.push('/audit/thank-you');
+            } else {
+                alert('Failed to submit: ' + result.error);
+            }
+        } catch (error) {
+            alert('Something went wrong. Please try again or call us directly at +91 88510 05278');
+        } finally {
+            setLoading(false);
+        }
     };
 
     return (
@@ -120,7 +133,7 @@ export default function AuditPage() {
                                             type="tel"
                                             required
                                             className="w-full bg-white/5 border border-white/10 rounded-xl pl-12 pr-4 py-4 text-white placeholder:text-slate-600 focus:outline-none focus:border-blue-500 transition-colors font-medium"
-                                            placeholder="(555) 123-4567"
+                                            placeholder="+91 88510 05278"
                                             value={formData.phone}
                                             onChange={e => setFormData({ ...formData, phone: e.target.value })}
                                         />
@@ -165,6 +178,17 @@ export default function AuditPage() {
                         </div>
                     </div>
                 </div>
+            </div>
+
+            {/* 🎯 FORM-END CTA */}
+            <div className="px-6 pb-20">
+                <CTASection 
+                    title="Prefer to Talk Directly?"
+                    subtitle="Skip the audit and book a 15-minute strategy call. We'll analyze your business live."
+                    primaryText="Book Strategy Call"
+                    secondaryText="See Live Demo"
+                    variant="minimal"
+                />
             </div>
         </div>
     );

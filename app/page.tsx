@@ -43,14 +43,18 @@ import {
   Play
 } from 'lucide-react';
 import ChatWidget from './components/ChatWidget';
+import CTASection from './components/CTASection';
 import { articles } from './lib/articles';
 
 export default function Page() {
   const [calculatorValue, setCalculatorValue] = useState(10);
-  const avgJobValue = 300;
-  const conversionRate = 0.4;
-  const monthlyRevenue = Math.round(calculatorValue * avgJobValue * conversionRate * 4);
+  const [avgJobValue, setAvgJobValue] = useState(300);
+  const [conversionRate, setConversionRate] = useState(40);
+  const monthlyRevenue = Math.round(calculatorValue * avgJobValue * (conversionRate / 100) * 4);
   const yearlyRevenue = monthlyRevenue * 12;
+  const aiCost = 997;
+  const monthlyROI = Math.round(((monthlyRevenue - aiCost) / aiCost) * 100);
+  const yearlyROI = Math.round(((yearlyRevenue - (aiCost * 12)) / (aiCost * 12)) * 100);
 
   const industries = [
     {
@@ -179,7 +183,7 @@ export default function Page() {
   ];
 
   return (
-    <div className="min-h-screen bg-[#020617] text-slate-100 selection:bg-blue-500/30 overflow-x-hidden pb-20 font-sans">
+    <div className="min-h-screen bg-black text-white selection:bg-blue-500/30 overflow-x-hidden pb-20 font-sans relative">
       {/* 🚀 GLOWING HEADER */}
       <header className="sticky top-0 z-50 bg-[#020617]/80 backdrop-blur-xl border-b border-white/5 px-6 h-20">
         <div className="max-w-7xl mx-auto h-full flex items-center justify-between">
@@ -206,23 +210,25 @@ export default function Page() {
       </header>
 
       <main>
-        {/* 🔥 HERO: THE MACHINE */}
+        {/* 🔥 HERO: THE QUANTUM MACHINE */}
         <section className="relative pt-24 pb-32 px-6 overflow-hidden">
           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full -z-10">
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[600px] bg-blue-600/10 blur-[120px] rounded-full opacity-50 animate-pulse" />
-            <div className="absolute top-20 left-1/4 w-[500px] h-[500px] bg-purple-600/10 blur-[100px] rounded-full opacity-30" />
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1200px] h-[800px] bg-gradient-to-r from-blue-600/20 via-purple-600/10 to-pink-600/20 blur-[150px] rounded-full opacity-60 animate-pulse" />
+            <div className="absolute top-20 left-1/4 w-[600px] h-[600px] bg-gradient-to-br from-cyan-500/15 to-blue-500/10 blur-[120px] rounded-full opacity-40 floating-animation" />
+            <div className="absolute bottom-20 right-1/4 w-[400px] h-[400px] bg-gradient-to-tr from-purple-500/10 to-pink-500/10 blur-[80px] rounded-full opacity-30 floating-animation" style={{animationDelay: '2s'}} />
           </div>
 
-          <div className="max-w-5xl mx-auto text-center space-y-10">
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-[10px] font-black uppercase tracking-[0.2em] animate-fade-in">
-              <Zap className="w-3 h-3 fill-current" /> Enterprise AI Infrastructure Platform
+          <div className="max-w-6xl mx-auto text-center space-y-12 relative z-20">
+            <div className="inline-flex items-center gap-3 px-6 py-2 rounded-2xl glass-morphism border border-white/10 text-cyan-400 text-[10px] font-black uppercase tracking-[0.2em] animate-fade-in neon-glow">
+              <div className="w-4 h-4 bg-cyan-400 rounded-full mr-2 pulse-glow" />
+              Quantum AI Infrastructure
             </div>
-            <h1 className="text-5xl md:text-[5.5rem] font-black text-white leading-[0.9] tracking-tighter uppercase italic">
-              We Build <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 animate-gradient">AI Operating Systems</span><br />
-              For High-Growth <span className="text-blue-400 text-glow">Businesses</span>
+            <h1 className="text-6xl md:text-[8rem] font-black text-white leading-[0.8] tracking-tighter uppercase italic holographic-text">
+              We Engineer <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500 animate-gradient">Digital Immortality</span><br />
+              For <span className="text-cyan-400 text-glow drop-shadow-glow">Legacy-Destroying</span> Businesses
             </h1>
-            <p className="text-slate-300 text-lg md:text-2xl max-w-3xl mx-auto font-bold leading-relaxed pt-4">
-              Forget agencies. We're a <strong className="text-white">technology vendor</strong>. Custom Next.js applications, proprietary voice AI models, and headless automation APIs that replace entire departments—deployed in 48 hours.
+            <p className="text-slate-300 text-lg md:text-2xl max-w-4xl mx-auto font-bold leading-relaxed pt-6 glass-morphism p-8 rounded-3xl border border-white/10">
+              <span className="text-cyan-400">⚡ Forget agencies. Forget SaaS.</span> We build <span className="text-purple-400 font-bold">proprietary AI infrastructure</span> that becomes your <span className="text-pink-400 font-bold">unfair competitive advantage</span>. Custom-engineered systems that <span className="text-cyan-400">replace entire departments</span>—deployed in <span className="text-glow font-black bg-gradient-to-r from-cyan-500 to-purple-500 bg-clip-text text-transparent px-2 py-1 rounded-lg">48 hours</span>.
             </p>
             <div className="flex flex-col sm:flex-row justify-center items-center gap-6 pt-12">
               <Link href="/contact" className="w-full sm:w-auto px-10 py-6 bg-brand-gradient text-white rounded-3xl font-black uppercase tracking-widest text-sm shadow-2xl shadow-blue-500/30 hover:scale-105 hover:shadow-blue-500/50 transition-all flex items-center justify-center gap-3">
@@ -235,17 +241,40 @@ export default function Page() {
           </div>
         </section>
 
-        {/* 🔧 TECH STACK SHOWCASE */}
-        <section className="py-20 px-6 border-b border-white/5">
-          <div className="max-w-7xl mx-auto">
-            <p className="text-center text-slate-500 text-xs font-black uppercase tracking-widest mb-10">Trusted Infrastructure Powered By</p>
-            <div className="flex flex-wrap justify-center gap-8 md:gap-16 opacity-50 grayscale hover:grayscale-0 transition-all duration-500">
-              {/* Logos could go here, using icons for now */}
-              <div className="flex items-center gap-2"><Code2 className="w-6 h-6" /> <span className="font-bold">Next.js</span></div>
-              <div className="flex items-center gap-2"><Database className="w-6 h-6" /> <span className="font-bold">Supabase</span></div>
-              <div className="flex items-center gap-2"><Mic className="w-6 h-6" /> <span className="font-bold">Vapi</span></div>
-              <div className="flex items-center gap-2"><Globe className="w-6 h-6" /> <span className="font-bold">Firebase</span></div>
-              <div className="flex items-center gap-2"><Rocket className="w-6 h-6" /> <span className="font-bold">Vercel</span></div>
+        {/* 🎯 FIRST CTA - After Hero */}
+        <CTASection 
+          title="Stop Losing Calls. Start Capturing Revenue."
+          subtitle="Every missed call is money handed to your competition. Our AI agents capture 100% of your calls, 24/7."
+          primaryText="Deploy Your AI Agent"
+          secondaryText="Hear Live Demo"
+          variant="minimal"
+        />
+
+        {/* 🔧 QUANTUM TECH STACK */}
+        <section className="py-24 px-6 border-b border-white/5 relative overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-r from-blue-600/5 via-purple-600/5 to-transparent opacity-30" />
+          <div className="max-w-7xl mx-auto relative z-10">
+            <div className="text-center mb-12">
+              <div className="inline-flex items-center gap-3 px-4 py-2 rounded-2xl glass-morphism border border-white/20 text-cyan-400 text-[10px] font-black uppercase tracking-[0.2em] animate-fade-in">
+                <div className="w-3 h-3 bg-cyan-400 rounded-full mr-2 pulse-glow" />
+                Quantum Infrastructure
+              </div>
+            </div>
+            <div className="grid grid-cols-2 md:grid-cols-5 gap-8 items-center">
+              {[
+                { icon: Code2, name: "Next.js 16", desc: "Quantum-Optimized Runtime" },
+                { icon: Database, name: "Supabase", desc: "Real-time Database" },
+                { icon: Mic, name: "Vapi AI", desc: "Neural Voice Interface" },
+                { icon: Globe, name: "Firebase", desc: "Cloud Infrastructure" },
+                { icon: Rocket, name: "Vercel Edge", desc: "Global CDN" }
+              ].map((tech, i) => (
+                <div key={i} className="group premium-card p-6 text-center hover:scale-105 transition-all duration-300 relative overflow-hidden">
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-cyan-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                  <tech.icon className="w-10 h-10 mx-auto mb-4 text-cyan-400 group-hover:text-white transition-all duration-300 drop-shadow-glow" />
+                  <div className="font-black text-white font-bold text-lg">{tech.name}</div>
+                  <div className="text-slate-400 text-xs">{tech.desc}</div>
+                </div>
+              ))}
             </div>
           </div>
         </section>
@@ -288,6 +317,15 @@ export default function Page() {
             </div>
           </div>
         </section>
+
+        {/* 🎯 SECOND CTA - After Platform Capabilities */}
+        <CTASection 
+          title="This Isn't SaaS. It's Your Infrastructure."
+          subtitle="We build custom AI systems that become your competitive advantage. No monthly subscriptions, no vendor lock-in."
+          primaryText="Build My Stack"
+          secondaryText="View Case Studies"
+          variant="minimal"
+        />
 
         {/* 📊 FEATURE BENTO GRID */}
         <section className="px-6 py-24">
@@ -379,7 +417,16 @@ export default function Page() {
           </div>
         </section>
 
-        {/* 🏭 INDUSTRY-SPECIFIC SECTIONS */}
+        {/* � THIRD CTA - After Comparison */}
+        <CTASection 
+          title="The Math Doesn't Lie."
+          subtitle="For less than one employee's monthly salary, get unlimited 24/7 coverage. The ROI is undeniable."
+          primaryText="Start Saving Money"
+          secondaryText="Calculate My ROI"
+          variant="minimal"
+        />
+
+        {/* � INDUSTRY-SPECIFIC SECTIONS */}
         <section id="industries" className="py-32 px-6">
           <div className="max-w-7xl mx-auto space-y-16">
             <div className="text-center space-y-6">
@@ -457,28 +504,73 @@ export default function Page() {
             <div className="bg-gradient-to-br from-slate-900/80 to-slate-900/40 rounded-[3.5rem] border border-white/5 p-8 md:p-16 shadow-2xl relative overflow-hidden">
               <div className="absolute top-0 right-0 w-80 h-80 bg-blue-600/10 blur-[100px]" />
               <div className="space-y-12 relative z-10">
-                <div className="space-y-6">
-                  <div className="flex justify-between items-end">
-                    <label className="text-xl text-slate-300 font-black uppercase tracking-tighter italic">Weekly Missed Calls</label>
-                    <div className="text-6xl font-black text-blue-500 text-glow italic">{calculatorValue}</div>
+                <div className="grid md:grid-cols-3 gap-8">
+                  <div className="space-y-4 premium-card p-6">
+                    <div className="flex justify-between items-end mb-4">
+                      <label className="text-sm text-slate-300 font-black uppercase tracking-tighter">Weekly Missed Calls</label>
+                      <div className="text-3xl font-black text-blue-500 text-glow floating-animation">{calculatorValue}</div>
+                    </div>
+                    <div className="relative">
+                      <input
+                        type="range"
+                        title="Adjust Weekly Missed Calls"
+                        aria-label="Adjust Weekly Missed Calls"
+                        min="5"
+                        max="50"
+                        step="1"
+                        value={calculatorValue}
+                        onChange={(e) => setCalculatorValue(parseInt(e.target.value))}
+                        className="w-full h-3 bg-white/5 rounded-full appearance-none cursor-pointer accent-blue-500 neon-glow"
+                      />
+                      <div className="flex justify-between text-xs text-slate-500 mt-2">
+                        <span>5</span>
+                        <span>25</span>
+                        <span>50</span>
+                      </div>
+                    </div>
                   </div>
-                  <input
-                    type="range"
-                    title="Adjust Weekly Missed Calls"
-                    aria-label="Adjust Weekly Missed Calls"
-                    min="5"
-                    max="50"
-                    step="1"
-                    value={calculatorValue}
-                    onChange={(e) => setCalculatorValue(parseInt(e.target.value))}
-                    className="w-full h-3 bg-white/5 rounded-full appearance-none cursor-pointer accent-blue-500"
-                  />
+
+                  <div className="space-y-4">
+                    <div className="flex justify-between items-end">
+                      <label className="text-sm text-slate-300 font-black uppercase tracking-tighter">Avg Job Value ($)</label>
+                      <div className="text-2xl font-black text-purple-500">${avgJobValue}</div>
+                    </div>
+                    <input
+                      type="range"
+                      title="Adjust Average Job Value"
+                      aria-label="Adjust Average Job Value"
+                      min="100"
+                      max="2000"
+                      step="50"
+                      value={avgJobValue}
+                      onChange={(e) => setAvgJobValue(parseInt(e.target.value))}
+                      className="w-full h-3 bg-white/5 rounded-full appearance-none cursor-pointer accent-purple-500"
+                    />
+                  </div>
+
+                  <div className="space-y-4">
+                    <div className="flex justify-between items-end">
+                      <label className="text-sm text-slate-300 font-black uppercase tracking-tighter">Conversion Rate (%)</label>
+                      <div className="text-2xl font-black text-green-500">{conversionRate}%</div>
+                    </div>
+                    <input
+                      type="range"
+                      title="Adjust Conversion Rate"
+                      aria-label="Adjust Conversion Rate"
+                      min="10"
+                      max="80"
+                      step="5"
+                      value={conversionRate}
+                      onChange={(e) => setConversionRate(parseInt(e.target.value))}
+                      className="w-full h-3 bg-white/5 rounded-full appearance-none cursor-pointer accent-green-500"
+                    />
+                  </div>
                 </div>
 
-                <div className="grid md:grid-cols-2 gap-8">
+                <div className="grid md:grid-cols-3 gap-6">
                   <div className="p-8 rounded-3xl bg-black/40 border border-white/5">
                     <div className="text-slate-500 text-[10px] font-black uppercase tracking-[.2em] mb-4">Monthly Lost Revenue</div>
-                    <div className="text-5xl font-black text-white italic tracking-tighter">${monthlyRevenue.toLocaleString()}</div>
+                    <div className="text-4xl font-black text-white italic tracking-tighter">${monthlyRevenue.toLocaleString()}</div>
                     <div className="text-red-500 text-[10px] mt-6 font-black uppercase tracking-widest flex items-center gap-2">
                       <X className="w-3 h-3" /> Donated to Competitors
                     </div>
@@ -486,9 +578,17 @@ export default function Page() {
 
                   <div className="p-8 rounded-3xl bg-brand-gradient border border-blue-400/30 shadow-2xl shadow-blue-500/20">
                     <div className="text-white/60 text-[10px] font-black uppercase tracking-[.2em] mb-4 text-white">Yearly Recoverable</div>
-                    <div className="text-5xl font-black text-white italic tracking-tighter">${yearlyRevenue.toLocaleString()}</div>
+                    <div className="text-4xl font-black text-white italic tracking-tighter">${yearlyRevenue.toLocaleString()}</div>
                     <div className="text-white text-[10px] mt-6 font-black uppercase tracking-widest flex items-center gap-2">
                       <ShieldCheck className="w-3 h-3" /> Captured by AI
+                    </div>
+                  </div>
+
+                  <div className="p-8 rounded-3xl bg-gradient-to-br from-green-600/20 to-emerald-600/20 border border-green-500/30">
+                    <div className="text-green-400/80 text-[10px] font-black uppercase tracking-[.2em] mb-4">Monthly ROI</div>
+                    <div className="text-4xl font-black text-green-400 italic tracking-tighter">{monthlyROI}%</div>
+                    <div className="text-green-400 text-[10px] mt-6 font-black uppercase tracking-widest flex items-center gap-2">
+                      <TrendingUp className="w-3 h-3" /> After AI Cost
                     </div>
                   </div>
                 </div>
@@ -496,6 +596,15 @@ export default function Page() {
             </div>
           </div>
         </section>
+
+        {/* 🎯 FOURTH CTA - After ROI Calculator */}
+        <CTASection 
+          title="Your Numbers Don't Lie."
+          subtitle="You just calculated how much money you're losing. Let us help you capture it instead."
+          primaryText="Stop The Bleeding"
+          secondaryText="See Case Studies"
+          variant="minimal"
+        />
 
         {/* ⭐ REVIEWS / TESTIMONIALS */}
         <section className="py-32 px-6 bg-black/40 border-t border-white/5">

@@ -245,6 +245,69 @@ export const articles: Article[] = [
         date: 'Jan 3, 2025',
         category: 'Ethics & Trust'
     },
+    {
+        slug: 'ai-implementation-timeline',
+        title: '48-Hour AI Implementation: The Complete Timeline',
+        excerpt: 'From discovery to live deployment. Exactly what happens in the 48 hours when we build your AI infrastructure.',
+        date: 'Jan 15, 2025',
+        category: 'Implementation Guide'
+    },
+    {
+        slug: 'competitive-advantage-automation',
+        title: 'The Automation Gap: Why Your Competitors Are Pulling Ahead',
+        excerpt: 'Data shows businesses with AI automation capture 40% more market share. Here\'s the math.',
+        date: 'Jan 18, 2025',
+        category: 'Competitive Intelligence'
+    },
+    {
+        slug: 'enterprise-voice-security',
+        title: 'Enterprise Voice Security: HIPAA, TCPA, and GDPR Compliance',
+        excerpt: 'Complete compliance checklist for voice AI in regulated industries. Avoid the $50K fines.',
+        date: 'Jan 22, 2025',
+        category: 'Legal & Compliance'
+    },
+    {
+        slug: 'roi-case-studies-2025',
+        title: '2025 ROI Case Studies: Real Numbers from Real Businesses',
+        excerpt: '15 businesses, $2.3M in combined revenue. The complete breakdown of AI automation performance.',
+        date: 'Jan 25, 2025',
+        category: 'Case Study'
+    },
+    {
+        slug: 'multilingual-ai-scaling',
+        title: 'Scale Internationally: Multilingual AI That Sounds Native',
+        excerpt: 'Deploy AI agents in 12 languages without hiring translators. Capture markets your competitors can\'t reach.',
+        date: 'Jan 28, 2025',
+        category: 'Growth Strategy'
+    },
+    {
+        slug: 'voice-ai-vs-chatbots',
+        title: 'Voice AI vs Chatbots: Why Voice Converts 3x Better',
+        excerpt: 'The psychology behind voice communication and why it outperforms text-based automation every time.',
+        date: 'Feb 1, 2025',
+        category: 'Technology Comparison'
+    },
+    {
+        slug: 'employee-automation-strategy',
+        title: 'Don\'t Fire Employees - Automate Their Worst Tasks',
+        excerpt: 'The strategic approach to AI that boosts morale while cutting costs. Keep your team, upgrade their work.',
+        date: 'Feb 5, 2025',
+        category: 'Management Strategy'
+    },
+    {
+        slug: 'emergency-response-automation',
+        title: '24/7 Emergency Response: AI for Critical Services',
+        excerpt: 'How HVAC, plumbing, and medical services use AI to handle emergencies while everyone else sleeps.',
+        date: 'Feb 8, 2025',
+        category: 'Industry Focus'
+    },
+    {
+        slug: 'ai-lead-scoring',
+        title: 'AI Lead Scoring: Stop Wasting Time on Bad Prospects',
+        excerpt: 'Automatically identify high-value leads and route them to your best closers. 10x your sales efficiency.',
+        date: 'Feb 12, 2025',
+        category: 'Sales Strategy'
+    }
 ];
 
 /**

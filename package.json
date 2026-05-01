@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "deploy": "node deploy-cloudflare.js",
+    "deploy:cloudflare": "npx wrangler pages deploy .next/server --project-name brandverse --compatibility-date=2024-01-01"
   },
   "dependencies": {
     "@google/generative-ai": "^0.24.1",
