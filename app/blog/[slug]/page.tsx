@@ -1,6 +1,20 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
+// Generate static params for all blog posts
+export async function generateStaticParams() {
+    return [
+        { slug: 'how-ai-boosts-leads' },
+        { slug: 'human-vs-ai-receptionist' },
+        { slug: 'roi-of-ai-voice-agents' },
+        { slug: 'setting-up-first-ai-agent' },
+        { slug: 'managing-high-call-volumes' },
+        { slug: 'ai-voice-roi' },
+        { slug: 'hvac-dispatch-automation' },
+        { slug: 'voice-ai-sales' }
+    ];
+}
+
 export const metadata = {
     title: 'Blog — Brandverse',
     description: 'Insights about AI voice agents and business automation.',
