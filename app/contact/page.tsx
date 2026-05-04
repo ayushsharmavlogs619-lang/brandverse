@@ -2,6 +2,14 @@ import Navbar from '../components/Navbar';
 import CalendlyEmbed from '../components/CalendlyEmbed';
 import { Mail, MessageSquare, Phone } from 'lucide-react';
 
+// Declare global types for analytics
+declare global {
+  interface Window {
+    gtag?: (command: string, targetId: string, config?: Record<string, any>) => void;
+    lintrk?: (command: string, data?: Record<string, any>) => void;
+  }
+}
+
 export const metadata = {
     title: 'Book a Strategy Call — Brandverse',
     description: 'Schedule a free consultation to discuss your AI automation needs.',

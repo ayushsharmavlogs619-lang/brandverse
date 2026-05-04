@@ -6,6 +6,14 @@ import { ArrowLeft, CheckCircle2, AlertTriangle, Phone, Mail, ArrowRight, Shield
 import { useRouter } from 'next/navigation';
 import CTASection from '../components/CTASection';
 
+// Declare global types for analytics
+declare global {
+  interface Window {
+    gtag?: (command: string, targetId: string, config?: Record<string, any>) => void;
+    lintrk?: (command: string, data?: Record<string, any>) => void;
+  }
+}
+
 export default function AuditPage() {
     const router = useRouter();
     const [step, setStep] = useState(1);
