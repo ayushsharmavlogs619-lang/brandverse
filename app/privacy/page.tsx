@@ -9,7 +9,19 @@ export default function PrivacyPage() {
             <div className="max-w-4xl mx-auto space-y-12">
                 <div className="space-y-4">
                     <h1 className="text-5xl font-black text-white tracking-tighter uppercase">Privacy Policy</h1>
-                    <p className="text-blue-400 font-bold uppercase tracking-widest text-sm">Last updated: December 23, 2025</p>
+                    <p className="text-blue-400 font-bold uppercase tracking-widest text-sm">Last updated: May 5, 2026</p>
+                </div>
+
+                <div className="bg-blue-500/10 border border-blue-500/30 p-6 rounded-xl">
+                    <h2 className="text-xl font-bold text-white mb-2 flex items-center gap-2">
+                        🏢 Business Information
+                    </h2>
+                    <p className="text-slate-300 leading-relaxed">
+                        <strong>Brandverse</strong> provides AI Voice Agent services and business automation solutions.<br />
+                        <strong>Website:</strong> brandverse.tech<br />
+                        <strong>Contact:</strong> +91 88510 05278 | ayush@brandverse.tech<br />
+                        <strong>Services:</strong> AI Voice Agents, Lead Automation, Appointment Setting, Customer Support Automation
+                    </p>
                 </div>
 
                 <div className="bg-red-500/10 border border-red-500/30 p-6 rounded-xl">
@@ -63,8 +75,43 @@ export default function PrivacyPage() {
                     </div>
                 </section>
 
+                <section className="space-y-6">
+                    <h2 className="text-2xl font-bold text-white flex items-center gap-3">
+                        <span className="w-8 h-8 rounded-lg bg-blue-600/20 flex items-center justify-center text-blue-400 text-sm">04</span>
+                        GDPR Compliance
+                    </h2>
+                    <div className="pl-11 space-y-4 text-slate-400">
+                        <p><strong>Your Rights Under GDPR:</strong></p>
+                        <ul className="list-disc space-y-2">
+                            <li><strong>Access:</strong> Request a copy of your personal data</li>
+                            <li><strong>Rectification:</strong> Correct inaccurate personal data</li>
+                            <li><strong>Erasure:</strong> Request deletion of your personal data</li>
+                            <li><strong>Portability:</strong> Request transfer of your data</li>
+                            <li><strong>Objection:</strong> Object to processing of your data</li>
+                        </ul>
+                        <p>To exercise these rights, contact us at ayush@brandverse.tech or call +91 88510 05278</p>
+                    </div>
+                </section>
+
+                <section className="space-y-6">
+                    <h2 className="text-2xl font-bold text-white flex items-center gap-3">
+                        <span className="w-8 h-8 rounded-lg bg-blue-600/20 flex items-center justify-center text-blue-400 text-sm">05</span>
+                        Contact Information
+                    </h2>
+                    <div className="pl-11 space-y-4 text-slate-400">
+                        <p><strong>Data Protection Officer:</strong></p>
+                        <ul className="space-y-1">
+                            <li><strong>Email:</strong> ayush@brandverse.tech</li>
+                            <li><strong>Phone:</strong> +91 88510 05278</li>
+                            <li><strong>Website:</strong> brandverse.tech</li>
+                            <li><strong>Response Time:</strong> Within 48 hours for data protection requests</li>
+                        </ul>
+                    </div>
+                </section>
+
                 <section className="space-y-6 text-slate-400 border-t border-white/5 pt-12">
-                    <p>By using Brandverse, you acknowledge that you have read and understood this Privacy Policy. If you have any questions regarding your data, please contact us at <span className="text-blue-400">ayush@brandverse.tech</span>.</p>
+                    <p>By using Brandverse services, you acknowledge that you have read and understood this Privacy Policy. This policy is effective as of May 5, 2026 and will remain in effect until modified.</p>
+                    <p><strong>Last Updated:</strong> May 5, 2026</p>
                 </section>
             </div>
         </div>

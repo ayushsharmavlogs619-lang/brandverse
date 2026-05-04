@@ -9,7 +9,18 @@ export default function TermsPage() {
             <div className="max-w-4xl mx-auto space-y-12">
                 <div className="space-y-4">
                     <h1 className="text-5xl font-black text-white tracking-tighter uppercase">Terms & Conditions</h1>
-                    <p className="text-blue-400 font-bold uppercase tracking-widest text-sm">Last updated: December 23, 2025</p>
+                    <p className="text-blue-400 font-bold uppercase tracking-widest text-sm">Last updated: May 5, 2026</p>
+                </div>
+
+                <div className="bg-blue-500/10 border border-blue-500/30 p-6 rounded-xl">
+                    <h2 className="text-xl font-bold text-white mb-2 flex items-center gap-2">
+                        🏢 Service Provider
+                    </h2>
+                    <p className="text-slate-300 leading-relaxed">
+                        <strong>Brandverse</strong> ("we", "us", "our") provides AI Voice Agent services through brandverse.tech<br />
+                        <strong>Contact:</strong> +91 88510 05278 | ayush@brandverse.tech<br />
+                        <strong>Services:</strong> AI automation, voice agents, lead generation, appointment setting
+                    </p>
                 </div>
 
                 <section className="space-y-6">
@@ -52,6 +63,27 @@ export default function TermsPage() {
                 <section className="space-y-6">
                     <h2 className="text-2xl font-bold text-white flex items-center gap-3">
                         <span className="w-8 h-8 rounded-lg bg-blue-600/20 flex items-center justify-center text-blue-400 text-sm">04</span>
+                        Payment and Refund Policy
+                    </h2>
+                    <div className="pl-11 space-y-4 text-slate-400">
+                        <p><strong>Payment Terms:</strong></p>
+                        <ul className="list-disc space-y-2">
+                            <li>All payments are processed in advance for the agreed service period</li>
+                            <li>Prices are subject to change with 30 days notice</li>
+                            <li>Failure to pay may result in service suspension</li>
+                        </ul>
+                        <p><strong>Refund Policy:</strong></p>
+                        <ul className="list-disc space-y-2">
+                            <li>7-day money-back guarantee for new clients</li>
+                            <li>Pro-rated refunds available for annual plans</li>
+                            <li>No refunds for used services or setup fees</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section className="space-y-6">
+                    <h2 className="text-2xl font-bold text-white flex items-center gap-3">
+                        <span className="w-8 h-8 rounded-lg bg-blue-600/20 flex items-center justify-center text-blue-400 text-sm">05</span>
                         Limitation of Liability
                     </h2>
                     <div className="pl-11 text-slate-400">
@@ -59,8 +91,24 @@ export default function TermsPage() {
                     </div>
                 </section>
 
+                <section className="space-y-6">
+                    <h2 className="text-2xl font-bold text-white flex items-center gap-3">
+                        <span className="w-8 h-8 rounded-lg bg-blue-600/20 flex items-center justify-center text-blue-400 text-sm">06</span>
+                        Contact and Disputes
+                    </h2>
+                    <div className="pl-11 space-y-4 text-slate-400">
+                        <p><strong>For questions or disputes regarding these terms:</strong></p>
+                        <ul className="space-y-1">
+                            <li><strong>Email:</strong> ayush@brandverse.tech</li>
+                            <li><strong>Phone:</strong> +91 88510 05278</li>
+                            <li><strong>Response Time:</strong> Within 48 hours</li>
+                        </ul>
+                        <p>Any disputes will be resolved through good faith negotiation. If unresolved, disputes will be handled under applicable jurisdiction laws.</p>
+                    </div>
+                </section>
+
                 <section className="space-y-4 text-slate-500 text-sm italic border-t border-white/5 pt-12">
-                    <p>These terms are governed by the laws of the jurisdiction in which Brandverse operates. We reserve the right to modify these terms at any time.</p>
+                    <p>These terms are governed by the laws of India and were last updated on May 5, 2026. We reserve the right to modify these terms at any time with notice to clients.</p>
                 </section>
             </div>
         </div>
