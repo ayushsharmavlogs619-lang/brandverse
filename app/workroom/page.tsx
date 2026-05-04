@@ -1,7 +1,6 @@
 'use client'
 
 import { useState, useRef, useEffect } from 'react';
-import { chatAction } from './actions';
 import { Send, Bot, User, Loader2, Sparkles } from 'lucide-react';
 
 export default function WorkroomPage() {
@@ -23,14 +22,11 @@ export default function WorkroomPage() {
         setMessages(prev => [...prev, { role: 'user', content: userMessage }]);
         setLoading(true);
 
-        const result = await chatAction(formData);
-
-        if (result.response) {
-            setMessages(prev => [...prev, { role: 'ai', content: result.response! }]);
-        } else if (result.error) {
-            setMessages(prev => [...prev, { role: 'ai', content: `Error: ${result.error}` }]);
-        }
-
+        // Mock AI response for static export
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        const mockResponse = "This is the Brandverse War Room - your tactical command center. For live AI assistance, call +91 88510 05278!";
+        
+        setMessages(prev => [...prev, { role: 'ai', content: mockResponse }]);
         setLoading(false);
     }
 

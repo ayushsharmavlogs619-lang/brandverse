@@ -4,7 +4,6 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { ArrowLeft, CheckCircle2, AlertTriangle, Phone, Mail, ArrowRight, ShieldCheck, Loader2 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
-import { submitAuditRequest } from './actions';
 import CTASection from '../components/CTASection';
 
 export default function AuditPage() {
@@ -21,20 +20,12 @@ export default function AuditPage() {
         e.preventDefault();
         setLoading(true);
         
-        try {
-            const result = await submitAuditRequest(formData);
-            
-            if (result.success) {
-                // Lead saved to Firebase - redirect to thank you
-                router.push('/audit/thank-you');
-            } else {
-                alert('Failed to submit: ' + result.error);
-            }
-        } catch (error) {
-            alert('Something went wrong. Please try again or call us directly at +91 88510 05278');
-        } finally {
-            setLoading(false);
-        }
+        // Simulate form submission for static export
+        await new Promise(resolve => setTimeout(resolve, 1500));
+        
+        // Redirect to thank you page
+        router.push('/audit/thank-you');
+        setLoading(false);
     };
 
     return (
@@ -112,16 +103,20 @@ export default function AuditPage() {
                                 <p className="text-slate-400">Enter your details to generate your tracking line.</p>
                             </div>
 
-                            <form onSubmit={handleSubmit} className="space-y-6">
+                            <form 
+                                action="https://formspree.io/f/xyzyzyzy" 
+                                method="POST"
+                                className="space-y-6"
+                            >
+                                <input type="hidden" name="form_type" value="audit_request" />
                                 <div className="space-y-2">
                                     <label className="text-xs font-bold text-slate-500 uppercase tracking-widest ml-1">Business Name</label>
                                     <input
                                         type="text"
+                                        name="business_name"
                                         required
                                         className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-4 text-white placeholder:text-slate-600 focus:outline-none focus:border-blue-500 transition-colors font-medium"
                                         placeholder="e.g. Apex Plumbing Co."
-                                        value={formData.businessName}
-                                        onChange={e => setFormData({ ...formData, businessName: e.target.value })}
                                     />
                                 </div>
 
@@ -131,11 +126,10 @@ export default function AuditPage() {
                                         <Phone className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-600" />
                                         <input
                                             type="tel"
+                                            name="phone"
                                             required
                                             className="w-full bg-white/5 border border-white/10 rounded-xl pl-12 pr-4 py-4 text-white placeholder:text-slate-600 focus:outline-none focus:border-blue-500 transition-colors font-medium"
                                             placeholder="+91 88510 05278"
-                                            value={formData.phone}
-                                            onChange={e => setFormData({ ...formData, phone: e.target.value })}
                                         />
                                     </div>
                                 </div>
@@ -146,11 +140,10 @@ export default function AuditPage() {
                                         <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-600" />
                                         <input
                                             type="email"
+                                            name="email"
                                             required
                                             className="w-full bg-white/5 border border-white/10 rounded-xl pl-12 pr-4 py-4 text-white placeholder:text-slate-600 focus:outline-none focus:border-blue-500 transition-colors font-medium"
                                             placeholder="you@company.com"
-                                            value={formData.email}
-                                            onChange={e => setFormData({ ...formData, email: e.target.value })}
                                         />
                                     </div>
                                 </div>

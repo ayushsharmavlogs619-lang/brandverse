@@ -2,7 +2,6 @@
 
 import { useState, useRef, useEffect } from 'react';
 import { MessageSquare, X, Send, Zap, User, Bot } from 'lucide-react';
-import { chatAction } from '../workroom/actions';
 
 export default function ChatWidget() {
     const [isOpen, setIsOpen] = useState(false);
@@ -33,12 +32,11 @@ export default function ChatWidget() {
         formData.append('modelType', 'cerebras'); // Use Haaland speed for public demo
 
         try {
-            const result = await chatAction(formData);
-            if (result.response) {
-                setMessages(prev => [...prev, { role: 'ai', content: result.response }]);
-            } else {
-                setMessages(prev => [...prev, { role: 'ai', content: "The connection dropped! Try again." }]);
-            }
+            // Mock AI response for static export
+            await new Promise(resolve => setTimeout(resolve, 1000));
+            const mockResponse = "Great question! Our AI Voice Agents can handle 100+ calls simultaneously, qualify leads automatically, and book appointments 24/7. Want to see a demo? Call us at +91 88510 05278!";
+            
+            setMessages(prev => [...prev, { role: 'ai', content: mockResponse }]);
         } catch (error) {
             setMessages(prev => [...prev, { role: 'ai', content: "Tactical error. Refresh the pitch." }]);
         } finally {
