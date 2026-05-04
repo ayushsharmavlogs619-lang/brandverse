@@ -93,10 +93,11 @@ export default function ContactPage() {
                             <h3 className="text-xl font-bold text-white mb-6">Send us a Message</h3>
                             
                             <form 
-                                action="https://formspree.io/f/xyzyzyzy" 
+                                action="https://formsubmit.co/ayush@brandverse.tech" 
                                 method="POST"
                                 className="space-y-6"
                             >
+                                <input type="hidden" name="form_type" value="contact_form" />
                                 <div className="grid md:grid-cols-2 gap-6">
                                     <div>
                                         <label className="block text-sm font-medium text-slate-300 mb-2">Name</label>
