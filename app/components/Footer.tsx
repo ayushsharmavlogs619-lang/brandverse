@@ -50,7 +50,7 @@ export default function Footer() {
                     <div className="space-y-2 text-slate-400">
                         <Link href="/features" className="block hover:text-blue-500">Solutions</Link>
                         <Link href="/blog" className="block hover:text-blue-500">Intelligence (Blog)</Link>
-                        <Link href="/case-studies" className="block hover:text-blue-500">Case Studies</Link>
+                        <Link href="/portfolio" className="block hover:text-blue-500">Case Studies</Link>
                         <Link href="/about" className="block hover:text-blue-500">About Us</Link>
                     </div>
                 </div>
