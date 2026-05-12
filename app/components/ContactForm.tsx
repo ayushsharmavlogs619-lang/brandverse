@@ -19,10 +19,11 @@ export default function ContactForm() {
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    const form = event.currentTarget;
     setStatus('submitting');
     setErrorMessage(null);
 
-    const formData = new FormData(event.currentTarget);
+    const formData = new FormData(form);
     const payload = {
       name: String(formData.get('name') ?? ''),
       email: String(formData.get('email') ?? ''),
@@ -60,8 +61,8 @@ export default function ContactForm() {
         body: JSON.stringify({ ...payload, form_type: 'contact_form' }),
       }).catch(() => {});
 
+      form.reset();
       setStatus('success');
-      event.currentTarget.reset();
     } catch (error) {
       setStatus('error');
       setErrorMessage(error instanceof Error ? error.message : 'Submission failed');
