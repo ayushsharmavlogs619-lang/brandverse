@@ -36,7 +36,7 @@ export const metadata: Metadata = {
     siteName: 'Brandverse',
     images: [
       {
-        url: '/og-image.png',
+        url: '/og-image.jpg',
         width: 1200,
         height: 630,
         alt: 'Brandverse - AI Voice Automation',
@@ -47,7 +47,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Brandverse — AI Voice Agents for SMBs',
     description: '24/7 AI voice agents that capture leads, book appointments, and drive revenue.',
-    images: ['/og-image.png'],
+    images: ['/og-image.jpg'],
   },
   robots: {
     index: true,
@@ -60,9 +60,9 @@ export const metadata: Metadata = {
       'max-snippet': -1,
     },
   },
-  verification: {
-    google: 'GOOGLE_SITE_VERIFICATION_ID', // TODO: Replace with your actual Google Site Verification ID
-  },
+  verification: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION
+    ? { google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION }
+    : undefined,
 };
 
 export default function RootLayout({
