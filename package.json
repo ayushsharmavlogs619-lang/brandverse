@@ -22,7 +22,8 @@
     "node-fetch": "^3.3.2",
     "react": "^19.2.1",
     "react-dom": "^19.2.1",
-    "web-push": "^3.6.7"
+    "web-push": "^3.6.7",
+    "webpush-webcrypto": "^1.0.5"
   },
   "devDependencies": {
     "@cloudflare/next-on-pages": "^1.13.16",
