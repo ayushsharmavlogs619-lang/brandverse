@@ -34,6 +34,8 @@ CREATE POLICY "service role full access on push_subscriptions"
 
 -- =====================================================
 -- leads: contact form submissions and other lead sources
+-- If the table already exists (e.g. created by the AI receptionist setup),
+-- the CREATE is a no-op and the ALTERs below backfill the columns we need.
 -- =====================================================
 CREATE TABLE IF NOT EXISTS leads (
   id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
@@ -46,6 +48,32 @@ CREATE TABLE IF NOT EXISTS leads (
   user_agent TEXT,
   created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
+
+-- Backfill columns expected by /api/leads when the table predates this schema.
+ALTER TABLE leads ADD COLUMN IF NOT EXISTS name TEXT;
+ALTER TABLE leads ADD COLUMN IF NOT EXISTS phone TEXT;
+ALTER TABLE leads ADD COLUMN IF NOT EXISTS company TEXT;
+ALTER TABLE leads ADD COLUMN IF NOT EXISTS message TEXT;
+ALTER TABLE leads ADD COLUMN IF NOT EXISTS source TEXT DEFAULT 'website';
+ALTER TABLE leads ADD COLUMN IF NOT EXISTS user_agent TEXT;
+
+-- Older receptionist schemas marked phone_number / client_id NOT NULL;
+-- relax those so website leads (which don't supply them) can insert.
+DO $$
+BEGIN
+  IF EXISTS (
+    SELECT 1 FROM information_schema.columns
+    WHERE table_schema = 'public' AND table_name = 'leads' AND column_name = 'phone_number'
+  ) THEN
+    EXECUTE 'ALTER TABLE leads ALTER COLUMN phone_number DROP NOT NULL';
+  END IF;
+  IF EXISTS (
+    SELECT 1 FROM information_schema.columns
+    WHERE table_schema = 'public' AND table_name = 'leads' AND column_name = 'client_id'
+  ) THEN
+    EXECUTE 'ALTER TABLE leads ALTER COLUMN client_id DROP NOT NULL';
+  END IF;
+END$$;
 
 CREATE INDEX IF NOT EXISTS idx_leads_email ON leads (email);
 CREATE INDEX IF NOT EXISTS idx_leads_created_at ON leads (created_at DESC);
