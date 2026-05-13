@@ -1,5 +1,6 @@
 import Navbar from '../components/Navbar';
 import CalendlyEmbed from '../components/CalendlyEmbed';
+import ContactForm from '../components/ContactForm';
 import { Mail, MessageSquare, Phone } from 'lucide-react';
 
 // Declare global types for analytics
@@ -99,91 +100,7 @@ export default function ContactPage() {
                     <div className="lg:col-span-2">
                         <div className="p-8 rounded-2xl bg-white/5 border border-white/10">
                             <h3 className="text-xl font-bold text-white mb-6">Send us a Message</h3>
-                            
-                            <form 
-                                action="https://formsubmit.co/ayush@brandverse.tech" 
-                                method="POST"
-                                className="space-y-6"
-                            >
-                                <input type="hidden" name="form_type" value="contact_form" />
-                                <div className="grid md:grid-cols-2 gap-6">
-                                    <div>
-                                        <label className="block text-sm font-medium text-slate-300 mb-2">Name</label>
-                                        <input 
-                                            type="text" 
-                                            name="name"
-                                            required
-                                            className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder:text-slate-500 focus:outline-none focus:border-blue-500 transition-colors"
-                                            placeholder="John Doe"
-                                        />
-                                    </div>
-                                    <div>
-                                        <label className="block text-sm font-medium text-slate-300 mb-2">Company</label>
-                                        <input 
-                                            type="text" 
-                                            name="company"
-                                            className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder:text-slate-500 focus:outline-none focus:border-blue-500 transition-colors"
-                                            placeholder="Your Company"
-                                        />
-                                    </div>
-                                </div>
-
-                                <div className="grid md:grid-cols-2 gap-6">
-                                    <div>
-                                        <label className="block text-sm font-medium text-slate-300 mb-2">Email</label>
-                                        <input 
-                                            type="email" 
-                                            name="email"
-                                            required
-                                            className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder:text-slate-500 focus:outline-none focus:border-blue-500 transition-colors"
-                                            placeholder="john@company.com"
-                                        />
-                                    </div>
-                                    <div>
-                                        <label className="block text-sm font-medium text-slate-300 mb-2">Phone</label>
-                                        <input 
-                                            type="tel" 
-                                            name="phone"
-                                            required
-                                            className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder:text-slate-500 focus:outline-none focus:border-blue-500 transition-colors"
-                                            placeholder="+91 88510 05278"
-                                        />
-                                    </div>
-                                </div>
-
-                                <div>
-                                    <label className="block text-sm font-medium text-slate-300 mb-2">What are you looking for?</label>
-                                    <select 
-                                        name="service"
-                                        className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white focus:outline-none focus:border-blue-500 transition-colors"
-                                    >
-                                        <option value="">Select a service</option>
-                                        <option value="ai-voice-agents">AI Voice Agents</option>
-                                        <option value="lead-automation">Lead Automation</option>
-                                        <option value="appointment-setting">Appointment Setting</option>
-                                        <option value="customer-support">24/7 Customer Support</option>
-                                        <option value="custom-solution">Custom Solution</option>
-                                    </select>
-                                </div>
-
-                                <div>
-                                    <label className="block text-sm font-medium text-slate-300 mb-2">Message</label>
-                                    <textarea 
-                                        name="message"
-                                        rows={4}
-                                        required
-                                        className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder:text-slate-500 focus:outline-none focus:border-blue-500 transition-colors resize-none"
-                                        placeholder="Tell us about your business and what you'd like to automate..."
-                                    />
-                                </div>
-
-                                <button 
-                                    type="submit"
-                                    className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white font-bold py-4 px-8 rounded-lg hover:from-blue-500 hover:to-purple-500 transition-all duration-300 transform hover:scale-105"
-                                >
-                                    Send Message
-                                </button>
-                            </form>
+                            <ContactForm />
                         </div>
 
                         {/* Calendly Widget */}
