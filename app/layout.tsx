@@ -60,10 +60,16 @@ export const metadata: Metadata = {
       'max-snippet': -1,
     },
   },
-  verification: {
-    google: 'GOOGLE_SITE_VERIFICATION_ID', // TODO: Replace with your actual Google Site Verification ID
-  },
+  ...(process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION
+    ? {
+        verification: {
+          google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION,
+        },
+      }
+    : {}),
 };
+
+const linkedInPartnerId = process.env.NEXT_PUBLIC_LINKEDIN_PARTNER_ID;
 
 export default function RootLayout({
   children,
@@ -73,34 +79,23 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        {/* Google Analytics 4 */}
-        <Script
-          src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"
-          strategy="afterInteractive"
-        />
-        <Script id="google-analytics" strategy="afterInteractive">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'GA_MEASUREMENT_ID');
-          `}
-        </Script>
+        {/* GA4 / Meta: see client component Analytics.tsx (uses NEXT_PUBLIC_GA_MEASUREMENT_ID, etc.) */}
 
-        {/* LinkedIn Insight Tag */}
-        <Script id="linkedin-insight" strategy="afterInteractive">
-          {`
-            _linkedin_partner_id = "YOUR_LINKEDIN_PARTNER_ID";
+        {linkedInPartnerId ? (
+          <>
+            <Script id="linkedin-insight" strategy="afterInteractive">
+              {`
+            _linkedin_partner_id = ${JSON.stringify(linkedInPartnerId)};
             window._linkedin_data_partner_ids = window._linkedin_data_partner_ids || [];
             window._linkedin_data_partner_ids.push(_linkedin_partner_id);
           `}
-        </Script>
-        <Script
-          src="https://snap.licdn.com/li.lms-analytics/insight.min.js"
-          strategy="afterInteractive"
-        />
-        <Script id="linkedin-partner" strategy="afterInteractive">
-          {`
+            </Script>
+            <Script
+              src="https://snap.licdn.com/li.lms-analytics/insight.min.js"
+              strategy="afterInteractive"
+            />
+            <Script id="linkedin-partner" strategy="afterInteractive">
+              {`
             (function(l) {
               if (!l){window.lintrk = function(a,b){window.lintrk.q.push([a,b])};
               window.lintrk.q=[]}
@@ -110,16 +105,20 @@ export default function RootLayout({
               b.src = "https://snap.licdn.com/li.lms-analytics/insight.min.js";
               s.parentNode.insertBefore(b, s);})(window.lintrk);
           `}
-        </Script>
+            </Script>
+          </>
+        ) : null}
 
         {/* Cookiebot CMP - MUST LOAD FIRST for GDPR compliance */}
-        <Script
-          id="cookiebot"
-          src="https://consent.cookiebot.com/uc.js"
-          data-cbid={process.env.NEXT_PUBLIC_COOKIEBOT_ID}
-          data-blockingmode="auto"
-          strategy="beforeInteractive"
-        />
+        {process.env.NEXT_PUBLIC_COOKIEBOT_ID && (
+          <Script
+            id="cookiebot"
+            src="https://consent.cookiebot.com/uc.js"
+            data-cbid={process.env.NEXT_PUBLIC_COOKIEBOT_ID}
+            data-blockingmode="auto"
+            strategy="beforeInteractive"
+          />
+        )}
         <StructuredData />
       </head>
       <body
