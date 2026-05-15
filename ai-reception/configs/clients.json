@@ -1,0 +1,132 @@
+{
+  "clients": [
+    {
+      "id": "dental_melbourne_1",
+      "name": "Melbourne Dental Clinic",
+      "niche": "dental",
+      "timezone": "Australia/Melbourne",
+      "services": {
+        "cleaning": 30,
+        "whitening": 45,
+        "root_canal": 60,
+        "consultation": 30,
+        "checkup": 30,
+        "filling": 45
+      },
+      "working_hours": {
+        "monday": {"start": "09:00", "end": "18:00"},
+        "tuesday": {"start": "09:00", "end": "18:00"},
+        "wednesday": {"start": "09:00", "end": "18:00"},
+        "thursday": {"start": "09:00", "end": "18:00"},
+        "friday": {"start": "09:00", "end": "18:00"},
+        "saturday": {"start": "09:00", "end": "14:00"},
+        "sunday": {"start": "closed", "end": "closed"}
+      },
+      "calendar_id": "",
+      "sheet_id": "",
+      "phone_number": "",
+      "address": "123 Dental Street, Melbourne, VIC 3000",
+      "subdomain": "edge.brandverse.tech",
+      "business_description": "Professional dental care for the whole family",
+      "after_hours_booking": true,
+      "buffer_minutes": 10,
+      "max_booking_days_ahead": 30
+    },
+    {
+      "id": "hvac_sydney_1",
+      "name": "Sydney HVAC Services",
+      "niche": "hvac",
+      "timezone": "Australia/Sydney",
+      "services": {
+        "emergency_repair": 60,
+        "maintenance": 90,
+        "installation": 180,
+        "inspection": 60,
+        "diagnostic": 45
+      },
+      "working_hours": {
+        "monday": {"start": "07:00", "end": "19:00"},
+        "tuesday": {"start": "07:00", "end": "19:00"},
+        "wednesday": {"start": "07:00", "end": "19:00"},
+        "thursday": {"start": "07:00", "end": "19:00"},
+        "friday": {"start": "07:00", "end": "19:00"},
+        "saturday": {"start": "08:00", "end": "16:00"},
+        "sunday": {"start": "closed", "end": "closed"}
+      },
+      "calendar_id": "",
+      "sheet_id": "",
+      "phone_number": "",
+      "address": "456 Service Road, Sydney, NSW 2000",
+      "subdomain": "edge.brandverse.tech",
+      "business_description": "24/7 Emergency HVAC Repair and Installation",
+      "after_hours_booking": true,
+      "buffer_minutes": 15,
+      "max_booking_days_ahead": 14,
+      "emergency_service": true
+    },
+    {
+      "id": "electrician_brisbane_1",
+      "name": "Brisbane Electricians Pro",
+      "niche": "electrician",
+      "timezone": "Australia/Brisbane",
+      "services": {
+        "emergency_callout": 60,
+        "installation": 120,
+        "repair": 90,
+        "inspection": 60,
+        "upgrade": 180
+      },
+      "working_hours": {
+        "monday": {"start": "06:00", "end": "20:00"},
+        "tuesday": {"start": "06:00", "end": "20:00"},
+        "wednesday": {"start": "06:00", "end": "20:00"},
+        "thursday": {"start": "06:00", "end": "20:00"},
+        "friday": {"start": "06:00", "end": "20:00"},
+        "saturday": {"start": "07:00", "end": "18:00"},
+        "sunday": {"start": "closed", "end": "closed"}
+      },
+      "calendar_id": "",
+      "sheet_id": "",
+      "phone_number": "",
+      "address": "789 Circuit Lane, Brisbane, QLD 4000",
+      "subdomain": "edge.brandverse.tech",
+      "business_description": "Licensed Electricians for Residential and Commercial",
+      "after_hours_booking": true,
+      "buffer_minutes": 10,
+      "max_booking_days_ahead": 21,
+      "emergency_service": true
+    },
+    {
+      "id": "plastic_surgery_melbourne_1",
+      "name": "Melbourne Plastic Surgery Center",
+      "niche": "plastic-surgery",
+      "timezone": "Australia/Melbourne",
+      "services": {
+        "consultation": 60,
+        "follow_up": 30,
+        "pre_op_assessment": 45,
+        "post_op_check": 30,
+        "non_surgical_treatment": 90
+      },
+      "working_hours": {
+        "monday": {"start": "09:00", "end": "17:00"},
+        "tuesday": {"start": "09:00", "end": "17:00"},
+        "wednesday": {"start": "09:00", "end": "17:00"},
+        "thursday": {"start": "09:00", "end": "17:00"},
+        "friday": {"start": "09:00", "end": "17:00"},
+        "saturday": {"start": "closed", "end": "closed"},
+        "sunday": {"start": "closed", "end": "closed"}
+      },
+      "calendar_id": "",
+      "sheet_id": "",
+      "phone_number": "",
+      "address": "321 Cosmetic Avenue, Melbourne, VIC 3000",
+      "subdomain": "edge.brandverse.tech",
+      "business_description": "Expert Plastic Surgery and Cosmetic Procedures",
+      "after_hours_booking": false,
+      "buffer_minutes": 30,
+      "max_booking_days_ahead": 60,
+      "consultation_required": true
+    }
+  ]
+}

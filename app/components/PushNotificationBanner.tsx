@@ -30,24 +30,18 @@ export default function PushNotificationBanner() {
             setPermission(permission);
 
             if (permission === 'granted') {
-                // Register service worker for push notifications
-                if ('serviceWorker' in navigator) {
+                const vapidKey = process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY?.trim();
+                if ('serviceWorker' in navigator && vapidKey) {
                     const registration = await navigator.serviceWorker.register('/sw.js');
-
-                    // Subscribe to push notifications (you'll need to set up Firebase or OneSignal)
                     const subscription = await registration.pushManager.subscribe({
                         userVisibleOnly: true,
-                        applicationServerKey: urlBase64ToUint8Array(process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY || '')
+                        applicationServerKey: urlBase64ToUint8Array(vapidKey),
                     });
-
-                    // Send subscription to your backend
                     await fetch('/api/subscribe', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(subscription)
+                        body: JSON.stringify(subscription),
                     });
-
-                    console.log('Push notification subscription successful');
                 }
             }
 

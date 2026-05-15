@@ -15,17 +15,19 @@ export default function WorkroomPage() {
         }
     }, [messages]);
 
-    async function handleSubmit(formData: FormData) {
-        const userMessage = formData.get('message') as string;
+    async function handleChatSubmit(e: React.FormEvent<HTMLFormElement>) {
+        e.preventDefault();
+        const form = e.currentTarget;
+        const userMessage = (new FormData(form).get('message') as string) || '';
         if (!userMessage.trim()) return;
 
         setMessages(prev => [...prev, { role: 'user', content: userMessage }]);
         setLoading(true);
+        form.reset();
 
-        // Mock AI response for static export
         await new Promise(resolve => setTimeout(resolve, 1000));
-        const mockResponse = "This is the Brandverse War Room - your tactical command center. For live AI assistance, call +91 88510 05278!";
-        
+        const mockResponse =
+            "This is the Brandverse War Room - your tactical command center. For live AI assistance, call +91 88510 05278!";
         setMessages(prev => [...prev, { role: 'ai', content: mockResponse }]);
         setLoading(false);
     }
@@ -106,7 +108,7 @@ export default function WorkroomPage() {
 
             {/* Footer / Input */}
             <footer className="p-4 md:p-8 bg-gradient-to-t from-black to-transparent">
-                <form action={handleSubmit} className="max-w-4xl mx-auto relative group">
+                <form onSubmit={handleChatSubmit} className="max-w-4xl mx-auto relative group">
                     <input type="hidden" name="modelType" value={modelType} />
                     <input
                         type="text"

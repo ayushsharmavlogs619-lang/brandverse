@@ -1,5 +1,29 @@
+import type { ReactNode } from 'react';
 import Link from 'next/link';
 import { ArrowRight, Zap, Phone, Calendar } from 'lucide-react';
+
+function isExternalHref(href: string) {
+  return /^https?:\/\//i.test(href);
+}
+
+function CtaLink({
+  href,
+  className,
+  children,
+}: {
+  href: string;
+  className: string;
+  children: ReactNode;
+}) {
+  if (isExternalHref(href)) {
+    return (
+      <a href={href} target="_blank" rel="noopener noreferrer" className={className}>
+        {children}
+      </a>
+    );
+  }
+  return <Link href={href} className={className}>{children}</Link>;
+}
 
 interface CTASectionProps {
   title?: string;
@@ -70,7 +94,7 @@ export default function CTASection({
             )}
 
             <div className="flex flex-col sm:flex-row justify-center items-center gap-6">
-              <Link 
+              <CtaLink 
                 href={finalPrimaryLink}
                 className={`${buttonClasses} group relative overflow-hidden`}
               >
@@ -78,16 +102,16 @@ export default function CTASection({
                 {variant === 'form' ? <Phone className="w-5 h-5 relative z-10" /> : <Zap className="w-5 h-5 relative z-10" />}
                 <span className="relative z-10">{primaryText}</span>
                 <ArrowRight className="w-5 h-5 relative z-10 group-hover:translate-x-1 transition-transform duration-300" />
-              </Link>
+              </CtaLink>
               
               {secondaryText && (
-                <Link 
+                <CtaLink 
                   href={finalSecondaryLink}
                   className="text-sm font-black uppercase tracking-widest text-blue-400 hover:text-white transition-colors flex items-center gap-2"
                 >
                   {variant === 'form' ? <Calendar className="w-4 h-4" /> : null}
                   {secondaryText}
-                </Link>
+                </CtaLink>
               )}
             </div>
 

@@ -1,5 +1,6 @@
 import Navbar from '../components/Navbar';
 import CalendlyEmbed from '../components/CalendlyEmbed';
+import { FORMSUBMIT_ACTION, SITE_ORIGIN } from '@/lib/forms';
 import { Mail, MessageSquare, Phone } from 'lucide-react';
 
 // Declare global types for analytics
@@ -101,10 +102,13 @@ export default function ContactPage() {
                             <h3 className="text-xl font-bold text-white mb-6">Send us a Message</h3>
                             
                             <form 
-                                action="https://formsubmit.co/ayush@brandverse.tech" 
+                                action={FORMSUBMIT_ACTION}
                                 method="POST"
                                 className="space-y-6"
                             >
+                                <input type="hidden" name="_subject" value="[Brandverse] New contact form message" />
+                                <input type="hidden" name="_next" value={`${SITE_ORIGIN}/contact/thank-you/`} />
+                                <input type="hidden" name="_template" value="table" />
                                 <input type="hidden" name="form_type" value="contact_form" />
                                 <div className="grid md:grid-cols-2 gap-6">
                                     <div>

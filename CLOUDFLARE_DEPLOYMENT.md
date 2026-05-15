@@ -22,21 +22,24 @@ npm run deploy:cloudflare
 npm run build
 
 # Deploy to Cloudflare Pages
-npx wrangler pages deploy .next/server --project-name brandverse --compatibility-date=2024-01-01
+npx wrangler pages deploy out --project-name brandverse
 ```
 
 ## Environment Variables Setup
 
 In your Cloudflare Pages dashboard, add these environment variables:
 
+### Forms (FormSubmit)
+Marketing forms POST to **ayush@brandverse.tech**. The first time FormSubmit sees a new inbox, it sends a **confirmation link**—you must click it or submissions never arrive. Optional: set `NEXT_PUBLIC_SITE_URL` if production is not `https://brandverse.tech` (thank-you redirects).
+
 ### Firebase Configuration
 ```
-NEXT_PUBLIC_FIREBASE_API_KEY=AIzaSyDCbYX5rmE8KwXO-b_Clv5On3vbAxmJlu8
-NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=brandverse-8207e.firebaseapp.com
-NEXT_PUBLIC_FIREBASE_PROJECT_ID=brandverse-8207e
-NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=brandverse-8207e.firebasestorage.app
-NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=790805284794
-NEXT_PUBLIC_FIREBASE_APP_ID=1:790805284794:web:7d8e2ec29c2b90d70f7f83
+NEXT_PUBLIC_FIREBASE_API_KEY=your_firebase_web_api_key
+NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=your-project.firebaseapp.com
+NEXT_PUBLIC_FIREBASE_PROJECT_ID=your-project-id
+NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=your-project.appspot.com
+NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=your_sender_id
+NEXT_PUBLIC_FIREBASE_APP_ID=your_app_id
 ```
 
 ### AI API Keys
@@ -103,7 +106,7 @@ VAPI_PHONE_NUMBER=+1your-phone-number-here
 ### Deployment Issues
 - Verify Wrangler auth: `wrangler whoami`
 - Check project name in wrangler.toml
-- Ensure build output exists: `.next/server`
+- Ensure build output exists: `out/` (static export from `next.config.js`)
 
 ### Environment Variables
 - Must be prefixed with `NEXT_PUBLIC_` for client-side access

@@ -1,3 +1,4 @@
+import { FORMSUBMIT_ACTION, SITE_ORIGIN } from '@/lib/forms';
 import { Download, CheckCircle2, TrendingUp, Users, Clock, Shield } from 'lucide-react';
 
 // Declare global types for analytics
@@ -92,10 +93,13 @@ export default function LeadMagnetPage() {
                         <h2 className="text-2xl font-bold text-white mb-6">Download Free Guide</h2>
                         
                         <form 
-                            action="https://formsubmit.co/ayush@brandverse.tech" 
+                            action={FORMSUBMIT_ACTION}
                             method="POST"
                             className="space-y-6"
                         >
+                            <input type="hidden" name="_subject" value="[Brandverse] Lead magnet — AI audit guide download" />
+                            <input type="hidden" name="_next" value={`${SITE_ORIGIN}/lead-magnet/thank-you/`} />
+                            <input type="hidden" name="_template" value="table" />
                             <input type="hidden" name="form_type" value="lead_magnet_download" />
                             <input type="hidden" name="lead_magnet" value="2025_AI_Automation_Audit_Guide" />
                             
@@ -158,7 +162,7 @@ export default function LeadMagnetPage() {
                             </button>
 
                             <p className="text-xs text-slate-500 text-center">
-                                No spam. Unsubscribe anytime. Instant download.
+                                No spam. Unsubscribe anytime. We email you the guide and next steps.
                             </p>
                         </form>
                     </div>

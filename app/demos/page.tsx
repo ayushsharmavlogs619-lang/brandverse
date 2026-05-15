@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { Bot, Mic, FileText, ArrowRight, Lock } from 'lucide-react';
+import { Mic, ArrowRight } from 'lucide-react';
 
 export default function DemosPage() {
     const demos = [
@@ -12,22 +12,6 @@ export default function DemosPage() {
             href: '/demos/voice',
             status: 'Live',
             gradient: 'from-blue-600/20 to-purple-600/20'
-        },
-        {
-            title: 'Invoicing Assistant',
-            description: 'Text-based agent that generates PDF invoices and Stripe payment links from natural language commands.',
-            icon: <FileText className="w-8 h-8 text-green-400" />,
-            href: '/demos/invoice',
-            status: 'In Development',
-            gradient: 'from-green-600/20 to-emerald-600/20'
-        },
-        {
-            title: 'Support Dispatcher',
-            description: ' triage system that listens to customer complaints and routes them to the correct department.',
-            icon: <Bot className="w-8 h-8 text-orange-400" />,
-            href: '#',
-            status: 'Locked',
-            gradient: 'from-orange-600/20 to-red-600/20'
         }
     ];
 
@@ -51,7 +35,6 @@ export default function DemosPage() {
                             className={`relative group p-8 rounded-3xl border border-white/5 bg-gradient-to-br ${demo.gradient} hover:border-blue-500/30 transition-all overflow-hidden`}
                         >
                             <div className="absolute top-4 right-4 text-xs font-black uppercase tracking-widest px-3 py-1 bg-black/40 rounded-full border border-white/5">
-                                {demo.status === 'Locked' && <Lock className="w-3 h-3 inline mr-1" />}
                                 {demo.status}
                             </div>
 

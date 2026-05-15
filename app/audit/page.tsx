@@ -1,41 +1,9 @@
-'use client';
-
-import { useState } from 'react';
 import Link from 'next/link';
-import { ArrowLeft, CheckCircle2, AlertTriangle, Phone, Mail, ArrowRight, ShieldCheck, Loader2 } from 'lucide-react';
-import { useRouter } from 'next/navigation';
+import { ArrowLeft, CheckCircle2, AlertTriangle, Phone, Mail, ArrowRight, ShieldCheck } from 'lucide-react';
+import { FORMSUBMIT_ACTION, SITE_ORIGIN } from '@/lib/forms';
 import CTASection from '../components/CTASection';
 
-// Declare global types for analytics
-declare global {
-  interface Window {
-    gtag?: (command: string, targetId: string, config?: Record<string, any>) => void;
-    lintrk?: (command: string, data?: Record<string, any>) => void;
-  }
-}
-
 export default function AuditPage() {
-    const router = useRouter();
-    const [step, setStep] = useState(1);
-    const [loading, setLoading] = useState(false);
-    const [formData, setFormData] = useState({
-        businessName: '',
-        phone: '',
-        email: ''
-    });
-
-    const handleSubmit = async (e: React.FormEvent) => {
-        e.preventDefault();
-        setLoading(true);
-        
-        // Simulate form submission for static export
-        await new Promise(resolve => setTimeout(resolve, 1500));
-        
-        // Redirect to thank you page
-        router.push('/audit/thank-you');
-        setLoading(false);
-    };
-
     return (
         <div className="min-h-screen bg-[#020617] text-slate-200 selection:bg-red-500/30 font-sans relative overflow-hidden">
             {/* Background Effects */}
@@ -112,10 +80,13 @@ export default function AuditPage() {
                             </div>
 
                             <form 
-                                action="https://formsubmit.co/ayush@brandverse.tech" 
+                                action={FORMSUBMIT_ACTION}
                                 method="POST"
                                 className="space-y-6"
                             >
+                                <input type="hidden" name="_subject" value="[Brandverse] Trojan Horse audit request" />
+                                <input type="hidden" name="_next" value={`${SITE_ORIGIN}/audit/thank-you/`} />
+                                <input type="hidden" name="_template" value="table" />
                                 <input type="hidden" name="form_type" value="audit_request" />
                                 <div className="space-y-2">
                                     <label className="text-xs font-bold text-slate-500 uppercase tracking-widest ml-1">Business Name</label>
@@ -158,18 +129,9 @@ export default function AuditPage() {
 
                                 <button
                                     type="submit"
-                                    disabled={loading}
-                                    className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 text-white p-4 rounded-xl font-black uppercase tracking-widest shadow-lg shadow-blue-500/25 transition-all hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                                    className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 text-white p-4 rounded-xl font-black uppercase tracking-widest shadow-lg shadow-blue-500/25 transition-all hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-2"
                                 >
-                                    {loading ? (
-                                        <>
-                                            <Loader2 className="w-5 h-5 animate-spin" /> Authorization...
-                                        </>
-                                    ) : (
-                                        <>
-                                            Activate Protocol <ArrowRight className="w-5 h-5" />
-                                        </>
-                                    )}
+                                    Activate Protocol <ArrowRight className="w-5 h-5" />
                                 </button>
 
                                 <p className="text-center text-[10px] text-slate-500 uppercase tracking-widest font-bold">

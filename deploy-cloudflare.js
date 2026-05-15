@@ -16,17 +16,17 @@ try {
   process.exit(1);
 }
 
-// Check if .next/out exists (static export)
-const outDir = path.join(process.cwd(), '.next', 'server');
-if (!fs.existsSync(outDir)) {
-  console.error('❌ Build output not found. Make sure the build completed successfully.');
+// Static export output (see next.config.js: output: 'export', distDir: 'out')
+const outDir = path.join(process.cwd(), 'out');
+if (!fs.existsSync(outDir) || !fs.existsSync(path.join(outDir, 'index.html'))) {
+  console.error('❌ Build output not found (expected ./out/index.html). Run npm run build first.');
   process.exit(1);
 }
 
 // Deploy using Wrangler
 console.log('🌐 Deploying to Cloudflare Pages...');
 try {
-  execSync('npx wrangler pages deploy .next/server --project-name brandverse', { 
+  execSync('npx wrangler pages deploy out --project-name brandverse', { 
     stdio: 'inherit',
     cwd: process.cwd()
   });
@@ -39,6 +39,6 @@ try {
   console.log('\n📋 Manual deployment steps:');
   console.log('1. Install Wrangler: npm install -g wrangler');
   console.log('2. Login to Cloudflare: wrangler login');
-  console.log('3. Deploy manually: npx wrangler pages deploy .next/server --project-name brandverse');
+  console.log('3. Deploy manually: npx wrangler pages deploy out --project-name brandverse');
   process.exit(1);
 }

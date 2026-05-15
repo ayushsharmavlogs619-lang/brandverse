@@ -1,0 +1,75 @@
+name = "ai-receptionist"
+main = "workers/api.js"
+compatibility_date = "2024-01-01"
+
+[env.production]
+name = "ai-receptionist-prod"
+
+vars = [
+  { name = "CEREBRAS_API_KEY", value = "your-cerebras-api-key" },
+  { name = "OPENAI_API_KEY", value = "your-openai-api-key" },
+  { name = "TWILIO_SID", value = "your-twilio-sid" },
+  { name = "TWILIO_AUTH_TOKEN", value = "your-twilio-auth-token" },
+  { name = "TWILIO_PHONE_NUMBER", value = "+1234567890" },
+  { name = "GOOGLE_CLIENT_EMAIL", value = "your-google-service-account@your-project.iam.gserviceaccount.com" },
+  { name = "GOOGLE_PRIVATE_KEY", value = "-----BEGIN PRIVATE KEY-----\nYour private key here\n-----END PRIVATE KEY-----\n" },
+  { name = "GOOGLE_CALENDAR_API_KEY", value = "your-google-calendar-api-key" },
+  { name = "GOOGLE_SHEETS_API_KEY", value = "your-google-sheets-api-key" },
+  { name = "VAPI_API_KEY", value = "your-vapi-api-key" },
+  { name = "APP_BASE_URL", value = "https://edge.brandverse.tech" },
+  { name = "APP_SUBDOMAIN", value = "edge.brandverse.tech" },
+  { name = "DEFAULT_TIMEZONE", value = "Australia/Melbourne" },
+  { name = "SUPABASE_URL", value = "https://ewqbqrelnjpauqablnvt.supabase.co" }
+]
+
+# Note: SUPABASE_SERVICE_KEY should be set via wrangler secret put SUPABASE_SERVICE_KEY --env production
+
+# KV namespace will be added later when needed
+# [[env.production.kv_namespaces]]
+# binding = "CLIENT_CACHE"
+# id = "your-kv-namespace-id"
+# preview_id = "your-preview-kv-namespace-id"
+
+[env.staging]
+name = "ai-receptionist-staging"
+
+vars = [
+  { name = "CEREBRAS_API_KEY", value = "your-staging-cerebras-key" },
+  { name = "OPENAI_API_KEY", value = "your-staging-openai-key" },
+  { name = "TWILIO_SID", value = "your-staging-twilio-sid" },
+  { name = "TWILIO_AUTH_TOKEN", value = "your-staging-twilio-token" },
+  { name = "TWILIO_PHONE_NUMBER", value = "+1234567890" },
+  { name = "GOOGLE_CLIENT_EMAIL", value = "your-staging-google-email" },
+  { name = "GOOGLE_PRIVATE_KEY", value = "your-staging-private-key" },
+  { name = "GOOGLE_CALENDAR_API_KEY", value = "your-staging-calendar-key" },
+  { name = "GOOGLE_SHEETS_API_KEY", value = "your-staging-sheets-key" },
+  { name = "VAPI_API_KEY", value = "your-staging-vapi-key" },
+  { name = "APP_BASE_URL", value = "https://staging-edge.brandverse.tech" },
+  { name = "APP_SUBDOMAIN", value = "staging-edge.brandverse.tech" },
+  { name = "DEFAULT_TIMEZONE", value = "Australia/Melbourne" },
+  { name = "SUPABASE_URL", value = "https://ewqbqrelnjpauqablnvt.supabase.co" }
+]
+
+# Note: SUPABASE_SERVICE_KEY should be set via wrangler secret put SUPABASE_SERVICE_KEY --env staging
+
+# Routes configuration for subdomain
+[[env.production.routes]]
+pattern = "edge.brandverse.tech/api/*"
+zone_name = "brandverse.tech"
+
+[[env.production.routes]]
+pattern = "edge.brandverse.tech/health"
+zone_name = "brandverse.tech"
+
+# Staging routes
+[[env.staging.routes]]
+pattern = "staging-edge.brandverse.tech/api/*"
+zone_name = "brandverse.tech"
+
+[[env.staging.routes]]
+pattern = "staging-edge.brandverse.tech/health"
+zone_name = "brandverse.tech"
+
+# Limits and quotas (removed for free plan)
+# [env.production.limits]
+# cpu_ms = 50000
