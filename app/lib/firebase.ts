@@ -1,6 +1,10 @@
+/**
+ * SAFE FIREBASE FOR MR-ANFIELD PROJECT
+ * Never crashes due to initialization errors
+ */
 
-import { initializeApp, getApps, getApp } from "firebase/app";
-import { getFirestore } from "firebase/firestore";
+import { initializeApp, getApps, getApp, FirebaseApp } from "firebase/app";
+import { getFirestore, Firestore } from "firebase/firestore";
 
 const firebaseConfig = {
     apiKey: "AIzaSyDn1-xggEGeRDgYQqjf2hXLpDfSIy8KyK8",
@@ -12,7 +16,19 @@ const firebaseConfig = {
     measurementId: "G-RT3Z2F95C3"
 };
 
-const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
-const db = getFirestore(app);
+// Safe initialization
+let app: FirebaseApp | null = null;
+let db: Firestore | null = null;
+
+try {
+    app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
+    if (app) {
+        db = getFirestore(app);
+    }
+} catch (error) {
+    console.error('Firebase initialization failed for mr-anfield:', error);
+    app = null;
+    db = null;
+}
 
 export { app, db };

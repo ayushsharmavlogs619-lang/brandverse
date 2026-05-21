@@ -1,11 +1,14 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { Bell, X } from 'lucide-react';
+import { config } from '../../lib/config';
+import { SafeApiClient } from '../../lib/api-client';
 
 export default function PushNotificationBanner() {
     const [show, setShow] = useState(false);
     const [permission, setPermission] = useState<NotificationPermission>('default');
+    const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
     useEffect(() => {
         // Check if user already granted/denied or if we've already asked recently
@@ -18,10 +21,18 @@ export default function PushNotificationBanner() {
         // 1. Notifications are supported
         // 2. User hasn't been asked in last 7 days
         // 3. Permission is default (not granted or denied)
-        if ('Notification' in window && !askedRecently && currentPermission === 'default') {
+        // 4. VAPID key is configured
+        if ('Notification' in window && !askedRecently && currentPermission === 'default' && config.vapidPublicKey) {
             // Wait 5 seconds before showing (don't annoy immediately)
-            setTimeout(() => setShow(true), 5000);
+            timeoutRef.current = setTimeout(() => setShow(true), 5000);
         }
+
+        // Cleanup: clear timeout if component unmounts
+        return () => {
+            if (timeoutRef.current) {
+                clearTimeout(timeoutRef.current);
+            }
+        };
     }, []);
 
     const handleAllow = async () => {
@@ -30,18 +41,23 @@ export default function PushNotificationBanner() {
             setPermission(permission);
 
             if (permission === 'granted') {
-                const vapidKey = process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY?.trim();
+                const vapidKey = config.vapidPublicKey;
                 if ('serviceWorker' in navigator && vapidKey) {
-                    const registration = await navigator.serviceWorker.register('/sw.js');
-                    const subscription = await registration.pushManager.subscribe({
-                        userVisibleOnly: true,
-                        applicationServerKey: urlBase64ToUint8Array(vapidKey),
-                    });
-                    await fetch('/api/subscribe', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(subscription),
-                    });
+                    try {
+                        const registration = await navigator.serviceWorker.register('/sw.js');
+                        const subscription = await registration.pushManager.subscribe({
+                            userVisibleOnly: true,
+                            applicationServerKey: urlBase64ToUint8Array(vapidKey),
+                        });
+                        
+                        // Use safe API client - won't crash if route doesn't exist
+                        await SafeApiClient.post('/api/subscribe', subscription, {
+                            fallbackData: null,
+                            silent: true,
+                        });
+                    } catch (swError) {
+                        console.warn('Service worker registration failed:', swError);
+                    }
                 }
             }
 
@@ -59,6 +75,9 @@ export default function PushNotificationBanner() {
         setShow(false);
     };
 
+    // Don't show if VAPID key not configured
+    if (!config.vapidPublicKey) return null;
+    
     if (!show || permission !== 'default') return null;
 
     return (

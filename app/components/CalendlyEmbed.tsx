@@ -5,7 +5,7 @@ import { Calendar, Loader2 } from 'lucide-react';
 
 export default function CalendlyEmbed({ url }: { url?: string }) {
     const [mounted, setMounted] = useState(false);
-    const calendlyUrl = url || process.env.NEXT_PUBLIC_CALENDLY_URL || 'https://calendly.com/your-username/30min';
+    const calendlyUrl = url || 'https://calendly.com/your-username/30min';
 
     useEffect(() => {
         setMounted(true);
@@ -15,7 +15,7 @@ export default function CalendlyEmbed({ url }: { url?: string }) {
 
     return (
         <div className="w-full min-h-[700px] relative bg-white/5 rounded-2xl border border-white/10 overflow-hidden">
-            {!process.env.NEXT_PUBLIC_CALENDLY_URL && !url ? (
+            {!url ? (
                 <div className="absolute inset-0 flex flex-col items-center justify-center p-8 text-center bg-[#020617] z-10">
                     <Calendar className="w-16 h-16 text-slate-700 mb-4" />
                     <h3 className="text-xl font-bold text-white mb-2">Scheduling System Offline</h3>
@@ -23,7 +23,7 @@ export default function CalendlyEmbed({ url }: { url?: string }) {
                         The scheduling link hasn't been configured yet.
                         <br />
                         <span className="text-xs font-mono text-slate-600 mt-4 block">
-                            Admin: Add NEXT_PUBLIC_CALENDLY_URL to .env.local
+                            Admin: Pass Calendly URL as prop to this component
                         </span>
                     </p>
                 </div>

@@ -3,7 +3,13 @@ const nextConfig = {
   output: 'export',
   trailingSlash: true,
   images: {
-    domains: ['localhost'],
+    remotePatterns: [
+      {
+        protocol: 'http',
+        hostname: 'localhost',
+        pathname: '/**',
+      },
+    ],
     unoptimized: true,
   },
   distDir: 'out',

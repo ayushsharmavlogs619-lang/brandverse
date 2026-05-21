@@ -7,6 +7,8 @@ import Footer from "./components/Footer";
 import Analytics from "./components/Analytics";
 import StructuredData from "./components/StructuredData";
 import PushNotificationBanner from "./components/PushNotificationBanner";
+import ErrorBoundary from "./components/ErrorBoundary";
+import { config } from "../lib/config";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -19,7 +21,6 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  // ... existing metadata ...
   title: "Brandverse — AI Voice Agents for SMBs",
   description: "Brandverse provides 24/7 AI voice agents that capture leads, book appointments, and drive revenue for local businesses.",
   metadataBase: new URL('https://brandverse.tech'),
@@ -60,16 +61,16 @@ export const metadata: Metadata = {
       'max-snippet': -1,
     },
   },
-  ...(process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION
+  ...(config.googleSiteVerification
     ? {
         verification: {
-          google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION,
+          google: config.googleSiteVerification,
         },
       }
     : {}),
 };
 
-const linkedInPartnerId = process.env.NEXT_PUBLIC_LINKEDIN_PARTNER_ID;
+const linkedInPartnerId = config.linkedInPartnerId;
 
 export default function RootLayout({
   children,
@@ -79,8 +80,6 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        {/* GA4 / Meta: see client component Analytics.tsx (uses NEXT_PUBLIC_GA_MEASUREMENT_ID, etc.) */}
-
         {linkedInPartnerId ? (
           <>
             <Script id="linkedin-insight" strategy="afterInteractive">
@@ -109,12 +108,11 @@ export default function RootLayout({
           </>
         ) : null}
 
-        {/* Cookiebot CMP - MUST LOAD FIRST for GDPR compliance */}
-        {process.env.NEXT_PUBLIC_COOKIEBOT_ID && (
+        {config.cookiebotId && (
           <Script
             id="cookiebot"
             src="https://consent.cookiebot.com/uc.js"
-            data-cbid={process.env.NEXT_PUBLIC_COOKIEBOT_ID}
+            data-cbid={config.cookiebotId}
             data-blockingmode="auto"
             strategy="beforeInteractive"
           />
@@ -124,11 +122,13 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <Analytics />
-        <Navbar />
-        {children}
-        <Footer />
-        <PushNotificationBanner />
+        <ErrorBoundary>
+          <Analytics />
+          <Navbar />
+          {children}
+          <Footer />
+          <PushNotificationBanner />
+        </ErrorBoundary>
       </body>
     </html>
   );
