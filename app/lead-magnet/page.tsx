@@ -1,4 +1,4 @@
-import { FORMSUBMIT_ACTION, SITE_ORIGIN } from '@/lib/forms';
+import { FORMSUBMIT_ACTION } from '@/lib/forms';
 import { Download, CheckCircle2, TrendingUp, Users, Clock, Shield } from 'lucide-react';
 
 // Declare global types for analytics
@@ -10,8 +10,8 @@ declare global {
 }
 
 export const metadata = {
-    title: 'Free AI Automation Audit — Brandverse',
-    description: 'Download our free 2025 AI Automation Audit guide and discover how to save 40+ hours per week with AI voice agents.',
+  title: 'Free AI Automation Audit — Brandverse',
+  description: 'Download our free 2025 AI Automation Audit guide and discover how to save 40+ hours per week with AI voice agents.',
 };
 
 export default function LeadMagnetPage() {
@@ -49,67 +49,66 @@ export default function LeadMagnetPage() {
                                 <div className="flex items-start gap-3">
                                     <CheckCircle2 className="w-6 h-6 text-green-400 mt-1 flex-shrink-0" />
                                     <div>
-                                        <h3 className="font-bold text-white mb-1">AI Voice Agent ROI Calculator</h3>
-                                        <p className="text-slate-400 text-sm">See exactly how much you'll save with our proven calculator</p>
+                                        <h3 className="font-bold text-white mb-1">The ROI Calculator Framework</h3>
+                                        <p className="text-slate-400 text-sm">Simple math to calculate if AI automation is profitable for your business</p>
                                     </div>
                                 </div>
                                 <div className="flex items-start gap-3">
                                     <CheckCircle2 className="w-6 h-6 text-green-400 mt-1 flex-shrink-0" />
                                     <div>
-                                        <h3 className="font-bold text-white mb-1">Implementation Checklist</h3>
-                                        <p className="text-slate-400 text-sm">Step-by-step guide to deploy AI agents in your business this week</p>
+                                        <h3 className="font-bold text-white mb-1">Implementation Timeline</h3>
+                                        <p className="text-slate-400 text-sm">Step-by-step 48-hour deployment roadmap with checklists</p>
                                     </div>
                                 </div>
                                 <div className="flex items-start gap-3">
                                     <CheckCircle2 className="w-6 h-6 text-green-400 mt-1 flex-shrink-0" />
                                     <div>
-                                        <h3 className="font-bold text-white mb-1">Real Case Studies</h3>
-                                        <p className="text-slate-400 text-sm">See how businesses like yours increased revenue by 200%+</p>
+                                        <h3 className="font-bold text-white mb-1">Vendor Comparison Matrix</h3>
+                                        <p className="text-slate-400 text-sm">Side-by-side comparison of AI voice providers with pricing</p>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-
-                        <div className="bg-blue-500/10 border border-blue-500/30 p-6 rounded-xl">
-                            <h3 className="font-bold text-white mb-3 flex items-center gap-2">
-                                <TrendingUp className="w-5 h-5 text-blue-400" />
-                                Proven Results
-                            </h3>
-                            <div className="grid grid-cols-2 gap-4 text-center">
-                                <div>
-                                    <div className="text-2xl font-bold text-blue-400">200%</div>
-                                    <div className="text-sm text-slate-400">Revenue Increase</div>
-                                </div>
-                                <div>
-                                    <div className="text-2xl font-bold text-green-400">40hrs</div>
-                                    <div className="text-sm text-slate-400">Time Saved/Week</div>
+                                <div className="flex items-start gap-3">
+                                    <CheckCircle2 className="w-6 h-6 text-green-400 mt-1 flex-shrink-0" />
+                                    <div>
+                                        <h3 className="font-bold text-white mb-1">Industry-Specific Scripts</h3>
+                                        <p className="text-slate-400 text-sm">Ready-to-use conversation scripts for HVAC, Real Estate, and more</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
 
                     {/* Right: Download Form */}
-                    <div className="bg-white/5 border border-white/10 rounded-2xl p-8">
-                        <h2 className="text-2xl font-bold text-white mb-6">Download Free Guide</h2>
-                        
+                    <div className="bg-[#0f172a] border border-white/10 rounded-[2.5rem] p-8 md:p-10 shadow-2xl">
+                        <div className="mb-8">
+                            <div className="flex items-center gap-3 mb-4">
+                                <div className="w-12 h-12 bg-gradient-to-r from-green-500 to-blue-500 rounded-xl flex items-center justify-center shrink-0">
+                                    <Download className="w-6 h-6 text-white" />
+                                </div>
+                                <div>
+                                    <h2 className="text-2xl font-black text-white">Download Free Guide</h2>
+                                    <p className="text-slate-400 text-sm">No spam. Just valuable insights.</p>
+                                </div>
+                            </div>
+                        </div>
+
                         <form 
                             action={FORMSUBMIT_ACTION}
                             method="POST"
                             className="space-y-6"
                         >
-                            <input type="hidden" name="_subject" value="[Brandverse] Lead magnet — AI audit guide download" />
-                            <input type="hidden" name="_next" value={`${SITE_ORIGIN}/lead-magnet/thank-you/`} />
+                            <input type="hidden" name="_subject" value="New Lead Magnet Download - Brandverse" />
+                            <input type="hidden" name="_captcha" value="false" />
                             <input type="hidden" name="_template" value="table" />
-                            <input type="hidden" name="form_type" value="lead_magnet_download" />
                             <input type="hidden" name="lead_magnet" value="2025_AI_Automation_Audit_Guide" />
-                            
+
                             <div>
                                 <label className="block text-sm font-medium text-slate-300 mb-2">Full Name</label>
                                 <input 
                                     type="text" 
                                     name="name"
                                     required
-                                    className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder:text-slate-500 focus:outline-none focus:border-blue-500 transition-colors"
+                                    className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder:text-slate-500 focus:outline-none focus:border-green-500 transition-colors"
                                     placeholder="John Doe"
                                 />
                             </div>
@@ -120,7 +119,7 @@ export default function LeadMagnetPage() {
                                     type="email" 
                                     name="email"
                                     required
-                                    className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder:text-slate-500 focus:outline-none focus:border-blue-500 transition-colors"
+                                    className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder:text-slate-500 focus:outline-none focus:border-green-500 transition-colors"
                                     placeholder="john@company.com"
                                 />
                             </div>
@@ -131,79 +130,65 @@ export default function LeadMagnetPage() {
                                     type="text" 
                                     name="company"
                                     required
-                                    className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder:text-slate-500 focus:outline-none focus:border-blue-500 transition-colors"
+                                    className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder:text-slate-500 focus:outline-none focus:border-green-500 transition-colors"
                                     placeholder="Your Company"
                                 />
                             </div>
 
-                            <div>
-                                <label className="block text-sm font-medium text-slate-300 mb-2">Phone (Optional)</label>
-                                <input 
-                                    type="tel" 
-                                    name="phone"
-                                    className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder:text-slate-500 focus:outline-none focus:border-blue-500 transition-colors"
-                                    placeholder="+91 88510 05278"
-                                />
-                            </div>
-
-                            <div>
-                                <label className="flex items-center gap-2 text-sm text-slate-300">
-                                    <input type="checkbox" name="newsletter" className="rounded border-white/10 bg-white/5 text-blue-500 focus:ring-blue-500" defaultChecked />
-                                    Send me AI automation tips (unsubscribe anytime)
-                                </label>
-                            </div>
-
                             <button 
                                 type="submit"
-                                className="w-full bg-gradient-to-r from-green-600 to-blue-600 hover:from-green-500 hover:to-blue-500 text-white font-bold py-4 px-8 rounded-lg transition-all duration-300 transform hover:scale-105 flex items-center justify-center gap-2"
+                                className="w-full bg-gradient-to-r from-green-600 to-blue-600 hover:from-green-500 hover:to-blue-500 text-white font-bold py-4 px-8 rounded-xl transition-all duration-300 transform hover:scale-105 flex items-center justify-center gap-2"
                             >
-                                <Download className="w-5 h-5" />
-                                Download Free Guide
+                                Download Now <Download className="w-5 h-5" />
                             </button>
 
-                            <p className="text-xs text-slate-500 text-center">
-                                No spam. Unsubscribe anytime. We email you the guide and next steps.
+                            <p className="text-center text-xs text-slate-500 mt-4">
+                                🔒 Your information is secure. Unsubscribe anytime.
                             </p>
                         </form>
                     </div>
                 </div>
 
-                {/* Features Grid */}
-                <div className="grid md:grid-cols-3 gap-8 mb-16">
-                    <div className="text-center">
-                        <div className="w-16 h-16 bg-blue-500/20 rounded-xl flex items-center justify-center mx-auto mb-4">
-                            <Users className="w-8 h-8 text-blue-400" />
+                {/* Stats */}
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-16">
+                    <div className="text-center p-6 rounded-2xl bg-white/5 border border-white/10">
+                        <div className="w-12 h-12 bg-blue-500/10 rounded-full flex items-center justify-center mx-auto mb-3">
+                            <Users className="w-6 h-6 text-blue-400" />
                         </div>
-                        <h3 className="font-bold text-white mb-2">10,000+ Businesses</h3>
-                        <p className="text-slate-400 text-sm">Already using AI automation to scale</p>
+                        <div className="text-3xl font-black text-white mb-1">2,500+</div>
+                        <div className="text-slate-400 text-sm">Business Owners</div>
                     </div>
-                    <div className="text-center">
-                        <div className="w-16 h-16 bg-green-500/20 rounded-xl flex items-center justify-center mx-auto mb-4">
-                            <Clock className="w-8 h-8 text-green-400" />
+                    <div className="text-center p-6 rounded-2xl bg-white/5 border border-white/10">
+                        <div className="w-12 h-12 bg-green-500/10 rounded-full flex items-center justify-center mx-auto mb-3">
+                            <TrendingUp className="w-6 h-6 text-green-400" />
                         </div>
-                        <h3 className="font-bold text-white mb-2">24/7 Availability</h3>
-                        <p className="text-slate-400 text-sm">Never miss a lead or customer call again</p>
+                        <div className="text-3xl font-black text-white mb-1">200%</div>
+                        <div className="text-slate-400 text-sm">Avg Revenue Increase</div>
                     </div>
-                    <div className="text-center">
-                        <div className="w-16 h-16 bg-purple-500/20 rounded-xl flex items-center justify-center mx-auto mb-4">
-                            <Shield className="w-8 h-8 text-purple-400" />
+                    <div className="text-center p-6 rounded-2xl bg-white/5 border border-white/10">
+                        <div className="w-12 h-12 bg-purple-500/10 rounded-full flex items-center justify-center mx-auto mb-3">
+                            <Clock className="w-6 h-6 text-purple-400" />
                         </div>
-                        <h3 className="font-bold text-white mb-2">GDPR Compliant</h3>
-                        <p className="text-slate-400 text-sm">Fully compliant with data protection laws</p>
+                        <div className="text-3xl font-black text-white mb-1">40+ hrs</div>
+                        <div className="text-slate-400 text-sm">Saved Per Week</div>
+                    </div>
+                    <div className="text-center p-6 rounded-2xl bg-white/5 border border-white/10">
+                        <div className="w-12 h-12 bg-red-500/10 rounded-full flex items-center justify-center mx-auto mb-3">
+                            <Shield className="w-6 h-6 text-red-400" />
+                        </div>
+                        <div className="text-3xl font-black text-white mb-1">100%</div>
+                        <div className="text-slate-400 text-sm">Risk-Free Download</div>
                     </div>
                 </div>
 
-                {/* CTA Section */}
-                <div className="text-center bg-gradient-to-r from-blue-600/20 to-purple-600/20 border border-white/10 rounded-2xl p-8">
-                    <h2 className="text-3xl font-bold text-white mb-4">Ready to Automate Your Business?</h2>
-                    <p className="text-slate-400 mb-6">Book a free 15-minute strategy call and see exactly how AI can transform your operations</p>
-                    <a 
-                        href="https://calendly.com/ayushsharmavlogs619/30min"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-2 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 text-white font-bold py-4 px-8 rounded-lg transition-all duration-300 transform hover:scale-105"
-                    >
-                        Book Free Strategy Call
+                {/* CTA */}
+                <div className="text-center p-12 rounded-2xl bg-gradient-to-r from-blue-600/20 to-purple-600/20 border border-white/10">
+                    <h2 className="text-2xl font-black text-white mb-4">Ready to Stop Burning Cash?</h2>
+                    <p className="text-slate-300 max-w-xl mx-auto mb-8">
+                        The guide will show you exactly where you're losing money. If you want to fix it fast, book a free strategy call.
+                    </p>
+                    <a href="/contact" className="inline-flex items-center gap-2 px-8 py-4 bg-white text-[#020617] font-bold rounded-lg hover:bg-slate-200 transition-colors">
+                        Book Strategy Call →
                     </a>
                 </div>
             </div>

@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { ArrowLeft, CheckCircle2, AlertTriangle, Phone, Mail, ArrowRight, ShieldCheck } from 'lucide-react';
-import { FORMSUBMIT_ACTION, SITE_ORIGIN } from '@/lib/forms';
+import { FORMSUBMIT_ACTION } from '@/lib/forms';
 import CTASection from '../components/CTASection';
 
 export default function AuditPage() {
@@ -84,10 +84,10 @@ export default function AuditPage() {
                                 method="POST"
                                 className="space-y-6"
                             >
-                                <input type="hidden" name="_subject" value="[Brandverse] Trojan Horse audit request" />
-                                <input type="hidden" name="_next" value={`${SITE_ORIGIN}/audit/thank-you/`} />
+                                <input type="hidden" name="_subject" value="New Audit Request - Brandverse Trojan Horse" />
+                                <input type="hidden" name="_captcha" value="false" />
                                 <input type="hidden" name="_template" value="table" />
-                                <input type="hidden" name="form_type" value="audit_request" />
+
                                 <div className="space-y-2">
                                     <label className="text-xs font-bold text-slate-500 uppercase tracking-widest ml-1">Business Name</label>
                                     <input
@@ -127,15 +127,31 @@ export default function AuditPage() {
                                     </div>
                                 </div>
 
+                                <div className="space-y-2">
+                                    <label className="text-xs font-bold text-slate-500 uppercase tracking-widest ml-1">Industry (optional)</label>
+                                    <select
+                                        name="industry"
+                                        className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-4 text-white focus:outline-none focus:border-blue-500 transition-colors font-medium"
+                                    >
+                                        <option value="" className="bg-[#0f172a]">Select industry</option>
+                                        <option value="HVAC" className="bg-[#0f172a]">HVAC</option>
+                                        <option value="Dental" className="bg-[#0f172a]">Dental</option>
+                                        <option value="Real Estate" className="bg-[#0f172a]">Real Estate</option>
+                                        <option value="Healthcare" className="bg-[#0f172a]">Healthcare</option>
+                                        <option value="Legal" className="bg-[#0f172a]">Legal</option>
+                                        <option value="Other" className="bg-[#0f172a]">Other</option>
+                                    </select>
+                                </div>
+
                                 <button
                                     type="submit"
-                                    className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 text-white p-4 rounded-xl font-black uppercase tracking-widest shadow-lg shadow-blue-500/25 transition-all hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-2"
+                                    className="w-full bg-gradient-to-r from-red-600 to-orange-600 hover:from-red-500 hover:to-orange-500 text-white font-black py-5 px-8 rounded-xl transition-all duration-300 transform hover:scale-105 flex items-center justify-center gap-2 text-lg"
                                 >
-                                    Activate Protocol <ArrowRight className="w-5 h-5" />
+                                    Get My Free Audit <ArrowRight className="w-5 h-5" />
                                 </button>
 
-                                <p className="text-center text-[10px] text-slate-500 uppercase tracking-widest font-bold">
-                                    No Credit Card Required • Instant Setup
+                                <p className="text-center text-xs text-slate-500 font-medium">
+                                    🔒 100% Risk-Free • If we don't find $500 in lost revenue, we pay you $100
                                 </p>
                             </form>
                         </div>
@@ -143,16 +159,7 @@ export default function AuditPage() {
                 </div>
             </div>
 
-            {/* 🎯 FORM-END CTA */}
-            <div className="px-6 pb-20">
-                <CTASection 
-                    title="Prefer to Talk Directly?"
-                    subtitle="Skip the audit and book a 15-minute strategy call. We'll analyze your business live."
-                    primaryText="Book Strategy Call"
-                    secondaryText="See Live Demo"
-                    variant="minimal"
-                />
-            </div>
+            <CTASection />
         </div>
     );
 }

@@ -12,8 +12,8 @@ declare global {
 }
 
 export const metadata = {
-    title: 'Book a Strategy Call — Brandverse',
-    description: 'Schedule a free consultation to discuss your AI automation needs.',
+  title: 'Book a Strategy Call — Brandverse',
+  description: 'Schedule a free consultation to discuss your AI automation needs.',
 };
 
 export default function ContactPage() {
@@ -65,7 +65,6 @@ export default function ContactPage() {
                                 <div>
                                     <div className="text-sm text-slate-500 font-bold uppercase tracking-wider">Socials</div>
                                     <div className="flex gap-4 mt-2">
-                                        {/* Add your social links here */}
                                         <a href="https://twitter.com/brandverse_tech" target="_blank" className="text-slate-400 hover:text-white transition-colors">X (Twitter)</a>
                                         <a href="https://linkedin.com/company/brandverse-tech" target="_blank" className="text-slate-400 hover:text-white transition-colors">LinkedIn</a>
                                     </div>
@@ -106,10 +105,10 @@ export default function ContactPage() {
                                 method="POST"
                                 className="space-y-6"
                             >
-                                <input type="hidden" name="_subject" value="[Brandverse] New contact form message" />
-                                <input type="hidden" name="_next" value={`${SITE_ORIGIN}/contact/thank-you/`} />
+                                <input type="hidden" name="_subject" value="New Contact Form Submission - Brandverse" />
+                                <input type="hidden" name="_captcha" value="false" />
                                 <input type="hidden" name="_template" value="table" />
-                                <input type="hidden" name="form_type" value="contact_form" />
+                                
                                 <div className="grid md:grid-cols-2 gap-6">
                                     <div>
                                         <label className="block text-sm font-medium text-slate-300 mb-2">Name</label>
@@ -148,7 +147,6 @@ export default function ContactPage() {
                                         <input 
                                             type="tel" 
                                             name="phone"
-                                            required
                                             className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder:text-slate-500 focus:outline-none focus:border-blue-500 transition-colors"
                                             placeholder="+91 88510 05278"
                                         />
@@ -156,17 +154,16 @@ export default function ContactPage() {
                                 </div>
 
                                 <div>
-                                    <label className="block text-sm font-medium text-slate-300 mb-2">What are you looking for?</label>
+                                    <label className="block text-sm font-medium text-slate-300 mb-2">Service Interest</label>
                                     <select 
                                         name="service"
                                         className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white focus:outline-none focus:border-blue-500 transition-colors"
                                     >
-                                        <option value="">Select a service</option>
-                                        <option value="ai-voice-agents">AI Voice Agents</option>
-                                        <option value="lead-automation">Lead Automation</option>
-                                        <option value="appointment-setting">Appointment Setting</option>
-                                        <option value="customer-support">24/7 Customer Support</option>
-                                        <option value="custom-solution">Custom Solution</option>
+                                        <option value="" className="bg-[#0f172a]">Select a service</option>
+                                        <option value="AI Voice Agents" className="bg-[#0f172a]">AI Voice Agents</option>
+                                        <option value="Custom Solution" className="bg-[#0f172a]">Custom Solution</option>
+                                        <option value="Consultation" className="bg-[#0f172a]">Consultation</option>
+                                        <option value="Other" className="bg-[#0f172a]">Other</option>
                                     </select>
                                 </div>
 
@@ -177,26 +174,17 @@ export default function ContactPage() {
                                         rows={4}
                                         required
                                         className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder:text-slate-500 focus:outline-none focus:border-blue-500 transition-colors resize-none"
-                                        placeholder="Tell us about your business and what you'd like to automate..."
+                                        placeholder="Tell us about your project..."
                                     />
                                 </div>
 
                                 <button 
                                     type="submit"
-                                    className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white font-bold py-4 px-8 rounded-lg hover:from-blue-500 hover:to-purple-500 transition-all duration-300 transform hover:scale-105"
+                                    className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 text-white font-bold py-4 px-8 rounded-lg transition-all duration-300 transform hover:scale-105"
                                 >
-                                    Send Message
+                                    Send Message →
                                 </button>
                             </form>
-                        </div>
-
-                        {/* Calendly Widget */}
-                        <div className="mt-12">
-                            <div className="text-center mb-8">
-                                <h3 className="text-2xl font-bold text-white mb-2">Or Book a Call Directly</h3>
-                                <p className="text-slate-400">Skip the email back-and-forth</p>
-                            </div>
-                            <CalendlyEmbed />
                         </div>
                     </div>
                 </div>

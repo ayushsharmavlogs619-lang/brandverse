@@ -20,6 +20,11 @@ interface AppConfig {
     gaId: string;
     metaPixelId: string;
   };
+  // Supabase
+  supabase: {
+    url: string;
+    anonKey: string;
+  };
   // Other services
   adminPassword: string;
   vapidPublicKey: string; // For push notifications
@@ -53,6 +58,10 @@ export const config: AppConfig = {
   analytics: {
     gaId: getEnvVar('NEXT_PUBLIC_GA_MEASUREMENT_ID', ''),
     metaPixelId: getEnvVar('NEXT_PUBLIC_META_PIXEL_ID', ''),
+  },
+  supabase: {
+    url: getEnvVar('NEXT_PUBLIC_SUPABASE_URL', ''),
+    anonKey: getEnvVar('NEXT_PUBLIC_SUPABASE_ANON_KEY', ''),
   },
   adminPassword: getEnvVar('NEXT_PUBLIC_ADMIN_PASSWORD', ''),
   vapidPublicKey: getEnvVar('NEXT_PUBLIC_VAPID_PUBLIC_KEY', ''),
