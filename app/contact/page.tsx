@@ -1,7 +1,8 @@
 import Navbar from '../components/Navbar';
 import CalendlyEmbed from '../components/CalendlyEmbed';
 import { FORMSUBMIT_ACTION, SITE_ORIGIN } from '@/lib/forms';
-import { Mail, MessageSquare, Phone } from 'lucide-react';
+import { config } from '@/lib/config';
+import { Mail, MessageSquare, Phone, Calendar } from 'lucide-react';
 
 // Declare global types for analytics
 declare global {
@@ -33,8 +34,23 @@ export default function ContactPage() {
                 </div>
 
                 <div className="grid lg:grid-cols-3 gap-12">
+                    {/* Calendly Booking */}
+                    <div className="lg:col-span-1">
+                        <div className="p-6 rounded-2xl bg-white/5 border border-white/10">
+                            <div className="flex items-center gap-3 mb-6">
+                                <div className="w-10 h-10 rounded-lg bg-blue-500/20 text-blue-400 flex items-center justify-center">
+                                    <Calendar className="w-5 h-5" />
+                                </div>
+                                <div>
+                                    <h3 className="text-lg font-bold text-white">Book a Call</h3>
+                                    <p className="text-xs text-slate-400">Schedule directly</p>
+                                </div>
+                            </div>
+                            <CalendlyEmbed url={config.calendlyUrl} />
+                        </div>
+                    </div>
                     {/* Contact Info */}
-                    <div className="space-y-8 lg:col-span-1">
+                    <div className="space-y-8">
                         <div className="p-8 rounded-2xl bg-white/5 border border-white/10 space-y-6">
                             <h3 className="text-xl font-bold text-white mb-4">Direct Lines</h3>
 
