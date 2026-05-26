@@ -1,7 +1,6 @@
 import Navbar from '../components/Navbar';
 import CalendlyEmbed from '../components/CalendlyEmbed';
 import { FORMSUBMIT_ACTION, SITE_ORIGIN } from '@/lib/forms';
-import { config } from '@/lib/config';
 import { Mail, MessageSquare, Phone, Calendar } from 'lucide-react';
 
 // Declare global types for analytics
@@ -46,7 +45,7 @@ export default function ContactPage() {
                                     <p className="text-xs text-slate-400">Schedule directly</p>
                                 </div>
                             </div>
-                            <CalendlyEmbed url={config.calendlyUrl} />
+                            <CalendlyEmbed url="https://calendly.com/ayushsharmavlogs619/30min" />
                         </div>
                     </div>
                     {/* Contact Info */}
