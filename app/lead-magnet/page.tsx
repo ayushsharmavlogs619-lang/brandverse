@@ -1,5 +1,9 @@
+'use client';
+
 import { FORMSUBMIT_ACTION } from '@/lib/forms';
 import { Download, CheckCircle2, TrendingUp, Users, Clock, Shield } from 'lucide-react';
+import { useState } from 'react';
+import { mailchimpService } from '@/lib/mailchimp-service';
 
 // Declare global types for analytics
 declare global {
@@ -9,12 +13,33 @@ declare global {
   }
 }
 
-export const metadata = {
-  title: 'Free AI Automation Audit — Brandverse',
-  description: 'Download our free 2025 AI Automation Audit guide and discover how to save 40+ hours per week with AI voice agents.',
-};
-
 export default function LeadMagnetPage() {
+    const [isSubmitting, setIsSubmitting] = useState(false);
+
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        setIsSubmitting(true);
+
+        const formData = new FormData(e.currentTarget);
+        const email = formData.get('email') as string;
+        const name = formData.get('name') as string;
+        const nameParts = name.split(' ');
+        const firstName = nameParts[0] || '';
+        const lastName = nameParts.slice(1).join(' ') || '';
+
+        // Add to Mailchimp for automated follow-ups
+        try {
+            await mailchimpService.addContact(email, firstName, lastName, ['Lead Magnet Download']);
+            console.log('Contact added to Mailchimp successfully');
+        } catch (error) {
+            console.error('Mailchimp error (form will still submit):', error);
+        }
+
+        // Submit to FormSubmit.co for email delivery
+        const form = e.currentTarget;
+        form.submit();
+    };
+
     return (
         <div className="min-h-screen bg-[#020617] text-slate-200 py-20 px-6">
             <div className="max-w-4xl mx-auto">
@@ -96,6 +121,7 @@ export default function LeadMagnetPage() {
                             action={FORMSUBMIT_ACTION}
                             method="POST"
                             className="space-y-6"
+                            onSubmit={handleSubmit}
                         >
                             <input type="hidden" name="_subject" value="New Lead Magnet Download - Brandverse" />
                             <input type="hidden" name="_captcha" value="false" />
@@ -137,9 +163,10 @@ export default function LeadMagnetPage() {
 
                             <button 
                                 type="submit"
+                                disabled={isSubmitting}
                                 className="w-full bg-gradient-to-r from-green-600 to-blue-600 hover:from-green-500 hover:to-blue-500 text-white font-bold py-4 px-8 rounded-xl transition-all duration-300 transform hover:scale-105 flex items-center justify-center gap-2"
                             >
-                                Download Now <Download className="w-5 h-5" />
+                                {isSubmitting ? 'Processing...' : 'Download Now'} <Download className="w-5 h-5" />
                             </button>
 
                             <p className="text-center text-xs text-slate-500 mt-4">

@@ -1,7 +1,11 @@
+'use client';
+
 import Navbar from '../components/Navbar';
 import CalendlyEmbed from '../components/CalendlyEmbed';
 import { FORMSUBMIT_ACTION, SITE_ORIGIN } from '@/lib/forms';
 import { Mail, MessageSquare, Phone, Calendar } from 'lucide-react';
+import { useState } from 'react';
+import { mailchimpService } from '@/lib/mailchimp-service';
 
 // Declare global types for analytics
 declare global {
@@ -11,12 +15,35 @@ declare global {
   }
 }
 
-export const metadata = {
-  title: 'Book a Strategy Call — Brandverse',
-  description: 'Schedule a free consultation to discuss your AI automation needs.',
-};
-
 export default function ContactPage() {
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        setIsSubmitting(true);
+        setSubmitStatus('idle');
+
+        const formData = new FormData(e.currentTarget);
+        const email = formData.get('email') as string;
+        const name = formData.get('name') as string;
+        const nameParts = name.split(' ');
+        const firstName = nameParts[0] || '';
+        const lastName = nameParts.slice(1).join(' ') || '';
+
+        // Add to Mailchimp for automated follow-ups
+        try {
+            await mailchimpService.addContact(email, firstName, lastName, ['Contact Form']);
+            console.log('Contact added to Mailchimp successfully');
+        } catch (error) {
+            console.error('Mailchimp error (form will still submit):', error);
+        }
+
+        // Submit to FormSubmit.co for email delivery
+        const form = e.currentTarget;
+        form.submit();
+    };
+
     return (
         <div className="min-h-screen bg-[#020617] text-slate-200">
             <div className="pt-32 pb-20 px-6 max-w-7xl mx-auto">
@@ -119,6 +146,7 @@ export default function ContactPage() {
                                 action={FORMSUBMIT_ACTION}
                                 method="POST"
                                 className="space-y-6"
+                                onSubmit={handleSubmit}
                             >
                                 <input type="hidden" name="_subject" value="New Contact Form Submission - Brandverse" />
                                 <input type="hidden" name="_captcha" value="false" />
@@ -195,9 +223,10 @@ export default function ContactPage() {
 
                                 <button 
                                     type="submit"
-                                    className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 text-white font-bold py-4 px-8 rounded-lg transition-all duration-300 transform hover:scale-105"
+                                    disabled={isSubmitting}
+                                    className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 text-white font-bold py-4 px-8 rounded-lg transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
                                 >
-                                    Send Message →
+                                    {isSubmitting ? 'Sending...' : 'Send Message →'}
                                 </button>
                             </form>
                         </div>

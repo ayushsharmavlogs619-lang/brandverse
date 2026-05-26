@@ -1,9 +1,35 @@
+'use client';
+
 import Link from 'next/link';
 import { ArrowLeft, CheckCircle2, AlertTriangle, Phone, Mail, ArrowRight, ShieldCheck } from 'lucide-react';
 import { FORMSUBMIT_ACTION } from '@/lib/forms';
 import CTASection from '../components/CTASection';
+import { useState } from 'react';
+import { mailchimpService } from '@/lib/mailchimp-service';
 
 export default function AuditPage() {
+    const [isSubmitting, setIsSubmitting] = useState(false);
+
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        setIsSubmitting(true);
+
+        const formData = new FormData(e.currentTarget);
+        const email = formData.get('email') as string;
+        const businessName = formData.get('business_name') as string;
+
+        // Add to Mailchimp for automated follow-ups
+        try {
+            await mailchimpService.addContact(email, businessName, '', ['Audit Request']);
+            console.log('Contact added to Mailchimp successfully');
+        } catch (error) {
+            console.error('Mailchimp error (form will still submit):', error);
+        }
+
+        // Submit to FormSubmit.co for email delivery
+        const form = e.currentTarget;
+        form.submit();
+    };
     return (
         <div className="min-h-screen bg-[#020617] text-slate-200 selection:bg-red-500/30 font-sans relative overflow-hidden">
             {/* Background Effects */}
@@ -83,6 +109,7 @@ export default function AuditPage() {
                                 action={FORMSUBMIT_ACTION}
                                 method="POST"
                                 className="space-y-6"
+                                onSubmit={handleSubmit}
                             >
                                 <input type="hidden" name="_subject" value="New Audit Request - Brandverse Trojan Horse" />
                                 <input type="hidden" name="_captcha" value="false" />
@@ -145,9 +172,10 @@ export default function AuditPage() {
 
                                 <button
                                     type="submit"
+                                    disabled={isSubmitting}
                                     className="w-full bg-gradient-to-r from-red-600 to-orange-600 hover:from-red-500 hover:to-orange-500 text-white font-black py-5 px-8 rounded-xl transition-all duration-300 transform hover:scale-105 flex items-center justify-center gap-2 text-lg"
                                 >
-                                    Get My Free Audit <ArrowRight className="w-5 h-5" />
+                                    {isSubmitting ? 'Processing...' : 'Get My Free Audit'} <ArrowRight className="w-5 h-5" />
                                 </button>
 
                                 <p className="text-center text-xs text-slate-500 font-medium">

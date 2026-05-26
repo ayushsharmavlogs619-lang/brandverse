@@ -20,6 +20,11 @@ interface AppConfig {
     gaId: string;
     metaPixelId: string;
   };
+  // Mailchimp
+  mailchimp: {
+    apiKey: string;
+    audienceId: string;
+  };
   // Supabase
   supabase: {
     url: string;
@@ -58,6 +63,10 @@ export const config: AppConfig = {
   analytics: {
     gaId: getEnvVar('NEXT_PUBLIC_GA_MEASUREMENT_ID', ''),
     metaPixelId: getEnvVar('NEXT_PUBLIC_META_PIXEL_ID', ''),
+  },
+  mailchimp: {
+    apiKey: getEnvVar('NEXT_PUBLIC_MAILCHIMP_API_KEY', ''),
+    audienceId: getEnvVar('NEXT_PUBLIC_MAILCHIMP_AUDIENCE_ID', ''),
   },
   supabase: {
     url: getEnvVar('NEXT_PUBLIC_SUPABASE_URL', ''),
