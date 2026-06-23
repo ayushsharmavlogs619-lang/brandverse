@@ -26,12 +26,12 @@ if (!fs.existsSync(outDir) || !fs.existsSync(path.join(outDir, 'index.html'))) {
 // Deploy using Wrangler
 console.log('🌐 Deploying to Cloudflare Pages...');
 try {
-  execSync('npx wrangler pages deploy out --project-name brandverse', { 
+  execSync('npx wrangler pages deploy out --project-name brandverse --branch=production', { 
     stdio: 'inherit',
     cwd: process.cwd()
   });
   console.log('✅ Deployment successful!');
-  console.log('🎉 Your Brandverse site is now live on Cloudflare Pages!');
+  console.log('🎉 Your Brandverse site is now live on brandverse.tech!');
 } catch (error) {
   console.error('❌ Deployment failed:', error.message);
   
@@ -39,6 +39,6 @@ try {
   console.log('\n📋 Manual deployment steps:');
   console.log('1. Install Wrangler: npm install -g wrangler');
   console.log('2. Login to Cloudflare: wrangler login');
-  console.log('3. Deploy manually: npx wrangler pages deploy out --project-name brandverse');
+  console.log('3. Deploy manually: npx wrangler pages deploy out --project-name brandverse --branch=production');
   process.exit(1);
 }

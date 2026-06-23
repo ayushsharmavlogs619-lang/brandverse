@@ -21,7 +21,7 @@ export default function AuditPage() {
         // Add to Mailchimp for automated follow-ups
         try {
             await mailchimpService.addContact(email, businessName, '', ['Audit Request']);
-            console.log('Contact added to Mailchimp successfully');
+            // Contact added to Mailchimp successfully
         } catch (error) {
             console.error('Mailchimp error (form will still submit):', error);
         }

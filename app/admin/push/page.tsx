@@ -6,8 +6,8 @@ import Link from 'next/link';
 
 export default function AdminPanel() {
     useEffect(() => {
-        // Redirect to home page - admin panel temporarily disabled for production safety
-        // API routes /api/push-stats and /api/send-push do not exist
+        // Redirect to home page - admin panel requires server-side deployment
+        // Static export doesn't support API routes
         window.location.href = '/';
     }, []);
 
@@ -17,10 +17,9 @@ export default function AdminPanel() {
                 <div className="w-20 h-20 mx-auto mb-6 rounded-2xl bg-zinc-800 flex items-center justify-center">
                     <Lock className="text-zinc-600 w-10 h-10" />
                 </div>
-                <h1 className="text-2xl font-bold text-white mb-4">Admin Panel Temporarily Disabled</h1>
+                <h1 className="text-2xl font-bold text-white mb-4">Admin Panel Requires Server Deployment</h1>
                 <p className="text-zinc-500 mb-8 max-w-md">
-                    The admin panel is temporarily disabled for production safety.
-                    API endpoints are being configured.
+                    The admin panel requires server-side deployment (Vercel, Netlify, or Node.js server) to handle API routes. This static export doesn't support backend functionality.
                 </p>
                 <Link 
                     href="/"

@@ -60,7 +60,7 @@ class MailchimpService {
       });
 
       if (response.ok) {
-        console.log('Contact added to Mailchimp successfully');
+        // Contact added to Mailchimp successfully
         return true;
       } else {
         console.error('Mailchimp API error:', response.status, response.statusText);
@@ -89,7 +89,7 @@ class MailchimpService {
       // The automations need to be set up in the Mailchimp dashboard
       // This function mainly ensures the contact is in the right audience
 
-      console.log('Mailchimp automation flow triggered successfully');
+      // Mailchimp automation flow triggered successfully
       return true;
     } catch (error) {
       console.error('Mailchimp automation trigger error:', error);

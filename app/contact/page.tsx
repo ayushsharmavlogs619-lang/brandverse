@@ -34,7 +34,7 @@ export default function ContactPage() {
         // Add to Mailchimp for automated follow-ups
         try {
             await mailchimpService.addContact(email, firstName, lastName, ['Contact Form']);
-            console.log('Contact added to Mailchimp successfully');
+            // Contact added to Mailchimp successfully
         } catch (error) {
             console.error('Mailchimp error (form will still submit):', error);
         }

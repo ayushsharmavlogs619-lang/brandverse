@@ -296,7 +296,7 @@ class LeadService {
 
     private fallbackSubmit(data: LeadData): LeadSubmissionResult {
         // Fallback: log to console and potentially send email
-        console.log('FALLBACK: Lead submission:', JSON.stringify(data, null, 2));
+        // FALLBACK: Lead submission
 
         // In production, you might want to:
         // 1. Send to a backup API

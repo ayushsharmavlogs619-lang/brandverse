@@ -1,16 +1,21 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
+import { config } from "./config";
 
-const genAI = new GoogleGenerativeAI(process.env.GOOGLE_GENERATIVE_AI_API_KEY || "");
+const genAI = config.firebase.apiKey ? new GoogleGenerativeAI(config.firebase.apiKey) : null;
 
 export type ModelProvider = "pro" | "flash" | "cerebras";
 
 export async function generateResponse(prompt: string, modelType: ModelProvider = "flash") {
     if (modelType === "cerebras") {
         try {
+            const cerebrasKey = process.env.CEREBRAS_API_KEY;
+            if (!cerebrasKey) {
+                throw new Error("Cerebras API key not configured");
+            }
             const response = await fetch("https://api.cerebras.ai/v1/chat/completions", {
                 method: "POST",
                 headers: {
-                    "Authorization": `Bearer ${process.env.CEREBRAS_API_KEY}`,
+                    "Authorization": `Bearer ${cerebrasKey}`,
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify({
@@ -24,6 +29,10 @@ export async function generateResponse(prompt: string, modelType: ModelProvider 
             console.error("Cerebras API Error:", error);
             throw new Error("Lightning strike failed! Try the tactical room instead.");
         }
+    }
+
+    if (!genAI) {
+        throw new Error("Google Generative AI not configured");
     }
 
     try {
