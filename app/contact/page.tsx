@@ -4,8 +4,7 @@ import Navbar from '../components/Navbar';
 import CalendlyEmbed from '../components/CalendlyEmbed';
 import { FORMSUBMIT_ACTION, SITE_ORIGIN } from '@/lib/forms';
 import { Mail, MessageSquare, Phone, Calendar } from 'lucide-react';
-import { useState } from 'react';
-import { mailchimpService } from '@/lib/mailchimp-service';
+import { useEffect, useState } from 'react';
 
 // Declare global types for analytics
 declare global {
@@ -15,33 +14,55 @@ declare global {
   }
 }
 
+const utmKeys = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'] as const;
+
+type LeadAttribution = {
+  page_url: string;
+  referrer: string;
+  utm_source: string;
+  utm_medium: string;
+  utm_campaign: string;
+  utm_term: string;
+  utm_content: string;
+};
+
+const emptyAttribution: LeadAttribution = {
+  page_url: '',
+  referrer: '',
+  utm_source: '',
+  utm_medium: '',
+  utm_campaign: '',
+  utm_term: '',
+  utm_content: '',
+};
+
 export default function ContactPage() {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+    const [attribution, setAttribution] = useState<LeadAttribution>(emptyAttribution);
 
-    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
+    useEffect(() => {
+        const params = new URLSearchParams(window.location.search);
+        setAttribution({
+            page_url: window.location.href,
+            referrer: document.referrer,
+            utm_source: params.get('utm_source') || '',
+            utm_medium: params.get('utm_medium') || '',
+            utm_campaign: params.get('utm_campaign') || '',
+            utm_term: params.get('utm_term') || '',
+            utm_content: params.get('utm_content') || '',
+        });
+    }, []);
+
+    const handleSubmit = () => {
         setIsSubmitting(true);
         setSubmitStatus('idle');
 
-        const formData = new FormData(e.currentTarget);
-        const email = formData.get('email') as string;
-        const name = formData.get('name') as string;
-        const nameParts = name.split(' ');
-        const firstName = nameParts[0] || '';
-        const lastName = nameParts.slice(1).join(' ') || '';
-
-        // Add to Mailchimp for automated follow-ups
-        try {
-            await mailchimpService.addContact(email, firstName, lastName, ['Contact Form']);
-            // Contact added to Mailchimp successfully
-        } catch (error) {
-            console.error('Mailchimp error (form will still submit):', error);
-        }
-
-        // Submit to FormSubmit.co for email delivery
-        const form = e.currentTarget;
-        form.submit();
+        window.gtag?.('event', 'generate_lead', {
+            event_category: 'contact',
+            event_label: 'contact_form',
+        });
+        window.lintrk?.('track', { conversion_id: 'contact_form_submit' });
     };
 
     return (
@@ -120,7 +141,7 @@ export default function ContactPage() {
                                 <div>
                                     <div className="text-sm text-slate-500 font-bold uppercase tracking-wider">Voice Demo</div>
                                     <div className="mt-1">
-                                        <a href="/demos/voice" className="text-green-400 hover:underline font-bold">Talk to our AI Agent →</a>
+                                        <a href="/demos/voice" className="text-green-400 hover:underline font-bold">Talk to our AI Agent -></a>
                                     </div>
                                 </div>
                             </div>
@@ -151,6 +172,14 @@ export default function ContactPage() {
                                 <input type="hidden" name="_subject" value="New Contact Form Submission - Brandverse" />
                                 <input type="hidden" name="_captcha" value="false" />
                                 <input type="hidden" name="_template" value="table" />
+                                <input type="hidden" name="_next" value={`${SITE_ORIGIN}/thank-you/`} />
+                                <input type="text" name="_honey" className="hidden" tabIndex={-1} autoComplete="off" />
+                                <input type="hidden" name="lead_source" value="brandverse_contact_form" />
+                                <input type="hidden" name="page_url" value={attribution.page_url} />
+                                <input type="hidden" name="referrer" value={attribution.referrer} />
+                                {utmKeys.map((key) => (
+                                    <input key={key} type="hidden" name={key} value={attribution[key]} />
+                                ))}
                                 
                                 <div className="grid md:grid-cols-2 gap-6">
                                     <div>
@@ -221,12 +250,16 @@ export default function ContactPage() {
                                     />
                                 </div>
 
+                                {submitStatus === 'error' && (
+                                    <p className="text-sm text-red-400">Something went wrong. Please email ayush@brandverse.tech directly.</p>
+                                )}
+
                                 <button 
                                     type="submit"
                                     disabled={isSubmitting}
                                     className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 text-white font-bold py-4 px-8 rounded-lg transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
                                 >
-                                    {isSubmitting ? 'Sending...' : 'Send Message →'}
+                                    {isSubmitting ? 'Sending...' : 'Send Message ->'}
                                 </button>
                             </form>
                         </div>
