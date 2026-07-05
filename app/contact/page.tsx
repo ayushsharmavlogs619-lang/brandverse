@@ -2,10 +2,9 @@
 
 import Navbar from '../components/Navbar';
 import CalendlyEmbed from '../components/CalendlyEmbed';
-import { FORMSUBMIT_ACTION, SITE_ORIGIN } from '@/lib/forms';
 import { Mail, MessageSquare, Phone, Calendar } from 'lucide-react';
 import { useState } from 'react';
-import { mailchimpService } from '@/lib/mailchimp-service';
+import LeadForm, { SuccessMessage } from '../components/LeadForm';
 
 // Declare global types for analytics
 declare global {
@@ -16,32 +15,12 @@ declare global {
 }
 
 export default function ContactPage() {
-    const [isSubmitting, setIsSubmitting] = useState(false);
-    const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+    const [showSuccess, setShowSuccess] = useState(false);
 
-    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        setIsSubmitting(true);
-        setSubmitStatus('idle');
-
-        const formData = new FormData(e.currentTarget);
-        const email = formData.get('email') as string;
-        const name = formData.get('name') as string;
-        const nameParts = name.split(' ');
-        const firstName = nameParts[0] || '';
-        const lastName = nameParts.slice(1).join(' ') || '';
-
-        // Add to Mailchimp for automated follow-ups
-        try {
-            await mailchimpService.addContact(email, firstName, lastName, ['Contact Form']);
-            // Contact added to Mailchimp successfully
-        } catch (error) {
-            console.error('Mailchimp error (form will still submit):', error);
+    const handleFormSubmit = async (result: any) => {
+        if (result.success) {
+            setShowSuccess(true);
         }
-
-        // Submit to FormSubmit.co for email delivery
-        const form = e.currentTarget;
-        form.submit();
     };
 
     return (
@@ -142,22 +121,17 @@ export default function ContactPage() {
                         <div className="p-8 rounded-2xl bg-white/5 border border-white/10">
                             <h3 className="text-xl font-bold text-white mb-6">Send us a Message</h3>
                             
-                            <form 
-                                action={FORMSUBMIT_ACTION}
-                                method="POST"
+                            <LeadForm 
+                                sourceForm="contact"
+                                onSubmit={handleFormSubmit}
                                 className="space-y-6"
-                                onSubmit={handleSubmit}
                             >
-                                <input type="hidden" name="_subject" value="New Contact Form Submission - Brandverse" />
-                                <input type="hidden" name="_captcha" value="false" />
-                                <input type="hidden" name="_template" value="table" />
-                                
                                 <div className="grid md:grid-cols-2 gap-6">
                                     <div>
                                         <label className="block text-sm font-medium text-slate-300 mb-2">Name</label>
                                         <input 
                                             type="text" 
-                                            name="name"
+                                            name="full_name"
                                             required
                                             className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder:text-slate-500 focus:outline-none focus:border-blue-500 transition-colors"
                                             placeholder="John Doe"
@@ -199,7 +173,7 @@ export default function ContactPage() {
                                 <div>
                                     <label className="block text-sm font-medium text-slate-300 mb-2">Service Interest</label>
                                     <select 
-                                        name="service"
+                                        name="service_interest"
                                         className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white focus:outline-none focus:border-blue-500 transition-colors"
                                     >
                                         <option value="" className="bg-[#0f172a]">Select a service</option>
@@ -223,16 +197,23 @@ export default function ContactPage() {
 
                                 <button 
                                     type="submit"
-                                    disabled={isSubmitting}
-                                    className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 text-white font-bold py-4 px-8 rounded-lg transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+                                    className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 text-white font-bold py-4 px-8 rounded-lg transition-all duration-300 transform hover:scale-105"
                                 >
-                                    {isSubmitting ? 'Sending...' : 'Send Message →'}
+                                    Send Message →
                                 </button>
-                            </form>
+                            </LeadForm>
                         </div>
                     </div>
                 </div>
             </div>
+
+            {showSuccess && (
+                <SuccessMessage 
+                    title="Message Sent!"
+                    message="We'll get back to you within 24 hours."
+                    onDismiss={() => setShowSuccess(false)}
+                />
+            )}
         </div>
     );
 }

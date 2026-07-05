@@ -1,8 +1,13 @@
+'use client';
+
 import { Twitter, Linkedin, Instagram, Youtube, Mail, Phone } from 'lucide-react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 export default function Footer() {
+    const pathname = usePathname();
 
+    if (pathname?.startsWith('/creators') || pathname?.startsWith('/onlyfans')) return null;
 
     return (
         <footer className="py-20 px-6 border-t border-white/5 bg-[#020617] text-slate-200">

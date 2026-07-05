@@ -9,6 +9,7 @@ import { AvailabilityEngine } from '../services/availability.js';
 import { BookingEngine } from '../services/booking.js';
 import { LoggingEngine } from '../services/logging.js';
 import { DatabaseService } from '../services/database.js';
+import { AirtableService } from '../services/airtable.js';
 
 export default {
   async fetch(request, env, ctx) {
@@ -59,8 +60,9 @@ export default {
       const availabilityEngine = new AvailabilityEngine(calendarService, clientConfig);
       const bookingEngine = new BookingEngine(calendarService, sheetsService, smsService);
       const loggingEngine = new LoggingEngine(sheetsService, clientConfig);
+      const airtableService = new AirtableService(env);
       
-      // Initialize Supabase Database Service (if credentials available)
+      // Initialize Supabase Database Service (if credentials available - deprecated but kept for compatibility)
       let dbService = null;
       try {
         if (env.SUPABASE_URL && env.SUPABASE_SERVICE_KEY) {
@@ -106,7 +108,7 @@ export default {
       }
 
       if (path === `/api/${clientId}/leads` && method === 'POST') {
-        return handleCreateLead(clientId, await request.json(), dbService, corsHeaders);
+        return handleCreateLead(clientId, await request.json(), airtableService, loggingEngine, corsHeaders);
       }
 
       if (path === `/api/${clientId}/call-logs` && method === 'GET') {
@@ -488,53 +490,81 @@ async function handleGetLeads(clientId, searchParams, dbService, corsHeaders) {
   }
 }
 
-async function handleCreateLead(clientId, body, dbService, corsHeaders) {
+async function handleCreateLead(clientId, body, airtableService, loggingEngine, corsHeaders) {
   try {
-    if (!dbService) {
-      return new Response(JSON.stringify({ error: 'Database service unavailable' }), {
-        status: 503,
-        headers: { 'Content-Type': 'application/json', ...corsHeaders }
-      });
-    }
-    
-    // Validate required fields
-    if (!body.phoneNumber) {
+    // Validate required fields (Email or Phone is required)
+    if (!body.email && !body.phone && !body.phoneNumber) {
       return new Response(JSON.stringify({
         error: 'Validation failed',
-        message: 'phoneNumber is required'
+        message: 'At least email or phone is required'
       }), {
         status: 400,
         headers: { 'Content-Type': 'application/json', ...corsHeaders }
       });
     }
-    
+
     const leadData = {
-      clientId,
-      customerName: body.customerName,
-      phoneNumber: body.phoneNumber,
-      email: body.email,
-      businessName: body.businessName,
-      serviceRequested: body.serviceRequested,
-      leadSource: body.leadSource || 'api',
-      leadStatus: body.leadStatus,
-      urgency: body.urgency,
-      notes: body.notes,
-      aiSummary: body.aiSummary,
-      assignedTo: body.assignedTo,
-      followUpRequired: body.followUpRequired,
-      followUpDate: body.followUpDate,
-      metadata: body.metadata
+      full_name: body.full_name || body.customerName || 'Unknown',
+      email: body.email || '',
+      phone: body.phone || body.phoneNumber || '',
+      company: body.company || body.businessName || '',
+      website: body.website || '',
+      business_type: body.business_type || body.serviceRequested || 'Other',
+      service_interest: body.service_interest || 'AI Voice Agents',
+      message: body.message || body.notes || '',
+      source_page: body.source_page || 'unknown',
+      source_form: body.source_form || 'unknown',
+      utm_source: body.utm_source || '',
+      utm_medium: body.utm_medium || '',
+      utm_campaign: body.utm_campaign || ''
     };
-    
-    const result = await dbService.createLead(leadData);
-    
-    return new Response(JSON.stringify({
-      success: true,
-      message: 'Lead created successfully',
-      lead: result.data
-    }), {
-      headers: { 'Content-Type': 'application/json', ...corsHeaders }
-    });
+
+    try {
+      // Step 1: Attempt to save to Airtable
+      console.log(`[DEBUG] Attempting to write lead for ${clientId} to Airtable`);
+      const result = await airtableService.createLead(clientId, leadData);
+      return new Response(JSON.stringify({
+        success: true,
+        leadId: result.leadId,
+        message: 'Lead created successfully in Airtable'
+      }), {
+        status: 201,
+        headers: { 'Content-Type': 'application/json', ...corsHeaders }
+      });
+    } catch (airtableError) {
+      console.warn('Airtable insertion failed, logging to Google Sheets backup:', airtableError.message);
+
+      // Step 2: Fallback to Google Sheets
+      const sheetLogData = {
+        name: leadData.full_name,
+        email: leadData.email,
+        phone: leadData.phone,
+        notes: `[FALLBACK BACKUP] Company: ${leadData.company}. Website: ${leadData.website}. Message: ${leadData.message}. Page: ${leadData.source_page}. Form: ${leadData.source_form}`,
+        service: leadData.service_interest,
+        intent: 'lead_fallback',
+        formType: leadData.source_form,
+        channel: 'web_form',
+        status: 'submitted',
+        timestamp: new Date().toISOString()
+      };
+
+      try {
+        const fallbackResult = await loggingEngine.logFormSubmission(clientId, sheetLogData);
+        return new Response(JSON.stringify({
+          success: true,
+          leadId: fallbackResult.logId || 'fallback-sheet-row',
+          message: 'Airtable down - lead safely backed up to Google Sheets',
+          fallback: true,
+          note: airtableError.message
+        }), {
+          status: 202,
+          headers: { 'Content-Type': 'application/json', ...corsHeaders }
+        });
+      } catch (sheetError) {
+        console.error('Google Sheets fallback logging also failed:', sheetError.message);
+        throw new Error(`Primary (Airtable) and Fallback (Sheets) both failed. Airtable error: ${airtableError.message}. Sheets error: ${sheetError.message}`);
+      }
+    }
   } catch (error) {
     console.error('Error creating lead:', error);
     return new Response(JSON.stringify({

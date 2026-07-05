@@ -2,33 +2,17 @@
 
 import Link from 'next/link';
 import { ArrowLeft, CheckCircle2, AlertTriangle, Phone, Mail, ArrowRight, ShieldCheck } from 'lucide-react';
-import { FORMSUBMIT_ACTION } from '@/lib/forms';
 import CTASection from '../components/CTASection';
 import { useState } from 'react';
-import { mailchimpService } from '@/lib/mailchimp-service';
+import LeadForm, { SuccessMessage } from '../components/LeadForm';
 
 export default function AuditPage() {
-    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [showSuccess, setShowSuccess] = useState(false);
 
-    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        setIsSubmitting(true);
-
-        const formData = new FormData(e.currentTarget);
-        const email = formData.get('email') as string;
-        const businessName = formData.get('business_name') as string;
-
-        // Add to Mailchimp for automated follow-ups
-        try {
-            await mailchimpService.addContact(email, businessName, '', ['Audit Request']);
-            // Contact added to Mailchimp successfully
-        } catch (error) {
-            console.error('Mailchimp error (form will still submit):', error);
+    const handleFormSubmit = async (result: any) => {
+        if (result.success) {
+            setShowSuccess(true);
         }
-
-        // Submit to FormSubmit.co for email delivery
-        const form = e.currentTarget;
-        form.submit();
     };
     return (
         <div className="min-h-screen bg-[#020617] text-slate-200 selection:bg-red-500/30 font-sans relative overflow-hidden">
@@ -105,21 +89,17 @@ export default function AuditPage() {
                                 <p className="text-slate-400">Enter your details to generate your tracking line.</p>
                             </div>
 
-                            <form 
-                                action={FORMSUBMIT_ACTION}
-                                method="POST"
+                            <LeadForm 
+                                sourceForm="audit"
+                                businessType="Audit Request"
+                                onSubmit={handleFormSubmit}
                                 className="space-y-6"
-                                onSubmit={handleSubmit}
                             >
-                                <input type="hidden" name="_subject" value="New Audit Request - Brandverse Trojan Horse" />
-                                <input type="hidden" name="_captcha" value="false" />
-                                <input type="hidden" name="_template" value="table" />
-
                                 <div className="space-y-2">
                                     <label className="text-xs font-bold text-slate-500 uppercase tracking-widest ml-1">Business Name</label>
                                     <input
                                         type="text"
-                                        name="business_name"
+                                        name="company"
                                         required
                                         className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-4 text-white placeholder:text-slate-600 focus:outline-none focus:border-blue-500 transition-colors font-medium"
                                         placeholder="e.g. Apex Plumbing Co."
@@ -157,7 +137,7 @@ export default function AuditPage() {
                                 <div className="space-y-2">
                                     <label className="text-xs font-bold text-slate-500 uppercase tracking-widest ml-1">Industry (optional)</label>
                                     <select
-                                        name="industry"
+                                        name="business_type"
                                         className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-4 text-white focus:outline-none focus:border-blue-500 transition-colors font-medium"
                                     >
                                         <option value="" className="bg-[#0f172a]">Select industry</option>
@@ -172,22 +152,29 @@ export default function AuditPage() {
 
                                 <button
                                     type="submit"
-                                    disabled={isSubmitting}
                                     className="w-full bg-gradient-to-r from-red-600 to-orange-600 hover:from-red-500 hover:to-orange-500 text-white font-black py-5 px-8 rounded-xl transition-all duration-300 transform hover:scale-105 flex items-center justify-center gap-2 text-lg"
                                 >
-                                    {isSubmitting ? 'Processing...' : 'Get My Free Audit'} <ArrowRight className="w-5 h-5" />
+                                    Get My Free Audit <ArrowRight className="w-5 h-5" />
                                 </button>
 
                                 <p className="text-center text-xs text-slate-500 font-medium">
                                     🔒 100% Risk-Free • If we don't find $500 in lost revenue, we pay you $100
                                 </p>
-                            </form>
+                            </LeadForm>
                         </div>
                     </div>
                 </div>
             </div>
 
             <CTASection />
+
+            {showSuccess && (
+                <SuccessMessage 
+                    title="Audit Requested!"
+                    message="We'll contact you within 24 hours to set up your tracking line."
+                    onDismiss={() => setShowSuccess(false)}
+                />
+            )}
         </div>
     );
 }

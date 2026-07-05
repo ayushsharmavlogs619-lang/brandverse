@@ -126,6 +126,7 @@ export default function LeadMagnetPage() {
                             <input type="hidden" name="_subject" value="New Lead Magnet Download - Brandverse" />
                             <input type="hidden" name="_captcha" value="false" />
                             <input type="hidden" name="_template" value="table" />
+                            <input type="hidden" name="_next" value="https://brandverse.tech/lead-magnet/thank-you/" />
                             <input type="hidden" name="lead_magnet" value="2025_AI_Automation_Audit_Guide" />
 
                             <div>

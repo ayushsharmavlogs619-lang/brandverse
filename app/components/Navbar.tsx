@@ -8,7 +8,7 @@ export default function Navbar() {
 
     const isActive = (path: string) => pathname === path ? "text-blue-400" : "hover:text-blue-400 transition-colors";
 
-    if (pathname === '/') return null;
+    if (pathname === '/' || pathname?.startsWith('/creators') || pathname?.startsWith('/onlyfans')) return null;
 
     return (
         <nav className="fixed top-0 w-full z-50 bg-[#020617]/80 backdrop-blur-md border-b border-white/5">

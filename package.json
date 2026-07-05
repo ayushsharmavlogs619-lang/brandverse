@@ -13,9 +13,8 @@
   },
   "dependencies": {
     "@google/generative-ai": "^0.24.1",
-    "@supabase/supabase-js": "^2.89.0",
     "@vapi-ai/web": "^2.5.2",
-    "firebase": "^12.7.0",
+    "framer-motion": "^12.42.2",
     "lucide-react": "^0.555.0",
     "next": "^16.1.1",
     "node-fetch": "^3.3.2",

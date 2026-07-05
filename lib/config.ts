@@ -5,16 +5,8 @@
  */
 
 interface AppConfig {
-  // Firebase
-  firebase: {
-    apiKey: string;
-    authDomain: string;
-    projectId: string;
-    storageBucket: string;
-    messagingSenderId: string;
-    appId: string;
-    measurementId: string;
-  };
+  // Cloudflare Worker Proxy URL
+  workerUrl: string;
   // Analytics
   analytics: {
     gaId: string;
@@ -25,13 +17,7 @@ interface AppConfig {
     apiKey: string;
     audienceId: string;
   };
-  // Supabase
-  supabase: {
-    url: string;
-    anonKey: string;
-  };
   // Other services
-  adminPassword: string;
   vapidPublicKey: string; // For push notifications
   vapiPublicKey: string; // For Vapi voice API
   vapiAssistantId: string; // For Vapi assistant
@@ -51,15 +37,7 @@ const getEnvVar = (key: string, defaultValue: string = ''): string => {
 };
 
 export const config: AppConfig = {
-  firebase: {
-    apiKey: getEnvVar('NEXT_PUBLIC_FIREBASE_API_KEY', ''),
-    authDomain: getEnvVar('NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN', ''),
-    projectId: getEnvVar('NEXT_PUBLIC_FIREBASE_PROJECT_ID', ''),
-    storageBucket: getEnvVar('NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET', ''),
-    messagingSenderId: getEnvVar('NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID', ''),
-    appId: getEnvVar('NEXT_PUBLIC_FIREBASE_APP_ID', ''),
-    measurementId: getEnvVar('NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID', ''),
-  },
+  workerUrl: getEnvVar('NEXT_PUBLIC_WORKER_URL', 'https://edge.brandverse.tech'),
   analytics: {
     gaId: getEnvVar('NEXT_PUBLIC_GA_MEASUREMENT_ID', ''),
     metaPixelId: getEnvVar('NEXT_PUBLIC_META_PIXEL_ID', ''),
@@ -68,11 +46,6 @@ export const config: AppConfig = {
     apiKey: getEnvVar('NEXT_PUBLIC_MAILCHIMP_API_KEY', ''),
     audienceId: getEnvVar('NEXT_PUBLIC_MAILCHIMP_AUDIENCE_ID', ''),
   },
-  supabase: {
-    url: getEnvVar('NEXT_PUBLIC_SUPABASE_URL', ''),
-    anonKey: getEnvVar('NEXT_PUBLIC_SUPABASE_ANON_KEY', ''),
-  },
-  adminPassword: getEnvVar('NEXT_PUBLIC_ADMIN_PASSWORD', ''),
   vapidPublicKey: getEnvVar('NEXT_PUBLIC_VAPID_PUBLIC_KEY', ''),
   vapiPublicKey: getEnvVar('NEXT_PUBLIC_VAPI_PUBLIC_KEY', ''),
   vapiAssistantId: getEnvVar('NEXT_PUBLIC_VAPI_ASSISTANT_ID', ''),
@@ -85,16 +58,13 @@ export const config: AppConfig = {
 // Validation function to check critical config
 export const validateConfig = (): boolean => {
   const criticalVars: Array<{ key: string; value: string }> = [
-    { key: 'NEXT_PUBLIC_FIREBASE_API_KEY', value: config.firebase.apiKey },
-    { key: 'NEXT_PUBLIC_FIREBASE_PROJECT_ID', value: config.firebase.projectId },
-    { key: 'NEXT_PUBLIC_FIREBASE_APP_ID', value: config.firebase.appId },
+    { key: 'NEXT_PUBLIC_WORKER_URL', value: config.workerUrl },
   ];
 
   const missing = criticalVars.filter(v => !v.value);
   
   if (missing.length > 0) {
-    console.error('CRITICAL: Missing required environment variables:', missing.map(v => v.key).join(', '));
-    return false;
+    console.warn('WARNING: NEXT_PUBLIC_WORKER_URL is missing - will fallback to default: https://edge.brandverse.tech');
   }
   
   console.log('✅ Configuration validation passed');

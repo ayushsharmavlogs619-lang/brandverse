@@ -1,7 +1,8 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
-import { config } from "./config";
 
-const genAI = config.firebase.apiKey ? new GoogleGenerativeAI(config.firebase.apiKey) : null;
+const genAI = process.env.GOOGLE_GENERATIVE_AI_API_KEY
+    ? new GoogleGenerativeAI(process.env.GOOGLE_GENERATIVE_AI_API_KEY)
+    : null;
 
 export type ModelProvider = "pro" | "flash" | "cerebras";
 

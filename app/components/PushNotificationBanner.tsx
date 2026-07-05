@@ -5,7 +5,12 @@ import { Bell, X } from 'lucide-react';
 import { config } from '../../lib/config';
 import { SafeApiClient } from '../../lib/api-client';
 
+import { usePathname } from 'next/navigation';
+
 export default function PushNotificationBanner() {
+    const pathname = usePathname();
+
+    if (pathname?.startsWith('/creators') || pathname?.startsWith('/onlyfans')) return null;
     const [show, setShow] = useState(false);
     const [permission, setPermission] = useState<NotificationPermission>('default');
     const timeoutRef = useRef<NodeJS.Timeout | null>(null);

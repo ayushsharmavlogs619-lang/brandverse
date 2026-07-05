@@ -4,6 +4,7 @@
  */
 
 import { config } from './config';
+import { FORMSUBMIT_ACTION } from './forms';
 
 // =====================================================
 // TYPES
@@ -146,105 +147,16 @@ class LeadValidator {
 }
 
 // =====================================================
-// SUPABASE CLIENT
-// =====================================================
-
-class SupabaseLeadClient {
-    private url: string;
-    private key: string;
-    private timeout: number;
-
-    constructor() {
-        this.url = config.supabase.url;
-        this.key = config.supabase.anonKey;
-        this.timeout = 10000; // 10 second timeout
-    }
-
-    private async request<T>(
-        endpoint: string,
-        options: RequestInit = {}
-    ): Promise<T> {
-        const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), this.timeout);
-
-        try {
-            const response = await fetch(`${this.url}${endpoint}`, {
-                ...options,
-                headers: {
-                    'Content-Type': 'application/json',
-                    'apikey': this.key,
-                    'Authorization': `Bearer ${this.key}`,
-                    ...options.headers,
-                },
-                signal: controller.signal,
-            });
-
-            clearTimeout(timeoutId);
-
-            if (!response.ok) {
-                throw new Error(`Supabase request failed: ${response.status} ${response.statusText}`);
-            }
-
-            return await response.json();
-        } catch (error) {
-            clearTimeout(timeoutId);
-            if (error instanceof Error && error.name === 'AbortError') {
-                throw new Error('Request timeout after 10 seconds');
-            }
-            throw error;
-        }
-    }
-
-    async insertLead(data: LeadData): Promise<{ id: string; [key: string]: any }> {
-        const payload = {
-            ...data,
-            // Add technical metadata
-            ip_address: this.getClientIp(),
-            user_agent: this.getUserAgent(),
-        };
-
-        const response = await this.request<{ data: any }>('/rest/v1/leads', {
-            method: 'POST',
-            body: JSON.stringify(payload),
-        });
-
-        return response.data;
-    }
-
-    private getClientIp(): string {
-        // In a real implementation, you'd get this from the request headers
-        // For static export, we'll return empty
-        return '';
-    }
-
-    private getUserAgent(): string {
-        if (typeof navigator !== 'undefined') {
-            return navigator.userAgent;
-        }
-        return '';
-    }
-}
-
-// =====================================================
 // LEAD SERVICE (MAIN EXPORT)
 // =====================================================
 
 class LeadService {
-    private supabase: SupabaseLeadClient;
     private isConfigured: boolean;
+    private workerUrl: string;
 
     constructor() {
-        this.supabase = new SupabaseLeadClient();
-        this.isConfigured = this.checkConfiguration();
-    }
-
-    private checkConfiguration(): boolean {
-        return !!(
-            config.supabase.url &&
-            config.supabase.anonKey &&
-            config.supabase.url !== '' &&
-            config.supabase.anonKey !== ''
-        );
+        this.workerUrl = config.workerUrl || 'https://edge.brandverse.tech';
+        this.isConfigured = !!this.workerUrl;
     }
 
     async submitLead(data: LeadData): Promise<LeadSubmissionResult> {
@@ -271,42 +183,172 @@ class LeadService {
                 };
             }
 
-            // Step 4: Check if Supabase is configured
-            if (!this.isConfigured) {
-                console.warn('Supabase not configured, using fallback');
-                return this.fallbackSubmit(sanitizedData);
+            // Step 4: Submit to Worker Proxy (which writes to Airtable with Sheets fallback)
+            let leadId: string | undefined;
+            let submittedToWorker = false;
+            let usedWorkerFallback = false;
+
+            if (this.isConfigured) {
+                try {
+                    const response = await fetch(`${this.workerUrl}/api/brandverse/leads`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(sanitizedData),
+                    });
+
+                    if (response.ok) {
+                        const result = await response.json();
+                        leadId = result.leadId;
+                        submittedToWorker = true;
+                        usedWorkerFallback = !!result.fallback;
+                        console.log('Lead submitted to Worker Proxy:', result);
+                    } else {
+                        console.error('Worker Proxy returned error status:', response.status);
+                    }
+                } catch (error) {
+                    console.error('Worker Proxy request failed, continuing with direct fallback:', error);
+                }
             }
 
-            // Step 5: Submit to Supabase
-            const result = await this.supabase.insertLead(sanitizedData);
-            
-            console.log('Lead submitted successfully:', result.id);
-            return {
-                success: true,
-                leadId: result.id,
-            };
+            // Step 5: If Worker succeeded (either primary Airtable or Sheets fallback), we are done
+            if (submittedToWorker) {
+                return {
+                    success: true,
+                    leadId: leadId,
+                    fallback: usedWorkerFallback,
+                };
+            }
+
+            // Step 6: If Worker completely failed, use direct FormSubmit backup from frontend
+            console.warn('Worker Proxy failed or unconfigured, attempting direct FormSubmit backup from browser');
+            const formSubmitResult = await this.formSubmitBackup(sanitizedData);
+            if (formSubmitResult.success) {
+                return {
+                    success: true,
+                    fallback: true,
+                };
+            }
+
+            // Step 7: Last-resort mailto + localStorage
+            return this.fallbackSubmit(sanitizedData);
 
         } catch (error) {
             console.error('Lead submission error:', error);
-            
-            // Step 6: Graceful fallback
             return this.fallbackSubmit(data);
         }
     }
 
-    private fallbackSubmit(data: LeadData): LeadSubmissionResult {
-        // Fallback: log to console and potentially send email
-        // FALLBACK: Lead submission
+    private async formSubmitBackup(data: LeadData): Promise<LeadSubmissionResult> {
+        try {
+            const response = await fetch(FORMSUBMIT_ACTION, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                },
+                body: JSON.stringify({
+                    _subject: `LEAD [${data.source_form || 'website'}]: ${data.full_name || data.company || 'Unknown'}`,
+                    _template: 'table',
+                    _captcha: 'false',
+                    full_name: data.full_name || '',
+                    email: data.email || '',
+                    phone: data.phone || '',
+                    company: data.company || '',
+                    website: data.website || '',
+                    business_type: data.business_type || '',
+                    service_interest: data.service_interest || '',
+                    message: data.message || '',
+                    source_page: data.source_page || '',
+                    source_form: data.source_form || '',
+                    utm_source: data.utm_source || '',
+                    utm_medium: data.utm_medium || '',
+                    utm_campaign: data.utm_campaign || '',
+                    timestamp: new Date().toISOString(),
+                }),
+            });
 
-        // In production, you might want to:
-        // 1. Send to a backup API
-        // 2. Send an email notification
-        // 3. Store in localStorage for later retry
+            if (response.ok) {
+                console.log('Lead captured via FormSubmit fallback');
+                return { success: true, fallback: true };
+            }
+
+            console.error('FormSubmit fallback failed:', response.status, response.statusText);
+        } catch (error) {
+            console.error('FormSubmit fallback error:', error);
+        }
 
         return {
-            success: true,
+            success: false,
             fallback: true,
-            error: 'Stored locally (database unavailable)',
+            error: 'FormSubmit backup failed',
+        };
+    }
+
+    private async fallbackSubmit(data: LeadData): Promise<LeadSubmissionResult> {
+        const formSubmitResult = await this.formSubmitBackup(data);
+        if (formSubmitResult.success) {
+            return formSubmitResult;
+        }
+
+        // Last resort: localStorage + mailto if FormSubmit also fails
+        const emailBody = `
+BRANDVERSE LEAD BACKUP (Database Failed)
+
+Name: ${data.full_name || 'Not provided'}
+Email: ${data.email || 'Not provided'}
+Phone: ${data.phone || 'Not provided'}
+Company: ${data.company || 'Not provided'}
+Website: ${data.website || 'Not provided'}
+Business Type: ${data.business_type || 'Not provided'}
+Service Interest: ${data.service_interest || 'Not provided'}
+Message: ${data.message || 'Not provided'}
+
+Source Page: ${data.source_page || 'unknown'}
+Source Form: ${data.source_form || 'unknown'}
+UTM Source: ${data.utm_source || 'unknown'}
+UTM Medium: ${data.utm_medium || 'unknown'}
+UTM Campaign: ${data.utm_campaign || 'unknown'}
+
+Timestamp: ${new Date().toISOString()}
+        `.trim();
+
+        // Open email client with lead data
+        const mailtoLink = `mailto:ayush@brandverse.tech?subject=LEAD BACKUP: ${data.full_name || 'Unknown'} - ${data.company || 'No Company'}&body=${encodeURIComponent(emailBody)}`;
+        
+        // Store in localStorage for retry
+        try {
+            if (typeof window !== 'undefined') {
+                const failedLeads = JSON.parse(localStorage.getItem('failed_leads') || '[]');
+                failedLeads.push({
+                    ...data,
+                    timestamp: new Date().toISOString(),
+                    attempted: false
+                });
+                localStorage.setItem('failed_leads', JSON.stringify(failedLeads));
+                console.warn('Lead stored in localStorage for retry');
+            }
+        } catch (e) {
+            console.error('Failed to store lead in localStorage:', e);
+        }
+
+        // Trigger email client
+        try {
+            if (typeof window !== 'undefined') {
+                window.open(mailtoLink, '_blank');
+            }
+        } catch (e) {
+            console.error('Failed to open email client:', e);
+        }
+
+        // Alert founder immediately
+        console.error('CRITICAL: Lead submission failed - email backup triggered', data);
+
+        return {
+            success: false,
+            fallback: true,
+            error: 'Database unavailable - email backup opened. Please send the email to save this lead.',
         };
     }
 
@@ -314,28 +356,34 @@ class LeadService {
         data: LeadData,
         maxRetries: number = 2
     ): Promise<LeadSubmissionResult> {
-        let lastError: Error | null = null;
+        let lastResult: LeadSubmissionResult | null = null;
 
         for (let attempt = 0; attempt <= maxRetries; attempt++) {
-            try {
-                const result = await this.submitLead(data);
-                if (result.success) {
-                    return result;
-                }
-            } catch (error) {
-                lastError = error as Error;
-                console.warn(`Lead submission attempt ${attempt + 1} failed:`, error);
-                
-                // Exponential backoff
-                if (attempt < maxRetries) {
-                    await new Promise(resolve => setTimeout(resolve, Math.pow(2, attempt) * 1000));
-                }
+            const result = await this.submitLead(data);
+            if (result.success) {
+                return result;
+            }
+
+            lastResult = result;
+
+            const nonRetryable =
+                result.error?.includes('required') ||
+                result.error?.includes('Invalid') ||
+                result.error?.includes('spam') ||
+                result.fallback;
+
+            if (nonRetryable) {
+                return result;
+            }
+
+            if (attempt < maxRetries) {
+                await new Promise(resolve => setTimeout(resolve, Math.pow(2, attempt) * 1000));
             }
         }
 
-        return {
+        return lastResult || {
             success: false,
-            error: lastError?.message || 'Max retries exceeded',
+            error: 'Max retries exceeded',
         };
     }
 

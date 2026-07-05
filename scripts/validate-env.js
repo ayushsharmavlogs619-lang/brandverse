@@ -5,18 +5,17 @@
  */
 
 const importantEnvVars = [
-  'NEXT_PUBLIC_FIREBASE_API_KEY',
-  'NEXT_PUBLIC_FIREBASE_PROJECT_ID', 
-  'NEXT_PUBLIC_FIREBASE_APP_ID',
+  'NEXT_PUBLIC_WORKER_URL',
 ];
 
 const optionalEnvVars = [
-  'NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN',
-  'NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET',
-  'NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID',
-  'NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID',
+  'NEXT_PUBLIC_MAILCHIMP_API_KEY',
+  'NEXT_PUBLIC_MAILCHIMP_AUDIENCE_ID',
   'NEXT_PUBLIC_GA_MEASUREMENT_ID',
   'NEXT_PUBLIC_META_PIXEL_ID',
+  'NEXT_PUBLIC_VAPI_PUBLIC_KEY',
+  'NEXT_PUBLIC_VAPI_ASSISTANT_ID',
+  'NEXT_PUBLIC_CALENDLY_URL',
   'NEXT_PUBLIC_VAPID_PUBLIC_KEY',
   'NEXT_PUBLIC_LINKEDIN_PARTNER_ID',
   'NEXT_PUBLIC_COOKIEBOT_ID',
@@ -25,17 +24,14 @@ const optionalEnvVars = [
 
 console.log('🔍 Checking environment variables...\n');
 
-let missingImportant = false;
-
 // Check important variables
-console.log('Important variables (features may not work without these):');
+console.log('Worker Proxy Config:');
 importantEnvVars.forEach(varName => {
   const value = process.env[varName];
   if (!value) {
-    console.warn(`⚠️  NOT SET: ${varName} (some features may not work)`);
-    missingImportant = true;
+    console.warn(`⚠️  NOT SET: ${varName} (leads will use default Worker: https://edge.brandverse.tech)`);
   } else {
-    console.log(`✅ ${varName}: ${value.substring(0, 10)}...`);
+    console.log(`✅ ${varName}: ${value}`);
   }
 });
 
@@ -46,14 +42,9 @@ optionalEnvVars.forEach(varName => {
   if (!value) {
     console.log(`⚪ ${varName}: not set (will use defaults)`);
   } else {
-    console.log(`✅ ${varName}: ${value.substring(0, 10)}...`);
+    console.log(`✅ ${varName}: ${value.substring(0, Math.min(value.length, 10))}...`);
   }
 });
 
-if (missingImportant) {
-  console.warn('\n⚠️  WARNING: Some important environment variables are not set');
-  console.warn('The app will still build and run, but some features may not work correctly');
-  console.warn('Consider setting these variables in .env.local or your deployment platform\n');
-} else {
-  console.log('\n✅ All important environment variables are set\n');
-}
+console.log('\n✅ Environment validation check complete\n');
+
