@@ -4,58 +4,53 @@ import React, { useState, useRef, useEffect } from 'react';
 import { motion, useInView, useScroll, useTransform, AnimatePresence } from 'framer-motion';
 import {
   ArrowRight, ChevronDown, MessageSquare, Calendar, Layers, Shield, Lock,
-  Clock, Users, CheckCircle2, FileText, Cpu, Sparkles, Mail, User,
+  Clock, Users, CheckCircle2, FileText, Sparkles, Mail, User,
   Globe, Building, Inbox, BarChart3, Settings2, BrainCircuit, Workflow,
-  TrendingUp, Zap, Star, ArrowUpRight, Phone, Eye, Key, BadgeCheck,
-  Headphones, LineChart, LayoutGrid, SlidersHorizontal, RefreshCw
+  TrendingUp, Zap, Eye, Key, BadgeCheck, Star, Heart,
+  LayoutGrid, SlidersHorizontal, Headphones, LineChart, UserCheck
 } from 'lucide-react';
 import Link from 'next/link';
 import { leadService, LeadData } from '../../lib/lead-service';
 
-// ─── Types ───────────────────────────────────────────────────────────────────
-
-interface FadeInProps {
-  children: React.ReactNode;
-  className?: string;
-  delay?: number;
-  direction?: 'up' | 'left' | 'right' | 'none';
-}
-
-// ─── Animation Primitives ────────────────────────────────────────────────────
+/* ═══════════════════════════════════════════════════════════════════════════════
+   ANIMATION PRIMITIVES
+   ═══════════════════════════════════════════════════════════════════════════════ */
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
-function FadeIn({ children, className = '', delay = 0, direction = 'up' }: FadeInProps) {
+function FadeIn({ children, className = '', delay = 0, direction = 'up' }: {
+  children: React.ReactNode; className?: string; delay?: number;
+  direction?: 'up' | 'left' | 'right' | 'none';
+}) {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: '-60px' });
-  const variants = {
-    hidden: {
-      opacity: 0,
-      y: direction === 'up' ? 24 : 0,
-      x: direction === 'left' ? -24 : direction === 'right' ? 24 : 0,
-    },
-    show: {
-      opacity: 1, y: 0, x: 0,
-      transition: { duration: 0.7, delay, ease },
-    },
-  };
   return (
-    <motion.div ref={ref} variants={variants} initial="hidden" animate={inView ? 'show' : 'hidden'} className={className}>
+    <motion.div
+      ref={ref}
+      initial={{
+        opacity: 0,
+        y: direction === 'up' ? 24 : 0,
+        x: direction === 'left' ? -24 : direction === 'right' ? 24 : 0,
+      }}
+      animate={inView ? { opacity: 1, y: 0, x: 0 } : {}}
+      transition={{ duration: 0.7, delay, ease }}
+      className={className}
+    >
       {children}
     </motion.div>
   );
 }
 
-function SectionLabel({ children }: { children: string }) {
+function Label({ children }: { children: string }) {
   return (
-    <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-violet-500/20 bg-violet-500/[0.07] mb-5">
+    <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-violet-500/20 bg-violet-500/[0.06] mb-6">
       <span className="w-1.5 h-1.5 rounded-full bg-violet-400" />
-      <span className="text-[11px] font-semibold text-violet-300 tracking-widest uppercase">{children}</span>
+      <span className="text-[11px] font-semibold text-violet-300 tracking-[0.15em] uppercase">{children}</span>
     </div>
   );
 }
 
-function SectionHeading({ children, className = '', id }: { children: React.ReactNode; className?: string; id?: string }) {
+function Heading({ children, id, className = '' }: { children: React.ReactNode; id?: string; className?: string }) {
   return (
     <h2 id={id} className={`text-[clamp(2rem,4.5vw,3.5rem)] font-black leading-[1.06] tracking-tight text-white ${className}`}>
       {children}
@@ -63,87 +58,86 @@ function SectionHeading({ children, className = '', id }: { children: React.Reac
   );
 }
 
-function SectionSub({ children }: { children: React.ReactNode }) {
-  return <p className="text-[1.05rem] text-white/45 leading-relaxed max-w-xl">{children}</p>;
-}
+/* ═══════════════════════════════════════════════════════════════════════════════
+   DATA
+   ═══════════════════════════════════════════════════════════════════════════════ */
 
-// ─── Data ─────────────────────────────────────────────────────────────────────
-
-const CHALLENGES = [
-  { icon: Inbox,        color: 'red',    title: 'Message overload',          body: 'Hundreds of fan DMs, emails and platform notifications arrive daily. Without systems, critical ones vanish.' },
-  { icon: Clock,        color: 'amber',  title: 'Administrative black hole',  body: 'Scheduling, tracking deliverables and coordinating brands consumes hours that should belong to your content.' },
-  { icon: FileText,     color: 'red',    title: 'Business complexity',        body: 'Sponsorships, contracts and brand communication create a full second job on top of your creative work.' },
-  { icon: Layers,       color: 'amber',  title: 'Operational disorganization', body: 'Without structure, things fall through the cracks. Fixing them costs more time than it would take to systemize.' },
-  { icon: TrendingUp,   color: 'red',    title: 'Growth creates more friction', body: 'Every new follower, platform and partnership adds complexity. Scale without systems becomes a trap.' },
-  { icon: BarChart3,    color: 'amber',  title: 'Missed opportunities',       body: 'Partnerships, collaborations and fan relationships go unattended when there aren\'t enough hours in the day.' },
+const REALITY_CARDS = [
+  { icon: Inbox,      title: 'Messages never stop',                body: 'Hundreds of DMs, emails and notifications flood in daily across every platform — burying the messages that actually matter.' },
+  { icon: TrendingUp, title: 'Your business keeps growing',        body: 'More followers means more partnerships, more deliverables, more coordination. Growth should feel exciting — not exhausting.' },
+  { icon: Layers,     title: 'Operations become chaotic',           body: 'Without structured systems, everything runs on memory and impulse. Things slip through cracks that didn\'t exist six months ago.' },
+  { icon: Clock,      title: 'Admin steals creative time',         body: 'Scheduling, invoicing, contract review and inbox management quietly consume the hours that belong to your content.' },
+  { icon: Heart,      title: 'Every hour counts',                   body: 'Every hour organizing spreadsheets is an hour not spent creating, collaborating or connecting with your audience.' },
 ];
 
 const SERVICES = [
-  { icon: Workflow,     title: 'Creator Operations',          body: 'End-to-end management of the systems, workflows and processes that keep your creator business running day-to-day.' },
-  { icon: MessageSquare,title: 'Communication Support',       body: 'Professional handling of fan DMs, community messages and inbox management at volume — in your voice, on brand.' },
-  { icon: Inbox,        title: 'Inbox Organization',          body: 'Triage, categorize, prioritize and respond. Zero-inbox methodology applied to every platform you operate on.' },
-  { icon: FileText,     title: 'Business Organization',       body: 'Contracts, sponsorships, invoices and records — structured, tracked and never lost in a cluttered thread.' },
-  { icon: Calendar,     title: 'Scheduling & Coordination',   body: 'Calendar management, brand call coordination and deadline tracking across time zones and platforms.' },
-  { icon: LayoutGrid,   title: 'Operational Systems',         body: 'Custom SOPs and documentation so your business runs consistently — not dependent on memory or improvisation.' },
-  { icon: SlidersHorizontal, title: 'Workflow Optimization',  body: 'We audit, redesign and document your current workflows to eliminate bottlenecks and reduce wasted hours.' },
-  { icon: TrendingUp,   title: 'Scaling Support',             body: 'Frameworks built to grow with you. As volume increases, your operations expand without burning out or breaking.' },
-  { icon: BrainCircuit, title: 'Future AI Assistance',        body: 'Roadmapping and early integration of AI-assisted tools to make your operations faster and more intelligent over time.' },
-];
-
-const HOW_IT_WORKS = [
-  { num: '01', title: 'Discovery Call',         body: 'A focused 30-minute conversation to understand your business, platforms and where operational weight is slowing you down.' },
-  { num: '02', title: 'Workflow Assessment',    body: 'We map your existing processes, identify inefficiencies and document every tool and platform your business depends on.' },
-  { num: '03', title: 'Operations Plan',        body: 'A custom plan — not a template — specific to your business, your voice and exactly the support you need.' },
-  { num: '04', title: 'Onboarding',             body: 'Secure access setup, handbook creation and a structured handover. Nothing gets disrupted. Everything gets documented.' },
-  { num: '05', title: 'Continuous Improvement', body: 'Regular reviews, performance tracking and ongoing refinement to keep your operations running at their highest level.' },
+  { icon: Workflow,          title: 'Creator Operations',          body: 'End-to-end management of the systems and processes that keep your creator business running day-to-day.' },
+  { icon: MessageSquare,     title: 'Communication Workflows',     body: 'Structured fan interaction handling — DMs, comments and community messages processed in your voice, on brand.' },
+  { icon: Inbox,             title: 'Inbox Organization',          body: 'Zero-inbox methodology across every platform. Triage, categorize, prioritize and act on what matters.' },
+  { icon: FileText,          title: 'Business Organization',       body: 'Sponsorships, invoices, contracts and brand deliverables — tracked, structured and never missed.' },
+  { icon: Calendar,          title: 'Scheduling Support',          body: 'Calendar management, brand call coordination and deadline tracking across platforms and time zones.' },
+  { icon: SlidersHorizontal, title: 'Workflow Optimization',       body: 'We audit your current processes, eliminate bottlenecks and rebuild them to save you real hours every week.' },
+  { icon: TrendingUp,        title: 'Growth Infrastructure',       body: 'Operational frameworks designed to scale as your audience and partnerships grow — without growing your workload.' },
+  { icon: LayoutGrid,        title: 'Operational Systems',         body: 'Custom SOPs and documentation so your business runs on systems — not on your memory.' },
+  { icon: Users,             title: 'Confidential Team Support',   body: 'Discreet, NDA-protected team members who understand creator businesses and handle sensitive operations.' },
+  { icon: UserCheck,         title: 'Creator CRM',                 body: 'Organized tracking of brand relationships, partnership history and collaboration pipelines.' },
+  { icon: LineChart,         title: 'Performance Reporting',       body: 'Clear operational summaries so you always know what\'s happening behind the scenes without having to ask.' },
+  { icon: BrainCircuit,      title: 'Future AI Assistance',        body: 'Early integration of intelligent automation tools to make your operational workflows faster over time.' },
 ];
 
 const WHY_BV = [
-  { icon: BadgeCheck,  title: 'Professional standards',      body: 'Every engagement runs on documented processes, structured communication and clear accountability.' },
-  { icon: Lock,        title: 'Strict confidentiality',      body: 'NDAs before any work begins. Your platforms, metrics and identity are never disclosed to anyone.' },
-  { icon: Eye,         title: 'Transparent workflows',       body: 'Weekly summaries, activity logs and clear escalation protocols. You\'re always in the loop.' },
-  { icon: Zap,         title: 'Reliable execution',          body: 'Defined response times, zero dropped tasks and consistent delivery — no surprises, no guesswork.' },
-  { icon: TrendingUp,  title: 'Scalable systems',            body: 'Every process is built to grow. Volume doubles — operations scale without disruption.' },
-  { icon: Settings2,   title: 'Flexible support',            body: 'Your engagement adjusts as your business evolves. We adapt alongside you, not against you.' },
-  { icon: Users,       title: 'Creator-first mindset',       body: 'We understand creator businesses because that\'s all we do. Your audience and output always come first.' },
-  { icon: Shield,      title: 'Security by default',         body: 'Restricted access, secure credential management and isolated environments protect every account.' },
+  { icon: BadgeCheck,  word: 'Professional',  body: 'Documented processes, structured communication and clear accountability on every engagement.' },
+  { icon: Zap,         word: 'Reliable',      body: 'Defined response times, zero dropped tasks and consistent delivery. No surprises.' },
+  { icon: LayoutGrid,  word: 'Organized',     body: 'Systems built for clarity. Everything tracked, structured and accessible.' },
+  { icon: Lock,        word: 'Confidential',  body: 'NDA-protected by default. Your identity, metrics and business stay fully private.' },
+  { icon: Eye,         word: 'Transparent',   body: 'Weekly summaries, activity logs and open communication. You\'re always in the loop.' },
+  { icon: Settings2,   word: 'Flexible',      body: 'Your engagement evolves alongside your business. We adapt as your needs change.' },
+  { icon: TrendingUp,  word: 'Scalable',      body: 'Every process built to grow. Volume doubles — operations scale without disruption.' },
+  { icon: Heart,       word: 'Creator-first', body: 'We understand creator businesses because that\'s all we do. Your creative output comes first.' },
 ];
 
-const SECURITY = [
-  { icon: Key,    title: 'NDA-protected by default',    body: 'Every engagement begins with a legally binding Non-Disclosure Agreement. Signing happens before any work, access or communication about your business.' },
-  { icon: Shield, title: 'Need-to-know access',          body: 'Credentials and account access are managed on a strict need-to-know basis using secure, dedicated password management infrastructure.' },
-  { icon: Eye,    title: 'Zero public disclosure',       body: 'We never discuss, reference or acknowledge our creator partnerships publicly. Your identity, your metrics, your business — fully private.' },
-  { icon: Lock,   title: 'Isolated environments',        body: 'Every creator engagement operates in a segregated, independent environment. No data commingles between clients.' },
+const HOW_STEPS = [
+  { num: '01', title: 'Discovery Call',       body: 'A focused conversation to understand your business, your platforms and where the operational weight is heaviest.' },
+  { num: '02', title: 'Workflow Review',      body: 'We map every existing process, identify gaps and document the tools and platforms your business depends on.' },
+  { num: '03', title: 'Operations Strategy',  body: 'A custom plan built for your specific business — not a template, not a one-size-fits-all package.' },
+  { num: '04', title: 'Onboarding',           body: 'Secure access setup, brand voice documentation and structured handover. Nothing disrupted. Everything documented.' },
+  { num: '05', title: 'Ongoing Support',      body: 'Continuous execution, regular reviews and ongoing optimization to keep operations at their best.' },
 ];
 
 const FAQS = [
   { q: 'Who do you work with?',
-    a: 'Professional online creators — subscription creators, livestreamers, YouTube channels and independent creator businesses with meaningful audience size and operational complexity.' },
-  { q: 'How does onboarding work?',
-    a: 'Onboarding takes 3–5 business days. We set up secure access, document your brand voice and communication guidelines and build your operations handbook — before any live work begins.' },
+    a: 'Professional online creators — subscription creators, livestreamers, cosplayers, fitness creators, models, influencers, gaming creators and independent digital entrepreneurs with meaningful audience engagement.' },
+  { q: 'How do we get started?',
+    a: 'Book a discovery call. We\'ll spend 30 minutes understanding your business, your platforms and your operational challenges. From there we design a custom proposal. Once approved, onboarding begins.' },
   { q: 'Can support be customized?',
-    a: 'Entirely. Every creator business is unique. We customize response timelines, platform delegation, scheduling preferences and operational scope to match your exact setup.' },
+    a: 'Entirely. Every creator business is unique. We customize response timelines, platform delegation, scheduling preferences, communication style and operational scope to match your exact setup.' },
   { q: 'How do you protect my privacy?',
-    a: 'Every engagement is covered by a legally binding NDA signed before work begins. Access is restricted on a strict need-to-know basis with secure credential management. We never disclose client relationships publicly.' },
-  { q: 'How quickly can we get started?',
-    a: 'Discovery calls are typically available within a few days. After the call and proposal approval, onboarding begins immediately. Most creators are fully operational within one week.' },
-  { q: 'What platforms do you support?',
-    a: 'We work across Gmail, YouTube, Instagram, Patreon, Substack, Discord, Twitch, LinkedIn and most major CRM and creator tools. If you use a specialist platform, we can integrate with it.' },
+    a: 'Every engagement begins with a legally binding NDA. Access is restricted on a strict need-to-know basis using secure credential management. We never disclose client relationships publicly — ever.' },
+  { q: 'Can my workflow change over time?',
+    a: 'Absolutely. Creator businesses evolve. We conduct regular reviews and adjust your operational plan as your platforms, audience and workload change. Flexibility is built into every engagement.' },
+  { q: 'What creator platforms do you support?',
+    a: 'YouTube, Patreon, Twitch, OnlyFans, Fansly, Instagram, TikTok, Discord, Substack, Twitter/X, Kick, LinkedIn and most major CRM and creator tools. If you use a specialist platform, we can integrate with it.' },
   { q: 'What happens during the discovery call?',
-    a: 'We spend 30 minutes learning about your business: what platforms you operate on, where the operational pain is heaviest, your communication preferences and what kind of support would be most valuable.' },
+    a: 'We learn about your business: what platforms you operate on, where the operational pain is heaviest, your communication preferences and what kind of support would be most valuable. No sales pitch — just understanding.' },
   { q: 'Do I stay in control of my business?',
     a: 'Completely. You retain full ownership and authority over every decision. We operate as a delegated support layer — nothing is actioned without guidelines you\'ve reviewed and approved.' },
   { q: 'Do you write messages in my voice?',
-    a: 'Yes. We build a detailed brand voice handbook from your existing content and communication. Every response is written to sound like you — not a generic template.' },
+    a: 'Yes. We build a detailed brand voice handbook from your existing content and communications. Every message sounds like you — not a generic template.' },
+  { q: 'How quickly can we get started?',
+    a: 'Discovery calls are typically available within a few days. After proposal approval, onboarding begins immediately. Most creators are fully operational within one week.' },
   { q: 'Is there a minimum commitment?',
-    a: 'We structure engagements based on what makes sense for your business. Flexibility is discussed openly during the discovery call — no rigid lock-in unless it benefits you.' },
-  { q: 'What does "Creator Operations" actually mean?',
-    a: 'Inbox triage, fan communication workflows, scheduling, content coordination, sponsorship management, SOP documentation and business organization — the operational side of a creator business, handled professionally.' },
+    a: 'We structure engagements based on what makes sense for your business. Flexibility is discussed during the discovery call — no rigid lock-in contracts unless it benefits you.' },
   { q: 'What does it cost?',
-    a: 'Pricing is custom-scoped based on your specific requirements. We discuss this transparently during the discovery call. No hidden fees, no surprise charges, no vague packages.' },
+    a: 'Pricing is custom-scoped to your specific requirements. We discuss this transparently during the discovery call. No hidden fees, no surprise charges, no vague packages.' },
+  { q: 'What does "Creator Operations" actually mean?',
+    a: 'The operational side of running a creator business: inbox triage, fan communication workflows, scheduling, content coordination, sponsorship management, SOP documentation and business organization — handled professionally.' },
+  { q: 'What if I only need help with one area?',
+    a: 'That\'s completely fine. Many creators start with inbox management or scheduling support and expand as they see the impact. We\'ll design your engagement around exactly what you need right now.' },
 ];
 
-// ─── Navbar ───────────────────────────────────────────────────────────────────
+/* ═══════════════════════════════════════════════════════════════════════════════
+   NAVBAR
+   ═══════════════════════════════════════════════════════════════════════════════ */
 
 function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -164,41 +158,31 @@ function Navbar() {
         initial={{ opacity: 0, y: -12 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, ease }}
-        className={`mx-auto max-w-6xl flex items-center justify-between h-13 px-5 rounded-2xl border transition-all duration-300 ${
+        aria-label="Main navigation"
+        className={`mx-auto max-w-6xl flex items-center justify-between h-14 px-5 rounded-2xl border transition-all duration-300 ${
           scrolled
             ? 'border-white/10 bg-[#0a0a0a]/90 backdrop-blur-2xl shadow-2xl shadow-black/40'
             : 'border-white/[0.05] bg-white/[0.02] backdrop-blur-xl'
         }`}
       >
-        {/* Logo */}
         <div className="flex items-center gap-2.5">
           <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-violet-500 to-indigo-600 flex items-center justify-center shadow-lg shadow-violet-500/25">
             <Sparkles className="w-3.5 h-3.5 text-white" />
           </div>
           <span className="font-bold text-sm text-white tracking-tight">
-            Brandverse
-            <span className="text-white/30 font-normal ml-1.5">Creators</span>
+            Brandverse<span className="text-white/30 font-normal ml-1.5">for Creators</span>
           </span>
         </div>
 
-        {/* Nav links */}
-        <nav className="hidden md:flex items-center gap-6" aria-label="Main navigation">
-          {[
-            ['challenges', 'Challenges'],
-            ['services', 'Services'],
-            ['how-it-works', 'How It Works'],
-            ['faq', 'FAQ'],
-          ].map(([id, label]) => (
+        <nav className="hidden md:flex items-center gap-7">
+          {[['services', 'Services'], ['how-it-works', 'Process'], ['confidentiality', 'Trust'], ['faq', 'FAQ']].map(([id, label]) => (
             <a key={id} href={`#${id}`} onClick={go(id)}
-              className="text-[13px] font-medium text-white/45 hover:text-white transition-colors duration-200">
-              {label}
-            </a>
+              className="text-[13px] font-medium text-white/40 hover:text-white transition-colors">{label}</a>
           ))}
         </nav>
 
-        {/* CTA */}
         <a href="#contact" onClick={go('contact')}
-          className="group flex items-center gap-1.5 px-4 py-2 rounded-xl bg-white text-black text-[13px] font-semibold hover:bg-white/90 active:scale-95 transition-all duration-150 shadow-lg shadow-white/10">
+          className="group flex items-center gap-1.5 px-4 py-2 rounded-xl bg-white text-black text-[13px] font-semibold hover:bg-white/90 active:scale-95 transition-all shadow-lg shadow-white/10">
           Book Discovery Call
           <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
         </a>
@@ -207,13 +191,15 @@ function Navbar() {
   );
 }
 
-// ─── Hero ─────────────────────────────────────────────────────────────────────
+/* ═══════════════════════════════════════════════════════════════════════════════
+   HERO
+   ═══════════════════════════════════════════════════════════════════════════════ */
 
 function Hero() {
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end start'] });
-  const y = useTransform(scrollYProgress, [0, 1], ['0%', '25%']);
-  const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
+  const bgY = useTransform(scrollYProgress, [0, 1], ['0%', '30%']);
+  const fade = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
 
   const go = (id: string) => (e: React.MouseEvent) => {
     e.preventDefault();
@@ -221,98 +207,86 @@ function Hero() {
   };
 
   return (
-    <section ref={ref} className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20" aria-label="Hero">
-      {/* Background glows */}
-      <motion.div style={{ y, opacity }} aria-hidden className="pointer-events-none absolute inset-0">
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[600px] bg-violet-600/[0.07] blur-[160px] rounded-full" />
-        <div className="absolute bottom-0 left-1/4 w-[500px] h-[400px] bg-indigo-600/[0.06] blur-[120px] rounded-full" />
-        <div className="absolute top-1/3 right-1/4 w-[300px] h-[300px] bg-violet-400/[0.04] blur-[80px] rounded-full" />
-        {/* Subtle grid */}
-        <div className="absolute inset-0 opacity-[0.025]"
-          style={{ backgroundImage: 'linear-gradient(rgba(255,255,255,0.5) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.5) 1px,transparent 1px)', backgroundSize: '72px 72px' }} />
+    <section ref={ref} className="relative min-h-screen flex items-center justify-center overflow-hidden pt-24 pb-12">
+      {/* Animated background */}
+      <motion.div style={{ y: bgY, opacity: fade }} aria-hidden className="pointer-events-none absolute inset-0">
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1100px] h-[650px] bg-violet-600/[0.06] blur-[180px] rounded-full" />
+        <div className="absolute bottom-20 left-1/4 w-[500px] h-[400px] bg-indigo-600/[0.05] blur-[120px] rounded-full" />
+        <div className="absolute top-1/3 right-1/4 w-[350px] h-[350px] bg-fuchsia-500/[0.03] blur-[90px] rounded-full" />
+        <div className="absolute inset-0 opacity-[0.02]"
+          style={{ backgroundImage: 'linear-gradient(rgba(255,255,255,0.5) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.5) 1px,transparent 1px)', backgroundSize: '80px 80px' }} />
       </motion.div>
 
       <div className="relative z-10 mx-auto max-w-5xl px-5 sm:px-8 text-center">
-        {/* Availability badge */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.5 }}
-          className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-violet-500/20 bg-violet-500/[0.07] mb-10"
-        >
+        {/* Badge */}
+        <motion.div initial={{ opacity: 0, scale: 0.92 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.5 }}
+          className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-violet-500/20 bg-violet-500/[0.06] mb-10">
           <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-          <span className="text-[11px] font-semibold text-violet-300 tracking-widest uppercase">
-            Accepting new creator partnerships
-          </span>
+          <span className="text-[11px] font-semibold text-violet-300 tracking-[0.15em] uppercase">Accepting new creator partnerships</span>
         </motion.div>
 
         {/* Headline */}
         <motion.h1
-          initial={{ opacity: 0, y: 28 }}
+          initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.1, ease }}
-          className="text-[clamp(3rem,8vw,6.5rem)] font-black leading-[1.02] tracking-tight text-white mb-7"
+          transition={{ duration: 0.85, delay: 0.1, ease }}
+          className="text-[clamp(2.8rem,7.5vw,6rem)] font-black leading-[1.02] tracking-tight text-white mb-7"
         >
-          We become the trusted{' '}
-          <span className="relative inline-block">
+          Operations behind{' '}
+          <span className="relative">
             <span className="bg-gradient-to-r from-violet-400 via-indigo-300 to-violet-400 bg-clip-text text-transparent">
-              operations partner
+              exceptional creators.
             </span>
-            <motion.span
-              aria-hidden
-              className="absolute -bottom-1 left-0 right-0 h-px bg-gradient-to-r from-transparent via-violet-400/40 to-transparent"
-              initial={{ scaleX: 0 }}
-              animate={{ scaleX: 1 }}
-              transition={{ duration: 0.9, delay: 0.7, ease }}
-            />
-          </span>{' '}
-          behind your creator business.
+            <motion.span aria-hidden
+              className="absolute -bottom-1.5 left-0 right-0 h-px bg-gradient-to-r from-transparent via-violet-400/40 to-transparent"
+              initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ duration: 1, delay: 0.8, ease }} />
+          </span>
         </motion.h1>
 
-        {/* Supporting copy */}
+        {/* Subheadline */}
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.28, ease }}
-          className="text-[1.2rem] text-white/45 max-w-2xl mx-auto leading-relaxed mb-11"
+          transition={{ duration: 0.7, delay: 0.3, ease }}
+          className="text-[clamp(1rem,2vw,1.2rem)] text-white/42 max-w-2xl mx-auto leading-relaxed mb-12"
         >
-          Brandverse helps creators streamline communication workflows, organize day-to-day operations and build reliable systems so they can focus on producing exceptional content.
+          Brandverse partners with growing creator businesses to streamline communication workflows, organize day-to-day operations, and build reliable systems that allow creators to focus on creating exceptional content.
         </motion.p>
 
         {/* CTAs */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.42, ease }}
+          transition={{ duration: 0.6, delay: 0.45, ease }}
           className="flex flex-col sm:flex-row gap-3 justify-center items-center"
         >
           <a href="#contact" onClick={go('contact')}
-            className="group inline-flex items-center gap-2 px-7 py-3.5 rounded-xl bg-white text-black font-semibold text-[0.95rem] hover:bg-white/92 active:scale-95 transition-all duration-150 shadow-2xl shadow-white/[0.08]">
+            className="group inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-white text-black font-semibold text-[0.95rem] hover:bg-white/92 active:scale-[0.97] transition-all shadow-2xl shadow-white/[0.07]">
             Book Discovery Call
             <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
           </a>
           <a href="#how-it-works" onClick={go('how-it-works')}
-            className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl border border-white/10 text-white/60 font-semibold text-[0.95rem] hover:border-white/20 hover:text-white transition-all duration-200">
-            Learn How It Works
+            className="inline-flex items-center gap-2 px-8 py-4 rounded-xl border border-white/10 text-white/55 font-semibold text-[0.95rem] hover:border-white/20 hover:text-white transition-all">
+            See How We Work
           </a>
         </motion.div>
 
-        {/* Stats strip */}
+        {/* Stats */}
         <motion.div
-          initial={{ opacity: 0, y: 32 }}
+          initial={{ opacity: 0, y: 36 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.6, ease }}
-          className="mt-20 grid grid-cols-2 md:grid-cols-4 gap-px bg-white/[0.04] rounded-2xl overflow-hidden border border-white/[0.05]"
+          transition={{ duration: 0.85, delay: 0.65, ease }}
+          className="mt-24 grid grid-cols-2 md:grid-cols-4 gap-px rounded-2xl overflow-hidden border border-white/[0.05] bg-white/[0.03]"
         >
           {[
             { v: '100%', l: 'Creator Controlled' },
             { v: 'NDA',  l: 'Every Engagement' },
-            { v: '< 5',  l: 'Days to Onboard' },
+            { v: '< 5 days', l: 'To Fully Onboard' },
             { v: '15+',  l: 'Platforms Supported' },
           ].map(({ v, l }) => (
-            <div key={l} className="bg-white/[0.015] py-7 text-center">
+            <div key={l} className="bg-[#0a0a0a]/60 py-8 text-center">
               <div className="text-2xl sm:text-3xl font-black text-white mb-1.5">{v}</div>
-              <div className="text-[11px] text-white/30 uppercase tracking-widest">{l}</div>
+              <div className="text-[10px] text-white/25 uppercase tracking-[0.18em]">{l}</div>
             </div>
           ))}
         </motion.div>
@@ -321,20 +295,20 @@ function Hero() {
   );
 }
 
-// ─── Trusted By ───────────────────────────────────────────────────────────────
+/* ═══════════════════════════════════════════════════════════════════════════════
+   PLATFORM STRIP
+   ═══════════════════════════════════════════════════════════════════════════════ */
 
-function TrustedBy() {
+function PlatformStrip() {
   return (
-    <section className="py-14 px-5 border-y border-white/[0.04]" aria-label="Platforms">
+    <section className="py-14 px-5 border-y border-white/[0.04]" aria-label="Supported platforms">
       <div className="mx-auto max-w-5xl">
-        <p className="text-center text-[10px] tracking-[0.2em] text-white/20 uppercase font-medium mb-8">
-          Operational support across all major creator platforms
+        <p className="text-center text-[10px] tracking-[0.2em] text-white/18 uppercase font-medium mb-8">
+          Operational support across major creator platforms
         </p>
-        <div className="flex flex-wrap justify-center items-center gap-8 sm:gap-14">
-          {['YouTube', 'Patreon', 'Twitch', 'Substack', 'Instagram', 'Discord', 'OnlyFans'].map(p => (
-            <span key={p} className="text-sm font-semibold text-white/15 hover:text-white/35 transition-colors duration-300 cursor-default">
-              {p}
-            </span>
+        <div className="flex flex-wrap justify-center items-center gap-7 sm:gap-14">
+          {['YouTube', 'Patreon', 'OnlyFans', 'Twitch', 'Kick', 'Instagram', 'TikTok', 'Discord', 'Substack'].map(p => (
+            <span key={p} className="text-sm font-semibold text-white/12 hover:text-white/30 transition-colors duration-300 cursor-default">{p}</span>
           ))}
         </div>
       </div>
@@ -342,132 +316,34 @@ function TrustedBy() {
   );
 }
 
-// ─── Creator Challenges ───────────────────────────────────────────────────────
+/* ═══════════════════════════════════════════════════════════════════════════════
+   THE REALITY OF RUNNING A CREATOR BUSINESS
+   ═══════════════════════════════════════════════════════════════════════════════ */
 
-function CreatorChallenges() {
-  const colorMap: Record<string, string> = {
-    red:   'border-red-500/15 bg-red-500/[0.05] text-red-400',
-    amber: 'border-amber-500/15 bg-amber-500/[0.05] text-amber-400',
-  };
-
+function RealitySection() {
   return (
-    <section id="challenges" className="py-28 px-5 sm:px-8" aria-labelledby="challenges-heading">
+    <section id="challenges" className="py-28 px-5 sm:px-8" aria-labelledby="reality-heading">
       <div className="mx-auto max-w-7xl">
-        <FadeIn className="mb-16">
-          <SectionLabel>Creator Challenges</SectionLabel>
-          <SectionHeading className="mb-5 max-w-2xl" id="challenges-heading">
-            Growth creates operational weight no one warns you about.
-          </SectionHeading>
-          <SectionSub>
-            Every new subscriber, partnership and platform adds complexity. Without the right systems, your creative time evaporates into administration.
-          </SectionSub>
-        </FadeIn>
-
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {CHALLENGES.map((item, i) => (
-            <FadeIn key={i} delay={i * 0.07}>
-              <div className="group h-full rounded-xl border border-white/[0.06] bg-white/[0.018] p-7 hover:border-white/10 hover:bg-white/[0.035] transition-all duration-300">
-                <div className={`w-10 h-10 rounded-lg border flex items-center justify-center mb-5 group-hover:scale-105 transition-transform duration-300 ${colorMap[item.color]}`}>
-                  <item.icon className="w-4.5 h-4.5" />
-                </div>
-                <h3 className="font-bold text-white text-[0.93rem] mb-2 tracking-tight">{item.title}</h3>
-                <p className="text-white/38 text-sm leading-relaxed">{item.body}</p>
-              </div>
-            </FadeIn>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-// ─── Why Brandverse ───────────────────────────────────────────────────────────
-
-function WhyBrandverse() {
-  return (
-    <section className="py-28 px-5 sm:px-8 border-t border-white/[0.04]" aria-labelledby="why-heading">
-      <div className="mx-auto max-w-7xl grid lg:grid-cols-[1fr_1.1fr] gap-16 items-start">
-
-        {/* Left */}
-        <FadeIn direction="left">
-          <SectionLabel>Why Brandverse</SectionLabel>
-          <SectionHeading className="mb-6" id="why-heading">
-            Spend more time creating.{' '}
-            <span className="text-white/35">We&apos;ll keep everything else moving.</span>
-          </SectionHeading>
-          <SectionSub>
-            We integrate into your creator business as a trusted operations partner — designing, building and operating the systems behind the scenes.
-          </SectionSub>
-
-          <ul className="mt-10 space-y-4">
-            {[
-              'Custom operational systems built around your exact workflow',
-              'Professional communication that sounds exactly like you',
-              'Consistent execution you can rely on every single day',
-              'Full transparency — weekly summaries, nothing hidden',
-              'Scalable support that grows alongside your business',
-            ].map((item, i) => (
-              <motion.li
-                key={i}
-                initial={{ opacity: 0, x: -12 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.08, duration: 0.5, ease }}
-                className="flex items-start gap-3 text-white/60 text-[0.92rem]"
-              >
-                <CheckCircle2 className="w-4 h-4 text-violet-400 shrink-0 mt-0.5" />
-                {item}
-              </motion.li>
-            ))}
-          </ul>
-        </FadeIn>
-
-        {/* Right: feature grid */}
-        <FadeIn delay={0.12} direction="right">
-          <div className="grid sm:grid-cols-2 gap-3">
-            {WHY_BV.map((f, i) => (
-              <div key={i} className="group rounded-xl border border-white/[0.06] bg-white/[0.018] p-5 hover:border-violet-500/20 hover:bg-violet-500/[0.025] transition-all duration-300">
-                <div className="w-8 h-8 rounded-lg border border-violet-500/15 bg-violet-500/[0.06] flex items-center justify-center text-violet-400 mb-3.5 group-hover:scale-105 transition-transform">
-                  <f.icon className="w-4 h-4" />
-                </div>
-                <h3 className="font-bold text-white text-[0.85rem] mb-1.5 tracking-tight leading-snug">{f.title}</h3>
-                <p className="text-white/35 text-[0.8rem] leading-relaxed">{f.body}</p>
-              </div>
-            ))}
-          </div>
-        </FadeIn>
-      </div>
-    </section>
-  );
-}
-
-// ─── Services ─────────────────────────────────────────────────────────────────
-
-function Services() {
-  return (
-    <section id="services" className="py-28 px-5 sm:px-8 border-t border-white/[0.04]" aria-labelledby="services-heading">
-      <div className="mx-auto max-w-7xl">
-        <FadeIn className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-14">
-          <div>
-            <SectionLabel>Services</SectionLabel>
-            <SectionHeading id="services-heading">
-              Comprehensive operational support.
-            </SectionHeading>
-          </div>
-          <p className="text-white/40 text-sm leading-relaxed max-w-xs">
-            Everything your creator business needs to run smoothly — designed, operated and optimized by Brandverse.
+        <FadeIn className="max-w-2xl mb-16">
+          <Label>The Reality</Label>
+          <Heading id="reality-heading" className="mb-5">
+            The side of creator businesses{' '}
+            <span className="text-white/30">nobody talks about.</span>
+          </Heading>
+          <p className="text-[1.05rem] text-white/42 leading-relaxed max-w-xl">
+            Your audience sees the content. Behind the scenes, there&apos;s an entire business to run — and it only gets heavier as you grow.
           </p>
         </FadeIn>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {SERVICES.map((s, i) => (
-            <FadeIn key={i} delay={i * 0.055}>
-              <div className="group h-full rounded-xl border border-white/[0.06] bg-white/[0.015] p-7 hover:border-violet-500/25 hover:bg-violet-500/[0.03] transition-all duration-300 cursor-default">
-                <div className="w-10 h-10 rounded-xl border border-violet-500/15 bg-violet-500/[0.06] flex items-center justify-center text-violet-400 mb-5 group-hover:scale-[1.08] group-hover:border-violet-500/30 group-hover:bg-violet-500/10 transition-all duration-300">
-                  <s.icon className="w-4.5 h-4.5" />
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {REALITY_CARDS.map((c, i) => (
+            <FadeIn key={i} delay={i * 0.07} className={i === 4 ? 'lg:col-span-1 md:col-span-2 lg:col-span-1' : ''}>
+              <div className="group h-full rounded-2xl border border-white/[0.05] bg-white/[0.015] p-8 hover:border-white/[0.09] hover:bg-white/[0.03] transition-all duration-300">
+                <div className="w-11 h-11 rounded-xl border border-red-500/15 bg-red-500/[0.05] flex items-center justify-center text-red-400/80 mb-6 group-hover:scale-105 transition-transform duration-300">
+                  <c.icon className="w-5 h-5" />
                 </div>
-                <h3 className="font-bold text-white text-[0.92rem] mb-2.5 tracking-tight leading-snug">{s.title}</h3>
-                <p className="text-white/38 text-[0.82rem] leading-relaxed">{s.body}</p>
+                <h3 className="font-bold text-white text-[1rem] mb-2.5 tracking-tight">{c.title}</h3>
+                <p className="text-white/35 text-[0.85rem] leading-relaxed">{c.body}</p>
               </div>
             </FadeIn>
           ))}
@@ -477,66 +353,184 @@ function Services() {
   );
 }
 
-// ─── How It Works ─────────────────────────────────────────────────────────────
+/* ═══════════════════════════════════════════════════════════════════════════════
+   WHAT BRANDVERSE DOES — SERVICES
+   ═══════════════════════════════════════════════════════════════════════════════ */
 
-function HowItWorks() {
+function ServicesSection() {
+  return (
+    <section id="services" className="py-28 px-5 sm:px-8 border-t border-white/[0.04]" aria-labelledby="services-heading">
+      <div className="mx-auto max-w-7xl">
+        <FadeIn className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-14">
+          <div className="max-w-xl">
+            <Label>What Brandverse Does</Label>
+            <Heading id="services-heading">
+              Everything your creator business needs to run{' '}
+              <span className="text-white/30">without running you down.</span>
+            </Heading>
+          </div>
+          <p className="text-white/35 text-sm leading-relaxed max-w-xs lg:text-right">
+            Built, operated and optimized by a team that only works with creators.
+          </p>
+        </FadeIn>
+
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+          {SERVICES.map((s, i) => (
+            <FadeIn key={i} delay={i * 0.04}>
+              <div className="group h-full rounded-xl border border-white/[0.05] bg-white/[0.012] p-6 hover:border-violet-500/20 hover:bg-violet-500/[0.025] transition-all duration-300 cursor-default">
+                <div className="w-10 h-10 rounded-xl border border-violet-500/15 bg-violet-500/[0.05] flex items-center justify-center text-violet-400 mb-5 group-hover:scale-[1.08] group-hover:bg-violet-500/10 transition-all duration-300">
+                  <s.icon className="w-4.5 h-4.5" />
+                </div>
+                <h3 className="font-bold text-white text-[0.88rem] mb-2 tracking-tight leading-snug">{s.title}</h3>
+                <p className="text-white/33 text-[0.8rem] leading-relaxed">{s.body}</p>
+              </div>
+            </FadeIn>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════════
+   WHY CREATORS WORK WITH BRANDVERSE
+   ═══════════════════════════════════════════════════════════════════════════════ */
+
+function WhySection() {
+  return (
+    <section className="py-28 px-5 sm:px-8 border-t border-white/[0.04]" aria-labelledby="why-heading">
+      <div className="mx-auto max-w-7xl">
+        <FadeIn className="text-center max-w-2xl mx-auto mb-16">
+          <Label>Why Creators Choose Us</Label>
+          <Heading id="why-heading" className="mb-5">
+            Why creators work with Brandverse.
+          </Heading>
+          <p className="text-white/40 text-[1.05rem] leading-relaxed">
+            Because creator businesses deserve operational standards that match the quality of their content.
+          </p>
+        </FadeIn>
+
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          {WHY_BV.map((item, i) => (
+            <FadeIn key={i} delay={i * 0.06}>
+              <div className="group h-full rounded-xl border border-white/[0.05] bg-white/[0.012] p-6 text-center hover:border-violet-500/20 hover:bg-violet-500/[0.025] transition-all duration-300">
+                <div className="w-10 h-10 rounded-xl border border-violet-500/12 bg-violet-500/[0.05] flex items-center justify-center text-violet-400 mb-4 mx-auto group-hover:scale-110 transition-transform duration-300">
+                  <item.icon className="w-4.5 h-4.5" />
+                </div>
+                <div className="text-sm font-bold text-white mb-2 tracking-tight">{item.word}</div>
+                <p className="text-white/32 text-[0.8rem] leading-relaxed">{item.body}</p>
+              </div>
+            </FadeIn>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════════
+   YOUR CREATOR BUSINESS DESERVES BETTER OPERATIONS
+   ═══════════════════════════════════════════════════════════════════════════════ */
+
+function DeservesBetter() {
+  const items = [
+    { title: 'More structure',            body: 'Documented processes, clear playbooks and repeatable systems — so your business runs consistently without constant oversight.' },
+    { title: 'Better organization',       body: 'Every message, contract, deliverable and deadline tracked and organized. Nothing falls through the cracks.' },
+    { title: 'Less operational stress',   body: 'Delegate the work that drains your energy. Show up for the creative work that matters.' },
+    { title: 'Reliable support',          body: 'A dedicated operations partner who understands your business, your voice and your audience — not a revolving door of freelancers.' },
+    { title: 'Professional systems',      body: 'SOPs, brand voice guides, communication handbooks — the same operational infrastructure used by the most organized creators in the world.' },
+    { title: 'Focus on what you create',  body: 'Every hour we free up is an hour you get to spend creating, collaborating and growing your audience.' },
+  ];
+
+  return (
+    <section className="py-28 px-5 sm:px-8 border-t border-white/[0.04]" aria-labelledby="deserves-heading">
+      <div className="mx-auto max-w-7xl">
+        <FadeIn className="text-center max-w-3xl mx-auto mb-16">
+          <Label>Better Operations</Label>
+          <Heading id="deserves-heading" className="mb-6">
+            Your creator business deserves{' '}
+            <span className="bg-gradient-to-r from-violet-400 to-indigo-400 bg-clip-text text-transparent">better operations.</span>
+          </Heading>
+          <p className="text-white/40 text-[1.1rem] leading-relaxed">
+            You built something real. It deserves infrastructure that matches the quality of your work.
+          </p>
+        </FadeIn>
+
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {items.map((item, i) => (
+            <FadeIn key={i} delay={i * 0.07}>
+              <div className="group h-full rounded-2xl border border-white/[0.06] bg-gradient-to-br from-violet-500/[0.03] to-transparent p-8 hover:border-violet-500/15 transition-all duration-300">
+                <div className="w-2 h-2 rounded-full bg-violet-400 mb-5" />
+                <h3 className="font-bold text-white text-[1rem] mb-3 tracking-tight">{item.title}</h3>
+                <p className="text-white/38 text-[0.85rem] leading-relaxed">{item.body}</p>
+              </div>
+            </FadeIn>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════════
+   HOW WE WORK
+   ═══════════════════════════════════════════════════════════════════════════════ */
+
+function HowWeWork() {
   const [active, setActive] = useState(0);
 
   return (
-    <section id="how-it-works" className="py-28 px-5 sm:px-8 border-t border-white/[0.04]" aria-labelledby="hiw-heading">
+    <section id="how-it-works" className="py-28 px-5 sm:px-8 border-t border-white/[0.04]" aria-labelledby="how-heading">
       <div className="mx-auto max-w-7xl">
         <FadeIn className="max-w-2xl mb-16">
-          <SectionLabel>How It Works</SectionLabel>
-          <SectionHeading className="mb-5" id="hiw-heading">
+          <Label>How We Work</Label>
+          <Heading id="how-heading" className="mb-5">
             From first call to full operations.
-          </SectionHeading>
-          <SectionSub>A structured, transparent process — no ambiguity, no surprises.</SectionSub>
+          </Heading>
+          <p className="text-white/40 text-[1.05rem] leading-relaxed max-w-xl">
+            A structured, transparent process. No ambiguity. No surprises.
+          </p>
         </FadeIn>
 
-        {/* Desktop timeline */}
+        {/* Desktop */}
         <div className="hidden lg:block relative">
-          {/* Connector line */}
-          <div aria-hidden className="absolute top-8 left-[calc(10%)] right-[calc(10%)] h-px bg-gradient-to-r from-transparent via-white/[0.07] to-transparent" />
+          <div aria-hidden className="absolute top-9 left-[10%] right-[10%] h-px bg-gradient-to-r from-transparent via-white/[0.06] to-transparent" />
           <div className="grid grid-cols-5 gap-4">
-            {HOW_IT_WORKS.map((step, i) => (
+            {HOW_STEPS.map((step, i) => (
               <FadeIn key={i} delay={i * 0.1}>
                 <div
-                  role="button"
-                  tabIndex={0}
-                  aria-pressed={active === i}
-                  onMouseEnter={() => setActive(i)}
-                  onFocus={() => setActive(i)}
-                  onKeyDown={e => e.key === 'Enter' && setActive(i)}
-                  className={`relative rounded-xl border p-6 cursor-pointer transition-all duration-300 outline-none ${
+                  role="button" tabIndex={0} aria-pressed={active === i}
+                  onMouseEnter={() => setActive(i)} onFocus={() => setActive(i)}
+                  className={`relative rounded-xl border p-6 cursor-pointer transition-all duration-300 outline-none focus-visible:ring-2 focus-visible:ring-violet-400 ${
                     active === i
-                      ? 'border-violet-500/30 bg-violet-500/[0.04] shadow-lg shadow-violet-500/5'
-                      : 'border-white/[0.05] bg-white/[0.012] hover:border-white/10'
+                      ? 'border-violet-500/25 bg-violet-500/[0.04] shadow-lg shadow-violet-500/5'
+                      : 'border-white/[0.04] bg-white/[0.01] hover:border-white/[0.08]'
                   }`}
                 >
-                  <div className={`w-9 h-9 rounded-full flex items-center justify-center text-xs font-black font-mono mb-5 transition-all duration-300 ${
-                    active === i ? 'bg-violet-500 text-white shadow-lg shadow-violet-500/30' : 'bg-white/[0.04] text-white/30'
+                  <div className={`w-10 h-10 rounded-full flex items-center justify-center text-xs font-black font-mono mb-5 transition-all duration-300 ${
+                    active === i ? 'bg-violet-500 text-white shadow-lg shadow-violet-500/25' : 'bg-white/[0.04] text-white/25'
                   }`}>
                     {step.num}
                   </div>
-                  <h3 className="font-bold text-white text-[0.86rem] mb-2 leading-snug">{step.title}</h3>
-                  <p className="text-white/35 text-[0.78rem] leading-relaxed">{step.body}</p>
+                  <h3 className="font-bold text-white text-[0.85rem] mb-2 leading-snug">{step.title}</h3>
+                  <p className="text-white/32 text-[0.78rem] leading-relaxed">{step.body}</p>
                 </div>
               </FadeIn>
             ))}
           </div>
         </div>
 
-        {/* Mobile stack */}
+        {/* Mobile */}
         <div className="lg:hidden space-y-3">
-          {HOW_IT_WORKS.map((step, i) => (
-            <FadeIn key={i} delay={i * 0.09}>
-              <div className="flex gap-4 rounded-xl border border-white/[0.06] bg-white/[0.015] p-6">
-                <div className="w-9 h-9 rounded-full bg-violet-500/10 border border-violet-500/20 flex items-center justify-center text-xs font-black font-mono text-violet-400 shrink-0 mt-0.5">
+          {HOW_STEPS.map((step, i) => (
+            <FadeIn key={i} delay={i * 0.08}>
+              <div className="flex gap-4 rounded-xl border border-white/[0.05] bg-white/[0.012] p-6">
+                <div className="w-10 h-10 rounded-full bg-violet-500/10 border border-violet-500/20 flex items-center justify-center text-xs font-black font-mono text-violet-400 shrink-0 mt-0.5">
                   {step.num}
                 </div>
                 <div>
                   <h3 className="font-bold text-white text-[0.9rem] mb-1.5">{step.title}</h3>
-                  <p className="text-white/40 text-sm leading-relaxed">{step.body}</p>
+                  <p className="text-white/38 text-sm leading-relaxed">{step.body}</p>
                 </div>
               </div>
             </FadeIn>
@@ -547,48 +541,53 @@ function HowItWorks() {
   );
 }
 
-// ─── Security & Confidentiality ───────────────────────────────────────────────
+/* ═══════════════════════════════════════════════════════════════════════════════
+   CONFIDENTIALITY
+   ═══════════════════════════════════════════════════════════════════════════════ */
 
-function SecuritySection() {
+function Confidentiality() {
   return (
-    <section id="security" className="py-28 px-5 sm:px-8 border-t border-white/[0.04]" aria-labelledby="security-heading">
-      <div className="mx-auto max-w-7xl">
-        <FadeIn className="max-w-2xl mb-14">
-          <SectionLabel>Security & Confidentiality</SectionLabel>
-          <SectionHeading className="mb-5" id="security-heading">
-            Built on discretion and professional standards.
-          </SectionHeading>
-          <SectionSub>
-            We operate with the integrity that elite creator businesses demand. Protecting your identity, your data and your trust is not optional — it is the foundation of every engagement.
-          </SectionSub>
+    <section id="confidentiality" className="py-28 px-5 sm:px-8 border-t border-white/[0.04]" aria-labelledby="conf-heading">
+      <div className="mx-auto max-w-5xl">
+        <FadeIn className="text-center max-w-2xl mx-auto mb-16">
+          <Label>Confidentiality</Label>
+          <Heading id="conf-heading" className="mb-5">
+            Your privacy is not negotiable.
+          </Heading>
+          <p className="text-white/40 text-[1.05rem] leading-relaxed">
+            Creator businesses require absolute discretion. We treat your privacy with the same care you put into building your brand.
+          </p>
         </FadeIn>
 
-        {/* 4 pillars */}
-        <div className="grid sm:grid-cols-2 gap-4 mb-6">
-          {SECURITY.map((item, i) => (
+        <div className="grid sm:grid-cols-2 gap-4 mb-8">
+          {[
+            { icon: Lock,   title: 'NDA on every engagement',      body: 'Legally binding agreements signed before any work begins. Your business details never leave our engagement.' },
+            { icon: Key,    title: 'Restricted access',             body: 'Credentials managed on a strict need-to-know basis with dedicated, secure password management infrastructure.' },
+            { icon: Eye,    title: 'Zero public disclosure',        body: 'We never reference, acknowledge or discuss our creator partnerships publicly. Your identity stays private.' },
+            { icon: Shield, title: 'Isolated environments',         body: 'Every creator engagement runs in a fully segregated environment. No data commingles between clients.' },
+          ].map((item, i) => (
             <FadeIn key={i} delay={i * 0.08}>
-              <div className="group h-full rounded-xl border border-white/[0.06] bg-white/[0.015] p-7 hover:border-violet-500/20 hover:bg-violet-500/[0.025] transition-all duration-300">
-                <div className="w-10 h-10 rounded-xl border border-violet-500/15 bg-violet-500/[0.06] flex items-center justify-center text-violet-400 mb-5 group-hover:scale-105 transition-transform">
-                  <item.icon className="w-4.5 h-4.5" />
+              <div className="group rounded-2xl border border-white/[0.05] bg-white/[0.012] p-8 hover:border-violet-500/15 transition-all duration-300">
+                <div className="w-10 h-10 rounded-xl border border-violet-500/12 bg-violet-500/[0.05] flex items-center justify-center text-violet-400 mb-5 group-hover:scale-105 transition-transform">
+                  <item.icon className="w-5 h-5" />
                 </div>
-                <h3 className="font-bold text-white text-[0.93rem] mb-2">{item.title}</h3>
-                <p className="text-white/40 text-sm leading-relaxed">{item.body}</p>
+                <h3 className="font-bold text-white text-[0.95rem] mb-2.5">{item.title}</h3>
+                <p className="text-white/38 text-[0.85rem] leading-relaxed">{item.body}</p>
               </div>
             </FadeIn>
           ))}
         </div>
 
-        {/* NDA callout */}
+        {/* Trust banner */}
         <FadeIn delay={0.2}>
-          <div className="rounded-2xl border border-violet-500/15 bg-gradient-to-br from-violet-500/[0.06] to-indigo-500/[0.03] p-8 sm:p-10 flex flex-col sm:flex-row items-start gap-6">
-            <div className="w-12 h-12 rounded-xl bg-violet-500/15 border border-violet-500/20 flex items-center justify-center text-violet-400 shrink-0">
-              <Lock className="w-5.5 h-5.5" />
+          <div className="rounded-2xl border border-violet-500/12 bg-gradient-to-br from-violet-500/[0.05] to-indigo-500/[0.02] p-8 sm:p-10 flex flex-col sm:flex-row gap-6 items-start">
+            <div className="w-12 h-12 rounded-xl bg-violet-500/12 border border-violet-500/18 flex items-center justify-center text-violet-400 shrink-0">
+              <BadgeCheck className="w-6 h-6" />
             </div>
             <div>
-              <div className="text-xs tracking-widest text-violet-400 uppercase font-semibold mb-2">Standard on every engagement</div>
-              <h3 className="text-xl font-black text-white mb-2 tracking-tight">NDA-protected before any work begins.</h3>
-              <p className="text-white/45 text-[0.9rem] leading-relaxed max-w-2xl">
-                Every Brandverse engagement is covered by a legally binding Non-Disclosure Agreement, signed before any call, access or discussion about your business. Your account details, audience metrics, partnerships and identity are never disclosed — to anyone, ever.
+              <h3 className="text-lg font-black text-white mb-2 tracking-tight">Creator trust is the foundation of everything we do.</h3>
+              <p className="text-white/42 text-[0.9rem] leading-relaxed max-w-2xl">
+                We don&apos;t just protect your data — we protect your reputation, your relationships and your peace of mind. Every process, every team member and every interaction is built around the understanding that your trust must be earned and never compromised.
               </p>
             </div>
           </div>
@@ -598,75 +597,31 @@ function SecuritySection() {
   );
 }
 
-// ─── Testimonials Placeholder ─────────────────────────────────────────────────
+/* ═══════════════════════════════════════════════════════════════════════════════
+   FAQ
+   ═══════════════════════════════════════════════════════════════════════════════ */
 
-function TestimonialsPlaceholder() {
-  const testimonials = [
-    { initials: 'C.M.', platform: 'YouTube Creator', text: 'Having Brandverse handle the operational side of my business completely changed how I work. I create more, stress less.' },
-    { initials: 'A.R.', platform: 'Subscription Creator', text: 'The inbox management alone was worth it. I went from drowning in messages to having complete visibility every day.' },
-    { initials: 'J.L.', platform: 'Livestream Creator', text: 'Professional, discreet and reliable. They understood my brand voice from week one. Nothing goes missing.' },
-  ];
-
-  return (
-    <section className="py-28 px-5 sm:px-8 border-t border-white/[0.04]" aria-labelledby="testimonials-heading">
-      <div className="mx-auto max-w-7xl">
-        <FadeIn className="text-center mb-14">
-          <SectionLabel>What Creators Say</SectionLabel>
-          <SectionHeading id="testimonials-heading">
-            Built for creators who value their time.
-          </SectionHeading>
-        </FadeIn>
-        <div className="grid md:grid-cols-3 gap-4">
-          {testimonials.map((t, i) => (
-            <FadeIn key={i} delay={i * 0.1}>
-              <div className="h-full rounded-xl border border-white/[0.06] bg-white/[0.015] p-7 hover:border-white/10 transition-all duration-300">
-                <div className="flex gap-0.5 mb-5">
-                  {Array.from({ length: 5 }).map((_, s) => (
-                    <Star key={s} className="w-3.5 h-3.5 fill-violet-400 text-violet-400" />
-                  ))}
-                </div>
-                <p className="text-white/60 text-[0.88rem] leading-relaxed mb-6 italic">&ldquo;{t.text}&rdquo;</p>
-                <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-full bg-gradient-to-br from-violet-500 to-indigo-600 flex items-center justify-center text-white text-[10px] font-bold">
-                    {t.initials.split('.')[0]}
-                  </div>
-                  <div>
-                    <div className="text-[0.82rem] font-semibold text-white">{t.initials}</div>
-                    <div className="text-[0.75rem] text-white/30">{t.platform}</div>
-                  </div>
-                </div>
-              </div>
-            </FadeIn>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-// ─── FAQ ──────────────────────────────────────────────────────────────────────
-
-function FAQ() {
+function FaqSection() {
   const [open, setOpen] = useState<number | null>(null);
 
   return (
     <section id="faq" className="py-28 px-5 sm:px-8 border-t border-white/[0.04]" aria-labelledby="faq-heading">
       <div className="mx-auto max-w-3xl">
         <FadeIn className="text-center mb-14">
-          <SectionLabel>FAQ</SectionLabel>
-          <SectionHeading id="faq-heading">Frequently asked questions.</SectionHeading>
-          <p className="text-white/40 text-lg mt-4">Everything you need to know before booking a call.</p>
+          <Label>FAQ</Label>
+          <Heading id="faq-heading">Questions creators ask.</Heading>
+          <p className="text-white/38 text-lg mt-4">Everything you need to know before booking a discovery call.</p>
         </FadeIn>
 
         <div className="space-y-2" role="list">
           {FAQS.map((faq, i) => {
             const isOpen = open === i;
             return (
-              <FadeIn key={i} delay={i * 0.025}>
+              <FadeIn key={i} delay={i * 0.02}>
                 <div
                   role="listitem"
                   className={`rounded-xl border overflow-hidden transition-all duration-200 ${
-                    isOpen ? 'border-violet-500/20 bg-violet-500/[0.03]' : 'border-white/[0.05] bg-white/[0.012] hover:border-white/[0.09]'
+                    isOpen ? 'border-violet-500/18 bg-violet-500/[0.03]' : 'border-white/[0.04] bg-white/[0.01] hover:border-white/[0.08]'
                   }`}
                 >
                   <button
@@ -674,21 +629,17 @@ function FAQ() {
                     aria-expanded={isOpen}
                     className="w-full flex items-center justify-between gap-4 px-6 py-5 text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-violet-400 rounded-xl"
                   >
-                    <span className="font-semibold text-[0.92rem] text-white/82 leading-snug">{faq.q}</span>
-                    <ChevronDown
-                      className={`w-4 h-4 shrink-0 transition-all duration-300 ${isOpen ? 'rotate-180 text-violet-400' : 'text-white/25'}`}
-                    />
+                    <span className="font-semibold text-[0.9rem] text-white/78 leading-snug">{faq.q}</span>
+                    <ChevronDown className={`w-4 h-4 shrink-0 transition-transform duration-300 ${isOpen ? 'rotate-180 text-violet-400' : 'text-white/22'}`} />
                   </button>
                   <AnimatePresence initial={false}>
                     {isOpen && (
                       <motion.div
-                        initial={{ height: 0 }}
-                        animate={{ height: 'auto' }}
-                        exit={{ height: 0 }}
+                        initial={{ height: 0 }} animate={{ height: 'auto' }} exit={{ height: 0 }}
                         transition={{ duration: 0.22, ease: 'easeInOut' }}
                         className="overflow-hidden"
                       >
-                        <p className="px-6 pb-5 pt-3 text-white/45 text-[0.875rem] leading-relaxed border-t border-white/[0.05]">
+                        <p className="px-6 pb-5 pt-3 text-white/42 text-[0.86rem] leading-relaxed border-t border-white/[0.04]">
                           {faq.a}
                         </p>
                       </motion.div>
@@ -704,25 +655,21 @@ function FAQ() {
   );
 }
 
-// ─── Booking / Calendar Placeholder ──────────────────────────────────────────
+/* ═══════════════════════════════════════════════════════════════════════════════
+   BOOKING PLACEHOLDER
+   ═══════════════════════════════════════════════════════════════════════════════ */
 
 function BookingPlaceholder() {
   return (
     <section className="py-20 px-5 sm:px-8 border-t border-white/[0.04]" aria-label="Booking">
       <div className="mx-auto max-w-2xl text-center">
         <FadeIn>
-          <SectionLabel>Schedule</SectionLabel>
+          <Label>Schedule</Label>
           <h2 className="text-2xl font-black text-white mb-3 tracking-tight">Book your discovery call</h2>
-          <p className="text-white/35 text-sm mb-8">
-            Direct calendar booking is coming soon. Use the contact form below in the meantime.
-          </p>
-          <div
-            aria-label="Calendly / Google Calendar integration placeholder"
-            className="rounded-2xl border border-dashed border-white/[0.07] bg-white/[0.01] p-16 flex flex-col items-center gap-3"
-          >
-            <Calendar className="w-8 h-8 text-white/15" />
-            <p className="text-white/20 text-sm font-medium">Calendly / Google Calendar integration</p>
-            <p className="text-white/10 text-xs">Placeholder — will be activated with a URL embed</p>
+          <p className="text-white/32 text-sm mb-8">Direct calendar booking coming soon. Use the form below in the meantime.</p>
+          <div className="rounded-2xl border border-dashed border-white/[0.06] bg-white/[0.008] p-16 flex flex-col items-center gap-3">
+            <Calendar className="w-8 h-8 text-white/12" />
+            <p className="text-white/18 text-sm font-medium">Calendly integration — coming soon</p>
           </div>
         </FadeIn>
       </div>
@@ -730,11 +677,13 @@ function BookingPlaceholder() {
   );
 }
 
-// ─── Contact Form ─────────────────────────────────────────────────────────────
+/* ═══════════════════════════════════════════════════════════════════════════════
+   CONTACT FORM
+   ═══════════════════════════════════════════════════════════════════════════════ */
 
-function ContactForm() {
+function ContactSection() {
   const [form, setForm] = useState({
-    name: '', email: '', platform: '', audienceSize: '', website: '', message: '',
+    name: '', email: '', platform: '', audienceSize: '', website: '', challenge: '', message: '',
   });
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
   const [errorMsg, setErrorMsg] = useState('');
@@ -750,7 +699,10 @@ function ContactForm() {
       full_name: form.name,
       email: form.email,
       business_type: form.platform ? `Creator Platform: ${form.platform}` : undefined,
-      service_interest: form.audienceSize ? `Audience Size: ${form.audienceSize}` : undefined,
+      service_interest: [
+        form.audienceSize ? `Audience: ${form.audienceSize}` : '',
+        form.challenge ? `Challenge: ${form.challenge}` : '',
+      ].filter(Boolean).join(' | ') || undefined,
       website: form.website || undefined,
       message: form.message || undefined,
       source_page: 'creators.brandverse.tech',
@@ -760,65 +712,63 @@ function ContactForm() {
       const res = await leadService.submitLeadWithRetry(lead, 2);
       if (res.success) {
         setStatus('success');
-        setForm({ name: '', email: '', platform: '', audienceSize: '', website: '', message: '' });
+        setForm({ name: '', email: '', platform: '', audienceSize: '', website: '', challenge: '', message: '' });
       } else {
         setStatus('error');
         setErrorMsg(res.error || 'Submission failed. Please try again.');
       }
     } catch {
       setStatus('error');
-      setErrorMsg('An unexpected error occurred. Please try again.');
+      setErrorMsg('An unexpected error occurred.');
     }
   };
 
-  const inputCls = "w-full px-4 py-3 rounded-xl bg-white/[0.04] border border-white/[0.07] text-white text-sm placeholder-white/20 focus:outline-none focus:border-violet-500/40 focus:ring-1 focus:ring-violet-500/20 transition-all duration-200";
-  const selectCls = "w-full px-4 py-3 rounded-xl bg-[#111] border border-white/[0.07] text-white/70 text-sm focus:outline-none focus:border-violet-500/40 focus:ring-1 focus:ring-violet-500/20 transition-all duration-200 cursor-pointer";
-  const labelCls = "block text-[11px] font-semibold text-white/35 uppercase tracking-widest mb-2";
+  const inputCls = "w-full px-4 py-3.5 rounded-xl bg-white/[0.035] border border-white/[0.06] text-white text-sm placeholder-white/18 focus:outline-none focus:border-violet-500/35 focus:ring-1 focus:ring-violet-500/15 transition-all";
+  const selectCls = "w-full px-4 py-3.5 rounded-xl bg-[#0e0e0e] border border-white/[0.06] text-white/65 text-sm focus:outline-none focus:border-violet-500/35 focus:ring-1 focus:ring-violet-500/15 transition-all cursor-pointer";
+  const labelCls = "block text-[10px] font-semibold text-white/30 uppercase tracking-[0.18em] mb-2";
 
   return (
     <section id="contact" className="py-28 px-5 sm:px-8 border-t border-white/[0.04]" aria-labelledby="contact-heading">
       <div className="mx-auto max-w-2xl">
         <FadeIn className="text-center mb-12">
-          <SectionLabel>Get Started</SectionLabel>
-          <SectionHeading className="mb-4" id="contact-heading">
-            Book your discovery call.
-          </SectionHeading>
-          <p className="text-white/40 text-[1.05rem]">
-            Tell us about your creator business. We&apos;ll review your submission and be in touch within 24 hours.
+          <Label>Get Started</Label>
+          <Heading id="contact-heading" className="mb-4">
+            Book your strategy call.
+          </Heading>
+          <p className="text-white/38 text-[1.05rem]">
+            Tell us about your creator business. We&apos;ll review your submission and reach out within 24 hours.
           </p>
         </FadeIn>
 
         <FadeIn delay={0.1}>
-          <div className="rounded-2xl border border-white/[0.07] bg-white/[0.02] backdrop-blur p-8 sm:p-10">
-            <form onSubmit={handleSubmit} noValidate className="space-y-5" aria-label="Discovery call request form">
-              {/* Name + Email */}
+          <div className="rounded-2xl border border-white/[0.06] bg-white/[0.018] backdrop-blur p-8 sm:p-10">
+            <form onSubmit={handleSubmit} noValidate className="space-y-5" aria-label="Strategy call request">
               <div className="grid sm:grid-cols-2 gap-5">
                 <div>
-                  <label htmlFor="c-name" className={labelCls}>Full Name *</label>
-                  <input id="c-name" required type="text" placeholder="Your name"
+                  <label htmlFor="f-name" className={labelCls}>Full Name *</label>
+                  <input id="f-name" required type="text" placeholder="Your name"
                     value={form.name} onChange={set('name')} className={inputCls} />
                 </div>
                 <div>
-                  <label htmlFor="c-email" className={labelCls}>Email Address *</label>
-                  <input id="c-email" required type="email" placeholder="you@example.com"
+                  <label htmlFor="f-email" className={labelCls}>Email *</label>
+                  <input id="f-email" required type="email" placeholder="you@example.com"
                     value={form.email} onChange={set('email')} className={inputCls} />
                 </div>
               </div>
 
-              {/* Platform + Audience */}
               <div className="grid sm:grid-cols-2 gap-5">
                 <div>
-                  <label htmlFor="c-platform" className={labelCls}>Creator Platform</label>
-                  <select id="c-platform" value={form.platform} onChange={set('platform')} className={selectCls}>
+                  <label htmlFor="f-platform" className={labelCls}>Creator Platform</label>
+                  <select id="f-platform" value={form.platform} onChange={set('platform')} className={selectCls}>
                     <option value="">Select platform</option>
-                    {['YouTube', 'OnlyFans', 'Patreon', 'Twitch', 'Substack', 'Instagram / TikTok', 'Discord', 'Other'].map(p => (
+                    {['YouTube', 'OnlyFans', 'Fansly', 'Patreon', 'Twitch', 'Kick', 'Substack', 'Instagram / TikTok', 'Discord', 'Other'].map(p => (
                       <option key={p}>{p}</option>
                     ))}
                   </select>
                 </div>
                 <div>
-                  <label htmlFor="c-audience" className={labelCls}>Approximate Audience Size</label>
-                  <select id="c-audience" value={form.audienceSize} onChange={set('audienceSize')} className={selectCls}>
+                  <label htmlFor="f-audience" className={labelCls}>Audience Size</label>
+                  <select id="f-audience" value={form.audienceSize} onChange={set('audienceSize')} className={selectCls}>
                     <option value="">Select range</option>
                     {['Under 10k', '10k – 50k', '50k – 250k', '250k – 1M', '1M+'].map(s => (
                       <option key={s}>{s}</option>
@@ -827,50 +777,42 @@ function ContactForm() {
                 </div>
               </div>
 
-              {/* Profile URL */}
               <div>
-                <label htmlFor="c-website" className={labelCls}>Profile or Website URL</label>
-                <input id="c-website" type="url" placeholder="https://..."
+                <label htmlFor="f-website" className={labelCls}>Website or Profile URL</label>
+                <input id="f-website" type="url" placeholder="https://..."
                   value={form.website} onChange={set('website')} className={inputCls} />
               </div>
 
-              {/* Message */}
               <div>
-                <label htmlFor="c-message" className={labelCls}>Tell us about your business</label>
-                <textarea id="c-message" rows={4}
-                  placeholder="Describe your current operational challenges and what you're hoping to solve..."
-                  value={form.message} onChange={set('message')}
-                  className={`${inputCls} resize-none`} />
+                <label htmlFor="f-challenge" className={labelCls}>Current Biggest Challenge</label>
+                <input id="f-challenge" type="text" placeholder="e.g. inbox management, scheduling, workflow organization..."
+                  value={form.challenge} onChange={set('challenge')} className={inputCls} />
               </div>
 
-              {/* Submit */}
-              <button
-                type="submit"
-                disabled={status === 'submitting'}
-                aria-label="Submit discovery call request"
-                className="w-full py-4 rounded-xl bg-white text-black font-semibold text-[0.93rem] hover:bg-white/92 active:scale-[0.99] transition-all duration-150 disabled:opacity-60 flex items-center justify-center gap-2"
-              >
+              <div>
+                <label htmlFor="f-message" className={labelCls}>Message</label>
+                <textarea id="f-message" rows={4}
+                  placeholder="Tell us anything else about your business and what you're looking for..."
+                  value={form.message} onChange={set('message')} className={`${inputCls} resize-none`} />
+              </div>
+
+              <button type="submit" disabled={status === 'submitting'}
+                className="w-full py-4 rounded-xl bg-white text-black font-semibold text-[0.93rem] hover:bg-white/92 active:scale-[0.99] transition-all disabled:opacity-60 flex items-center justify-center gap-2">
                 {status === 'submitting' ? (
-                  <>
-                    <span className="w-4 h-4 rounded-full border-2 border-black/20 border-t-black animate-spin" />
-                    Submitting...
-                  </>
-                ) : "Let's Talk"}
+                  <><span className="w-4 h-4 rounded-full border-2 border-black/20 border-t-black animate-spin" /> Submitting...</>
+                ) : 'Book My Strategy Call'}
               </button>
 
-              {/* Feedback */}
               <AnimatePresence>
                 {status === 'success' && (
                   <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}
-                    role="status" aria-live="polite"
-                    className="p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-sm text-center font-medium">
+                    role="status" className="p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/18 text-emerald-400 text-sm text-center font-medium">
                     ✓ Submitted. We&apos;ll be in touch within 24 hours.
                   </motion.div>
                 )}
                 {status === 'error' && (
                   <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}
-                    role="alert" aria-live="assertive"
-                    className="p-4 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 text-sm text-center font-medium">
+                    role="alert" className="p-4 rounded-xl bg-red-500/10 border border-red-500/18 text-red-400 text-sm text-center font-medium">
                     ✗ {errorMsg}
                   </motion.div>
                 )}
@@ -883,66 +825,74 @@ function ContactForm() {
   );
 }
 
-// ─── Footer ───────────────────────────────────────────────────────────────────
+/* ═══════════════════════════════════════════════════════════════════════════════
+   FOOTER
+   ═══════════════════════════════════════════════════════════════════════════════ */
 
-function Footer() {
+function CreatorsFooter() {
   return (
-    <footer className="border-t border-white/[0.04] py-12 px-5 sm:px-8" role="contentinfo">
-      <div className="mx-auto max-w-7xl flex flex-col md:flex-row items-center justify-between gap-6">
-        <div className="flex items-center gap-2.5">
-          <div className="w-6 h-6 rounded-lg bg-gradient-to-br from-violet-500 to-indigo-600 flex items-center justify-center shadow-lg shadow-violet-500/20">
-            <Sparkles className="w-3 h-3 text-white" />
+    <footer className="border-t border-white/[0.04] py-14 px-5 sm:px-8" role="contentinfo">
+      <div className="mx-auto max-w-7xl">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-8">
+          <div className="flex items-center gap-2.5">
+            <div className="w-6 h-6 rounded-lg bg-gradient-to-br from-violet-500 to-indigo-600 flex items-center justify-center">
+              <Sparkles className="w-3 h-3 text-white" />
+            </div>
+            <span className="font-bold text-sm text-white tracking-tight">
+              Brandverse<span className="text-white/22 font-normal ml-1.5">for Creators</span>
+            </span>
           </div>
-          <span className="font-bold text-sm text-white tracking-tight">
-            Brandverse <span className="text-white/25 font-normal">Creators</span>
-          </span>
+
+          <nav className="flex flex-wrap items-center justify-center gap-6 text-[0.78rem] text-white/25" aria-label="Footer">
+            <Link href="/privacy" className="hover:text-white/50 transition-colors">Privacy Policy</Link>
+            <Link href="/terms" className="hover:text-white/50 transition-colors">Terms of Service</Link>
+            <a href="mailto:creators@brandverse.tech" className="hover:text-white/50 transition-colors">creators@brandverse.tech</a>
+          </nav>
+
+          <p className="text-[0.72rem] text-white/15">© {new Date().getFullYear()} Brandverse. All rights reserved.</p>
         </div>
 
-        <nav className="flex flex-wrap items-center gap-6 text-[0.78rem] text-white/28" aria-label="Footer navigation">
-          <Link href="/privacy" className="hover:text-white/55 transition-colors">Privacy Policy</Link>
-          <Link href="/terms" className="hover:text-white/55 transition-colors">Terms of Service</Link>
-          <a href="mailto:ayush@brandverse.tech" className="hover:text-white/55 transition-colors">
-            ayush@brandverse.tech
-          </a>
-        </nav>
-
-        <div className="text-[0.75rem] text-white/18">
-          © {new Date().getFullYear()} Brandverse. All rights reserved.
+        <div className="mt-8 pt-6 border-t border-white/[0.03] text-center">
+          <p className="text-[0.72rem] text-white/12 max-w-xl mx-auto leading-relaxed">
+            Brandverse is a creator operations company. We provide operational support services for professional content creators and digital entrepreneurs.
+          </p>
         </div>
       </div>
     </footer>
   );
 }
 
-// ─── Page Root ────────────────────────────────────────────────────────────────
+/* ═══════════════════════════════════════════════════════════════════════════════
+   PAGE ROOT
+   ═══════════════════════════════════════════════════════════════════════════════ */
 
 export default function CreatorsPage() {
   return (
     <div className="bg-[#060606] text-white min-h-screen overflow-x-hidden selection:bg-violet-500/25">
-      {/* Global ambient glows */}
+      {/* Ambient background */}
       <div aria-hidden className="pointer-events-none fixed inset-0 overflow-hidden">
-        <div className="absolute -top-60 left-1/2 -translate-x-1/2 w-[1200px] h-[700px] rounded-full bg-violet-700/[0.06] blur-[180px]" />
-        <div className="absolute top-[50vh] -left-60 w-[700px] h-[700px] rounded-full bg-indigo-600/[0.05] blur-[140px]" />
-        <div className="absolute top-[130vh] right-0 w-[600px] h-[600px] rounded-full bg-violet-500/[0.04] blur-[120px]" />
+        <div className="absolute -top-60 left-1/2 -translate-x-1/2 w-[1200px] h-[700px] rounded-full bg-violet-700/[0.05] blur-[180px]" />
+        <div className="absolute top-[50vh] -left-60 w-[700px] h-[700px] rounded-full bg-indigo-600/[0.04] blur-[140px]" />
+        <div className="absolute top-[140vh] right-0 w-[500px] h-[500px] rounded-full bg-violet-500/[0.03] blur-[120px]" />
       </div>
 
       <Navbar />
 
       <main id="main-content">
         <Hero />
-        <TrustedBy />
-        <CreatorChallenges />
-        <WhyBrandverse />
-        <Services />
-        <HowItWorks />
-        <SecuritySection />
-        <TestimonialsPlaceholder />
-        <FAQ />
+        <PlatformStrip />
+        <RealitySection />
+        <ServicesSection />
+        <WhySection />
+        <DeservesBetter />
+        <HowWeWork />
+        <Confidentiality />
+        <FaqSection />
         <BookingPlaceholder />
-        <ContactForm />
+        <ContactSection />
       </main>
 
-      <Footer />
+      <CreatorsFooter />
     </div>
   );
 }
