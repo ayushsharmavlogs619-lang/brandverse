@@ -1,9 +1,3 @@
 # Cloudflare Pages — Subdomain routing
-# Status 200 = rewrite (serve the target path, keep the original URL)
-# This file must live in public/ so Next.js copies it into out/ on build.
-
-# creators.brandverse.tech → /creators/* (the creators landing page)
-https://creators.brandverse.tech/* /creators/:splat 200
-
-# edge.brandverse.tech → /edge/* (client dashboard placeholder)
-https://edge.brandverse.tech/* /edge/:splat 200
+# Note: Hostname-based routing requires Cloudflare Pages Functions or Workers
+# This file is kept for reference but won't work for subdomain routing
