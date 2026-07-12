@@ -63,76 +63,72 @@ function Heading({ children, id, className = '' }: { children: React.ReactNode; 
    ═══════════════════════════════════════════════════════════════════════════════ */
 
 const REALITY_CARDS = [
-  { icon: Inbox,      title: 'Messages never stop',                body: 'Hundreds of DMs, emails and notifications flood in daily across every platform — burying the messages that actually matter.' },
-  { icon: TrendingUp, title: 'Your business keeps growing',        body: 'More followers means more partnerships, more deliverables, more coordination. Growth should feel exciting — not exhausting.' },
-  { icon: Layers,     title: 'Operations become chaotic',           body: 'Without structured systems, everything runs on memory and impulse. Things slip through cracks that didn\'t exist six months ago.' },
-  { icon: Clock,      title: 'Admin steals creative time',         body: 'Scheduling, invoicing, contract review and inbox management quietly consume the hours that belong to your content.' },
-  { icon: Heart,      title: 'Every hour counts',                   body: 'Every hour organizing spreadsheets is an hour not spent creating, collaborating or connecting with your audience.' },
+  { icon: Inbox,      title: 'Messages never stop',                body: 'Subscriber DMs flood in 24/7. Managing high incoming volume alone means constant distraction and missed connections.' },
+  { icon: TrendingUp, title: 'Your fanbase keeps growing',        body: 'More subscribers means more direct message interactions, custom requests, and vault coordination. Scale shouldn\'t equal burnout.' },
+  { icon: Layers,     title: 'Vault & asset organization',         body: 'Without structured tagging and folder systems, sorting hundreds of photos, videos, and PPV campaigns becomes chaotic.' },
+  { icon: Clock,      title: 'Admin consumes creative hours',      body: 'Scheduling posts, coordinating media files, and managing shift schedules steals time that belongs to creating content.' },
+  { icon: Heart,      title: 'Lost revenue from slow replies',     body: 'Subscribers expect fast, personal communication. Slow response times in direct messages mean missed tips and lower retention.' },
 ];
 
 const SERVICES = [
-  { icon: Workflow,          title: 'Creator Operations',          body: 'End-to-end management of the systems and processes that keep your creator business running day-to-day.' },
-  { icon: MessageSquare,     title: 'Communication Workflows',     body: 'Structured fan interaction handling — DMs, comments and community messages processed in your voice, on brand.' },
-  { icon: Inbox,             title: 'Inbox Organization',          body: 'Zero-inbox methodology across every platform. Triage, categorize, prioritize and act on what matters.' },
-  { icon: FileText,          title: 'Business Organization',       body: 'Sponsorships, invoices, contracts and brand deliverables — tracked, structured and never missed.' },
-  { icon: Calendar,          title: 'Scheduling Support',          body: 'Calendar management, brand call coordination and deadline tracking across platforms and time zones.' },
-  { icon: SlidersHorizontal, title: 'Workflow Optimization',       body: 'We audit your current processes, eliminate bottlenecks and rebuild them to save you real hours every week.' },
-  { icon: TrendingUp,        title: 'Growth Infrastructure',       body: 'Operational frameworks designed to scale as your audience and partnerships grow — without growing your workload.' },
-  { icon: LayoutGrid,        title: 'Operational Systems',         body: 'Custom SOPs and documentation so your business runs on systems — not on your memory.' },
-  { icon: Users,             title: 'Confidential Team Support',   body: 'Discreet, NDA-protected team members who understand creator businesses and handle sensitive operations.' },
-  { icon: UserCheck,         title: 'Creator CRM',                 body: 'Organized tracking of brand relationships, partnership history and collaboration pipelines.' },
-  { icon: LineChart,         title: 'Performance Reporting',       body: 'Clear operational summaries so you always know what\'s happening behind the scenes without having to ask.' },
-  { icon: BrainCircuit,      title: 'Future AI Assistance',        body: 'Early integration of intelligent automation tools to make your operational workflows faster over time.' },
+  { icon: Workflow,          title: 'Account Operations',          body: 'Daily management of your account workflows, scheduling posts, coordinating assets, and handling general administration.' },
+  { icon: MessageSquare,     title: 'Subscriber DM Support',       body: 'Maintaining high responsiveness in your DMs. Professional, friendly subscriber interaction according to your brand guidelines.' },
+  { icon: Inbox,             title: 'Inbox Organization',          body: 'Triage, prioritize, and structure your inbox. High-priority messages, custom requests, and tips are organized instantly.' },
+  { icon: Lock,              title: 'Vault Organization',          body: 'Meticulous folder structuring for your media assets, ensuring content is clean, categorized, and easy to retrieve for campaigns.' },
+  { icon: FileText,          title: 'PPV Campaigns & Tracking',    body: 'Structuring and scheduling your pay-per-view campaigns, keeping detailed records of releases, performance, and subscriber interest.' },
+  { icon: Calendar,          title: 'Shift Coordination',          body: 'Structuring shift schedules and operational timelines to ensure your inbox remains active and responsive without causing fatigue.' },
+  { icon: SlidersHorizontal, title: 'Retention Workflows',         body: 'We design and run automated sequences, welcome messages, and renewal follow-ups to increase fan lifetime value.' },
+  { icon: TrendingUp,        title: 'Growth Infrastructure',       body: 'Operational frameworks built to scale as your subscription base grows — without demanding more of your personal time.' },
+  { icon: Users,             title: 'Confidential Team Support',   body: 'Discreet, NDA-protected support teams who understand subscription platforms and manage sensitive daily tasks.' },
+  { icon: UserCheck,         title: 'Subscriber Tracking',         body: 'Organized profiles of top spenders, custom media preferences, and specific direct message history.' },
+  { icon: LineChart,         title: 'Performance Reporting',       body: 'Clear operational summaries showing response times, inbox activity, and vault health so you are always informed.' },
+  { icon: BrainCircuit,      title: 'Future AI Optimization',      body: 'Integrating smart automation assistants to help sort messages and speed up operational workflows over time.' },
 ];
 
 const WHY_BV = [
-  { icon: BadgeCheck,  word: 'Professional',  body: 'Documented processes, structured communication and clear accountability on every engagement.' },
-  { icon: Zap,         word: 'Reliable',      body: 'Defined response times, zero dropped tasks and consistent delivery. No surprises.' },
-  { icon: LayoutGrid,  word: 'Organized',     body: 'Systems built for clarity. Everything tracked, structured and accessible.' },
-  { icon: Lock,        word: 'Confidential',  body: 'NDA-protected by default. Your identity, metrics and business stay fully private.' },
-  { icon: Eye,         word: 'Transparent',   body: 'Weekly summaries, activity logs and open communication. You\'re always in the loop.' },
-  { icon: Settings2,   word: 'Flexible',      body: 'Your engagement evolves alongside your business. We adapt as your needs change.' },
-  { icon: TrendingUp,  word: 'Scalable',      body: 'Every process built to grow. Volume doubles — operations scale without disruption.' },
-  { icon: Heart,       word: 'Creator-first', body: 'We understand creator businesses because that\'s all we do. Your creative output comes first.' },
+  { icon: BadgeCheck,  word: 'Professional',  body: 'Documented processes, structured communication, and clear accountability on every shift.' },
+  { icon: Zap,         word: 'Reliable',      body: 'Defined response times, zero missed custom requests, and consistent account coverage.' },
+  { icon: LayoutGrid,  word: 'Organized',     body: 'Systems built for clarity. Your media assets, schedules, and fan records structured beautifully.' },
+  { icon: Lock,        word: 'Confidential',  body: 'NDA-protected by default. Your identity, metrics, and files stay fully private.' },
+  { icon: Eye,         word: 'Transparent',   body: 'Weekly summaries, activity logs, and open communication. You retain full oversight.' },
+  { icon: Settings2,   word: 'Flexible',      body: 'Support scales up or down based on your promotional cycles, vacations, or content drops.' },
+  { icon: TrendingUp,  word: 'Scalable',      body: 'Operations scale effortlessly as your page climbs the percentiles. No bottlenecks.' },
+  { icon: Heart,       word: 'Creator-first', body: 'We understand subscription creators because that\'s our focus. Your brand and safety come first.' },
 ];
 
 const HOW_STEPS = [
-  { num: '01', title: 'Discovery Call',       body: 'A focused conversation to understand your business, your platforms and where the operational weight is heaviest.' },
-  { num: '02', title: 'Workflow Review',      body: 'We map every existing process, identify gaps and document the tools and platforms your business depends on.' },
-  { num: '03', title: 'Operations Strategy',  body: 'A custom plan built for your specific business — not a template, not a one-size-fits-all package.' },
-  { num: '04', title: 'Onboarding',           body: 'Secure access setup, brand voice documentation and structured handover. Nothing disrupted. Everything documented.' },
-  { num: '05', title: 'Ongoing Support',      body: 'Continuous execution, regular reviews and ongoing optimization to keep operations at their best.' },
+  { num: '01', title: 'Discovery Call',       body: 'We spend 30 minutes aligning on your account size, current message volume, and operational bottlenecks.' },
+  { num: '02', title: 'Workflow assessment',  body: 'We review your current post schedule, vault setup, and standard subscriber interactions.' },
+  { num: '03', title: 'Operations Strategy',  body: 'We build a custom operational plan covering shift structure, voice guidelines, and vault management.' },
+  { num: '04', title: 'Onboarding & Handover', body: 'Secure access setup via password manager, creator playbook documentation, and structured handover.' },
+  { num: '05', title: 'Ongoing Support',      body: 'Continuous daily execution, regular status reports, and ongoing performance optimization.' },
 ];
 
 const FAQS = [
   { q: 'Who do you work with?',
-    a: 'Professional online creators — subscription creators, livestreamers, cosplayers, fitness creators, models, influencers, gaming creators and independent digital entrepreneurs with meaningful audience engagement.' },
+    a: 'We work with professional subscription creators, digital models, and established creator businesses who have high incoming message volume and need structured operational support to manage direct messages, vault organization, and daily admin.' },
   { q: 'How do we get started?',
-    a: 'Book a discovery call. We\'ll spend 30 minutes understanding your business, your platforms and your operational challenges. From there we design a custom proposal. Once approved, onboarding begins.' },
+    a: 'Book a discovery call. We\'ll jump on a brief call to align on your current account size, communication guidelines, and bottlenecks. From there, we design a custom operational proposal. Once you approve, onboarding begins.' },
   { q: 'Can support be customized?',
-    a: 'Entirely. Every creator business is unique. We customize response timelines, platform delegation, scheduling preferences, communication style and operational scope to match your exact setup.' },
-  { q: 'How do you protect my privacy?',
-    a: 'Every engagement begins with a legally binding NDA. Access is restricted on a strict need-to-know basis using secure credential management. We never disclose client relationships publicly — ever.' },
+    a: 'Yes, completely. Every creator\'s fanbase behaves differently. We build custom playbooks that codify your direct messaging tone, pricing models for PPVs, and community interactions. Your support is fully tailored.' },
+  { q: 'How do you protect my privacy and content?',
+    a: 'Security and confidentiality are our highest priorities. All team members sign legally binding NDAs. We restrict account access, never download or store your custom vault content outside your official platforms, and maintain absolute secrecy about our client roster.' },
   { q: 'Can my workflow change over time?',
-    a: 'Absolutely. Creator businesses evolve. We conduct regular reviews and adjust your operational plan as your platforms, audience and workload change. Flexibility is built into every engagement.' },
-  { q: 'What creator platforms do you support?',
-    a: 'YouTube, Patreon, Twitch, OnlyFans, Fansly, Instagram, TikTok, Discord, Substack, Twitter/X, Kick, LinkedIn and most major CRM and creator tools. If you use a specialist platform, we can integrate with it.' },
-  { q: 'What happens during the discovery call?',
-    a: 'We learn about your business: what platforms you operate on, where the operational pain is heaviest, your communication preferences and what kind of support would be most valuable. No sales pitch — just understanding.' },
-  { q: 'Do I stay in control of my business?',
-    a: 'Completely. You retain full ownership and authority over every decision. We operate as a delegated support layer — nothing is actioned without guidelines you\'ve reviewed and approved.' },
+    a: 'Absolutely. We review operations regularly. As you run new promotions, launch custom content, or adjust your schedules, we update the playbooks and shift setups accordingly.' },
+  { q: 'What platforms do you support?',
+    a: 'OnlyFans, Fansly, Patreon, Instagram, Twitter/X, Reddit, and custom CRM tools. If you use a specialist fan subscription platform, we can customize our workflow for it.' },
   { q: 'Do you write messages in my voice?',
-    a: 'Yes. We build a detailed brand voice handbook from your existing content and communications. Every message sounds like you — not a generic template.' },
-  { q: 'How quickly can we get started?',
-    a: 'Discovery calls are typically available within a few days. After proposal approval, onboarding begins immediately. Most creators are fully operational within one week.' },
+    a: 'Yes. During onboarding, we analyze your past messaging history to build a detailed brand voice handbook. Every interaction is written to match your tone and style perfectly.' },
+  { q: 'Do you provide 24/7 coverage?',
+    a: 'Yes. We design and implement structured shift schedules to ensure high responsiveness. Whether you need coverage during peak US hours, overnight support, or weekend backups, we construct the operational workflow to cover it.' },
+  { q: 'Do I stay in control of my account?',
+    a: 'Completely. You retain full ownership and authority over every decision. We operate as a delegated support layer — nothing is actioned without guidelines you\'ve reviewed and approved.' },
+  { q: 'How does access sharing work?',
+    a: 'We set up isolated, secure access protocols using secure credentials managers (like 1Password) so your passwords are never shared directly. Access is restricted and fully audited.' },
   { q: 'Is there a minimum commitment?',
-    a: 'We structure engagements based on what makes sense for your business. Flexibility is discussed during the discovery call — no rigid lock-in contracts unless it benefits you.' },
+    a: 'We structure engagements based on what makes sense for your business. We offer flexible terms that can be adjusted as your audience size and workload change.' },
   { q: 'What does it cost?',
-    a: 'Pricing is custom-scoped to your specific requirements. We discuss this transparently during the discovery call. No hidden fees, no surprise charges, no vague packages.' },
-  { q: 'What does "Creator Operations" actually mean?',
-    a: 'The operational side of running a creator business: inbox triage, fan communication workflows, scheduling, content coordination, sponsorship management, SOP documentation and business organization — handled professionally.' },
-  { q: 'What if I only need help with one area?',
-    a: 'That\'s completely fine. Many creators start with inbox management or scheduling support and expand as they see the impact. We\'ll design your engagement around exactly what you need right now.' },
+    a: 'Pricing is custom-scoped to your account size and the volume of support required. We discuss this transparently during the discovery call. No hidden fees or surprise charges.' },
 ];
 
 /* ═══════════════════════════════════════════════════════════════════════════════
@@ -170,12 +166,12 @@ function Navbar() {
             <Sparkles className="w-3.5 h-3.5 text-white" />
           </div>
           <span className="font-bold text-sm text-white tracking-tight">
-            Brandverse<span className="text-white/30 font-normal ml-1.5">for Creators</span>
+            Brandverse<span className="text-white/30 font-normal ml-1.5">Creators</span>
           </span>
         </div>
 
         <nav className="hidden md:flex items-center gap-7">
-          {[['services', 'Services'], ['how-it-works', 'Process'], ['confidentiality', 'Trust'], ['faq', 'FAQ']].map(([id, label]) => (
+          {[['services', 'Services'], ['how-it-works', 'Process'], ['confidentiality', 'Confidentiality'], ['faq', 'FAQ']].map(([id, label]) => (
             <a key={id} href={`#${id}`} onClick={go(id)}
               className="text-[13px] font-medium text-white/40 hover:text-white transition-colors">{label}</a>
           ))}
@@ -230,12 +226,12 @@ function Hero() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.85, delay: 0.1, ease }}
-          className="text-[clamp(2.8rem,7.5vw,6rem)] font-black leading-[1.02] tracking-tight text-white mb-7"
+          className="text-[clamp(2.5rem,7vw,5.5rem)] font-black leading-[1.02] tracking-tight text-white mb-7"
         >
-          Operations behind{' '}
+          Operations behind exceptional{' '}
           <span className="relative">
             <span className="bg-gradient-to-r from-violet-400 via-indigo-300 to-violet-400 bg-clip-text text-transparent">
-              exceptional creators.
+              subscription creators.
             </span>
             <motion.span aria-hidden
               className="absolute -bottom-1.5 left-0 right-0 h-px bg-gradient-to-r from-transparent via-violet-400/40 to-transparent"
@@ -250,7 +246,7 @@ function Hero() {
           transition={{ duration: 0.7, delay: 0.3, ease }}
           className="text-[clamp(1rem,2vw,1.2rem)] text-white/42 max-w-2xl mx-auto leading-relaxed mb-12"
         >
-          Brandverse partners with growing creator businesses to streamline communication workflows, organize day-to-day operations, and build reliable systems that allow creators to focus on creating exceptional content.
+          Brandverse partners with established OnlyFans and subscription creators to streamline direct messaging, organize content vaults, coordinate schedules, and build reliable operations that allow you to focus entirely on content creation.
         </motion.p>
 
         {/* CTAs */}
@@ -279,10 +275,10 @@ function Hero() {
           className="mt-24 grid grid-cols-2 md:grid-cols-4 gap-px rounded-2xl overflow-hidden border border-white/[0.05] bg-white/[0.03]"
         >
           {[
-            { v: '100%', l: 'Creator Controlled' },
+            { v: '100%', l: 'Creator Control' },
             { v: 'NDA',  l: 'Every Engagement' },
-            { v: '< 5 days', l: 'To Fully Onboard' },
-            { v: '15+',  l: 'Platforms Supported' },
+            { v: '< 5 days', l: 'To Onboard & Handover' },
+            { v: '24/7',  l: 'Inbox Coverage Option' },
           ].map(({ v, l }) => (
             <div key={l} className="bg-[#0a0a0a]/60 py-8 text-center">
               <div className="text-2xl sm:text-3xl font-black text-white mb-1.5">{v}</div>
@@ -304,10 +300,10 @@ function PlatformStrip() {
     <section className="py-14 px-5 border-y border-white/[0.04]" aria-label="Supported platforms">
       <div className="mx-auto max-w-5xl">
         <p className="text-center text-[10px] tracking-[0.2em] text-white/18 uppercase font-medium mb-8">
-          Operational support across major creator platforms
+          Operational support across major subscription platforms
         </p>
         <div className="flex flex-wrap justify-center items-center gap-7 sm:gap-14">
-          {['YouTube', 'Patreon', 'OnlyFans', 'Twitch', 'Kick', 'Instagram', 'TikTok', 'Discord', 'Substack'].map(p => (
+          {['OnlyFans', 'Fansly', 'Patreon', 'Instagram', 'Twitter/X', 'Reddit', 'Discord'].map(p => (
             <span key={p} className="text-sm font-semibold text-white/12 hover:text-white/30 transition-colors duration-300 cursor-default">{p}</span>
           ))}
         </div>
@@ -327,11 +323,11 @@ function RealitySection() {
         <FadeIn className="max-w-2xl mb-16">
           <Label>The Reality</Label>
           <Heading id="reality-heading" className="mb-5">
-            The side of creator businesses{' '}
-            <span className="text-white/30">nobody talks about.</span>
+            The operational side of subscription pages{' '}
+            <span className="text-white/30">nobody warns you about.</span>
           </Heading>
           <p className="text-[1.05rem] text-white/42 leading-relaxed max-w-xl">
-            Your audience sees the content. Behind the scenes, there&apos;s an entire business to run — and it only gets heavier as you grow.
+            Managing a growing page is more than content creation. Subscriber messages, custom media tracking, content scheduling, and vault sorting create constant noise.
           </p>
         </FadeIn>
 
@@ -365,12 +361,12 @@ function ServicesSection() {
           <div className="max-w-xl">
             <Label>What Brandverse Does</Label>
             <Heading id="services-heading">
-              Everything your creator business needs to run{' '}
+              Everything your subscription page needs to run{' '}
               <span className="text-white/30">without running you down.</span>
             </Heading>
           </div>
           <p className="text-white/35 text-sm leading-relaxed max-w-xs lg:text-right">
-            Built, operated and optimized by a team that only works with creators.
+            Professional operations support. Never automated bots. Fully customized.
           </p>
         </FadeIn>
 
@@ -403,10 +399,10 @@ function WhySection() {
         <FadeIn className="text-center max-w-2xl mx-auto mb-16">
           <Label>Why Creators Choose Us</Label>
           <Heading id="why-heading" className="mb-5">
-            Why creators work with Brandverse.
+            Operations built on creator trust.
           </Heading>
           <p className="text-white/40 text-[1.05rem] leading-relaxed">
-            Because creator businesses deserve operational standards that match the quality of their content.
+            Outsource inbox overload and operations to a professional partner.
           </p>
         </FadeIn>
 
@@ -434,12 +430,12 @@ function WhySection() {
 
 function DeservesBetter() {
   const items = [
-    { title: 'More structure',            body: 'Documented processes, clear playbooks and repeatable systems — so your business runs consistently without constant oversight.' },
-    { title: 'Better organization',       body: 'Every message, contract, deliverable and deadline tracked and organized. Nothing falls through the cracks.' },
-    { title: 'Less operational stress',   body: 'Delegate the work that drains your energy. Show up for the creative work that matters.' },
-    { title: 'Reliable support',          body: 'A dedicated operations partner who understands your business, your voice and your audience — not a revolving door of freelancers.' },
-    { title: 'Professional systems',      body: 'SOPs, brand voice guides, communication handbooks — the same operational infrastructure used by the most organized creators in the world.' },
-    { title: 'Focus on what you create',  body: 'Every hour we free up is an hour you get to spend creating, collaborating and growing your audience.' },
+    { title: 'More structure',            body: 'Detailed playbooks, customized chatting schedules, and repeatable campaigns built specifically around your vault assets.' },
+    { title: 'Better organization',       body: 'Every subscriber request, custom media order, PPV tracking, and promotional campaign organized and monitored.' },
+    { title: 'Less operational stress',   body: 'Delegate the continuous direct message flow and scheduling. Show up fully charged for content creation.' },
+    { title: 'Reliable support',          body: 'Consistent shift coverage and account management. Your fanbase receives fast, personalized interaction.' },
+    { title: 'Professional systems',      body: 'Standard operating procedures, credential management, and brand voice guidelines built to protect your reputation.' },
+    { title: 'Focus on content',          body: 'We free up your time by handling the operations layer, so you can focus entirely on creating exceptional content.' },
   ];
 
   return (
@@ -448,11 +444,11 @@ function DeservesBetter() {
         <FadeIn className="text-center max-w-3xl mx-auto mb-16">
           <Label>Better Operations</Label>
           <Heading id="deserves-heading" className="mb-6">
-            Your creator business deserves{' '}
+            Your page deserves{' '}
             <span className="bg-gradient-to-r from-violet-400 to-indigo-400 bg-clip-text text-transparent">better operations.</span>
           </Heading>
           <p className="text-white/40 text-[1.1rem] leading-relaxed">
-            You built something real. It deserves infrastructure that matches the quality of your work.
+            Treat your subscription account like a professional business. Let us handle the systems.
           </p>
         </FadeIn>
 
@@ -485,10 +481,10 @@ function HowWeWork() {
         <FadeIn className="max-w-2xl mb-16">
           <Label>How We Work</Label>
           <Heading id="how-heading" className="mb-5">
-            From first call to full operations.
+            From first call to active operations.
           </Heading>
           <p className="text-white/40 text-[1.05rem] leading-relaxed max-w-xl">
-            A structured, transparent process. No ambiguity. No surprises.
+            A structured, transparent onboarding process. Your workflow remains uninterrupted.
           </p>
         </FadeIn>
 
@@ -552,19 +548,19 @@ function Confidentiality() {
         <FadeIn className="text-center max-w-2xl mx-auto mb-16">
           <Label>Confidentiality</Label>
           <Heading id="conf-heading" className="mb-5">
-            Your privacy is not negotiable.
+            Absolute privacy. No exceptions.
           </Heading>
           <p className="text-white/40 text-[1.05rem] leading-relaxed">
-            Creator businesses require absolute discretion. We treat your privacy with the same care you put into building your brand.
+            Outsourcing requires complete discretion. We keep your content assets, fan lists, and account metrics fully secure.
           </p>
         </FadeIn>
 
         <div className="grid sm:grid-cols-2 gap-4 mb-8">
           {[
-            { icon: Lock,   title: 'NDA on every engagement',      body: 'Legally binding agreements signed before any work begins. Your business details never leave our engagement.' },
-            { icon: Key,    title: 'Restricted access',             body: 'Credentials managed on a strict need-to-know basis with dedicated, secure password management infrastructure.' },
-            { icon: Eye,    title: 'Zero public disclosure',        body: 'We never reference, acknowledge or discuss our creator partnerships publicly. Your identity stays private.' },
-            { icon: Shield, title: 'Isolated environments',         body: 'Every creator engagement runs in a fully segregated environment. No data commingles between clients.' },
+            { icon: Lock,   title: 'NDA-protected by default',     body: 'Legally binding Non-Disclosure Agreements are signed before onboarding. Your account info stays strictly private.' },
+            { icon: Key,    title: 'Isolated secure access',        body: 'We set up secure credentials delegation using tools like 1Password. We never directly share or save raw passwords.' },
+            { icon: Eye,    title: 'Zero public association',       body: 'We operate fully behind the scenes. We never announce, share, or list creator clients on our website or social media.' },
+            { icon: Shield, title: 'No external downloads',         body: 'All vault media and content assets remain strictly within your official platforms. No offline commingling of files.' },
           ].map((item, i) => (
             <FadeIn key={i} delay={i * 0.08}>
               <div className="group rounded-2xl border border-white/[0.05] bg-white/[0.012] p-8 hover:border-violet-500/15 transition-all duration-300">
@@ -585,9 +581,9 @@ function Confidentiality() {
               <BadgeCheck className="w-6 h-6" />
             </div>
             <div>
-              <h3 className="text-lg font-black text-white mb-2 tracking-tight">Creator trust is the foundation of everything we do.</h3>
+              <h3 className="text-lg font-black text-white mb-2 tracking-tight">Your trust is our greatest asset.</h3>
               <p className="text-white/42 text-[0.9rem] leading-relaxed max-w-2xl">
-                We don&apos;t just protect your data — we protect your reputation, your relationships and your peace of mind. Every process, every team member and every interaction is built around the understanding that your trust must be earned and never compromised.
+                We handle operations with corporate levels of security. From secure credentials management to legally binding confidentiality terms, we ensure your business remains isolated, secure, and professional.
               </p>
             </div>
           </div>
@@ -609,8 +605,8 @@ function FaqSection() {
       <div className="mx-auto max-w-3xl">
         <FadeIn className="text-center mb-14">
           <Label>FAQ</Label>
-          <Heading id="faq-heading">Questions creators ask.</Heading>
-          <p className="text-white/38 text-lg mt-4">Everything you need to know before booking a discovery call.</p>
+          <Heading id="faq-heading">Frequently Asked Questions</Heading>
+          <p className="text-white/38 text-lg mt-4">Common questions about subscription creator operations support.</p>
         </FadeIn>
 
         <div className="space-y-2" role="list">
@@ -666,7 +662,7 @@ function BookingPlaceholder() {
         <FadeIn>
           <Label>Schedule</Label>
           <h2 className="text-2xl font-black text-white mb-3 tracking-tight">Book your discovery call</h2>
-          <p className="text-white/32 text-sm mb-8">Direct calendar booking coming soon. Use the form below in the meantime.</p>
+          <p className="text-white/32 text-sm mb-8">Direct scheduler coming soon. Use the form below in the meantime.</p>
           <div className="rounded-2xl border border-dashed border-white/[0.06] bg-white/[0.008] p-16 flex flex-col items-center gap-3">
             <Calendar className="w-8 h-8 text-white/12" />
             <p className="text-white/18 text-sm font-medium">Calendly integration — coming soon</p>
@@ -706,7 +702,7 @@ function ContactSection() {
       website: form.website || undefined,
       message: form.message || undefined,
       source_page: 'creators.brandverse.tech',
-      source_form: 'creators_discovery_call',
+      source_form: 'creators_onlyfans_ops_call',
     };
     try {
       const res = await leadService.submitLeadWithRetry(lead, 2);
@@ -736,7 +732,7 @@ function ContactSection() {
             Book your strategy call.
           </Heading>
           <p className="text-white/38 text-[1.05rem]">
-            Tell us about your creator business. We&apos;ll review your submission and reach out within 24 hours.
+            Tell us about your page structure and volume. We will review and reach out within 24 hours.
           </p>
         </FadeIn>
 
@@ -761,16 +757,16 @@ function ContactSection() {
                   <label htmlFor="f-platform" className={labelCls}>Creator Platform</label>
                   <select id="f-platform" value={form.platform} onChange={set('platform')} className={selectCls}>
                     <option value="">Select platform</option>
-                    {['YouTube', 'OnlyFans', 'Fansly', 'Patreon', 'Twitch', 'Kick', 'Substack', 'Instagram / TikTok', 'Discord', 'Other'].map(p => (
+                    {['OnlyFans', 'Fansly', 'Patreon', 'Instagram', 'Twitter/X', 'Reddit', 'Discord', 'Other'].map(p => (
                       <option key={p}>{p}</option>
                     ))}
                   </select>
                 </div>
                 <div>
-                  <label htmlFor="f-audience" className={labelCls}>Audience Size</label>
+                  <label htmlFor="f-audience" className={labelCls}>Spenders / Fan Base Size</label>
                   <select id="f-audience" value={form.audienceSize} onChange={set('audienceSize')} className={selectCls}>
                     <option value="">Select range</option>
-                    {['Under 10k', '10k – 50k', '50k – 250k', '250k – 1M', '1M+'].map(s => (
+                    {['Under 500 fans', '500 – 2,000 fans', '2,000 – 10,000 fans', '10,000+ fans'].map(s => (
                       <option key={s}>{s}</option>
                     ))}
                   </select>
@@ -778,21 +774,21 @@ function ContactSection() {
               </div>
 
               <div>
-                <label htmlFor="f-website" className={labelCls}>Website or Profile URL</label>
-                <input id="f-website" type="url" placeholder="https://..."
+                <label htmlFor="f-website" className={labelCls}>Profile URL</label>
+                <input id="f-website" type="url" placeholder="https://onlyfans.com/yourusername"
                   value={form.website} onChange={set('website')} className={inputCls} />
               </div>
 
               <div>
                 <label htmlFor="f-challenge" className={labelCls}>Current Biggest Challenge</label>
-                <input id="f-challenge" type="text" placeholder="e.g. inbox management, scheduling, workflow organization..."
+                <input id="f-challenge" type="text" placeholder="e.g. 24/7 coverage, vault organization, response times..."
                   value={form.challenge} onChange={set('challenge')} className={inputCls} />
               </div>
 
               <div>
                 <label htmlFor="f-message" className={labelCls}>Message</label>
                 <textarea id="f-message" rows={4}
-                  placeholder="Tell us anything else about your business and what you're looking for..."
+                  placeholder="Tell us about your account setup and current messaging workload..."
                   value={form.message} onChange={set('message')} className={`${inputCls} resize-none`} />
               </div>
 
@@ -807,7 +803,7 @@ function ContactSection() {
                 {status === 'success' && (
                   <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}
                     role="status" className="p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/18 text-emerald-400 text-sm text-center font-medium">
-                    ✓ Submitted. We&apos;ll be in touch within 24 hours.
+                    ✓ Submitted. We will be in touch within 24 hours.
                   </motion.div>
                 )}
                 {status === 'error' && (
@@ -839,7 +835,7 @@ function CreatorsFooter() {
               <Sparkles className="w-3 h-3 text-white" />
             </div>
             <span className="font-bold text-sm text-white tracking-tight">
-              Brandverse<span className="text-white/22 font-normal ml-1.5">for Creators</span>
+              Brandverse<span className="text-white/22 font-normal ml-1.5">Creators</span>
             </span>
           </div>
 
@@ -854,7 +850,7 @@ function CreatorsFooter() {
 
         <div className="mt-8 pt-6 border-t border-white/[0.03] text-center">
           <p className="text-[0.72rem] text-white/12 max-w-xl mx-auto leading-relaxed">
-            Brandverse is a creator operations company. We provide operational support services for professional content creators and digital entrepreneurs.
+            Brandverse is a creator operations company. We provide operations support services for subscription-based content creators and digital businesses. We are an operations partner, not a platform administrator.
           </p>
         </div>
       </div>
