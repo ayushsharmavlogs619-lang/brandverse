@@ -63,52 +63,52 @@ function Heading({ children, id, className = '' }: { children: React.ReactNode; 
    ═══════════════════════════════════════════════════════════════════════════════ */
 
 const REALITY_CARDS = [
-  { icon: Inbox,      title: 'Messages never stop',                body: 'Subscriber DMs flood in 24/7. Managing high incoming volume alone means constant distraction and missed connections.' },
-  { icon: TrendingUp, title: 'Your fanbase keeps growing',        body: 'More subscribers means more direct message interactions, custom requests, and vault coordination. Scale shouldn\'t equal burnout.' },
-  { icon: Layers,     title: 'Vault & asset organization',         body: 'Without structured tagging and folder systems, sorting hundreds of photos, videos, and PPV campaigns becomes chaotic.' },
-  { icon: Clock,      title: 'Admin consumes creative hours',      body: 'Scheduling posts, coordinating media files, and managing shift schedules steals time that belongs to creating content.' },
-  { icon: Heart,      title: 'Lost revenue from slow replies',     body: 'Subscribers expect fast, personal communication. Slow response times in direct messages mean missed tips and lower retention.' },
+  { icon: Inbox,      title: 'DMs never sleep',                     body: 'Your inbox is flooded 24 hours a day. Answering every subscriber manually is an exhausting bottleneck that limits how much content you can actually create.' },
+  { icon: TrendingUp, title: 'Unopened messages = lost revenue',    body: 'When fans wait hours for a reply, they lose interest. Slow response times in direct messages directly reduce your tips, PPV unlocks, and monthly retention.' },
+  { icon: Layers,     title: 'Vault & content disorganization',     body: 'As your library grows, sorting custom requests, promotional photos, and video sets becomes a complete second job. Chaos costs time.' },
+  { icon: Clock,      title: 'The administrative burnout loop',     body: 'Scheduling posts, tracking deliverables, managing subscriber requests, and coordinating shifts consumes the hours that should be spent on creative work.' },
+  { icon: Heart,      title: 'Outreach & communication overload',   body: 'Every hour spent sorting through low-value messages is an hour you aren\'t spending connecting with top spenders or building your brand.' },
 ];
 
 const SERVICES = [
-  { icon: Workflow,          title: 'Account Operations',          body: 'Daily management of your account workflows, scheduling posts, coordinating assets, and handling general administration.' },
-  { icon: MessageSquare,     title: 'Subscriber DM Support',       body: 'Maintaining high responsiveness in your DMs. Professional, friendly subscriber interaction according to your brand guidelines.' },
-  { icon: Inbox,             title: 'Inbox Organization',          body: 'Triage, prioritize, and structure your inbox. High-priority messages, custom requests, and tips are organized instantly.' },
-  { icon: Lock,              title: 'Vault Organization',          body: 'Meticulous folder structuring for your media assets, ensuring content is clean, categorized, and easy to retrieve for campaigns.' },
-  { icon: FileText,          title: 'PPV Campaigns & Tracking',    body: 'Structuring and scheduling your pay-per-view campaigns, keeping detailed records of releases, performance, and subscriber interest.' },
-  { icon: Calendar,          title: 'Shift Coordination',          body: 'Structuring shift schedules and operational timelines to ensure your inbox remains active and responsive without causing fatigue.' },
-  { icon: SlidersHorizontal, title: 'Retention Workflows',         body: 'We design and run automated sequences, welcome messages, and renewal follow-ups to increase fan lifetime value.' },
-  { icon: TrendingUp,        title: 'Growth Infrastructure',       body: 'Operational frameworks built to scale as your subscription base grows — without demanding more of your personal time.' },
-  { icon: Users,             title: 'Confidential Team Support',   body: 'Discreet, NDA-protected support teams who understand subscription platforms and manage sensitive daily tasks.' },
-  { icon: UserCheck,         title: 'Subscriber Tracking',         body: 'Organized profiles of top spenders, custom media preferences, and specific direct message history.' },
-  { icon: LineChart,         title: 'Performance Reporting',       body: 'Clear operational summaries showing response times, inbox activity, and vault health so you are always informed.' },
-  { icon: BrainCircuit,      title: 'Future AI Optimization',      body: 'Integrating smart automation assistants to help sort messages and speed up operational workflows over time.' },
+  { icon: Workflow,          title: 'Account Operations',          body: 'Daily management of post schedules, asset queues, vault uploads, and back-end page settings.' },
+  { icon: MessageSquare,     title: 'Subscriber DM Optimization',  body: 'Highly responsive, natural direct messaging. Keep your inbox active 24/7 while preserving your exact voice and tone.' },
+  { icon: Inbox,             title: 'Inbox Triage & Sorting',      body: 'Separate high-value spenders, custom requests, and general fan mail instantly. We filter out the noise so you see what matters.' },
+  { icon: Lock,              title: 'Vault Structuring',           body: 'Organizing your media library into clean, categorized folders so you can find and retrieve any set for custom orders in seconds.' },
+  { icon: FileText,          title: 'PPV Campaigns & Analytics',   body: 'Designing, scheduling, and tracking your pay-per-view releases. We track what converts so we can optimize your campaigns.' },
+  { icon: Calendar,          title: '24/7 Shift Coordination',     body: 'Structuring and running shift coverage so your page remains highly responsive during peak hours and overnight.' },
+  { icon: SlidersHorizontal, title: 'Retention & Fan Journeys',     body: 'Automated greeting protocols, renewal follow-ups, and custom messaging flows designed to increase subscriber lifetime value.' },
+  { icon: TrendingUp,        title: 'Scaling Infrastructure',       body: 'Operational frameworks built to scale as your page grows into top percentiles — keeping your workload flat.' },
+  { icon: Users,             title: 'Confidential Ops Team',       body: 'Elite, fully-trained support professionals operating under strict NDAs to manage your daily inbox and admin.' },
+  { icon: UserCheck,         title: 'Top Spender Management',      body: 'Detailed tracking of your top fans, custom preferences, past purchases, and conversation history.' },
+  { icon: LineChart,         title: 'Performance Reporting',       body: 'Weekly summaries showing response times, conversion rates on campaigns, and inbox health.' },
+  { icon: BrainCircuit,      title: 'Smart Workflow Integration',  body: 'Deploying custom workflows and sorting tools to streamline custom request deliveries and prevent errors.' },
 ];
 
 const WHY_BV = [
-  { icon: BadgeCheck,  word: 'Professional',  body: 'Documented processes, structured communication, and clear accountability on every shift.' },
-  { icon: Zap,         word: 'Reliable',      body: 'Defined response times, zero missed custom requests, and consistent account coverage.' },
-  { icon: LayoutGrid,  word: 'Organized',     body: 'Systems built for clarity. Your media assets, schedules, and fan records structured beautifully.' },
-  { icon: Lock,        word: 'Confidential',  body: 'NDA-protected by default. Your identity, metrics, and files stay fully private.' },
-  { icon: Eye,         word: 'Transparent',   body: 'Weekly summaries, activity logs, and open communication. You retain full oversight.' },
-  { icon: Settings2,   word: 'Flexible',      body: 'Support scales up or down based on your promotional cycles, vacations, or content drops.' },
-  { icon: TrendingUp,  word: 'Scalable',      body: 'Operations scale effortlessly as your page climbs the percentiles. No bottlenecks.' },
-  { icon: Heart,       word: 'Creator-first', body: 'We understand subscription creators because that\'s our focus. Your brand and safety come first.' },
+  { icon: BadgeCheck,  word: 'Professional',  body: 'Documented playbooks, clean handovers, and metrics-driven execution on every shift.' },
+  { icon: Zap,         word: 'High Response',  body: 'Under 5-minute response times during active shifts. Never lose a tip to delay.' },
+  { icon: LayoutGrid,  word: 'Systemized',    body: 'We turn page administration into a system. Post queues, media, and folders structured perfectly.' },
+  { icon: Lock,        word: 'Confidential',  body: 'NDA-protected by default. We never share our client list or access your accounts insecurely.' },
+  { icon: Eye,         word: 'Transparent',   body: 'Weekly activity logs, sales summaries, and performance reviews. You retain full control.' },
+  { icon: Settings2,   word: 'Flexible',      body: 'Adjust shift hours and delegation scope based on your upcoming content drops or vacations.' },
+  { icon: TrendingUp,  word: 'Scalable',      body: 'Built to handle sudden traffic surges from major promotions or viral moments without lag.' },
+  { icon: Heart,       word: 'Creator-Safe',  body: 'No dangerous bots or automated scripts. Genuine, safe, and manual account management.' },
 ];
 
 const HOW_STEPS = [
-  { num: '01', title: 'Discovery Call',       body: 'We spend 30 minutes aligning on your account size, current message volume, and operational bottlenecks.' },
-  { num: '02', title: 'Workflow assessment',  body: 'We review your current post schedule, vault setup, and standard subscriber interactions.' },
-  { num: '03', title: 'Operations Strategy',  body: 'We build a custom operational plan covering shift structure, voice guidelines, and vault management.' },
-  { num: '04', title: 'Onboarding & Handover', body: 'Secure access setup via password manager, creator playbook documentation, and structured handover.' },
-  { num: '05', title: 'Ongoing Support',      body: 'Continuous daily execution, regular status reports, and ongoing performance optimization.' },
+  { num: '01', title: 'Discovery Call',       body: 'We assess your account metrics, incoming message volume, and identify exactly where operations are bottlenecked.' },
+  { num: '02', title: 'Voice & Vault Audit',  body: 'We review your messaging history to map your communication style, vocabulary, and vault layout.' },
+  { num: '03', title: 'Operational Blueprint', body: 'We build your custom playbook covering shift schedules, pricing guides, and vault folder structure.' },
+  { num: '04', title: 'Secure Onboarding',     body: 'Setup isolated logins via secure credential managers. No password sharing. 100% secure.' },
+  { num: '05', title: 'Active Management',    body: 'Shifts go live. We handle the inbox and admin, sending you clear reports while you focus on content.' },
 ];
 
 const FAQS = [
   { q: 'Who do you work with?',
-    a: 'We work with professional subscription creators, digital models, and established creator businesses who have high incoming message volume and need structured operational support to manage direct messages, vault organization, and daily admin.' },
+    a: 'We work with professional subscription creators, models, and digital entrepreneurs who are overwhelmed by high message volume and need structured operational support to manage direct messages, scheduling, and vault organization.' },
   { q: 'How do we get started?',
-    a: 'Book a discovery call. We\'ll jump on a brief call to align on your current account size, communication guidelines, and bottlenecks. From there, we design a custom operational proposal. Once you approve, onboarding begins.' },
+    a: 'Book a discovery call using the form below. We\'ll jump on a brief call to align on your current account size, communication guidelines, and bottlenecks. From there, we design a custom operational proposal. Once you approve, onboarding begins.' },
   { q: 'Can support be customized?',
     a: 'Yes, completely. Every creator\'s fanbase behaves differently. We build custom playbooks that codify your direct messaging tone, pricing models for PPVs, and community interactions. Your support is fully tailored.' },
   { q: 'How do you protect my privacy and content?',
@@ -228,10 +228,10 @@ function Hero() {
           transition={{ duration: 0.85, delay: 0.1, ease }}
           className="text-[clamp(2.5rem,7vw,5.5rem)] font-black leading-[1.02] tracking-tight text-white mb-7"
         >
-          Operations behind exceptional{' '}
+          Your subscriber base grows.{' '}
           <span className="relative">
             <span className="bg-gradient-to-r from-violet-400 via-indigo-300 to-violet-400 bg-clip-text text-transparent">
-              subscription creators.
+              Your workload shouldn&apos;t.
             </span>
             <motion.span aria-hidden
               className="absolute -bottom-1.5 left-0 right-0 h-px bg-gradient-to-r from-transparent via-violet-400/40 to-transparent"
@@ -246,7 +246,7 @@ function Hero() {
           transition={{ duration: 0.7, delay: 0.3, ease }}
           className="text-[clamp(1rem,2vw,1.2rem)] text-white/42 max-w-2xl mx-auto leading-relaxed mb-12"
         >
-          Brandverse partners with established OnlyFans and subscription creators to streamline direct messaging, organize content vaults, coordinate schedules, and build reliable operations that allow you to focus entirely on content creation.
+          We become the trusted operations partner behind established subscription creators. Delegate message overload, PPV scheduling, and vault organization to a professional team operating in your exact voice.
         </motion.p>
 
         {/* CTAs */}
@@ -323,11 +323,11 @@ function RealitySection() {
         <FadeIn className="max-w-2xl mb-16">
           <Label>The Reality</Label>
           <Heading id="reality-heading" className="mb-5">
-            The operational side of subscription pages{' '}
-            <span className="text-white/30">nobody warns you about.</span>
+            Outsource the DM overload.{' '}
+            <span className="text-white/30">Keep your audience engaged.</span>
           </Heading>
           <p className="text-[1.05rem] text-white/42 leading-relaxed max-w-xl">
-            Managing a growing page is more than content creation. Subscriber messages, custom media tracking, content scheduling, and vault sorting create constant noise.
+            When message demand scales beyond your capacity, response times drop and fans churn. We provide the operational backend to handle the traffic.
           </p>
         </FadeIn>
 
@@ -361,12 +361,12 @@ function ServicesSection() {
           <div className="max-w-xl">
             <Label>What Brandverse Does</Label>
             <Heading id="services-heading">
-              Everything your subscription page needs to run{' '}
-              <span className="text-white/30">without running you down.</span>
+              Inbox operations & backend systems{' '}
+              <span className="text-white/30">built specifically for your account.</span>
             </Heading>
           </div>
           <p className="text-white/35 text-sm leading-relaxed max-w-xs lg:text-right">
-            Professional operations support. Never automated bots. Fully customized.
+            Professional operations support. Highly responsive. Absolute confidentiality.
           </p>
         </FadeIn>
 
@@ -399,10 +399,10 @@ function WhySection() {
         <FadeIn className="text-center max-w-2xl mx-auto mb-16">
           <Label>Why Creators Choose Us</Label>
           <Heading id="why-heading" className="mb-5">
-            Operations built on creator trust.
+            Discreet backend operations.
           </Heading>
           <p className="text-white/40 text-[1.05rem] leading-relaxed">
-            Outsource inbox overload and operations to a professional partner.
+            Outsource inbox overload to a trusted partner. We handle execution under strict safety and privacy standards.
           </p>
         </FadeIn>
 
