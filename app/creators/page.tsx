@@ -261,10 +261,6 @@ function Hero() {
             Book Discovery Call
             <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
           </a>
-          <a href="#how-it-works" onClick={go('how-it-works')}
-            className="inline-flex items-center gap-2 px-8 py-4 rounded-xl border border-white/10 text-white/55 font-semibold text-[0.95rem] hover:border-white/20 hover:text-white transition-all">
-            See How We Work
-          </a>
         </motion.div>
 
         {/* Stats */}
@@ -313,29 +309,72 @@ function PlatformStrip() {
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════════
-   THE REALITY OF RUNNING A CREATOR BUSINESS
+   BEFORE BRANDVERSE
    ═══════════════════════════════════════════════════════════════════════════════ */
 
-function RealitySection() {
+function BeforeBrandverse() {
   return (
-    <section id="challenges" className="py-28 px-5 sm:px-8" aria-labelledby="reality-heading">
+    <section id="challenges" className="py-28 px-5 sm:px-8" aria-labelledby="before-heading">
       <div className="mx-auto max-w-7xl">
         <FadeIn className="max-w-2xl mb-16">
-          <Label>The Reality</Label>
-          <Heading id="reality-heading" className="mb-5">
-            Outsource the DM overload.{' '}
-            <span className="text-white/30">Keep your audience engaged.</span>
+          <Label>Before Brandverse</Label>
+          <Heading id="before-heading" className="mb-5">
+            The creator overwhelmed by operational chaos.
           </Heading>
           <p className="text-[1.05rem] text-white/42 leading-relaxed max-w-xl">
-            When message demand scales beyond your capacity, response times drop and fans churn. We provide the operational backend to handle the traffic.
+            Growth creates operational weight no one warns you about. Your inbox never sleeps, and every hour spent on admin is an hour not spent creating.
           </p>
         </FadeIn>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
           {REALITY_CARDS.map((c, i) => (
             <FadeIn key={i} delay={i * 0.07} className={i === 4 ? 'lg:col-span-1 md:col-span-2 lg:col-span-1' : ''}>
-              <div className="group h-full rounded-2xl border border-white/[0.05] bg-white/[0.015] p-8 hover:border-white/[0.09] hover:bg-white/[0.03] transition-all duration-300">
-                <div className="w-11 h-11 rounded-xl border border-red-500/15 bg-red-500/[0.05] flex items-center justify-center text-red-400/80 mb-6 group-hover:scale-105 transition-transform duration-300">
+              <div className="group h-full rounded-2xl border border-red-500/10 bg-red-500/[0.02] p-8 hover:border-red-500/15 hover:bg-red-500/[0.03] transition-all duration-300">
+                <div className="w-11 h-11 rounded-xl border border-red-500/20 bg-red-500/[0.08] flex items-center justify-center text-red-400 mb-6 group-hover:scale-105 transition-transform duration-300">
+                  <c.icon className="w-5 h-5" />
+                </div>
+                <h3 className="font-bold text-white text-[1rem] mb-2.5 tracking-tight">{c.title}</h3>
+                <p className="text-white/35 text-[0.85rem] leading-relaxed">{c.body}</p>
+              </div>
+            </FadeIn>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════════
+   AFTER BRANDVERSE
+   ═══════════════════════════════════════════════════════════════════════════════ */
+
+const AFTER_BV = [
+  { icon: CheckCircle2, title: 'Organized operations',     body: 'Structured workflows, documented playbooks, and clear systems for every aspect of your page management.' },
+  { icon: Workflow,    title: 'Structured workflows',     body: 'Post queues, vault organization, and messaging flows built to scale without chaos.' },
+  { icon: Users,       title: 'Professional support',      body: 'Trained operations team handling your inbox and admin while you focus on content creation.' },
+  { icon: TrendingUp,  title: 'More creative time',        body: 'Reclaim hours every day by delegating operational work to a dedicated support layer.' },
+  { icon: BarChart3,   title: 'Scalable business',         body: 'Systems designed to grow with you — no more operational bottlenecks as your audience expands.' },
+];
+
+function AfterBrandverse() {
+  return (
+    <section id="after" className="py-28 px-5 sm:px-8 border-t border-white/[0.04]" aria-labelledby="after-heading">
+      <div className="mx-auto max-w-7xl">
+        <FadeIn className="max-w-2xl mb-16">
+          <Label>After Brandverse</Label>
+          <Heading id="after-heading" className="mb-5">
+            The creator with systems that scale.
+          </Heading>
+          <p className="text-[1.05rem] text-white/42 leading-relaxed max-w-xl">
+            With professional operations backing your page, you reclaim your creative freedom while your audience receives the attention they deserve.
+          </p>
+        </FadeIn>
+
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {AFTER_BV.map((c, i) => (
+            <FadeIn key={i} delay={i * 0.07}>
+              <div className="group h-full rounded-2xl border border-emerald-500/10 bg-emerald-500/[0.02] p-8 hover:border-emerald-500/15 hover:bg-emerald-500/[0.03] transition-all duration-300">
+                <div className="w-11 h-11 rounded-xl border border-emerald-500/20 bg-emerald-500/[0.08] flex items-center justify-center text-emerald-400 mb-6 group-hover:scale-105 transition-transform duration-300">
                   <c.icon className="w-5 h-5" />
                 </div>
                 <h3 className="font-bold text-white text-[1rem] mb-2.5 tracking-tight">{c.title}</h3>
@@ -842,7 +881,7 @@ function CreatorsFooter() {
           <nav className="flex flex-wrap items-center justify-center gap-6 text-[0.78rem] text-white/25" aria-label="Footer">
             <Link href="/privacy" className="hover:text-white/50 transition-colors">Privacy Policy</Link>
             <Link href="/terms" className="hover:text-white/50 transition-colors">Terms of Service</Link>
-            <a href="mailto:creators@brandverse.tech" className="hover:text-white/50 transition-colors">creators@brandverse.tech</a>
+            <a href="mailto:ayush@brandverse.tech" className="hover:text-white/50 transition-colors">ayush@brandverse.tech</a>
           </nav>
 
           <p className="text-[0.72rem] text-white/15">© {new Date().getFullYear()} Brandverse. All rights reserved.</p>
@@ -877,7 +916,8 @@ export default function CreatorsPage() {
       <main id="main-content">
         <Hero />
         <PlatformStrip />
-        <RealitySection />
+        <BeforeBrandverse />
+        <AfterBrandverse />
         <ServicesSection />
         <WhySection />
         <DeservesBetter />

@@ -9,7 +9,9 @@
     "start": "next start",
     "lint": "eslint",
     "deploy": "node deploy-cloudflare.js",
-    "deploy:cloudflare": "npx wrangler pages deploy out --project-name brandverse"
+    "deploy:cloudflare": "npx wrangler pages deploy out --project-name brandverse --branch=production",
+    "deploy:subdomain-router": "npx wrangler deploy --config subdomain-router/wrangler.toml",
+    "deploy:all": "node deploy-cloudflare.js && npm run deploy:subdomain-router"
   },
   "dependencies": {
     "@google/generative-ai": "^0.24.1",

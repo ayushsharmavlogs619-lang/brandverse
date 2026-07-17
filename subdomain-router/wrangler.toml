@@ -1,0 +1,15 @@
+name = "brandverse-subdomain-router"
+main = "worker.js"
+compatibility_date = "2024-01-01"
+
+[[routes]]
+pattern = "creators.brandverse.tech/*"
+zone_name = "brandverse.tech"
+
+[[routes]]
+pattern = "edge.brandverse.tech/*"
+zone_name = "brandverse.tech"
+
+[[routes]]
+pattern = "onlyfans.brandverse.tech/*"
+zone_name = "brandverse.tech"

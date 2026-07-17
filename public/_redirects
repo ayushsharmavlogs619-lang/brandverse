@@ -1,2 +1,6 @@
+https://www.brandverse.tech/* https://brandverse.tech/:splat 301
 https://creators.brandverse.tech/* /creators/:splat 200
+https://onlyfans.brandverse.tech/* /onlyfans/:splat 200
+https://edge.brandverse.tech/api/* /api/:splat 200
+https://edge.brandverse.tech/health /health 200
 https://edge.brandverse.tech/* /workroom/:splat 200
