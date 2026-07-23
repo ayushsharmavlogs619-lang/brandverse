@@ -10,7 +10,6 @@ const compat = new FlatCompat({
 });
 
 const eslintConfig = [
-  ...compat.extends("next/core-web-vitals", "next/typescript"),
   {
     ignores: [
       ".next/**",
@@ -18,8 +17,12 @@ const eslintConfig = [
       "build/**",
       "next-env.d.ts",
       "node_modules/**",
-      ".vercel/**"
-    ],
+      ".vercel/**",
+      ".wrangler/**"
+    ]
+  },
+  ...compat.extends("next/core-web-vitals", "next/typescript"),
+  {
     rules: {
       "react/no-unescaped-entities": "off",
       "@typescript-eslint/no-unused-vars": "warn",

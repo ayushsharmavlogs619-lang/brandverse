@@ -71,16 +71,25 @@ export default function FAQPage() {
               <div className="space-y-4">
                 {cat.items.map((faq, i) => {
                   const index = chatIndex++;
+                  const isOpen = openFaq === index;
                   return (
                     <div key={index} className="rounded-2xl border border-white/5 bg-white/5 overflow-hidden">
                       <button
-                        onClick={() => setOpenFaq(openFaq === index ? null : index)}
-                        className="w-full p-6 text-left flex justify-between items-center group"
+                        id={`faq-question-${index}`}
+                        onClick={() => setOpenFaq(isOpen ? null : index)}
+                        aria-expanded={isOpen}
+                        aria-controls={`faq-answer-${index}`}
+                        className="w-full p-6 text-left flex justify-between items-center group focus:outline-none focus:ring-2 focus:ring-blue-500/50 rounded-2xl"
                       >
                         <span className="text-lg font-bold group-hover:text-blue-400 transition-colors">{faq.q}</span>
-                        <ChevronDown className={`w-5 h-5 transition-transform duration-300 ${openFaq === index ? 'rotate-180' : ''}`} />
+                        <ChevronDown className={`w-5 h-5 transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`} />
                       </button>
-                      <div className={`transition-all duration-300 overflow-hidden ${openFaq === index ? 'max-h-96' : 'max-h-0'}`}>
+                      <div
+                        id={`faq-answer-${index}`}
+                        role="region"
+                        aria-labelledby={`faq-question-${index}`}
+                        className={`transition-all duration-300 overflow-hidden ${isOpen ? 'max-h-96' : 'max-h-0'}`}
+                      >
                         <p className="p-6 pt-0 text-slate-400 leading-relaxed border-t border-white/5">{faq.a}</p>
                       </div>
                     </div>

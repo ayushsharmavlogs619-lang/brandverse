@@ -5,6 +5,8 @@
 
 import { config } from './config';
 import { FORMSUBMIT_ACTION } from './forms';
+import { GoogleSheetsService, createGoogleSheetsService } from './google-sheets-service';
+import { CerebrasService, createCerebrasService } from './cerebras-service';
 
 // =====================================================
 // TYPES
@@ -24,6 +26,14 @@ export interface LeadData {
     utm_source?: string;
     utm_medium?: string;
     utm_campaign?: string;
+    timestamp?: string;
+}
+
+export interface AIAnalysis {
+    summary?: string;
+    urgency?: 'low' | 'medium' | 'high';
+    lead_quality?: 'low' | 'medium' | 'high';
+    suggested_reply?: string;
 }
 
 export interface LeadSubmissionResult {
@@ -153,10 +163,14 @@ class LeadValidator {
 class LeadService {
     private isConfigured: boolean;
     private workerUrl: string;
+    private googleSheetsService: GoogleSheetsService | null;
+    private cerebrasService: CerebrasService | null;
 
     constructor() {
         this.workerUrl = config.workerUrl || 'https://edge.brandverse.tech';
         this.isConfigured = !!this.workerUrl;
+        this.googleSheetsService = createGoogleSheetsService();
+        this.cerebrasService = createCerebrasService();
     }
 
     async submitLead(data: LeadData): Promise<LeadSubmissionResult> {
@@ -183,7 +197,34 @@ class LeadService {
                 };
             }
 
-            // Step 4: Submit to Worker Proxy (which writes to Airtable with Sheets fallback)
+            // Step 4: Generate AI analysis (if Cerebras is configured)
+            let aiAnalysis: AIAnalysis | undefined;
+            if (this.cerebrasService) {
+                try {
+                    aiAnalysis = await this.cerebrasService.analyzeLead(sanitizedData);
+                    console.log('AI analysis generated:', aiAnalysis);
+                } catch (error) {
+                    console.error('AI analysis failed, continuing without it:', error);
+                }
+            }
+
+            // Step 5: Submit to Google Sheets (if configured)
+            let submittedToSheets = false;
+            if (this.googleSheetsService) {
+                try {
+                    const sheetsResult = await this.googleSheetsService.appendLead(sanitizedData, aiAnalysis);
+                    if (sheetsResult.success) {
+                        submittedToSheets = true;
+                        console.log('Lead submitted to Google Sheets');
+                    } else {
+                        console.warn('Google Sheets submission failed:', sheetsResult.error);
+                    }
+                } catch (error) {
+                    console.error('Google Sheets error:', error);
+                }
+            }
+
+            // Step 5: Submit to Worker Proxy (which writes to Airtable with Sheets fallback)
             let leadId: string | undefined;
             let submittedToWorker = false;
             let usedWorkerFallback = false;
@@ -212,8 +253,8 @@ class LeadService {
                 }
             }
 
-            // Step 5: If Worker succeeded (either primary Airtable or Sheets fallback), we are done
-            if (submittedToWorker) {
+            // Step 6: If Google Sheets or Worker succeeded, we are done
+            if (submittedToSheets || submittedToWorker) {
                 return {
                     success: true,
                     leadId: leadId,

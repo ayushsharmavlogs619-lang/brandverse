@@ -209,3 +209,98 @@ input[type="range"]::-moz-range-thumb:hover {
     box-shadow: 0 0 40px rgba(0, 102, 255, 0.6);
   }
 }
+
+/* Mobile Optimizations */
+@media (max-width: 768px) {
+  /* Typography */
+  h1 {
+    font-size: 2rem !important;
+    line-height: 1.1 !important;
+  }
+  
+  h2 {
+    font-size: 1.75rem !important;
+    line-height: 1.2 !important;
+  }
+  
+  h3 {
+    font-size: 1.25rem !important;
+  }
+  
+  /* Spacing */
+  section {
+    padding: 4rem 1rem !important;
+  }
+  
+  .py-32 {
+    padding-top: 5rem !important;
+    padding-bottom: 5rem !important;
+  }
+  
+  .py-24 {
+    padding-top: 4rem !important;
+    padding-bottom: 4rem !important;
+  }
+  
+  /* Buttons */
+  button, .btn {
+    padding: 0.75rem 1.5rem !important;
+    font-size: 0.875rem !important;
+  }
+  
+  /* Forms */
+  input, textarea, select {
+    font-size: 16px !important; /* Prevent iOS zoom */
+    padding: 0.75rem !important;
+  }
+  
+  /* Cards */
+  .premium-card, .glass-morphism {
+    border-radius: 1rem !important;
+    padding: 1.5rem !important;
+  }
+  
+  /* Grid */
+  .grid-cols-3 {
+    grid-template-columns: 1fr !important;
+  }
+  
+  .grid-cols-2 {
+    grid-template-columns: 1fr !important;
+  }
+  
+  /* Navigation */
+  nav {
+    padding: 0.75rem 1rem !important;
+  }
+  
+  /* Hero section */
+  .hero-text {
+    font-size: 1.5rem !important;
+  }
+  
+  /* Pricing cards */
+  .pricing-card {
+    transform: none !important;
+    margin-bottom: 1rem !important;
+  }
+}
+
+@media (max-width: 480px) {
+  h1 {
+    font-size: 1.75rem !important;
+  }
+  
+  h2 {
+    font-size: 1.5rem !important;
+  }
+  
+  section {
+    padding: 3rem 0.75rem !important;
+  }
+  
+  .py-32 {
+    padding-top: 3rem !important;
+    padding-bottom: 3rem !important;
+  }
+}

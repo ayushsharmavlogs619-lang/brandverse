@@ -21,25 +21,38 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Brandverse — AI Voice Agents for SMBs",
-  description: "Brandverse provides 24/7 AI voice agents that capture leads, book appointments, and drive revenue for local businesses.",
+  title: "Brandverse — AI Voice Agents for SMBs | 24/7 Lead Capture & Automation",
+  description: "Brandverse provides 24/7 AI voice agents that capture leads, book appointments, and drive revenue for local businesses. Stop losing calls to voicemail.",
   metadataBase: new URL('https://brandverse.tech'),
-  keywords: ['AI Voice Agents', 'AI Automation', 'Lead Generation', 'Voice AI', 'Business Automation', 'AI Phone Agent', 'Conversational AI', 'SMB Solutions'],
+  keywords: ['AI Voice Agents', 'AI Automation', 'Lead Generation', 'Voice AI', 'Business Automation', 'AI Phone Agent', 'Conversational AI', 'SMB Solutions', '24/7 Call Answering', 'Appointment Booking', 'AI Receptionist', 'CRM Integration'],
   authors: [{ name: 'Brandverse' }],
   creator: 'Brandverse',
   publisher: 'Brandverse',
+  alternates: {
+    canonical: 'https://brandverse.tech',
+  },
   openGraph: {
     type: 'website',
     locale: 'en_US',
     url: 'https://brandverse.tech',
-    title: 'Brandverse — AI Voice Agents for SMBs',
-    description: '24/7 AI voice agents that capture leads, book appointments, and drive revenue for local businesses.',
+    title: 'Brandverse — AI Voice Agents for SMBs | 24/7 Lead Capture',
+    description: '24/7 AI voice agents that capture leads, book appointments, and drive revenue for local businesses. Stop losing calls to voicemail.',
     siteName: 'Brandverse',
+    images: [
+      {
+        url: 'https://brandverse.tech/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'Brandverse - AI Voice Agents',
+      },
+    ],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Brandverse — AI Voice Agents for SMBs',
     description: '24/7 AI voice agents that capture leads, book appointments, and drive revenue.',
+    images: ['https://brandverse.tech/og-image.png'],
+    creator: '@brandverse_tech',
   },
   robots: {
     index: true,

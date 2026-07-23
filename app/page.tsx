@@ -56,6 +56,34 @@ export default function Page() {
   const monthlyROI = Math.round(((monthlyRevenue - aiCost) / aiCost) * 100);
   const yearlyROI = Math.round(((yearlyRevenue - (aiCost * 12)) / (aiCost * 12)) * 100);
 
+  // Services data
+  const services = [
+    {
+      icon: Mic,
+      title: 'AI Voice Agents',
+      description: '24/7 natural-sounding voice agents that answer, qualify, and book appointments automatically.',
+      features: ['Live call handling', 'Call recording & transcripts', 'SMS confirmations', 'Multi-language support']
+    },
+    {
+      icon: Bot,
+      title: 'AI Receptionist',
+      description: 'Intelligent front-desk automation that handles inquiries, schedules appointments, and nurtures leads.',
+      features: ['Instant response', 'Calendar integration', 'Lead qualification', 'Follow-up automation']
+    },
+    {
+      icon: Workflow,
+      title: 'Business Automations',
+      description: 'End-to-end workflow automation connecting your phone, CRM, calendar, and dispatch systems.',
+      features: ['CRM integration', 'Calendar sync', 'Custom workflows', 'API access']
+    },
+    {
+      icon: Database,
+      title: 'CRM Integration',
+      description: 'Seamless two-way sync with Salesforce, HubSpot, ServiceTitan, Housecall Pro, and more.',
+      features: ['Real-time sync', 'Custom field mapping', 'Webhook triggers', 'Data enrichment']
+    }
+  ];
+
   const industries = [
     {
       icon: Wrench,
@@ -490,6 +518,140 @@ export default function Page() {
             </div>
           </div>
         </section>
+
+        {/* 💼 SERVICES SECTION */}
+        <section id="services" className="py-32 px-6 border-t border-white/5 bg-gradient-to-b from-slate-900/0 to-slate-900/50">
+          <div className="max-w-7xl mx-auto space-y-16">
+            <div className="text-center space-y-6">
+              <div className="inline-flex items-center gap-3 px-4 py-2 rounded-2xl glass-morphism border border-white/20 text-cyan-400 text-[10px] font-black uppercase tracking-[0.2em] animate-fade-in">
+                <div className="w-3 h-3 bg-cyan-400 rounded-full mr-2 pulse-glow" />
+                Our Services
+              </div>
+              <h2 className="text-5xl md:text-7xl font-black text-white uppercase italic tracking-tighter">
+                Everything You Need to <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">Automate</span>
+              </h2>
+              <p className="text-slate-400 text-lg max-w-3xl mx-auto font-bold">
+                From voice agents to CRM integration, we build complete automation systems that replace entire departments.
+              </p>
+            </div>
+
+            <div className="grid md:grid-cols-2 gap-8">
+              {services.map((service, idx) => (
+                <div key={idx} className="group p-10 rounded-[2.5rem] bg-gradient-to-br from-slate-900/80 to-slate-900/40 border border-white/5 hover:border-blue-500/30 transition-all space-y-6 relative overflow-hidden">
+                  <div className="absolute top-0 right-0 p-10 opacity-10 group-hover:opacity-20 transition-opacity">
+                    <service.icon className="w-48 h-48 text-blue-500" />
+                  </div>
+                  <div className="relative z-10">
+                    <div className="w-16 h-16 rounded-2xl bg-blue-600/20 group-hover:bg-blue-600/30 transition-colors flex items-center justify-center mb-6">
+                      <service.icon className="w-8 h-8 text-blue-400" />
+                    </div>
+                    <h3 className="text-3xl font-black text-white uppercase italic tracking-tighter mb-4">{service.title}</h3>
+                    <p className="text-slate-300 text-lg leading-relaxed mb-6">{service.description}</p>
+                    <ul className="space-y-3">
+                      {service.features.map((feature, fIdx) => (
+                        <li key={fIdx} className="flex items-center gap-3 text-slate-400">
+                          <Check className="w-5 h-5 text-green-400" />
+                          {feature}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* 💰 PRICING SECTION */}
+        <section id="pricing" className="py-32 px-6 border-t border-white/5 bg-gradient-to-b from-slate-900/50 to-slate-900/0">
+          <div className="max-w-7xl mx-auto space-y-16">
+            <div className="text-center space-y-6">
+              <div className="inline-flex items-center gap-3 px-4 py-2 rounded-2xl glass-morphism border border-white/20 text-purple-400 text-[10px] font-black uppercase tracking-[0.2em] animate-fade-in">
+                <div className="w-3 h-3 bg-purple-400 rounded-full mr-2 pulse-glow" />
+                Simple Pricing
+              </div>
+              <h2 className="text-5xl md:text-7xl font-black text-white uppercase italic tracking-tighter">
+                Invest In <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-500">Growth</span>
+              </h2>
+              <p className="text-slate-400 text-lg max-w-3xl mx-auto font-bold">
+                A full-time receptionist costs ~$45,000/year. Brandverse costs less than a coffee a day.
+                <span className="text-blue-400 font-bold"> No contracts. Cancel anytime.</span>
+              </p>
+            </div>
+
+            <div className="grid md:grid-cols-3 gap-8 items-start relative">
+              {/* Starter */}
+              <div className="p-10 rounded-3xl bg-[#0b1121] border border-white/10 text-center hover:border-blue-500/30 transition-all">
+                <h3 className="text-2xl font-bold mb-2 text-white">Starter</h3>
+                <div className="text-sm text-slate-500 font-medium mb-6">Perfect for Solopreneurs</div>
+                <div className="text-5xl font-black mb-2 text-white">$497<span className="text-lg text-slate-500 font-normal">/mo</span></div>
+                <div className="text-xs text-slate-500 mb-8 uppercase tracking-widest font-semibold">Risk Free Guarantee</div>
+                <ul className="text-slate-400 space-y-4 mb-10 text-left text-sm">
+                  <li className="flex items-center gap-3"><Check className="w-5 h-5 text-blue-500" /> 24/7 Call Answering</li>
+                  <li className="flex items-center gap-3"><Check className="w-5 h-5 text-blue-500" /> Basic Appointment Booking</li>
+                  <li className="flex items-center gap-3"><Check className="w-5 h-5 text-blue-500" /> SMS Summaries</li>
+                  <li className="flex items-center gap-3"><Check className="w-5 h-5 text-blue-500" /> 500 AI Minutes / mo</li>
+                  <li className="flex items-center gap-3"><Check className="w-5 h-5 text-blue-500" /> English Support</li>
+                </ul>
+                <Link href="/contact" className="block w-full py-4 text-center rounded-xl bg-white/5 border border-white/10 font-bold hover:bg-white/10 transition-all text-white">Start With Basic</Link>
+              </div>
+
+              {/* Growth */}
+              <div className="p-12 rounded-[2.5rem] bg-indigo-600 border border-indigo-400 relative shadow-2xl shadow-indigo-500/30 -translate-y-6 z-10">
+                <div className="absolute top-0 right-1/2 translate-x-1/2 -translate-y-1/2 bg-white text-indigo-700 px-6 py-2 rounded-full text-xs font-black tracking-widest uppercase border border-indigo-200">Best ROI</div>
+                <h3 className="text-3xl font-bold mb-2 text-white">Growth</h3>
+                <div className="text-sm text-indigo-200 font-medium mb-6">For Established Teams</div>
+                <div className="text-6xl font-black mb-2 text-white">$997<span className="text-lg text-indigo-200 font-normal">/mo</span></div>
+                <div className="text-xs text-indigo-200 mb-8 uppercase tracking-widest font-semibold">No Setup Fees This Week</div>
+                <ul className="text-white space-y-5 mb-12 text-left">
+                  <li className="flex items-center gap-3"><Check className="w-5 h-5 text-indigo-200" /> <strong>Everything in Starter</strong></li>
+                  <li className="flex items-center gap-3"><Check className="w-5 h-5 text-indigo-200" /> <strong>Full CRM Integration</strong> (2-way)</li>
+                  <li className="flex items-center gap-3"><Check className="w-5 h-5 text-indigo-200" /> Custom Voice Cloning</li>
+                  <li className="flex items-center gap-3"><Check className="w-5 h-5 text-indigo-200" /> Unlimited Minutes</li>
+                  <li className="flex items-center gap-3"><Check className="w-5 h-5 text-indigo-200" /> Multilingual (ES/FR)</li>
+                  <li className="flex items-center gap-3"><Check className="w-5 h-5 text-indigo-200" /> Priority Support Line</li>
+                </ul>
+                <Link href="/contact" className="block w-full py-5 text-center rounded-2xl bg-white text-indigo-700 font-black text-lg hover:bg-slate-100 transition-all shadow-xl">Get Growth Plan</Link>
+              </div>
+
+              {/* Enterprise */}
+              <div className="p-10 rounded-3xl bg-[#0b1121] border border-white/10 text-center hover:border-blue-500/30 transition-all">
+                <h3 className="text-2xl font-bold mb-2 text-white">Enterprise</h3>
+                <div className="text-sm text-slate-500 font-medium mb-6">Franchises & Multi-Location</div>
+                <div className="text-5xl font-black mb-2 text-white">Custom</div>
+                <div className="text-xs text-slate-500 mb-8 uppercase tracking-widest font-semibold">White Glove Service</div>
+                <ul className="text-slate-400 space-y-4 mb-10 text-left text-sm">
+                  <li className="flex items-center gap-3"><Check className="w-5 h-5 text-blue-500" /> Multi-location Routing Logic</li>
+                  <li className="flex items-center gap-3"><Check className="w-5 h-5 text-blue-500" /> Dedicated Account Manager</li>
+                  <li className="flex items-center gap-3"><Check className="w-5 h-5 text-blue-500" /> Custom API Development</li>
+                  <li className="flex items-center gap-3"><Check className="w-5 h-5 text-blue-500" /> White Label Portal</li>
+                  <li className="flex items-center gap-3"><Check className="w-5 h-5 text-blue-500" /> SLA Guarantees</li>
+                </ul>
+                <Link href="/contact" className="block w-full py-4 text-center rounded-xl bg-white/5 border border-white/10 font-bold hover:bg-white/10 transition-all text-white">Contact Sales</Link>
+              </div>
+            </div>
+
+            {/* Guarantee Block */}
+            <div className="max-w-4xl mx-auto p-8 border border-emerald-500/30 bg-emerald-500/5 rounded-3xl flex flex-col md:flex-row items-center gap-8">
+              <div className="p-4 bg-emerald-500/10 rounded-full shrink-0">
+                <ShieldCheck className="w-12 h-12 text-emerald-500" />
+              </div>
+              <div className="text-left">
+                <h3 className="text-2xl font-bold text-white mb-2">Our 30-Day Happiness Guarantee</h3>
+                <p className="text-slate-400">We are so confident that Brandverse will increase your booking rate that if you don't generate at least 3x your monthly ROI in the first 30 days, we'll refund your subscription in full. No questions asked.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* 🎯 SIXTH CTA - After Pricing */}
+        <CTASection 
+          title="Ready to Automate Your Business?"
+          subtitle="We build custom AI infrastructure that becomes your competitive advantage."
+          primaryText="Get Started"
+          secondaryText="View Pricing"
+          variant="minimal"
+        />
 
         {/* 🧮 ROI CALCULATOR SECTION */}
         <section id="roi" className="py-32 px-6 md:px-0">

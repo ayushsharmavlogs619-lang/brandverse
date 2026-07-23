@@ -10,10 +10,22 @@ const nextConfig: NextConfig = {
         hostname: "localhost",
         pathname: "/**",
       },
+      {
+        protocol: "https",
+        hostname: "**",
+      },
     ],
     unoptimized: true,
   },
   distDir: "out",
+  // Performance optimizations
+  compress: true,
+  poweredByHeader: false,
+  generateEtags: true,
+  // Static optimization
+  experimental: {
+    optimizeCss: true,
+  },
 };
 
 export default nextConfig;

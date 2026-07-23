@@ -8,7 +8,7 @@ import {
   resolveSubdomainRoute,
 } from '../lib/subdomain-routing.js';
 
-export default {
+const workerHandler = {
   async fetch(request, env) {
     const url = new URL(request.url);
     const pagesBase = env.PAGES_BASE || DEFAULT_PAGES_BASE;
@@ -40,5 +40,7 @@ export default {
     }
 
     return fetch(request);
-  },
+  }
 };
+
+export default workerHandler;

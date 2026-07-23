@@ -1,4 +1,4 @@
-const fetch = require('node-fetch');
+import fetch from 'node-fetch';
 
 // CONFIGURATION
 // We will inject these from the environment when you run the script
