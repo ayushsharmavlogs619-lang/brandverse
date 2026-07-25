@@ -11,8 +11,9 @@
  * - Optional: VAPI_API_KEY, FIREBASE_API_KEY, etc. for deeper checks
  */
 
-const https = require('https');
-const http = require('http');
+import https from 'https';
+import http from 'http';
+import dns from 'dns';
 
 // Configuration
 const WORKER_URL = process.env.NEXT_PUBLIC_WORKER_URL || 'https://edge.brandverse.tech';
@@ -200,10 +201,10 @@ async function checkLeadCapture() {
 async function checkDNS() {
   logSection('CHECK 4: DNS Resolution');
   
-  const dns = require('dns').promises;
+  const dnsPromises = dns.promises;
   
   try {
-    const addresses = await dns.lookup('brandverse.tech');
+    const addresses = await dnsPromises.lookup('brandverse.tech');
     const check = {
       name: 'DNS Resolution',
       url: 'brandverse.tech',
@@ -341,7 +342,7 @@ function checkEnvironmentVariables() {
     'NEXT_PUBLIC_FIREBASE_PROJECT_ID',
     'NEXT_PUBLIC_VAPI_PUBLIC_KEY',
     'NEXT_PUBLIC_GA_MEASUREMENT_ID',
-    'NEXT_PUBLIC_MAILCHIMP_API_KEY',
+    'MAILCHIMP_API_KEY',
     'NEXT_PUBLIC_CALENDLY_URL'
   ];
   
@@ -392,9 +393,6 @@ function checkEnvironmentVariables() {
 function checkBuildConfiguration() {
   logSection('CHECK 7: Build Configuration');
   
-  const fs = require('fs');
-  const path = require('path');
-  
   const requiredFiles = [
     'package.json',
     'next.config.ts',
@@ -435,9 +433,6 @@ function checkBuildConfiguration() {
 // Check 8: Dependencies
 function checkDependencies() {
   logSection('CHECK 8: Dependencies');
-  
-  const fs = require('fs');
-  const path = require('path');
   
   const packageJsonPath = path.join(process.cwd(), 'package.json');
   const nodeModulesPath = path.join(process.cwd(), 'node_modules');

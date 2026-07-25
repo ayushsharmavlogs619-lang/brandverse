@@ -27,10 +27,15 @@ interface AppConfig {
   googleSiteVerification: string;
 }
 
+const warnedKeys = new Set<string>();
+
 const getEnvVar = (key: string, defaultValue: string = ''): string => {
   const value = process.env[key];
   if (value === undefined || value === null || value === '') {
-    console.warn(`Missing environment variable: ${key}. Using default: "${defaultValue}"`);
+    if (!warnedKeys.has(key)) {
+      console.warn(`Missing environment variable: ${key}. Using default: "${defaultValue}"`);
+      warnedKeys.add(key);
+    }
     return defaultValue;
   }
   return value;
@@ -43,7 +48,7 @@ export const config: AppConfig = {
     metaPixelId: getEnvVar('NEXT_PUBLIC_META_PIXEL_ID', ''),
   },
   mailchimp: {
-    apiKey: getEnvVar('NEXT_PUBLIC_MAILCHIMP_API_KEY', ''),
+    apiKey: getEnvVar('MAILCHIMP_API_KEY', ''),
     audienceId: getEnvVar('NEXT_PUBLIC_MAILCHIMP_AUDIENCE_ID', ''),
   },
   vapidPublicKey: getEnvVar('NEXT_PUBLIC_VAPID_PUBLIC_KEY', ''),

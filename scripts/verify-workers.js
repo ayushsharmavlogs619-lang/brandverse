@@ -9,8 +9,9 @@
  * Requires: CLOUDFLARE_API_TOKEN environment variable for remote verification
  */
 
-const fs = require('fs');
-const path = require('path');
+import fs from 'fs';
+import path from 'path';
+import { pathToFileURL } from 'url';
 
 // Color codes
 const colors = {
@@ -66,12 +67,14 @@ function verifyWorkerFiles() {
           results.push({ name: worker.name, status: 'PASS', path: worker.path });
         } else {
           log(`⚠ ${worker.name} exists but may have structure issues`, 'yellow');
+          const issues = [];
+          if (!hasExport) issues.push('Missing export');
+          if (!hasFetch) issues.push('Missing fetch handler');
           results.push({ 
             name: worker.name, 
             status: 'WARNING', 
             path: worker.path,
-            issues: hasExport ? [] : ['Missing export'],
-            issues: hasFetch ? [] : ['Missing fetch handler']
+            issues
           });
         }
       } catch (error) {
@@ -346,7 +349,7 @@ function main() {
   }
 }
 
-if (require.main === module) {
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
   main();
 }
 
