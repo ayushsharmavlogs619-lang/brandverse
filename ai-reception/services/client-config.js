@@ -397,6 +397,22 @@ export class ClientConfigService {
     }
   }
 
+  // Look up client by inbound phone number (for Vapi call routing)
+  async getClientByPhoneNumber(inboundNumber) {
+    try {
+      const clientsData = await this.loadClientsData();
+      const normalized = inboundNumber.replace(/\D/g, '');
+      const client = clientsData.clients.find(c => {
+        const clientPhone = (c.phone_number || '').replace(/\D/g, '');
+        return clientPhone && normalized.endsWith(clientPhone.slice(-10));
+      });
+      return client || null;
+    } catch (error) {
+      console.error('Error looking up client by phone:', error);
+      return null;
+    }
+  }
+
   // Clear cache
   clearCache() {
     this.cache.clear();

@@ -289,6 +289,55 @@ export class GoogleCalendarService {
     }
   }
 
+  // Get a single event by ID
+  async getEvent(calendarId, eventId) {
+    try {
+      if (!calendarId || !eventId) {
+        throw new Error('Calendar ID and Event ID are required');
+      }
+
+      const accessToken = await this.getAccessToken();
+      const response = await fetch(
+        `${this.baseURL}/calendars/${encodeURIComponent(calendarId)}/events/${encodeURIComponent(eventId)}`,
+        {
+          headers: {
+            'Authorization': `Bearer ${accessToken}`,
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+
+      if (!response.ok) {
+        if (response.status === 404) return null;
+        throw new Error(`Google Calendar API error: ${response.status}`);
+      }
+
+      const event = await response.json();
+      const privateProps = event.extendedProperties?.private || {};
+
+      return {
+        id: event.id,
+        summary: event.summary,
+        description: event.description,
+        startTime: event.start?.dateTime || event.start?.date,
+        endTime: event.end?.dateTime || event.end?.date,
+        location: event.location,
+        attendees: event.attendees || [],
+        name: privateProps.name || event.summary?.replace(/^.*?-\s*/, '') || 'Unknown',
+        phone: privateProps.phone || '',
+        email: privateProps.email || '',
+        service: privateProps.service || '',
+        duration: privateProps.duration ? parseInt(privateProps.duration) : 0,
+        status: event.status,
+        created: event.created,
+        updated: event.updated,
+      };
+    } catch (error) {
+      console.error('Error fetching event:', error);
+      return null;
+    }
+  }
+
   // Check if a time slot is available
   async isSlotAvailable(calendarId, startTime, endTime, timezone = 'UTC') {
     try {

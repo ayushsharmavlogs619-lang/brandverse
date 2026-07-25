@@ -4,17 +4,22 @@
 export class SMSService {
   constructor(env) {
     this.env = env;
-    this.twilioBaseURL = `https://api.twilio.com/2010-04-01/Accounts/${env.TWILIO_SID}`;
+    this.twilioBaseURL = env.TWILIO_SID
+      ? `https://api.twilio.com/2010-04-01/Accounts/${env.TWILIO_SID}`
+      : null;
+  }
+
+  _checkCredentials() {
+    if (!this.twilioBaseURL) throw new Error('Twilio not configured: TWILIO_SID is missing');
+    if (!this.env.TWILIO_AUTH_TOKEN) throw new Error('Twilio not configured: TWILIO_AUTH_TOKEN is missing');
+    if (!this.env.TWILIO_PHONE_NUMBER) throw new Error('Twilio not configured: TWILIO_PHONE_NUMBER is missing');
   }
 
   // Send SMS via Twilio
   async sendSMS(to, message, from = null) {
     try {
+      this._checkCredentials();
       const phoneNumber = from || this.env.TWILIO_PHONE_NUMBER;
-      
-      if (!phoneNumber) {
-        throw new Error('Twilio phone number not configured');
-      }
 
       const auth = btoa(`${this.env.TWILIO_SID}:${this.env.TWILIO_AUTH_TOKEN}`);
       
@@ -253,6 +258,7 @@ Msg&Data rates may apply.`;
   // Check SMS delivery status
   async getDeliveryStatus(messageSid) {
     try {
+      this._checkCredentials();
       const auth = btoa(`${this.env.TWILIO_SID}:${this.env.TWILIO_AUTH_TOKEN}`);
       
       const response = await fetch(`${this.twilioBaseURL}/Messages/${messageSid}.json`, {

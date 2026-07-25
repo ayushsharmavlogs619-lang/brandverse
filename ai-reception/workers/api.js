@@ -10,6 +10,7 @@ import { BookingEngine } from '../services/booking.js';
 import { LoggingEngine } from '../services/logging.js';
 import { DatabaseService } from '../services/database.js';
 import { AirtableService } from '../services/airtable.js';
+import { VapiService } from '../services/vapi.js';
 
 function getCorsHeaders(request, env) {
   const origin = request.headers.get('Origin');
@@ -77,7 +78,7 @@ const worker = {
       const sheetsService = new GoogleSheetsService(env);
       const smsService = new SMSService(env);
       const availabilityEngine = new AvailabilityEngine(calendarService, clientConfig);
-      const bookingEngine = new BookingEngine(calendarService, sheetsService, smsService);
+      const bookingEngine = new BookingEngine(calendarService, sheetsService, smsService, clientConfig);
       const loggingEngine = new LoggingEngine(sheetsService, clientConfig);
       const airtableService = new AirtableService(env);
       
@@ -89,6 +90,15 @@ const worker = {
         }
       } catch (dbError) {
         console.warn('Database service not available:', dbError.message);
+      }
+
+      // Vapi webhook endpoints (no client ID needed)
+      if (path === '/api/vapi/webhook' && method === 'POST') {
+        return handleVapiWebhook(request, env, clientConfig, loggingEngine, corsHeaders);
+      }
+
+      if (path === '/api/vapi/call' && method === 'POST') {
+        return handleVapiOutboundCall(request, env, clientConfig, loggingEngine, corsHeaders);
       }
 
       // Route handling
@@ -776,6 +786,57 @@ async function handleCreateBooking(clientId, body, dbService, corsHeaders) {
     }), {
       status: 500,
       headers: { 'Content-Type': 'application/json', ...corsHeaders }
+    });
+  }
+}
+
+// ==================== VAPI HANDLERS ====================
+
+async function handleVapiWebhook(request, env, clientConfig, loggingEngine, corsHeaders) {
+  try {
+    const vapiService = new VapiService(env, clientConfig, loggingEngine);
+    const result = await vapiService.handleWebhook(request);
+
+    return new Response(JSON.stringify(result.body), {
+      status: result.status,
+      headers: { 'Content-Type': 'application/json', ...corsHeaders },
+    });
+  } catch (error) {
+    console.error('Vapi webhook error:', error);
+    return new Response(JSON.stringify({ error: 'Vapi webhook processing failed', message: error.message }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json', ...corsHeaders },
+    });
+  }
+}
+
+async function handleVapiOutboundCall(request, env, clientConfig, loggingEngine, corsHeaders) {
+  try {
+    const body = await request.json();
+    const { clientId, customerNumber, ...overrides } = body;
+
+    if (!clientId || !customerNumber) {
+      return new Response(JSON.stringify({ error: 'clientId and customerNumber are required' }), {
+        status: 400,
+        headers: { 'Content-Type': 'application/json', ...corsHeaders },
+      });
+    }
+
+    const vapiService = new VapiService(env, clientConfig, loggingEngine);
+    const callResult = await vapiService.triggerOutboundCall(clientId, customerNumber, overrides);
+
+    return new Response(JSON.stringify({
+      success: true,
+      callId: callResult.id,
+      message: 'Outbound call initiated',
+    }), {
+      headers: { 'Content-Type': 'application/json', ...corsHeaders },
+    });
+  } catch (error) {
+    console.error('Vapi outbound call error:', error);
+    return new Response(JSON.stringify({ error: 'Failed to initiate outbound call', message: error.message }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json', ...corsHeaders },
     });
   }
 }

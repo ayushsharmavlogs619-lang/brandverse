@@ -2,10 +2,11 @@
 // Handles creating, confirming, and managing appointments
 
 export class BookingEngine {
-  constructor(calendarService, sheetsService, smsService) {
+  constructor(calendarService, sheetsService, smsService, clientConfigService) {
     this.calendarService = calendarService;
     this.sheetsService = sheetsService;
     this.smsService = smsService;
+    this.clientConfigService = clientConfigService;
   }
 
   // Create a new booking
@@ -394,30 +395,17 @@ export class BookingEngine {
     }
   }
 
-  // Get event details from calendar
   async getEventDetails(calendarId, eventId) {
     try {
-      // This would need to be implemented in the calendar service
-      // For now, return a placeholder
-      return null;
+      return await this.calendarService.getEvent(calendarId, eventId);
     } catch (error) {
       console.error('Error getting event details:', error);
       return null;
     }
   }
 
-  // Get client configuration (placeholder - would be injected)
   async getClientConfig(clientId) {
-    // This would be injected or passed to the constructor
-    // For now, return a basic structure
-    return {
-      calendar_id: '',
-      sheet_id: '',
-      name: 'Business Name',
-      address: 'Business Address',
-      services: {},
-      timezone: 'UTC'
-    };
+    return this.clientConfigService.getClientConfig(clientId);
   }
 
   // Get upcoming bookings for a client
