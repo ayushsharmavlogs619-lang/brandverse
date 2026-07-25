@@ -14,6 +14,13 @@ export default function PushNotificationBanner() {
     const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
     useEffect(() => {
+        // Some embedded browsers (WhatsApp's in-app browser, Comet, etc.) do not
+        // expose the Notification API at all. Bail out immediately if it's missing
+        // instead of touching Notification.permission, which throws in that case.
+        if (typeof window === 'undefined' || !('Notification' in window)) {
+            return;
+        }
+
         // Check if user already granted/denied or if we've already asked recently
         const askedRecently = localStorage.getItem('pushAsked');
         const currentPermission = Notification.permission;
@@ -25,7 +32,7 @@ export default function PushNotificationBanner() {
         // 2. User hasn't been asked in last 7 days
         // 3. Permission is default (not granted or denied)
         // 4. VAPID key is configured
-        if ('Notification' in window && !askedRecently && currentPermission === 'default' && config.vapidPublicKey) {
+        if (!askedRecently && currentPermission === 'default' && config.vapidPublicKey) {
             // Wait 5 seconds before showing (don't annoy immediately)
             timeoutRef.current = setTimeout(() => setShow(true), 5000);
         }
