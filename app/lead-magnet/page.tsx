@@ -1,8 +1,8 @@
 'use client';
 
 import { FORMSUBMIT_ACTION } from '@/lib/forms';
- $newN 
 import { useState } from 'react';
+import { Calendar, CheckCircle2, TrendingUp, Users, Clock, Shield } from 'lucide-react';
 import { mailchimpService } from '@/lib/mailchimp-service';
 
 // Declare global types for analytics
@@ -62,8 +62,6 @@ export default function LeadMagnetPage() {
             <div className="max-w-4xl mx-auto">
                 {/* Header */}
                 <div className="text-center mb-16">
- $newN 
- $newN 
                 </div>
 
                 {/* Main Content */}
@@ -71,7 +69,6 @@ export default function LeadMagnetPage() {
                     {/* Left: What's Inside */}
                     <div className="space-y-8">
                         <div>
- $newN 
                             <div className="space-y-4">
                                 <div className="flex items-start gap-3">
                                     <CheckCircle2 className="w-6 h-6 text-green-400 mt-1 flex-shrink-0" />
@@ -116,8 +113,6 @@ export default function LeadMagnetPage() {
                     <div className="bg-[#0f172a] border border-white/10 rounded-[2.5rem] p-8 md:p-10 shadow-2xl">
                         <div className="mb-8">
                             <div className="flex items-center gap-3 mb-4">
- $newN 
- $newN 
                             </div>
                         </div>
 
@@ -127,7 +122,6 @@ export default function LeadMagnetPage() {
                             className="space-y-6"
                             onSubmit={handleSubmit}
                         >
- $newN 
 
                             <div>
                                 <label className="block text-sm font-medium text-slate-300 mb-2">Full Name</label>
@@ -167,7 +161,6 @@ export default function LeadMagnetPage() {
                                 disabled={isSubmitting}
                                 className="w-full bg-gradient-to-r from-green-600 to-blue-600 hover:from-green-500 hover:to-blue-500 text-white font-bold py-4 px-8 rounded-xl transition-all duration-300 transform hover:scale-105 flex items-center justify-center gap-2"
                             >
- $newN 
                             </button>
 
                             <p className="text-center text-xs text-slate-500 mt-4">
@@ -223,3 +216,4 @@ export default function LeadMagnetPage() {
         </div>
     );
 }
+

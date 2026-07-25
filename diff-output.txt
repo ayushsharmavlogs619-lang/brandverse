@@ -1,0 +1,162 @@
+﻿diff --git a/functions/api/leads/apps-script.js b/functions/api/leads/apps-script.js
+index d3d69ee..a2ae556 100644
+--- a/functions/api/leads/apps-script.js
++++ b/functions/api/leads/apps-script.js
+@@ -1,101 +1,97 @@
+ /**
++ * Cloudflare Pages Function
+  * POST /api/leads/apps-script
+  *
+- * Cloudflare Pages Function. Receives a lead from the browser, adds the
+- * Google Apps Script shared secret server-side (never exposed to the
+- * client), and forwards the lead to the Apps Script webhook that writes
+- * into Google Sheets.
++ * Forwards a lead to the Google Apps Script webhook, keeping the webhook URL
++ * and shared secret server-side only (never shipped to the browser).
+  *
+- * Env vars (set in Cloudflare Pages dashboard ΓåÆ Settings ΓåÆ Environment
+- * variables, NOT in .env.local ΓÇö Pages Functions read `context.env`,
+- * which is populated from the dashboard/CI config, not the Next.js build):
++ * Required Cloudflare Pages environment variables (Settings -> Environment
++ * variables, set for BOTH "Production" and "Preview" - see notes below):
+  *   GOOGLE_APPS_SCRIPT_WEBHOOK_URL
+  *   GOOGLE_APPS_SCRIPT_SECRET
+  */
+ 
+-const CORS_HEADERS = {
+-  'Access-Control-Allow-Origin': '*',
+-  'Access-Control-Allow-Methods': 'POST, OPTIONS',
+-  'Access-Control-Allow-Headers': 'Content-Type',
+-};
+-
+-function jsonResponse(body, status = 200) {
+-  return new Response(JSON.stringify(body), {
++function json(data, status = 200) {
++  return new Response(JSON.stringify(data), {
+     status,
+-    headers: {
+-      'Content-Type': 'application/json',
+-      ...CORS_HEADERS,
+-    },
++    headers: { "Content-Type": "application/json" },
+   });
+ }
+ 
+-export async function onRequestOptions() {
+-  return new Response(null, { status: 204, headers: CORS_HEADERS });
+-}
+-
+ export async function onRequestPost(context) {
+   const { request, env } = context;
+ 
+   const webhookUrl = env.GOOGLE_APPS_SCRIPT_WEBHOOK_URL;
+   const secret = env.GOOGLE_APPS_SCRIPT_SECRET;
+ 
++  // Optional diagnostics: call as
++  //   /api/leads/apps-script?debug=1
++  // This never reveals secret VALUES, only which env var NAMES are visible
++  // to this function at runtime. Remove this block once things are working.
++  const url = new URL(request.url);
++  if (url.searchParams.get("debug") === "1") {
++    return json({
++      success: false,
++      debug: true,
++      hasWebhookUrl: Boolean(webhookUrl),
++      hasSecret: Boolean(secret),
++      visibleEnvKeys: Object.keys(env),
++    });
++  }
++
+   if (!webhookUrl || !secret) {
+-    console.error('[api/leads/apps-script] Missing GOOGLE_APPS_SCRIPT_WEBHOOK_URL or GOOGLE_APPS_SCRIPT_SECRET');
+-    return jsonResponse({ success: false, error: 'Apps Script integration is not configured' }, 500);
++    return json(
++      {
++        success: false,
++        error: "Apps Script integration is not configured",
++      },
++      500
++    );
+   }
+ 
+-  let lead;
++  let leadData;
+   try {
+-    lead = await request.json();
++    leadData = await request.json();
+   } catch {
+-    return jsonResponse({ success: false, error: 'Invalid JSON body' }, 400);
++    return json({ success: false, error: "Invalid JSON body" }, 400);
+   }
+ 
+-  const controller = new AbortController();
+-  const timeoutId = setTimeout(() => controller.abort(), 10_000);
+-
+   try {
+     const upstream = await fetch(webhookUrl, {
+-      method: 'POST',
+-      headers: { 'Content-Type': 'application/json' },
++      method: "POST",
++      headers: { "Content-Type": "application/json" },
+       body: JSON.stringify({
++        ...leadData,
+         secret,
+-        date: lead.timestamp || new Date().toISOString(),
+-        name: lead.full_name || '',
+-        email: lead.email || '',
+-        phone: lead.phone || '',
+-        company: lead.company || '',
+-        service: lead.service_interest || '',
+-        message: lead.message || '',
+       }),
+-      signal: controller.signal,
+     });
+ 
+-    clearTimeout(timeoutId);
+-
+-    let result = null;
++    const text = await upstream.text();
++    let parsed;
+     try {
+-      result = await upstream.json();
++      parsed = JSON.parse(text);
+     } catch {
+-      // Non-JSON response from Apps Script ΓÇö fall through to generic error below.
++      parsed = { raw: text };
+     }
+ 
+-    if (!upstream.ok || !result?.success) {
+-      const errorMessage = result?.error || `Apps Script webhook returned status ${upstream.status}`;
+-      console.error('[api/leads/apps-script] webhook failed:', errorMessage);
+-      return jsonResponse({ success: false, error: errorMessage }, 502);
++    if (!upstream.ok) {
++      return json(
++        { success: false, error: `Apps Script returned ${upstream.status}`, details: parsed },
++        502
++      );
+     }
+ 
+-    return jsonResponse({ success: true });
++    return json({ success: true, result: parsed });
+   } catch (err) {
+-    clearTimeout(timeoutId);
+-    const errorMessage =
+-      err && err.name === 'AbortError'
+-        ? 'Apps Script webhook timed out'
+-        : err instanceof Error
+-          ? err.message
+-          : 'Unknown error calling Apps Script webhook';
+-    console.error('[api/leads/apps-script] request threw:', errorMessage);
+-    return jsonResponse({ success: false, error: errorMessage }, 502);
++    return json(
++      { success: false, error: err instanceof Error ? err.message : "Upstream request failed" },
++      502
++    );
+   }
+ }
++
++// Reject non-POST methods explicitly instead of falling through to a 404
++// that could be confused with "not configured".
++export async function onRequestGet() {
++  return json({ success: false, error: "Method not allowed, use POST" }, 405);
++}
