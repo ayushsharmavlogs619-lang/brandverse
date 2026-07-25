@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
@@ -20,16 +20,31 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+export const viewport: Viewport = {
+  themeColor: '#020617',
+};
+
 export const metadata: Metadata = {
   title: "Brandverse — AI Voice Agents for SMBs | 24/7 Lead Capture & Automation",
   description: "Brandverse provides 24/7 AI voice agents that capture leads, book appointments, and drive revenue for local businesses. Stop losing calls to voicemail.",
   metadataBase: new URL('https://brandverse.tech'),
+  applicationName: 'Brandverse',
   keywords: ['AI Voice Agents', 'AI Automation', 'Lead Generation', 'Voice AI', 'Business Automation', 'AI Phone Agent', 'Conversational AI', 'SMB Solutions', '24/7 Call Answering', 'Appointment Booking', 'AI Receptionist', 'CRM Integration'],
   authors: [{ name: 'Brandverse' }],
   creator: 'Brandverse',
   publisher: 'Brandverse',
   alternates: {
     canonical: 'https://brandverse.tech',
+  },
+  manifest: 'https://brandverse.tech/manifest.json',
+  icons: {
+    icon: [
+      { url: '/favicon.ico', sizes: 'any' },
+    ],
+    shortcut: ['/favicon.ico'],
+    apple: [
+      { url: '/social-preview.png', sizes: '180x180', type: 'image/png' },
+    ],
   },
   openGraph: {
     type: 'website',
@@ -40,10 +55,10 @@ export const metadata: Metadata = {
     siteName: 'Brandverse',
     images: [
       {
-        url: 'https://brandverse.tech/og-image.png',
+        url: 'https://brandverse.tech/social-preview.png',
         width: 1200,
         height: 630,
-        alt: 'Brandverse - AI Voice Agents',
+        alt: 'Brandverse social preview — AI Voice Agents for SMBs',
       },
     ],
   },
@@ -51,12 +66,13 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Brandverse — AI Voice Agents for SMBs',
     description: '24/7 AI voice agents that capture leads, book appointments, and drive revenue.',
-    images: ['https://brandverse.tech/og-image.png'],
+    images: ['https://brandverse.tech/social-preview.png'],
     creator: '@brandverse_tech',
   },
   robots: {
     index: true,
     follow: true,
+    nocache: false,
     googleBot: {
       index: true,
       follow: true,
@@ -83,7 +99,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <head>
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+      >
+        <StructuredData />
         {linkedInPartnerId ? (
           <>
             <Script id="linkedin-insight" strategy="afterInteractive">
@@ -121,16 +140,20 @@ export default function RootLayout({
             strategy="beforeInteractive"
           />
         )}
-        <StructuredData />
-      </head>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        <ErrorBoundary>
+
+        <ErrorBoundary fallback={null}>
           <Analytics />
+        </ErrorBoundary>
+        <ErrorBoundary fallback={null}>
           <Navbar />
+        </ErrorBoundary>
+        <ErrorBoundary>
           {children}
+        </ErrorBoundary>
+        <ErrorBoundary fallback={null}>
           <Footer />
+        </ErrorBoundary>
+        <ErrorBoundary fallback={null}>
           <PushNotificationBanner />
         </ErrorBoundary>
       </body>

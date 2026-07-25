@@ -22,7 +22,7 @@ wrangler login
 ```
 
 ### 2. Environment Variables
-Create `wrangler.toml` in the ai-reception directory:
+Keep `wrangler.toml` free of real secrets. Configure only non-secret defaults in code, and set sensitive values with Wrangler secrets / Cloudflare dashboard.
 
 ```toml
 name = "ai-receptionist"
@@ -31,20 +31,26 @@ compatibility_date = "2024-01-01"
 
 [env.production]
 vars = [
-  { name = "CEREBRAS_API_KEY", value = "your-cerebras-key" },
-  { name = "OPENAI_API_KEY", value = "your-openai-key" },
-  { name = "TWILIO_SID", value = "your-twilio-sid" },
-  { name = "TWILIO_AUTH_TOKEN", value = "your-twilio-token" },
-  { name = "TWILIO_PHONE_NUMBER", value = "+1234567890" },
-  { name = "GOOGLE_CLIENT_EMAIL", value = "your-google-client-email" },
-  { name = "GOOGLE_PRIVATE_KEY", value = "your-google-private-key" },
-  { name = "GOOGLE_CALENDAR_API_KEY", value = "your-calendar-api-key" },
-  { name = "GOOGLE_SHEETS_API_KEY", value = "your-sheets-api-key" },
-  { name = "VAPI_API_KEY", value = "your-vapi-key" },
   { name = "APP_BASE_URL", value = "https://edge.brandverse.tech" },
   { name = "APP_SUBDOMAIN", value = "edge.brandverse.tech" },
   { name = "DEFAULT_TIMEZONE", value = "Australia/Melbourne" }
 ]
+```
+
+Then set secrets:
+
+```bash
+wrangler secret put CEREBRAS_API_KEY --env production
+wrangler secret put OPENAI_API_KEY --env production
+wrangler secret put TWILIO_SID --env production
+wrangler secret put TWILIO_AUTH_TOKEN --env production
+wrangler secret put TWILIO_PHONE_NUMBER --env production
+wrangler secret put GOOGLE_CLIENT_EMAIL --env production
+wrangler secret put GOOGLE_PRIVATE_KEY --env production
+wrangler secret put GOOGLE_CALENDAR_API_KEY --env production
+wrangler secret put GOOGLE_SHEETS_API_KEY --env production
+wrangler secret put VAPI_API_KEY --env production
+wrangler secret put SUPABASE_SERVICE_KEY --env production
 ```
 
 ## Deployment Steps
@@ -120,6 +126,8 @@ Update `configs/clients.json`:
   "address": "123 Business St"
 }
 ```
+
+Do not leave `calendar_id` or `sheet_id` blank. Booking and availability endpoints will intentionally fail until both are configured with real production IDs.
 
 ## Testing
 

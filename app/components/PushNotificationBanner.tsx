@@ -13,6 +13,22 @@ export default function PushNotificationBanner() {
     const [permission, setPermission] = useState<NotificationPermission>('default');
     const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
+    const getLocalStorageItem = (key: string): string | null => {
+        try {
+            return localStorage.getItem(key);
+        } catch {
+            return null;
+        }
+    };
+
+    const setLocalStorageItem = (key: string, value: string): void => {
+        try {
+            localStorage.setItem(key, value);
+        } catch {
+            // localStorage unavailable (incognito, in-app browser, etc.)
+        }
+    };
+
     useEffect(() => {
         // Some embedded browsers (WhatsApp's in-app browser, Comet, etc.) do not
         // expose the Notification API at all. Bail out immediately if it's missing
@@ -22,7 +38,7 @@ export default function PushNotificationBanner() {
         }
 
         // Check if user already granted/denied or if we've already asked recently
-        const askedRecently = localStorage.getItem('pushAsked');
+        const askedRecently = getLocalStorageItem('pushAsked');
         const currentPermission = Notification.permission;
 
         setPermission(currentPermission);
@@ -72,7 +88,7 @@ export default function PushNotificationBanner() {
             }
 
             // Remember we asked
-            localStorage.setItem('pushAsked', new Date().toISOString());
+            setLocalStorageItem('pushAsked', new Date().toISOString());
             setShow(false);
         } catch (error) {
             console.error('Push notification error:', error);
@@ -81,7 +97,7 @@ export default function PushNotificationBanner() {
     };
 
     const handleDismiss = () => {
-        localStorage.setItem('pushAsked', new Date().toISOString());
+        setLocalStorageItem('pushAsked', new Date().toISOString());
         setShow(false);
     };
 

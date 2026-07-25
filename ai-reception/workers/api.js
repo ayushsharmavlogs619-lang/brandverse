@@ -11,18 +11,37 @@ import { LoggingEngine } from '../services/logging.js';
 import { DatabaseService } from '../services/database.js';
 import { AirtableService } from '../services/airtable.js';
 
-export default {
+function getCorsHeaders(request, env) {
+  const origin = request.headers.get('Origin');
+  const allowedOrigins = new Set([
+    env.APP_BASE_URL,
+    'https://brandverse.tech',
+    'https://www.brandverse.tech',
+    'https://edge.brandverse.tech',
+  ].filter(Boolean));
+
+  const allowOrigin = origin && allowedOrigins.has(origin)
+    ? origin
+    : 'https://brandverse.tech';
+
+  return {
+    'Access-Control-Allow-Origin': allowOrigin,
+    'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+    'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+    'Vary': 'Origin',
+  };
+}
+
+const worker = {
   async fetch(request, env, ctx) {
     const url = new URL(request.url);
     const path = url.pathname;
     const method = request.method;
 
+    void ctx;
+
     // CORS headers for cross-origin requests
-    const corsHeaders = {
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
-      'Access-Control-Allow-Headers': 'Content-Type, Authorization',
-    };
+    const corsHeaders = getCorsHeaders(request, env);
 
     // Handle CORS preflight
     if (method === 'OPTIONS') {
@@ -148,6 +167,8 @@ export default {
     }
   }
 };
+
+export default worker;
 
 // Handle availability requests
 async function handleAvailability(clientId, searchParams, availabilityEngine, corsHeaders) {

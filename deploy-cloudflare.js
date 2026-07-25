@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 
-const { execSync } = require('child_process');
-const fs = require('fs');
-const path = require('path');
+import { execSync } from 'node:child_process';
+import fs from 'node:fs';
+import path from 'node:path';
 
 console.log('🚀 Deploying Brandverse to Cloudflare Pages...');
 
@@ -26,7 +26,7 @@ if (!fs.existsSync(outDir) || !fs.existsSync(path.join(outDir, 'index.html'))) {
 // Deploy using Wrangler
 console.log('🌐 Deploying to Cloudflare Pages...');
 try {
-  execSync('npx wrangler pages deploy out --project-name brandverse --branch=production', { 
+  execSync('npx wrangler pages deploy out --project-name brandverse --branch=main', { 
     stdio: 'inherit',
     cwd: process.cwd()
   });
@@ -39,6 +39,6 @@ try {
   console.log('\n📋 Manual deployment steps:');
   console.log('1. Install Wrangler: npm install -g wrangler');
   console.log('2. Login to Cloudflare: wrangler login');
-  console.log('3. Deploy manually: npx wrangler pages deploy out --project-name brandverse --branch=production');
+  console.log('3. Deploy manually: npx wrangler pages deploy out --project-name brandverse --branch=main');
   process.exit(1);
 }

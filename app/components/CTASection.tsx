@@ -1,6 +1,5 @@
 import type { ReactNode } from 'react';
 import Link from 'next/link';
-import { config } from '@/lib/config';
 import { ArrowRight, Zap, Phone, Calendar } from 'lucide-react';
 
 function isExternalHref(href: string) {

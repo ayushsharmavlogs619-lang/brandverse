@@ -1,5 +1,3 @@
-import Script from 'next/script';
-
 export default function StructuredData() {
     const organizationSchema = {
         "@context": "https://schema.org",
@@ -105,7 +103,7 @@ export default function StructuredData() {
     };
 
     return (
-        <Script
+        <script
             id="structured-data"
             type="application/ld+json"
             dangerouslySetInnerHTML={{
