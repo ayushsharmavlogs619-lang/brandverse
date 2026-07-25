@@ -35,6 +35,23 @@ export default function LeadMagnetPage() {
             console.error('Mailchimp error (form will still submit):', error);
         }
 
+        // Also send to Google Sheets via the Apps Script proxy (best-effort,
+        // never blocks the FormSubmit flow below)
+        try {
+            await fetch('/api/leads/apps-script', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    full_name: name,
+                    email,
+                    service_interest: 'Lead Magnet Download',
+                    timestamp: new Date().toISOString(),
+                }),
+            });
+        } catch (error) {
+            console.error('Google Sheets error (form will still submit):', error);
+        }
+
         // Submit to FormSubmit.co for email delivery
         const form = e.currentTarget;
         form.submit();

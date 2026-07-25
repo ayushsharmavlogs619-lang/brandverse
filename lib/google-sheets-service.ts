@@ -1,15 +1,14 @@
 /**
  * Google Sheets Service for Lead CRM
- * 
- * This service handles writing leads to Google Sheets via the Google Sheets API.
- * Designed to be used in Cloudflare Workers or server-side environments.
+ *
+ * This service writes leads to Google Sheets via a same-origin Cloudflare
+ * Pages Function (/api/leads/apps-script), which holds the Google Apps
+ * Script webhook secret server-side and forwards to Apps Script. This
+ * replaces the previous direct Google Sheets API v4 integration, which
+ * incorrectly used an API key as a Bearer token and could never have
+ * worked from browser code (the site is a static export with no
+ * server-only env vars available client-side).
  */
-
-interface GoogleSheetsConfig {
-  spreadsheetId: string;
-  sheetName: string;
-  apiKey: string;
-}
 
 interface LeadData {
   full_name?: string;
@@ -35,211 +34,109 @@ interface AIAnalysis {
   suggested_reply?: string;
 }
 
+const APPS_SCRIPT_ENDPOINT = '/api/leads/apps-script';
+const REQUEST_TIMEOUT_MS = 10_000;
+
 export class GoogleSheetsService {
-  private config: GoogleSheetsConfig;
-
-  constructor(config: GoogleSheetsConfig) {
-    this.config = config;
-  }
-
   /**
-   * Append a lead to Google Sheets
+   * Append a lead to Google Sheets via the Apps Script webhook (proxied
+   * through our own /api/leads/apps-script function, so the shared secret
+   * never reaches the browser).
+   *
+   * Note: aiAnalysis and several LeadData fields (website, business_type,
+   * source_page, source_form, utm_*) are accepted for backward
+   * compatibility with existing callers but are not written to the sheet —
+   * the target sheet has only DATE, NAME, EMAIL, PHONE, COMPANY, SERVICE,
+   * MESSAGE columns.
    */
   async appendLead(leadData: LeadData, aiAnalysis?: AIAnalysis): Promise<{ success: boolean; error?: string }> {
-    try {
-      const timestamp = leadData.timestamp || new Date().toISOString();
-      
-      // Prepare row data in the correct order
-      const rowData = [
-        timestamp,
-        leadData.full_name || '',
-        leadData.email || '',
-        leadData.phone || '',
-        leadData.company || '',
-        leadData.website || '',
-        leadData.business_type || '',
-        leadData.service_interest || '',
-        leadData.message || '',
-        leadData.source_page || '',
-        leadData.source_form || '',
-        leadData.utm_source || '',
-        leadData.utm_medium || '',
-        leadData.utm_campaign || '',
-        aiAnalysis?.summary || '',
-        aiAnalysis?.urgency || '',
-        aiAnalysis?.lead_quality || '',
-        aiAnalysis?.suggested_reply || '',
-        'new' // Default status
-      ];
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS);
 
-      // Use Google Sheets API v4
-      const url = `https://sheets.googleapis.com/v4/spreadsheets/${this.config.spreadsheetId}/values/${this.config.sheetName}:append?valueInputOption=USER_ENTERED`;
-      
-      const response = await fetch(url, {
+    try {
+      const response = await fetch(APPS_SCRIPT_ENDPOINT, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${this.config.apiKey}`
+          'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          values: [rowData]
-        })
+          timestamp: leadData.timestamp || new Date().toISOString(),
+          full_name: leadData.full_name || '',
+          email: leadData.email || '',
+          phone: leadData.phone || '',
+          company: leadData.company || '',
+          service_interest: leadData.service_interest || '',
+          message: leadData.message || ''
+        }),
+        signal: controller.signal
       });
 
-      if (!response.ok) {
-        const error = await response.text();
-        throw new Error(`Google Sheets API error: ${error}`);
+      clearTimeout(timeoutId);
+
+      let result: { success?: boolean; error?: string } | null = null;
+      try {
+        result = await response.json();
+      } catch {
+        // Non-JSON response — fall through to the generic error below.
       }
 
-      const result = await response.json();
-      
+      if (!response.ok || !result?.success) {
+        const message = result?.error || `Apps Script proxy returned status ${response.status}`;
+        throw new Error(message);
+      }
+
+      // aiAnalysis is intentionally unused (no AI columns on the target sheet).
+      void aiAnalysis;
+
       return { success: true };
     } catch (error) {
-      console.error('Google Sheets append error:', error);
-      return { 
-        success: false, 
-        error: error instanceof Error ? error.message : 'Unknown error' 
+      clearTimeout(timeoutId);
+      const message =
+        error instanceof Error
+          ? error.name === 'AbortError'
+            ? 'Google Sheets webhook timed out'
+            : error.message
+          : 'Unknown error';
+      console.error('Google Sheets append error:', message);
+      return {
+        success: false,
+        error: message
       };
     }
   }
 
   /**
-   * Create a new spreadsheet with headers (one-time setup)
+   * Not supported by the Apps Script webhook integration — the webhook
+   * only appends rows to the pre-existing target spreadsheet/tab. Kept
+   * for interface compatibility only; no current caller in the codebase.
    */
   async createSpreadsheet(title: string): Promise<{ success: boolean; spreadsheetId?: string; error?: string }> {
-    try {
-      const url = 'https://sheets.googleapis.com/v4/spreadsheets';
-      
-      const response = await fetch(url, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${this.config.apiKey}`
-        },
-        body: JSON.stringify({
-          properties: {
-            title
-          },
-          sheets: [
-            {
-              properties: {
-                title: this.config.sheetName
-              }
-            }
-          ]
-        })
-      });
-
-      if (!response.ok) {
-        const error = await response.text();
-        throw new Error(`Google Sheets API error: ${error}`);
-      }
-
-      const result = await response.json();
-      const spreadsheetId = result.spreadsheetId;
-
-      // Add headers
-      await this.addHeaders(spreadsheetId);
-
-      return { success: true, spreadsheetId };
-    } catch (error) {
-      console.error('Google Sheets creation error:', error);
-      return { 
-        success: false, 
-        error: error instanceof Error ? error.message : 'Unknown error' 
-      };
-    }
+    console.warn('GoogleSheetsService.createSpreadsheet() is not supported by the Apps Script webhook integration:', title);
+    return {
+      success: false,
+      error: 'createSpreadsheet is not supported by the Apps Script webhook integration.'
+    };
   }
 
   /**
-   * Add headers to the sheet
-   */
-  private async addHeaders(spreadsheetId: string): Promise<void> {
-    const headers = [
-      'Timestamp',
-      'Name',
-      'Email',
-      'Phone',
-      'Company',
-      'Website',
-      'Business Type',
-      'Service Interest',
-      'Message',
-      'Source Page',
-      'Source Form',
-      'UTM Source',
-      'UTM Medium',
-      'UTM Campaign',
-      'AI Summary',
-      'AI Urgency',
-      'AI Lead Quality',
-      'AI Suggested Reply',
-      'Status'
-    ];
-
-    const url = `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${this.config.sheetName}!A1:R1?valueInputOption=USER_ENTERED`;
-    
-    await fetch(url, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${this.config.apiKey}`
-      },
-      body: JSON.stringify({
-        values: [headers]
-      })
-    });
-  }
-
-  /**
-   * Update lead status
+   * Not supported by the Apps Script webhook integration — the target
+   * sheet has no status column. Kept for interface compatibility only;
+   * no current caller in the codebase.
    */
   async updateStatus(rowIndex: number, status: string): Promise<{ success: boolean; error?: string }> {
-    try {
-      const url = `https://sheets.googleapis.com/v4/spreadsheets/${this.config.spreadsheetId}/values/${this.config.sheetName}!R${rowIndex}C18?valueInputOption=USER_ENTERED`;
-      
-      const response = await fetch(url, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${this.config.apiKey}`
-        },
-        body: JSON.stringify({
-          values: [[status]]
-        })
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to update status');
-      }
-
-      return { success: true };
-    } catch (error) {
-      console.error('Google Sheets update error:', error);
-      return { 
-        success: false, 
-        error: error instanceof Error ? error.message : 'Unknown error' 
-      };
-    }
+    console.warn(`GoogleSheetsService.updateStatus() is not supported (row ${rowIndex}, status "${status}").`);
+    return {
+      success: false,
+      error: 'updateStatus is not supported by the Apps Script webhook integration.'
+    };
   }
 }
 
 /**
- * Factory function to create service from environment variables
+ * Factory function. No env vars are needed client-side anymore — the
+ * secret lives only in the Cloudflare Pages Function — so this always
+ * returns a live instance.
  */
-export function createGoogleSheetsService(): GoogleSheetsService | null {
-  const spreadsheetId = process.env.GOOGLE_SHEETS_SPREADSHEET_ID;
-  const sheetName = process.env.GOOGLE_SHEETS_SHEET_NAME || 'Leads';
-  const apiKey = process.env.GOOGLE_SHEETS_API_KEY;
-
-  if (!spreadsheetId || !apiKey) {
-    console.warn('Google Sheets service not configured: missing spreadsheet ID or API key');
-    return null;
-  }
-
-  return new GoogleSheetsService({
-    spreadsheetId,
-    sheetName,
-    apiKey
-  });
+export function createGoogleSheetsService(): GoogleSheetsService {
+  return new GoogleSheetsService();
 }

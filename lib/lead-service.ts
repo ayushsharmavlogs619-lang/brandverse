@@ -208,71 +208,68 @@ class LeadService {
                 }
             }
 
-            // Step 5: Submit to Google Sheets (if configured)
-            let submittedToSheets = false;
-            if (this.googleSheetsService) {
-                try {
-                    const sheetsResult = await this.googleSheetsService.appendLead(sanitizedData, aiAnalysis);
-                    if (sheetsResult.success) {
-                        submittedToSheets = true;
-                        console.log('Lead submitted to Google Sheets');
-                    } else {
-                        console.warn('Google Sheets submission failed:', sheetsResult.error);
-                    }
-                } catch (error) {
-                    console.error('Google Sheets error:', error);
-                }
-            }
+            // Step 5: Submit to Google Sheets, Worker Proxy, and FormSubmit CONCURRENTLY.
+            // Every lead must reach both FormSubmit and Google Sheets (via Apps Script),
+            // so none of these are skipped just because another one succeeded.
+            const workerCall = this.isConfigured
+                ? fetch(`${this.workerUrl}/api/brandverse/leads`, {
+                      method: 'POST',
+                      headers: { 'Content-Type': 'application/json' },
+                      body: JSON.stringify(sanitizedData),
+                  }).then(async (response) => {
+                      if (!response.ok) {
+                          console.error('Worker Proxy returned error status:', response.status);
+                          return { success: false as const };
+                      }
+                      const result = await response.json();
+                      console.log('Lead submitted to Worker Proxy:', result);
+                      return { success: true as const, leadId: result.leadId, fallback: !!result.fallback };
+                  }).catch((error) => {
+                      console.error('Worker Proxy request failed:', error);
+                      return { success: false as const };
+                  })
+                : Promise.resolve({ success: false as const });
 
-            // Step 5: Submit to Worker Proxy (which writes to Airtable with Sheets fallback)
-            let leadId: string | undefined;
-            let submittedToWorker = false;
-            let usedWorkerFallback = false;
+            const sheetsCall = this.googleSheetsService
+                ? this.googleSheetsService.appendLead(sanitizedData, aiAnalysis).then((result) => {
+                      if (result.success) {
+                          console.log('Lead submitted to Google Sheets');
+                      } else {
+                          console.warn('Google Sheets submission failed:', result.error);
+                      }
+                      return result;
+                  }).catch((error) => {
+                      console.error('Google Sheets error:', error);
+                      return { success: false as const };
+                  })
+                : Promise.resolve({ success: false as const });
 
-            if (this.isConfigured) {
-                try {
-                    const response = await fetch(`${this.workerUrl}/api/brandverse/leads`, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify(sanitizedData),
-                    });
+            const formSubmitCall = this.formSubmitBackup(sanitizedData);
 
-                    if (response.ok) {
-                        const result = await response.json();
-                        leadId = result.leadId;
-                        submittedToWorker = true;
-                        usedWorkerFallback = !!result.fallback;
-                        console.log('Lead submitted to Worker Proxy:', result);
-                    } else {
-                        console.error('Worker Proxy returned error status:', response.status);
-                    }
-                } catch (error) {
-                    console.error('Worker Proxy request failed, continuing with direct fallback:', error);
-                }
-            }
+            const [workerOutcome, sheetsOutcome, formSubmitOutcome] = await Promise.allSettled([
+                workerCall,
+                sheetsCall,
+                formSubmitCall,
+            ]);
 
-            // Step 6: If Google Sheets or Worker succeeded, we are done
-            if (submittedToSheets || submittedToWorker) {
+            const workerResult = workerOutcome.status === 'fulfilled' ? workerOutcome.value : { success: false as const };
+            const sheetsResult = sheetsOutcome.status === 'fulfilled' ? sheetsOutcome.value : { success: false as const };
+            const formSubmitResult = formSubmitOutcome.status === 'fulfilled' ? formSubmitOutcome.value : { success: false as const };
+
+            const submittedToWorker = !!workerResult.success;
+            const submittedToSheets = !!sheetsResult.success;
+            const submittedToFormSubmit = !!formSubmitResult.success;
+
+            // Step 6: Success if ANY destination succeeded.
+            if (submittedToWorker || submittedToSheets || submittedToFormSubmit) {
                 return {
                     success: true,
-                    leadId: leadId,
-                    fallback: usedWorkerFallback,
+                    leadId: 'leadId' in workerResult ? workerResult.leadId : undefined,
+                    fallback: !submittedToWorker || ('fallback' in workerResult ? !!workerResult.fallback : false),
                 };
             }
 
-            // Step 6: If Worker completely failed, use direct FormSubmit backup from frontend
-            console.warn('Worker Proxy failed or unconfigured, attempting direct FormSubmit backup from browser');
-            const formSubmitResult = await this.formSubmitBackup(sanitizedData);
-            if (formSubmitResult.success) {
-                return {
-                    success: true,
-                    fallback: true,
-                };
-            }
-
-            // Step 7: Last-resort mailto + localStorage
+            // Step 7: Last-resort mailto + localStorage — only if ALL THREE failed.
             return this.fallbackSubmit(sanitizedData);
 
         } catch (error) {
