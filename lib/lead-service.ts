@@ -173,6 +173,44 @@ class LeadService {
         this.cerebrasService = createCerebrasService();
     }
 
+    private async submitToSheets(data: LeadData, aiAnalysis?: AIAnalysis): Promise<boolean> {
+        if (!this.googleSheetsService) return false;
+        try {
+            const result = await this.googleSheetsService.appendLead(data, aiAnalysis);
+            if (result.success) {
+                console.log('Lead submitted to Google Sheets');
+                return true;
+            }
+            console.warn('Google Sheets submission failed:', result.error);
+            return false;
+        } catch (error) {
+            console.error('Google Sheets error:', error);
+            return false;
+        }
+    }
+
+    private async submitToWorker(data: LeadData): Promise<{ ok: boolean; leadId?: string; usedFallback?: boolean }> {
+        if (!this.isConfigured) return { ok: false };
+        try {
+            const response = await fetch(`${this.workerUrl}/api/brandverse/leads`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data),
+            });
+
+            if (response.ok) {
+                const result = await response.json();
+                console.log('Lead submitted to Worker Proxy:', result);
+                return { ok: true, leadId: result.leadId, usedFallback: !!result.fallback };
+            }
+            console.error('Worker Proxy returned error status:', response.status);
+            return { ok: false };
+        } catch (error) {
+            console.error('Worker Proxy request failed:', error);
+            return { ok: false };
+        }
+    }
+
     async submitLead(data: LeadData): Promise<LeadSubmissionResult> {
         try {
             // Step 1: Validate input
@@ -208,68 +246,34 @@ class LeadService {
                 }
             }
 
-            // Step 5: Submit to Google Sheets, Worker Proxy, and FormSubmit CONCURRENTLY.
-            // Every lead must reach both FormSubmit and Google Sheets (via Apps Script),
-            // so none of these are skipped just because another one succeeded.
-            const workerCall = this.isConfigured
-                ? fetch(`${this.workerUrl}/api/brandverse/leads`, {
-                      method: 'POST',
-                      headers: { 'Content-Type': 'application/json' },
-                      body: JSON.stringify(sanitizedData),
-                  }).then(async (response) => {
-                      if (!response.ok) {
-                          console.error('Worker Proxy returned error status:', response.status);
-                          return { success: false as const };
-                      }
-                      const result = await response.json();
-                      console.log('Lead submitted to Worker Proxy:', result);
-                      return { success: true as const, leadId: result.leadId, fallback: !!result.fallback };
-                  }).catch((error) => {
-                      console.error('Worker Proxy request failed:', error);
-                      return { success: false as const };
-                  })
-                : Promise.resolve({ success: false as const });
-
-            const sheetsCall = this.googleSheetsService
-                ? this.googleSheetsService.appendLead(sanitizedData, aiAnalysis).then((result) => {
-                      if (result.success) {
-                          console.log('Lead submitted to Google Sheets');
-                      } else {
-                          console.warn('Google Sheets submission failed:', result.error);
-                      }
-                      return result;
-                  }).catch((error) => {
-                      console.error('Google Sheets error:', error);
-                      return { success: false as const };
-                  })
-                : Promise.resolve({ success: false as const });
-
-            const formSubmitCall = this.formSubmitBackup(sanitizedData);
-
-            const [workerOutcome, sheetsOutcome, formSubmitOutcome] = await Promise.allSettled([
-                workerCall,
-                sheetsCall,
-                formSubmitCall,
+            // Step 5: Fire Google Sheets, Worker Proxy, and FormSubmit CONCURRENTLY.
+            // FormSubmit must never be skipped just because Sheets/Worker succeeded,
+            // so all three race together via Promise.allSettled.
+            const [sheetsResult, workerResult, formSubmitResult] = await Promise.allSettled([
+                this.submitToSheets(sanitizedData, aiAnalysis),
+                this.submitToWorker(sanitizedData),
+                this.formSubmitBackup(sanitizedData),
             ]);
 
-            const workerResult = workerOutcome.status === 'fulfilled' ? workerOutcome.value : { success: false as const };
-            const sheetsResult = sheetsOutcome.status === 'fulfilled' ? sheetsOutcome.value : { success: false as const };
-            const formSubmitResult = formSubmitOutcome.status === 'fulfilled' ? formSubmitOutcome.value : { success: false as const };
+            const submittedToSheets = sheetsResult.status === 'fulfilled' && sheetsResult.value === true;
 
-            const submittedToWorker = !!workerResult.success;
-            const submittedToSheets = !!sheetsResult.success;
-            const submittedToFormSubmit = !!formSubmitResult.success;
+            const workerValue = workerResult.status === 'fulfilled' ? workerResult.value : { ok: false };
+            const submittedToWorker = workerValue.ok;
 
-            // Step 6: Success if ANY destination succeeded.
-            if (submittedToWorker || submittedToSheets || submittedToFormSubmit) {
+            const submittedToFormSubmit =
+                formSubmitResult.status === 'fulfilled' && formSubmitResult.value.success === true;
+
+            // Step 6: Success if ANY channel got through.
+            if (submittedToSheets || submittedToWorker || submittedToFormSubmit) {
                 return {
                     success: true,
-                    leadId: 'leadId' in workerResult ? workerResult.leadId : undefined,
-                    fallback: !submittedToWorker || ('fallback' in workerResult ? !!workerResult.fallback : false),
+                    leadId: workerValue.leadId,
+                    fallback: !submittedToWorker || !!workerValue.usedFallback,
                 };
             }
 
-            // Step 7: Last-resort mailto + localStorage — only if ALL THREE failed.
+            // Step 7: All three failed - last-resort mailto + localStorage
+            console.error('All lead channels failed (Sheets, Worker, FormSubmit)');
             return this.fallbackSubmit(sanitizedData);
 
         } catch (error) {
@@ -308,29 +312,24 @@ class LeadService {
             });
 
             if (response.ok) {
-                console.log('Lead captured via FormSubmit fallback');
+                console.log('Lead captured via FormSubmit');
                 return { success: true, fallback: true };
             }
 
-            console.error('FormSubmit fallback failed:', response.status, response.statusText);
+            console.error('FormSubmit failed:', response.status, response.statusText);
         } catch (error) {
-            console.error('FormSubmit fallback error:', error);
+            console.error('FormSubmit error:', error);
         }
 
         return {
             success: false,
             fallback: true,
-            error: 'FormSubmit backup failed',
+            error: 'FormSubmit failed',
         };
     }
 
     private async fallbackSubmit(data: LeadData): Promise<LeadSubmissionResult> {
-        const formSubmitResult = await this.formSubmitBackup(data);
-        if (formSubmitResult.success) {
-            return formSubmitResult;
-        }
-
-        // Last resort: localStorage + mailto if FormSubmit also fails
+        // Last resort: localStorage + mailto (all three channels already failed by this point)
         const emailBody = `
 BRANDVERSE LEAD BACKUP (Database Failed)
 
@@ -354,7 +353,7 @@ Timestamp: ${new Date().toISOString()}
 
         // Open email client with lead data
         const mailtoLink = `mailto:ayush@brandverse.tech?subject=LEAD BACKUP: ${data.full_name || 'Unknown'} - ${data.company || 'No Company'}&body=${encodeURIComponent(emailBody)}`;
-        
+
         // Store in localStorage for retry
         try {
             if (typeof window !== 'undefined') {
@@ -386,7 +385,7 @@ Timestamp: ${new Date().toISOString()}
         return {
             success: false,
             fallback: true,
-            error: 'Database unavailable - email backup opened. Please send the email to save this lead.',
+            error: 'All channels unavailable - email backup opened. Please send the email to save this lead.',
         };
     }
 
