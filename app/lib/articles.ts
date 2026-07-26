@@ -273,6 +273,41 @@ export const articles: Article[] = [
         date: 'Jul 27, 2026',
         category: 'Industry Focus'
     },
+    {
+        slug: 'ai-receptionist-guide-2026',
+        title: 'The Complete Guide to AI Receptionists for Small Businesses in 2026',
+        excerpt: 'Everything small business owners need to know about AI receptionists in 2026: costs, features, setup process, ROI, and how they compare to human receptionists.',
+        date: 'Jul 26, 2026',
+        category: 'Guides'
+    },
+    {
+        slug: 'ai-voice-agents-transforming-customer-service',
+        title: 'How AI Voice Agents Are Transforming Customer Service',
+        excerpt: 'AI voice agents are revolutionizing customer service. Learn how businesses use voice AI to reduce costs, improve satisfaction, and provide instant 24/7 support.',
+        date: 'Jul 26, 2026',
+        category: 'Customer Experience'
+    },
+    {
+        slug: 'ultimate-guide-business-automation',
+        title: 'The Ultimate Guide to Business Automation for Service Businesses',
+        excerpt: 'A comprehensive guide to automating your service business: CRM automation, AI phone agents, scheduling, follow-ups, and more. Reduce costs and scale without adding staff.',
+        date: 'Jul 26, 2026',
+        category: 'Operations'
+    },
+    {
+        slug: 'stop-losing-leads-after-hours',
+        title: 'How Local Businesses Can Stop Losing Leads After Business Hours',
+        excerpt: 'Local businesses lose 40% of leads after hours. Learn how AI receptionists, automated booking, and 24/7 lead capture can recover thousands in monthly revenue.',
+        date: 'Jul 26, 2026',
+        category: 'Lead Generation'
+    },
+    {
+        slug: 'voice-ai-vs-human-receptionists',
+        title: 'Voice AI vs Human Receptionists: Which Is Right for Your Business?',
+        excerpt: 'A detailed comparison of AI receptionists vs human receptionists: costs, coverage, customer experience, and which option is best for different business types.',
+        date: 'Jul 26, 2026',
+        category: 'Comparison'
+    },
 ];
 
 /**

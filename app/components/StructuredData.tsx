@@ -7,7 +7,6 @@ export default function StructuredData() {
         "description": "AI Voice Automation Agency providing 24/7 AI voice agents that capture leads, book appointments, and drive revenue for local businesses.",
         "url": "https://brandverse.tech",
         "logo": "https://brandverse.tech/favicon.ico",
-        /* TODO: Add real business street address, phone, and specific geo coordinates */
         "address": {
             "@type": "PostalAddress",
             "addressCountry": "US"
@@ -42,7 +41,22 @@ export default function StructuredData() {
         "publisher": {
             "@type": "Organization",
             "name": "Brandverse"
+        },
+        "potentialAction": {
+            "@type": "SearchAction",
+            "target": {
+                "@type": "EntryPoint",
+                "urlTemplate": "https://brandverse.tech/search?q={search_term_string}"
+            },
+            "query-input": "required name=search_term_string"
         }
+    };
+
+    const searchActionSchema = {
+        "@context": "https://schema.org",
+        "@type": "SearchAction",
+        "target": "https://brandverse.tech/search?q={search_term_string}",
+        "query-input": "required name=search_term_string"
     };
 
     const serviceSchema = {
@@ -95,13 +109,7 @@ export default function StructuredData() {
         },
         "openingHoursSpecification": {
             "@type": "OpeningHoursSpecification",
-            "dayOfWeek": [
-                "Monday",
-                "Tuesday",
-                "Wednesday",
-                "Thursday",
-                "Friday"
-            ],
+            "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
             "opens": "09:00",
             "closes": "18:00"
         }
@@ -154,7 +162,8 @@ export default function StructuredData() {
             { "@type": "ListItem", "position": 2, "name": "Features", "item": "https://brandverse.tech/features" },
             { "@type": "ListItem", "position": 3, "name": "Pricing", "item": "https://brandverse.tech/pricing" },
             { "@type": "ListItem", "position": 4, "name": "FAQ", "item": "https://brandverse.tech/faq" },
-            { "@type": "ListItem", "position": 5, "name": "Blog", "item": "https://brandverse.tech/blog" }
+            { "@type": "ListItem", "position": 5, "name": "Blog", "item": "https://brandverse.tech/blog" },
+            { "@type": "ListItem", "position": 6, "name": "Services", "item": "https://brandverse.tech/services" }
         ]
     };
 
@@ -163,7 +172,7 @@ export default function StructuredData() {
             id="structured-data"
             type="application/ld+json"
             dangerouslySetInnerHTML={{
-                __html: JSON.stringify([organizationSchema, websiteSchema, serviceSchema, localBusinessSchema, faqSchema, breadcrumbSchema])
+                __html: JSON.stringify([organizationSchema, websiteSchema, searchActionSchema, serviceSchema, localBusinessSchema, faqSchema, breadcrumbSchema])
             }}
         />
     );
