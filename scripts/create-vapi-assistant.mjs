@@ -33,10 +33,64 @@ async function main() {
     model: {
       provider: 'openai',
       model: 'gpt-4o-mini',
+      temperature: 0.7,
+      maxTokens: 250,
+      messages: [
+        {
+          role: 'system',
+          content: `You are Brandverse's AI receptionist. Your job is to answer incoming calls professionally and gather information.
+
+Rules:
+1. Greet the caller warmly and ask how you can help.
+2. Politely gather: their full name, phone number (if not already known), reason for calling, and whether they want to book an appointment.
+3. If they want to book an appointment, ask for preferred date and time.
+4. Be conversational and professional — this is a phone call, not a form.
+5. Once you have all the information, call the captureLeadInfo function with the details.
+6. If the caller seems frustrated or urgent, be empathetic and prioritize their needs.
+7. Do NOT make up information. If the caller doesn't provide something, note it as "Not provided".`,
+        },
+      ],
+      tools: [
+        {
+          type: 'function',
+          function: {
+            name: 'captureLeadInfo',
+            description: 'Call this function when you have gathered all necessary information from the caller: their name, phone number, reason for calling, and whether they want to book an appointment.',
+            parameters: {
+              type: 'object',
+              properties: {
+                name: {
+                  type: 'string',
+                  description: "The caller's full name",
+                },
+                phoneNumber: {
+                  type: 'string',
+                  description: "The caller's phone number",
+                },
+                reasonForCalling: {
+                  type: 'string',
+                  description: 'The primary reason the caller is reaching out',
+                },
+                appointmentRequest: {
+                  type: 'string',
+                  description: 'Details about any appointment they want to book, including date/time preference if provided',
+                },
+                email: {
+                  type: 'string',
+                  description: "The caller's email address (if provided)",
+                },
+              },
+              required: ['name', 'phoneNumber', 'reasonForCalling'],
+            },
+            strict: false,
+          },
+        },
+      ],
+      toolIds: [],
     },
     voice: {
-      provider: 'playht',
-      voiceId: 'jennifer',
+      provider: 'vapi',
+      voiceId: 'Emma',
     },
     transcriber: {
       provider: 'deepgram',
@@ -44,7 +98,10 @@ async function main() {
       language: 'en',
     },
     firstMessage: 'Hello, thank you for calling Brandverse. How can I help you today?',
+    firstMessageMode: 'assistant-speaks-first',
     recordingEnabled: true,
+    maxDurationSeconds: 600,
+    backgroundSound: 'office',
     analysisPlan: {
       summaryPlan: { enabled: true },
       successEvaluationPlan: { enabled: true },
@@ -62,69 +119,11 @@ async function main() {
         },
       },
     },
-    serverMessages: {
-      endOfCallReport: true,
-      functionCall: true,
-      statusUpdate: true,
-    },
+    serverMessages: ['end-of-call-report', 'function-call', 'status-update'],
     server: {
       url: WEBHOOK_URL,
       timeoutSeconds: 10,
     },
-    tools: [
-      {
-        type: 'function',
-        function: {
-          name: 'captureLeadInfo',
-          description: 'Call this function when you have gathered all necessary information from the caller: their name, phone number, reason for calling, and whether they want to book an appointment.',
-          parameters: {
-            type: 'object',
-            properties: {
-              name: {
-                type: 'string',
-                description: "The caller's full name",
-              },
-              phoneNumber: {
-                type: 'string',
-                description: "The caller's phone number",
-              },
-              reasonForCalling: {
-                type: 'string',
-                description: 'The primary reason the caller is reaching out',
-              },
-              appointmentRequest: {
-                type: 'string',
-                description: 'Details about any appointment they want to book, including date/time preference if provided',
-              },
-              email: {
-                type: 'string',
-                description: "The caller's email address (if provided)",
-              },
-            },
-            required: ['name', 'phoneNumber', 'reasonForCalling'],
-          },
-        },
-        server: {
-          url: WEBHOOK_URL,
-          method: 'POST',
-        },
-      },
-    ],
-    messages: [
-      {
-        type: 'system-message',
-        message: `You are Brandverse's AI receptionist. Your job is to answer incoming calls professionally and gather information.
-
-Rules:
-1. Greet the caller warmly and ask how you can help.
-2. Politely gather: their full name, phone number (if not already known), reason for calling, and whether they want to book an appointment.
-3. If they want to book an appointment, ask for preferred date and time.
-4. Be conversational and professional — this is a phone call, not a form.
-5. Once you have all the information, call the captureLeadInfo function with the details.
-6. If the caller seems frustrated or urgent, be empathetic and prioritize their needs.
-7. Do NOT make up information. If the caller doesn't provide something, note it as "Not provided".`,
-      },
-    ],
   };
 
   console.log('Creating Vapi assistant...');
