@@ -163,9 +163,9 @@ Rules:
   console.log(`     ${WEBHOOK_URL}`);
   console.log('');
   console.log(`Set this in your .env.local for local development:`);
-  console.log(`  VAPI_PUBLIC_KEY=<your-vapi-public-key>`);
+  console.log(`  VAPI_API_KEY=<your-vapi-private-api-key>`);
+  console.log(`  NEXT_PUBLIC_VAPI_PUBLIC_KEY=<your-vapi-public-key>`);
   console.log(`  NEXT_PUBLIC_VAPI_ASSISTANT_ID=${assistant.id}`);
-  console.log(`  VAPI_API_KEY=<your-vapi-api-key>`);
   console.log(`  VAPI_WEBHOOK_SECRET= (optional, set in Cloudflare Pages dashboard)`);
 }
 
