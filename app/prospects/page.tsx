@@ -143,6 +143,7 @@ export default function ProspectsPage() {
                             Add more San Antonio electrical contractors to the audit pipeline
                         </p>
                         <div className="flex justify-center gap-4">
+                            {/* TODO: Wire to modal/form for adding prospects to pipeline */}
                             <button className="px-6 py-3 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-lg transition-colors">
                                 Add Prospect
                             </button>

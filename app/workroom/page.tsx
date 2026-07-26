@@ -26,8 +26,9 @@ export default function WorkroomPage() {
         form.reset();
 
         await new Promise(resolve => setTimeout(resolve, 1000));
+        /* TODO: Replace with real AI response from worker. Phone number: set via NEXT_PUBLIC_CONTACT_PHONE in .env.local */
         const mockResponse =
-            "This is the Brandverse War Room - your tactical command center. For live AI assistance, call +91 88510 05278!";
+            "This is the Brandverse War Room - your tactical command center. For live AI assistance, call our contact line!";
         setMessages(prev => [...prev, { role: 'ai', content: mockResponse }]);
         setLoading(false);
     }

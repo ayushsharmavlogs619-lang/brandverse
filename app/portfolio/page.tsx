@@ -62,6 +62,9 @@ export default function PortfolioPage() {
                 <span className="text-slate-500 text-sm">Recovered $28k in lost revenue in the first 90 days. Reduced lead response time to &lt;2 seconds.</span>
               </div>
             </div>
+            <div className="mt-6 text-right">
+              <Link href="/blog/case-study-elite-climate/" className="text-blue-400 hover:underline font-semibold text-sm">Read full case study →</Link>
+            </div>
           </article>
 
           {/* Case Study 2: Real Estate */}
@@ -101,6 +104,9 @@ export default function PortfolioPage() {
                 <span className="text-slate-500 text-sm">Agent productivity soared. 150+ qualified appointments booked automatically in month 1.</span>
               </div>
             </div>
+            <div className="mt-6 text-right">
+              <Link href="/blog/case-study-apex-property/" className="text-blue-400 hover:underline font-semibold text-sm">Read full case study →</Link>
+            </div>
           </article>
 
           {/* Case Study 3: Dental */}
@@ -139,6 +145,9 @@ export default function PortfolioPage() {
                 <strong className="block text-white mb-1">Outcome</strong>
                 <span className="text-slate-500 text-sm">Zero missed new patient calls. Front desk stress reduced. $14k/mo saved in hypothetical hiring costs.</span>
               </div>
+            </div>
+            <div className="mt-6 text-right">
+              <Link href="/contact/" className="text-blue-400 hover:underline font-semibold text-sm">Read full case study →</Link>
             </div>
           </article>
         </div>

@@ -54,7 +54,7 @@ export const config: AppConfig = {
   vapidPublicKey: getEnvVar('NEXT_PUBLIC_VAPID_PUBLIC_KEY', ''),
   vapiPublicKey: getEnvVar('NEXT_PUBLIC_VAPI_PUBLIC_KEY', ''),
   vapiAssistantId: getEnvVar('NEXT_PUBLIC_VAPI_ASSISTANT_ID', ''),
-  calendlyUrl: getEnvVar('NEXT_PUBLIC_CALENDLY_URL', ''),
+  calendlyUrl: getEnvVar('NEXT_PUBLIC_CALENDLY_URL', 'https://calendly.com/ayushsharmavlogs619/30min'),
   linkedInPartnerId: getEnvVar('NEXT_PUBLIC_LINKEDIN_PARTNER_ID', ''),
   cookiebotId: getEnvVar('NEXT_PUBLIC_COOKIEBOT_ID', ''),
   googleSiteVerification: getEnvVar('NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION', ''),

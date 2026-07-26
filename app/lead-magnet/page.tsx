@@ -62,6 +62,16 @@ export default function LeadMagnetPage() {
             <div className="max-w-4xl mx-auto">
                 {/* Header */}
                 <div className="text-center mb-16">
+                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-green-500/10 border border-green-500/20 text-green-400 text-xs font-black uppercase tracking-widest mb-6">
+                        Free Strategy Call
+                    </div>
+                    <h1 className="text-5xl md:text-6xl font-black text-white tracking-tighter mb-6">
+                        Stop Burning Cash on
+                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-blue-400"> Manual Operations</span>
+                    </h1>
+                    <p className="text-xl text-slate-400 max-w-2xl mx-auto">
+                        Book a free 15-minute strategy call. We'll identify 2-3 automation quick wins for your business — zero obligation.
+                    </p>
                 </div>
 
                 {/* Main Content */}
@@ -69,6 +79,7 @@ export default function LeadMagnetPage() {
                     {/* Left: What's Inside */}
                     <div className="space-y-8">
                         <div>
+                            <h2 className="text-2xl font-bold text-white mb-6">What We'll Cover on Your Call:</h2>
                             <div className="space-y-4">
                                 <div className="flex items-start gap-3">
                                     <CheckCircle2 className="w-6 h-6 text-green-400 mt-1 flex-shrink-0" />
@@ -113,6 +124,13 @@ export default function LeadMagnetPage() {
                     <div className="bg-[#0f172a] border border-white/10 rounded-[2.5rem] p-8 md:p-10 shadow-2xl">
                         <div className="mb-8">
                             <div className="flex items-center gap-3 mb-4">
+                                <div className="w-12 h-12 bg-gradient-to-r from-green-500 to-blue-500 rounded-xl flex items-center justify-center shrink-0">
+                                    <Calendar className="w-6 h-6 text-white" />
+                                </div>
+                                <div>
+                                    <h2 className="text-2xl font-black text-white">Book Your Free Strategy Call</h2>
+                                    <p className="text-slate-400 text-sm">We'll reach out within 24 hours to schedule your call.</p>
+                                </div>
                             </div>
                         </div>
 
@@ -122,6 +140,11 @@ export default function LeadMagnetPage() {
                             className="space-y-6"
                             onSubmit={handleSubmit}
                         >
+                            <input type="hidden" name="_subject" value="New Strategy Call Request - Brandverse" />
+                            <input type="hidden" name="_captcha" value="false" />
+                            <input type="hidden" name="_template" value="table" />
+                            <input type="hidden" name="_next" value="https://calendly.com/ayushsharmavlogs619/30min" />
+                            <input type="hidden" name="service_interest" value="Strategy Call" />
 
                             <div>
                                 <label className="block text-sm font-medium text-slate-300 mb-2">Full Name</label>
@@ -161,6 +184,7 @@ export default function LeadMagnetPage() {
                                 disabled={isSubmitting}
                                 className="w-full bg-gradient-to-r from-green-600 to-blue-600 hover:from-green-500 hover:to-blue-500 text-white font-bold py-4 px-8 rounded-xl transition-all duration-300 transform hover:scale-105 flex items-center justify-center gap-2"
                             >
+                                {isSubmitting ? 'Booking...' : 'Book Free Call'} <Calendar className="w-5 h-5" />
                             </button>
 
                             <p className="text-center text-xs text-slate-500 mt-4">
