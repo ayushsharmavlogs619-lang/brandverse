@@ -1,156 +1,90 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
+import { ArrowRight, HardHat, Wrench, Zap, Home, Stethoscope, Building2, Scale, UtensilsCrossed, Sparkles, Car, Briefcase } from 'lucide-react';
+import { caseStudies } from '@/lib/case-studies';
+import CaseStudyCard from '@/app/components/ui/CaseStudyCard';
 
 export const metadata: Metadata = {
-  title: 'Case Studies — Brandverse',
-  description: 'Real results from real businesses using Brandverse AI voice agents. See how we helped companies increase bookings and reduce costs.',
+    title: 'Case Studies — Brandverse',
+    description: 'See how businesses across 12 industries use Brandverse AI voice agents to increase revenue, reduce costs, and provide 24/7 customer service.',
+    openGraph: { title: 'Case Studies — Brandverse', description: 'Industry case studies showing real AI receptionist results.' },
 };
 
-export default function CaseStudies() {
-  const caseStudies = [
-    {
-      title: 'Brightsmile Dental',
-      category: 'Healthcare',
-      description: 'Increased new patient bookings by 40% and reduced no-shows by 60% with AI appointment reminders.',
-      results: ['40% more bookings', '60% fewer no-shows', '24/7 availability']
-    },
-    {
-      title: 'Elite Climate Control',
-      category: 'HVAC',
-      description: 'Captured 70% more after-hours emergency calls and increased revenue by $15,000/month.',
-      results: ['70% more emergency calls', '$15K/month revenue increase', 'Zero missed calls']
-    },
-    {
-      title: 'Apex Property Group',
-      category: 'Real Estate',
-      description: 'Reduced lead response time from 4 hours to 30 seconds, doubling conversion rates.',
-      results: ['30-second response time', '2x conversion rate', '200% more qualified leads']
-    }
-  ];
+const iconMap: Record<string, React.ReactNode> = {
+    'Electrical Services': <Zap className="w-5 h-5 text-yellow-400" />,
+    'HVAC': <Wrench className="w-5 h-5 text-orange-400" />,
+    'Plumbing': <HardHat className="w-5 h-5 text-cyan-400" />,
+    'Roofing': <Home className="w-5 h-5 text-amber-400" />,
+    'Dental': <Stethoscope className="w-5 h-5 text-blue-400" />,
+    'Medical': <Stethoscope className="w-5 h-5 text-sky-400" />,
+    'Legal': <Scale className="w-5 h-5 text-purple-400" />,
+    'Property Management': <Building2 className="w-5 h-5 text-emerald-400" />,
+    'Restaurants': <UtensilsCrossed className="w-5 h-5 text-red-400" />,
+    'Salon & Spa': <Sparkles className="w-5 h-5 text-pink-400" />,
+    'Auto Repair': <Car className="w-5 h-5 text-green-400" />,
+    'Home Services': <Briefcase className="w-5 h-5 text-indigo-400" />,
+};
 
-  return (
-    <div className="min-h-screen bg-[#020617] text-white">
-      {/* Navigation */}
-      <nav className="fixed top-0 w-full z-50 bg-[#020617]/80 backdrop-blur-md border-b border-white/5">
-        <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-          <Link href="/" className="text-xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
-            BRANDVERSE.TECH
-          </Link>
-          <div className="hidden md:flex gap-8 text-sm font-medium text-slate-200">
-            <Link href="/features" className="hover:text-blue-400 transition-colors">Features</Link>
-            <Link href="/process" className="hover:text-blue-400 transition-colors">Process</Link>
-            <Link href="/pricing" className="hover:text-blue-400 transition-colors">Pricing</Link>
-            <Link href="/blog" className="hover:text-blue-400 transition-colors">Intelligence (Blog)</Link>
-            <Link href="/faq" className="hover:text-blue-400 transition-colors">FAQ</Link>
-          </div>
-          <Link href="/contact" className="px-5 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-full text-sm font-semibold transition-all shadow-lg shadow-blue-500/20">
-            Book Demo
-          </Link>
-        </div>
-      </nav>
-
-      {/* Hero Section */}
-      <section className="pt-32 pb-20 px-6">
-        <div className="max-w-6xl mx-auto text-center">
-          <h1 className="text-5xl font-bold mb-6 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
-            Real Results, Real Businesses
-          </h1>
-          <p className="text-xl text-slate-300 mb-8 max-w-3xl mx-auto">
-            See how companies across industries are using Brandverse AI voice agents to increase revenue, 
-            reduce costs, and provide 24/7 customer service without hiring more staff.
-          </p>
-        </div>
-      </section>
-
-      {/* Case Studies Grid */}
-      <section className="py-20 px-6">
-        <div className="max-w-6xl mx-auto">
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {caseStudies.map((study, index) => (
-              <div key={index} className="bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10 hover:border-blue-400/50 transition-all">
-                <div className="text-sm text-blue-400 font-medium mb-2">{study.category}</div>
-                <h3 className="text-2xl font-bold mb-4">{study.title}</h3>
-                <p className="text-slate-300 mb-6">{study.description}</p>
-                <div className="space-y-2 mb-6">
-                  {study.results.map((result, i) => (
-                    <div key={i} className="flex items-center gap-2">
-                      <div className="w-2 h-2 bg-green-400 rounded-full"></div>
-                      <span className="text-sm text-slate-300">{result}</span>
-                    </div>
-                  ))}
+export default function CaseStudiesPage() {
+    return (
+        <div className="min-h-screen bg-[#020617] text-slate-200 selection:bg-blue-500/30">
+            <header className="relative pt-32 pb-20 px-6 border-b border-white/5 overflow-hidden">
+                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-blue-600/5 blur-[120px] rounded-full -z-10" />
+                <div className="max-w-5xl mx-auto text-center space-y-6">
+                    <h1 className="text-5xl md:text-6xl font-black text-white leading-tight">
+                        Real Results, <br />
+                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400">Every Industry</span>
+                    </h1>
+                    <p className="text-lg text-slate-400 max-w-3xl mx-auto leading-relaxed font-medium">
+                        See how businesses across industries use Brandverse AI voice agents to increase revenue, reduce costs, and provide 24/7 customer service.
+                    </p>
                 </div>
-                {study.title === 'Elite Climate Control' ? (
-                  <Link href="/blog/case-study-elite-climate/" className="block w-full py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition-colors text-center">
-                    Read Full Case Study
-                  </Link>
-                ) : study.title === 'Apex Property Group' ? (
-                  <Link href="/blog/case-study-apex-property/" className="block w-full py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition-colors text-center">
-                    Read Full Case Study
-                  </Link>
-                ) : (
-                  <Link href="/contact/" className="block w-full py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition-colors text-center">
-                    Read Full Case Study
-                  </Link>
-                )}
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+            </header>
 
-      {/* CTA Section */}
-      <section className="py-20 px-6">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-4xl font-bold mb-6 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
-            Ready to Write Your Success Story?
-          </h2>
-          <p className="text-xl text-slate-300 mb-8">
-            Join dozens of businesses already using Brandverse to transform their customer service and boost revenue.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/contact" className="px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-full font-semibold transition-all shadow-lg shadow-blue-500/20">
-              Start Your Success Story
-            </Link>
-            <Link href="/demos/voice" className="px-8 py-4 border border-blue-400 text-blue-400 hover:bg-blue-400 hover:text-white rounded-full font-semibold transition-all">
-              Try Live Demo
-            </Link>
-          </div>
-        </div>
-      </section>
+            <main className="px-6 py-16">
+                <div className="max-w-6xl mx-auto space-y-16">
+                    <section>
+                        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            {caseStudies.map((study) => (
+                                <CaseStudyCard
+                                    key={study.slug}
+                                    slug={study.slug}
+                                    industry={study.industry}
+                                    title={study.title}
+                                    metric={study.metrics[0]?.value}
+                                    metricLabel={study.metrics[0]?.label}
+                                    timeline={study.timeline}
+                                    illustrative={study.illustrative}
+                                    icon={iconMap[study.industry]}
+                                />
+                            ))}
+                        </div>
+                    </section>
 
-      {/* Footer */}
-      <footer className="border-t border-white/10 py-12 px-6">
-        <div className="max-w-6xl mx-auto">
-          <div className="grid md:grid-cols-4 gap-8 mb-8">
-            <div>
-              <h4 className="font-semibold mb-4">Contact</h4>
-              <div className="space-y-2 text-sm text-slate-300">
-                <p>ayush@brandverse.tech</p>
-                <p>+91 88510 05278</p>
-              </div>
-            </div>
-            <div>
-              <h4 className="font-semibold mb-4">Quick Links</h4>
-              <div className="space-y-2 text-sm">
-                <Link href="/features" className="block text-slate-300 hover:text-blue-400 transition-colors">Solutions</Link>
-                <Link href="/blog" className="block text-slate-300 hover:text-blue-400 transition-colors">Intelligence (Blog)</Link>
-                <Link href="/case-studies" className="block text-slate-300 hover:text-blue-400 transition-colors">Case Studies</Link>
-                <Link href="/about" className="block text-slate-300 hover:text-blue-400 transition-colors">About Us</Link>
-              </div>
-            </div>
-            <div>
-              <h4 className="font-semibold mb-4">Legal</h4>
-              <div className="space-y-2 text-sm">
-                <Link href="/privacy" className="block text-slate-300 hover:text-blue-400 transition-colors">Privacy Policy</Link>
-                <Link href="/terms" className="block text-slate-300 hover:text-blue-400 transition-colors">Terms & Conditions</Link>
-              </div>
-            </div>
-          </div>
-          <div className="text-center text-sm text-slate-400 pt-8 border-t border-white/10">
-            © 2025 Brandverse AI.
-          </div>
+                    {/* Real Case Studies Note */}
+                    <section className="p-8 rounded-3xl bg-gradient-to-r from-amber-900/20 to-orange-900/20 border border-amber-500/20">
+                        <h2 className="text-2xl font-black text-white uppercase italic tracking-wide mb-4">Real Client Results</h2>
+                        <p className="text-slate-300 mb-6">We also have detailed case studies from actual Brandverse clients:</p>
+                        <div className="grid md:grid-cols-3 gap-4">
+                            <Link href="/blog/case-study-elite-climate" className="p-5 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition-all">
+                                <p className="text-xs text-blue-400 font-black uppercase tracking-widest mb-1">HVAC</p>
+                                <p className="font-bold text-white">Elite Climate Control</p>
+                                <p className="text-xs text-slate-400 mt-1">70% more emergency calls captured</p>
+                            </Link>
+                            <Link href="/blog/case-study-apex-property" className="p-5 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition-all">
+                                <p className="text-xs text-blue-400 font-black uppercase tracking-widest mb-1">Real Estate</p>
+                                <p className="font-bold text-white">Apex Property Group</p>
+                                <p className="text-xs text-slate-400 mt-1">2x conversion rate improvement</p>
+                            </Link>
+                            <Link href="/blog/case-study-brightsmile-dental" className="p-5 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition-all">
+                                <p className="text-xs text-blue-400 font-black uppercase tracking-widest mb-1">Dental</p>
+                                <p className="font-bold text-white">Brightsmile Dental</p>
+                                <p className="text-xs text-slate-400 mt-1">60% fewer no-shows</p>
+                            </Link>
+                        </div>
+                    </section>
+                </div>
+            </main>
         </div>
-      </footer>
-    </div>
-  );
+    );
 }

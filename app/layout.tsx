@@ -8,6 +8,7 @@ import Analytics from "./components/Analytics";
 import StructuredData from "./components/StructuredData";
 import PushNotificationBanner from "./components/PushNotificationBanner";
 import ErrorBoundary from "./components/ErrorBoundary";
+import ReadingProgress from "./components/ui/ReadingProgress";
 import { config } from "../lib/config";
 
 const geistSans = Geist({
@@ -102,6 +103,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <ReadingProgress />
         <StructuredData />
         {linkedInPartnerId ? (
           <>

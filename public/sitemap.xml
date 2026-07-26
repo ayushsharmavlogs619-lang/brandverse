@@ -88,4 +88,20 @@
   <url><loc>https://brandverse.tech/customer-service</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
   <url><loc>https://brandverse.tech/lead-generation</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
   <url><loc>https://brandverse.tech/appointment-booking</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://brandverse.tech/roi-calculator</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://brandverse.tech/pricing-calculator</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://brandverse.tech/demo</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://brandverse.tech/implementation</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://brandverse.tech/case-studies/electricians</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://brandverse.tech/case-studies/hvac</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://brandverse.tech/case-studies/plumbing</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://brandverse.tech/case-studies/roofing</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://brandverse.tech/case-studies/dental</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://brandverse.tech/case-studies/medical</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://brandverse.tech/case-studies/legal</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://brandverse.tech/case-studies/property-management</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://brandverse.tech/case-studies/restaurants</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://brandverse.tech/case-studies/salons</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://brandverse.tech/case-studies/auto-repair</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://brandverse.tech/case-studies/home-services</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
 </urlset>
