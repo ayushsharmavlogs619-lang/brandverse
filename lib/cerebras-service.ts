@@ -1,34 +1,8 @@
-/**
- * Cerebras AI Service for Lead Analysis
- * 
- * This service analyzes leads using Cerebras API to generate:
- * - Summary
- * - Urgency level
- * - Lead quality
- * - Suggested reply
- */
+import type { LeadData, AIAnalysis } from './types';
 
 interface CerebrasConfig {
   apiKey: string;
   baseUrl?: string;
-}
-
-export interface AIAnalysis {
-  summary?: string;
-  urgency?: 'low' | 'medium' | 'high';
-  lead_quality?: 'low' | 'medium' | 'high';
-  suggested_reply?: string;
-}
-
-interface LeadData {
-  full_name?: string;
-  email?: string;
-  phone?: string;
-  company?: string;
-  website?: string;
-  business_type?: string;
-  service_interest?: string;
-  message?: string;
 }
 
 export class CerebrasService {

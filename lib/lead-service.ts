@@ -7,34 +7,10 @@ import { config } from './config';
 import { FORMSUBMIT_ACTION } from './forms';
 import { GoogleSheetsService, createGoogleSheetsService } from './google-sheets-service';
 import { CerebrasService, createCerebrasService } from './cerebras-service';
+import type { LeadData, AIAnalysis } from './types';
 
-// =====================================================
-// TYPES
-// =====================================================
-
-export interface LeadData {
-    full_name?: string;
-    email?: string;
-    phone?: string;
-    company?: string;
-    website?: string;
-    business_type?: string;
-    service_interest?: string;
-    message?: string;
-    source_page?: string;
-    source_form?: string;
-    utm_source?: string;
-    utm_medium?: string;
-    utm_campaign?: string;
-    timestamp?: string;
-}
-
-export interface AIAnalysis {
-    summary?: string;
-    urgency?: 'low' | 'medium' | 'high';
-    lead_quality?: 'low' | 'medium' | 'high';
-    suggested_reply?: string;
-}
+// Re-export for convenience so consumers can import from lead-service
+export type { LeadData, AIAnalysis };
 
 export interface LeadSubmissionResult {
     success: boolean;
@@ -133,7 +109,6 @@ class LeadValidator {
 
         const message = (data.message || '').toLowerCase();
         const fullName = (data.full_name || '').toLowerCase();
-        const company = (data.company || '').toLowerCase();
 
         // Check for spam patterns in message
         for (const pattern of spamPatterns) {

@@ -1,39 +1,4 @@
-/**
- * Google Sheets Service for Lead CRM
- *
- * This calls the SAME-ORIGIN Cloudflare Pages Function at
- * /api/leads/apps-script instead of the Google Sheets API directly.
- * The Pages Function holds the real webhook URL + secret server-side
- * (see functions/api/leads/apps-script.js) and forwards to the Google
- * Apps Script webhook, which writes the row into the sheet.
- *
- * Class/method names are kept the same as before so callers
- * (lead-service.ts) do not need to change.
- */
-
-interface LeadData {
-  full_name?: string;
-  email?: string;
-  phone?: string;
-  company?: string;
-  website?: string;
-  message?: string;
-  business_type?: string;
-  service_interest?: string;
-  source_page?: string;
-  source_form?: string;
-  utm_source?: string;
-  utm_medium?: string;
-  utm_campaign?: string;
-  timestamp?: string;
-}
-
-interface AIAnalysis {
-  summary?: string;
-  urgency?: 'low' | 'medium' | 'high';
-  lead_quality?: 'low' | 'medium' | 'high';
-  suggested_reply?: string;
-}
+import type { LeadData, AIAnalysis } from './types';
 
 export class GoogleSheetsService {
   /**
