@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { ArrowLeft, Stethoscope, Clock, HeartPulse, ShieldCheck } from 'lucide-react';
+import { ArrowLeft, Clock, HeartPulse, ShieldCheck } from 'lucide-react';
 
 export const metadata = {
     title: 'Case Study: Brightsmile Dental — Brandverse',

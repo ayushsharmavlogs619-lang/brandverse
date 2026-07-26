@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { ArrowLeft, Building2, UserCheck, BarChart, Globe, Zap } from 'lucide-react';
+import { ArrowLeft, Building2, UserCheck, Globe } from 'lucide-react';
 
 export const metadata = {
     title: 'Case Study: Apex Property Group — Brandverse',

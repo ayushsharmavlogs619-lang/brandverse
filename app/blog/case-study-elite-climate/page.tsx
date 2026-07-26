@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { ArrowLeft, CheckCircle2, TrendingUp, Users, Calendar, Phone } from 'lucide-react';
+import { ArrowLeft, TrendingUp, Calendar, Phone } from 'lucide-react';
 
 export const metadata = {
     title: 'Case Study: Elite Climate Control & Plumbing — Brandverse',
