@@ -245,6 +245,34 @@ export const articles: Article[] = [
         date: 'Jan 3, 2025',
         category: 'Ethics & Trust'
     },
+    {
+        slug: 'restaurant-reservations-ai',
+        title: 'AI Voice for Restaurants: Automating Reservations, Takeout, and Catering Inquiries',
+        excerpt: 'How restaurants use AI voice agents to handle reservations, takeout orders, and catering inquiries 24/7 without adding staff.',
+        date: 'Jul 26, 2026',
+        category: 'Industry Focus'
+    },
+    {
+        slug: 'fitness-studio-booking-ai',
+        title: 'How Gyms and Fitness Studios Use AI to Book More Classes and Sell Memberships',
+        excerpt: 'Fitness studios and gyms use AI voice agents to book classes, sell memberships, and handle member inquiries around the clock.',
+        date: 'Jul 26, 2026',
+        category: 'Industry Focus'
+    },
+    {
+        slug: 'salon-spa-cancellation-fill',
+        title: 'Salon & Spa Automation: Fill Last-Minute Cancellations with AI Booking',
+        excerpt: 'No-shows and last-minute cancellations drain salon revenue. Use AI voice agents to instantly fill gaps from your waitlist.',
+        date: 'Jul 27, 2026',
+        category: 'Industry Focus'
+    },
+    {
+        slug: 'property-management-tenant-screening',
+        title: 'Property Management Automation: AI for Maintenance Requests and Tenant Screening',
+        excerpt: 'Property managers waste hours on maintenance calls and tenant screening. Automate emergency dispatch and tenant qualification.',
+        date: 'Jul 27, 2026',
+        category: 'Industry Focus'
+    },
 ];
 
 /**

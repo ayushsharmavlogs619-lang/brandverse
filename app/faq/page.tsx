@@ -67,7 +67,7 @@ export default function FAQPage() {
         <div className="space-y-12">
           {categories.map((cat, catIndex) => (
             <div key={catIndex}>
-              <h3 className="text-blue-400 font-bold uppercase tracking-widest text-sm mb-6 border-b border-white/5 pb-2">{cat.name}</h3>
+              <h2 className="text-blue-400 font-bold uppercase tracking-widest text-sm mb-6 border-b border-white/5 pb-2">{cat.name}</h2>
               <div className="space-y-4">
                 {cat.items.map((faq, i) => {
                   const index = chatIndex++;

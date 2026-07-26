@@ -1,5 +1,11 @@
 import Link from 'next/link';
 import { ArrowLeft, AlertTriangle, TrendingUp, Clock, Phone, CheckCircle2 } from 'lucide-react';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Lead-Loss Audits — Brandverse | San Antonio Dominance Campaign',
+  description: 'Digital triage reports for San Antonio electrical contractors showing revenue leakage and AI automation opportunities.',
+};
 
 export default function ProspectsPage() {
     const prospects = [

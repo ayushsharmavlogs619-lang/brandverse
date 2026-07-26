@@ -1,6 +1,13 @@
 
 import { Phone, Calendar, DollarSign, Settings, Headphones, PlayCircle } from "lucide-react";
 import Link from "next/link";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Process — Brandverse AI Voice Agent Onboarding",
+  description: "From signup to live in 48 hours. See how Brandverse deploys custom AI voice agents: discovery, knowledge base, voice cloning, silent launch, and autopilot revenue.",
+  keywords: ["AI voice agent onboarding", "48 hour deployment", "AI setup process", "voice cloning setup", "AI agent launch"],
+};
 
 export default function ProcessPage() {
     return (

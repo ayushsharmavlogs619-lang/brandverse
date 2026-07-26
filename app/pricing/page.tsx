@@ -1,6 +1,13 @@
 
 import { Check, HelpCircle, ShieldCheck } from "lucide-react";
 import Link from "next/link";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Pricing — Brandverse AI Voice Agents | No Contracts, Cancel Anytime",
+  description: "AI voice agent pricing starting at $497/mo. No long-term contracts. 30-day happiness guarantee. Unlimited minutes on Growth plan. Cancel anytime.",
+  keywords: ["AI voice agent pricing", "AI receptionist cost", "voice AI monthly", "24/7 call answering price", "no contract AI agent"],
+};
 
 export default function PricingPage() {
   return (
