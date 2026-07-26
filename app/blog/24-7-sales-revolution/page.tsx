@@ -81,7 +81,7 @@ export default function Post() {
                         <h2 className="text-2xl font-black text-white uppercase italic tracking-wide">Human Logic vs. AI Logic</h2>
                         <div className="grid md:grid-cols-2 gap-6">
                             <div className="p-6 rounded-2xl bg-white/5 border border-white/10">
-                                <h4 className="font-bold text-red-400 mb-2 flex items-center gap-2"><Clock className="w-4 h-4" /> Human Receptionist</h4>
+                                <h3 className="font-bold text-red-400 mb-2 flex items-center gap-2"><Clock className="w-4 h-4" /> Human Receptionist</h3>
                                 <ul className="space-y-2 text-sm text-slate-400">
                                     <li className="opacity-70">• Works 40 hours/week</li>
                                     <li className="opacity-70">• Costs $45,000/year</li>
@@ -90,7 +90,7 @@ export default function Post() {
                                 </ul>
                             </div>
                             <div className="p-6 rounded-2xl bg-indigo-600/10 border border-indigo-500/30">
-                                <h4 className="font-bold text-green-400 mb-2 flex items-center gap-2"><Zap className="w-4 h-4" /> AI Voice Agent</h4>
+                                <h3 className="font-bold text-green-400 mb-2 flex items-center gap-2"><Zap className="w-4 h-4" /> AI Voice Agent</h3>
                                 <ul className="space-y-2 text-sm text-slate-300">
                                     <li className="font-medium">• Works 168 hours/week</li>
                                     <li className="font-medium">• Costs fraction of a salary</li>

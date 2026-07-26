@@ -53,7 +53,7 @@ export default function CaseStudy() {
                 </div>
 
                 <article className="prose prose-invert prose-lg max-w-none">
-                    <h3>The "Front Desk" Bottleneck</h3>
+                    <h2>The "Front Desk" Bottleneck</h2>
                     <p>
                         Dr. Sharma at Brightsmile is an artist with dentistry, but his clinic was chaotic. The phone was ringing off the hook, patients were no-showing, and his receptionist was stressed out trying to be a scheduler, biller, and greeter all at once.
                     </p>
@@ -61,7 +61,7 @@ export default function CaseStudy() {
                         They tried hiring more staff, but turnover was high. They needed stability. They needed a system that wouldn't quit.
                     </p>
 
-                    <h3>Becoming the Architect</h3>
+                    <h2>Becoming the Architect</h2>
                     <p>
                         Brandverse stepped in not just to "install a bot," but to re-architect their patient flow. We mapped the entire journey from "Toothache Google Search" to "Six Month Checkup."
                     </p>
@@ -71,7 +71,7 @@ export default function CaseStudy() {
                         <li><strong>Insurance Pre-Check:</strong> We built a form that validates insurance eligibility 24 hours *before* the patient walks in.</li>
                     </ul>
 
-                    <h3>The "Golden Handcuffs" of Quality</h3>
+                    <h2>The "Golden Handcuffs" of Quality</h2>
                     <p>
                         Six months into the partnership, Dr. Sharma made a decision. He didn't want to manage the tech anymore. He fired his previous IT provider and named Brandverse the official "Backend Digital In-Charge."
                     </p>
@@ -79,7 +79,7 @@ export default function CaseStudy() {
                         We now manage everything: their server security, their patient database integrations, and their reputation management. We are no longer a vendor; we are their digital infrastructure.
                     </p>
 
-                    <h3>Why They Won't Leave</h3>
+                    <h2>Why They Won't Leave</h2>
                     <p>
                         "It's simple," Dr. Sharma says. "Before Brandverse, I worried about my schedule every night. Now, I wake up, the calendar is full, the confirmations are sent, and I just do dentistry. Why would I ever go back?"
                     </p>

@@ -53,7 +53,7 @@ export default function CaseStudy() {
                 </div>
 
                 <article className="prose prose-invert prose-lg max-w-none">
-                    <h3>The "Availability" Paradox</h3>
+                    <h2>The "Availability" Paradox</h2>
                     <p>
                         Real estate is a high-touch game. Clients want to feel like they are your *only* client. But as Apex Property Group grew, their top agents were drowning in "tire kicker" calls—people asking about properties they couldn't afford or that were already sold.
                     </p>
@@ -61,7 +61,7 @@ export default function CaseStudy() {
                         They were spending 80% of their time on 20% of the revenue. They needed a filter, but it had to feel personal. It couldn't feel like a robot blocking the gate.
                     </p>
 
-                    <h3>Injecting Real-World DNA</h3>
+                    <h2>Injecting Real-World DNA</h2>
                     <p>
                         This project was personal for me. Using my own experience in operations and branding, we built a digital twin of their best agent. We analyzed thousands of successful closing conversations to script the AI's "personality."
                     </p>
@@ -71,7 +71,7 @@ export default function CaseStudy() {
                         <li><strong>Empathy:</strong> Recognizing the stress of buying a first home.</li>
                     </ul>
 
-                    <h3>The Social Automaton</h3>
+                    <h2>The Social Automaton</h2>
                     <p>
                         We didn't just stop at inbound calls. We took over their digital output. We built a content engine that automatically generated market updates, "Just Sold" posts, and neighborhood guides based on MLS data.
                     </p>
@@ -79,7 +79,7 @@ export default function CaseStudy() {
                         While the agents were out showing houses, their digital presence was active 24/7, answering DMs, scheduling viewings, and nurturing long-term leads with personalized market reports.
                     </p>
 
-                    <h3>Results that Scale</h3>
+                    <h2>Results that Scale</h2>
                     <p>
                         The "Apex Engine" now handles the first 3 touches for every lead. By the time a human agent steps in, the client is pre-vetted, pre-approved, and ready to sign.
                     </p>

@@ -85,7 +85,7 @@ export default function Post() {
 
                         <div className="space-y-8">
                             <div>
-                                <h4 className="text-xl font-bold text-white mb-2">1. The HVAC Dispatcher</h4>
+                                <h3 className="text-xl font-bold text-white mb-2">1. The HVAC Dispatcher</h3>
                                 <p className="text-slate-400 leading-relaxed">
                                     <strong>Trigger:</strong> Customer calls saying "My AC is busted."<br />
                                     <strong>Action:</strong> AI checks ServiceTitan for the customer's history. Sees they have a warranty. Books the slot. Tags the job as "Warranty - Urgent." Sends a Push Notification to the on-call tech on Slack.
@@ -93,7 +93,7 @@ export default function Post() {
                             </div>
 
                             <div>
-                                <h4 className="text-xl font-bold text-white mb-2">2. The Real Estate Qualifier</h4>
+                                <h3 className="text-xl font-bold text-white mb-2">2. The Real Estate Qualifier</h3>
                                 <p className="text-slate-400 leading-relaxed">
                                     <strong>Trigger:</strong> Lead asks about a listing.<br />
                                     <strong>Action:</strong> AI collects budget, timeline, and pre-approval status. Updates Follow Up Boss (CRM). If qualified, transfers live to the agent's cell. If not, puts them in a "Long Term Nurture" email sequence in Mailchimp.
