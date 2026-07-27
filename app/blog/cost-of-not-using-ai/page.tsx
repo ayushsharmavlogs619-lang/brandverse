@@ -5,6 +5,8 @@ import RelatedArticles from '../../components/RelatedArticles';
 export const metadata = {
     title: 'The True Cost of NOT Using AI Voice Agents in 2025 — Brandverse',
     description: 'What you lose every single day you delay. A sobering breakdown of the hidden costs killing your profit margins right now.',
+    robots: { index: true, follow: true, googleBot: { index: true, follow: true, 'max-video-preview': -1, 'max-image-preview': 'large', 'max-snippet': -1 } },
+    alternates: { canonical: 'https://brandverse.tech/blog/cost-of-not-using-ai' }
 };
 
 export default function Post() {

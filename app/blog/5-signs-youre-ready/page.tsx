@@ -5,6 +5,8 @@ import RelatedArticles from '../../components/RelatedArticles';
 export const metadata = {
     title: '5 Signs You\'re Ready for AI Voice Agents (And Why Waiting Costs You) — Brandverse',
     description: 'Are you leaving money on the table? These 5 signs prove you\'re already past the "should I" phase and deep into the "when do I start" zone.',
+    robots: { index: true, follow: true, googleBot: { index: true, follow: true, 'max-video-preview': -1, 'max-image-preview': 'large', 'max-snippet': -1 } },
+    alternates: { canonical: 'https://brandverse.tech/blog/5-signs-youre-ready' }
 };
 
 export default function Post() {

@@ -11,6 +11,8 @@ export const metadata = {
     description: 'A step-by-step onboarding checklist to get your AI agent live and converting quickly. From discovery to full rollout in 1-2 weeks.',
     openGraph: { title: 'Onboarding Checklist for AI Agents — Brandverse', description: 'Step-by-step AI agent onboarding checklist.' },
     twitter: { card: 'summary_large_image', title: 'Onboarding Checklist for AI Agents — Brandverse', description: 'Step-by-step AI agent onboarding checklist.' },
+    robots: { index: true, follow: true, googleBot: { index: true, follow: true, 'max-video-preview': -1, 'max-image-preview': 'large', 'max-snippet': -1 } },
+    alternates: { canonical: 'https://brandverse.tech/blog/onboarding-checklist' }
 };
 
 export default function Post() {

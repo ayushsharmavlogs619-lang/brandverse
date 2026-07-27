@@ -11,6 +11,8 @@ export const metadata = {
     description: 'Compare AI voice agents vs traditional IVR phone trees. See how natural conversation replaces button-pressing hell with 80%+ containment rates.',
     openGraph: { title: 'AI vs IVR: Why Traditional Phone Trees Are Obsolete — Brandverse', description: 'AI voice agents vs IVR: natural conversation replaces button-pressing.' },
     twitter: { card: 'summary_large_image', title: 'AI vs IVR: Why Traditional Phone Trees Are Obsolete', description: 'Compare AI voice agents vs traditional IVR phone trees.' },
+    robots: { index: true, follow: true, googleBot: { index: true, follow: true, 'max-video-preview': -1, 'max-image-preview': 'large', 'max-snippet': -1 } },
+    alternates: { canonical: 'https://brandverse.tech/blog/ai-vs-ivr-comparison' }
 };
 
 const comparisons = [

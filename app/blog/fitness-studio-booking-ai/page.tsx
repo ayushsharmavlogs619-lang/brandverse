@@ -7,6 +7,8 @@ export const metadata = {
     title: 'How Gyms and Fitness Studios Use AI to Book More Classes and Sell Memberships | Brandverse',
     description: 'Fitness studios and gyms use AI voice agents to book classes, sell memberships, and handle member inquiries around the clock.',
     keywords: ['ai gym booking', 'fitness studio automation', 'ai voice agent gym', 'membership sales ai', 'fitness class scheduling ai'],
+    robots: { index: true, follow: true, googleBot: { index: true, follow: true, 'max-video-preview': -1, 'max-image-preview': 'large', 'max-snippet': -1 } },
+    alternates: { canonical: 'https://brandverse.tech/blog/fitness-studio-booking-ai' }
 };
 
 export default function Post() {

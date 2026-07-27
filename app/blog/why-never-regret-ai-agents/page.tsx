@@ -5,6 +5,8 @@ import RelatedArticles from '../../components/RelatedArticles';
 export const metadata = {
     title: 'Why Smart Business Owners Choose AI Voice Agents (And Never Look Back) — Brandverse',
     description: 'The decision that pays for itself in 48 hours. Why thousands of service businesses are switching to AI voice agents and never returning to human-only teams.',
+    robots: { index: true, follow: true, googleBot: { index: true, follow: true, 'max-video-preview': -1, 'max-image-preview': 'large', 'max-snippet': -1 } },
+    alternates: { canonical: 'https://brandverse.tech/blog/why-never-regret-ai-agents' }
 };
 
 export default function Post() {

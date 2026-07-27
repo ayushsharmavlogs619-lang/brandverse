@@ -11,6 +11,8 @@ export const metadata = {
     description: 'Best practices for SMS confirmations and follow-ups that increase show-rates and conversions. Templates and timing strategies for AI-powered SMS.',
     openGraph: { title: 'Automated SMS Follow-ups that Convert — Brandverse', description: 'Best practices for SMS confirmations and follow-ups.' },
     twitter: { card: 'summary_large_image', title: 'Automated SMS Follow-ups that Convert — Brandverse', description: 'Best practices for SMS confirmations and follow-ups.' },
+    robots: { index: true, follow: true, googleBot: { index: true, follow: true, 'max-video-preview': -1, 'max-image-preview': 'large', 'max-snippet': -1 } },
+    alternates: { canonical: 'https://brandverse.tech/blog/sms-followups' }
 };
 
 export default function Post() {

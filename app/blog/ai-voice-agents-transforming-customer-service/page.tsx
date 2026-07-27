@@ -19,6 +19,8 @@ export const metadata = {
         title: 'How AI Voice Agents Are Transforming Customer Service',
         description: 'AI voice agents are revolutionizing customer service. Learn how businesses use voice AI to reduce costs, improve satisfaction, and provide instant 24/7 support.',
     },
+    robots: { index: true, follow: true, googleBot: { index: true, follow: true, 'max-video-preview': -1, 'max-image-preview': 'large', 'max-snippet': -1 } },
+    alternates: { canonical: 'https://brandverse.tech/blog/ai-voice-agents-transforming-customer-service' }
 };
 
 export default function Post() {

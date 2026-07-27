@@ -6,6 +6,8 @@ export const metadata = {
     title: 'The 5-Minute Lead Rule: How Top Realtors Automate Follow-Up | Brandverse',
     description: 'Lead response time is the single biggest predictor of conversion in real estate. Automate your Zillow and Facebook lead nurture.',
     keywords: ['real estate isa automation', 'realtor lead follow up', 'zillow lead automation', 'ai real estate agent', 'automate showings'],
+    robots: { index: true, follow: true, googleBot: { index: true, follow: true, 'max-video-preview': -1, 'max-image-preview': 'large', 'max-snippet': -1 } },
+    alternates: { canonical: 'https://brandverse.tech/blog/real-estate-lead-speed' }
 };
 
 export default function Post() {

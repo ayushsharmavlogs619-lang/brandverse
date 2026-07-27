@@ -11,6 +11,8 @@ export const metadata = {
     description: 'Real AI call script examples that convert callers into booked appointments. Templates for HVAC, medical, legal, real estate, and service businesses.',
     openGraph: { title: 'High-Converting Call Scripts for AI Agents — Brandverse', description: 'Real AI call script examples that convert callers into booked appointments.' },
     twitter: { card: 'summary_large_image', title: 'High-Converting Call Scripts for AI Agents — Brandverse', description: 'Real AI call script examples that convert callers into booked appointments.' },
+    robots: { index: true, follow: true, googleBot: { index: true, follow: true, 'max-video-preview': -1, 'max-image-preview': 'large', 'max-snippet': -1 } },
+    alternates: { canonical: 'https://brandverse.tech/blog/scripts-that-convert' }
 };
 
 export default function Post() {

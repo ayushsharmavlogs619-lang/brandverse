@@ -6,6 +6,8 @@ export const metadata = {
     title: 'The 24/7 Employee Paradox: Doing More by Doing Less | Brandverse',
     description: 'Scaling a business shouldn\'t mean working 80-hour weeks. Learn how Robotic Process Automation (RPA) allows you to clone your best employees.',
     keywords: ['business automation ideas', 'robotic process automation small business', 'scale without hiring', '24/7 business operations', 'automate administrative tasks'],
+    robots: { index: true, follow: true, googleBot: { index: true, follow: true, 'max-video-preview': -1, 'max-image-preview': 'large', 'max-snippet': -1 } },
+    alternates: { canonical: 'https://brandverse.tech/blog/24-7-employee-paradox' }
 };
 
 export default function Post() {

@@ -7,6 +7,8 @@ export const metadata = {
     title: 'Property Management Automation: AI for Maintenance Requests and Tenant Screening | Brandverse',
     description: 'Property managers waste hours on maintenance calls and tenant screening. Automate emergency dispatch and tenant qualification with AI voice agents.',
     keywords: ['property management automation', 'tenant screening ai', 'maintenance request automation', 'property manager ai', 'rental property automation'],
+    robots: { index: true, follow: true, googleBot: { index: true, follow: true, 'max-video-preview': -1, 'max-image-preview': 'large', 'max-snippet': -1 } },
+    alternates: { canonical: 'https://brandverse.tech/blog/property-management-tenant-screening' }
 };
 
 export default function Post() {

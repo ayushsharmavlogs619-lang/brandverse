@@ -11,6 +11,8 @@ export const metadata = {
     description: 'Guidance on using voice cloning responsibly with consent flows, secure storage, audit logs, and transparency practices for customer trust.',
     openGraph: { title: 'Voice Cloning: Ethics & Best Practices — Brandverse', description: 'Guidance on using voice cloning responsibly.' },
     twitter: { card: 'summary_large_image', title: 'Voice Cloning: Ethics & Best Practices — Brandverse', description: 'Guidance on using voice cloning responsibly.' },
+    robots: { index: true, follow: true, googleBot: { index: true, follow: true, 'max-video-preview': -1, 'max-image-preview': 'large', 'max-snippet': -1 } },
+    alternates: { canonical: 'https://brandverse.tech/blog/voice-cloning-ethics' }
 };
 
 export default function Post() {

@@ -5,6 +5,8 @@ import RelatedArticles from '../../components/RelatedArticles';
 export const metadata = {
     title: 'The Perfect Handoff: Connecting AI Voice Agents to Your CRM — Brandverse',
     description: 'An AI that answers phones is cool. An AI that answers phones AND updates Salesforce automatically is a business revolution.',
+    robots: { index: true, follow: true, googleBot: { index: true, follow: true, 'max-video-preview': -1, 'max-image-preview': 'large', 'max-snippet': -1 } },
+    alternates: { canonical: 'https://brandverse.tech/blog/crm-automation-blueprint' }
 };
 
 export default function Post() {

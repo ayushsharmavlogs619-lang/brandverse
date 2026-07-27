@@ -19,6 +19,8 @@ export const metadata = {
         title: 'How Local Businesses Can Stop Losing Leads After Business Hours',
         description: 'Local businesses lose 40% of leads after hours. Learn how AI receptionists can recover thousands in monthly revenue.',
     },
+    robots: { index: true, follow: true, googleBot: { index: true, follow: true, 'max-video-preview': -1, 'max-image-preview': 'large', 'max-snippet': -1 } },
+    alternates: { canonical: 'https://brandverse.tech/blog/stop-losing-leads-after-hours' }
 };
 
 export default function Post() {

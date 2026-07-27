@@ -6,6 +6,8 @@ export const metadata = {
     title: 'Your 24/7 Sales Team: Why "Business Hours" Are Killing Your Growth | Brandverse',
     description: 'The modern consumer doesn\'t wait for 9 AM. Learn how an always-on AI sales team captures the 40% of leads you\'re currently ignoring.',
     keywords: ['24/7 sales team', 'after hours lead capture', 'AI sales agents', 'missed call automation', 'increase conversion from leads'],
+    robots: { index: true, follow: true, googleBot: { index: true, follow: true, 'max-video-preview': -1, 'max-image-preview': 'large', 'max-snippet': -1 } },
+    alternates: { canonical: 'https://brandverse.tech/blog/24-7-sales-revolution' }
 };
 
 export default function Post() {

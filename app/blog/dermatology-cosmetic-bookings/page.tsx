@@ -6,6 +6,8 @@ export const metadata = {
     title: 'Cosmetic Consultations on Autopilot: Filtering Serious Patients from Tire Kickers | Brandverse',
     description: 'Dermatology clinics waste hours on free consults that never convert. Use AI to pre-qualify leads and collect deposits automatically.',
     keywords: ['medspa automation', 'dermatology lead generation', 'cosmetic surgery marketing automation', 'aesthetic clinic booking software', 'high ticket sales filter'],
+    robots: { index: true, follow: true, googleBot: { index: true, follow: true, 'max-video-preview': -1, 'max-image-preview': 'large', 'max-snippet': -1 } },
+    alternates: { canonical: 'https://brandverse.tech/blog/dermatology-cosmetic-bookings' }
 };
 
 export default function Post() {

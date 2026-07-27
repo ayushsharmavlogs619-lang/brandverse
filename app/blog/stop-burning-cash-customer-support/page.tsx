@@ -6,6 +6,8 @@ export const metadata = {
     title: 'Stop Burning Cash on Customer Support: The AI Revolution | Brandverse',
     description: 'Manual customer support scales linearly and kills margins. Discover how AI Agents reduce cost-per-ticket by 97% while improving satisfaction.',
     keywords: ['AI customer support', 'reduce support costs', 'automated customer service', 'AI support agents', 'customer service automation ROI'],
+    robots: { index: true, follow: true, googleBot: { index: true, follow: true, 'max-video-preview': -1, 'max-image-preview': 'large', 'max-snippet': -1 } },
+    alternates: { canonical: 'https://brandverse.tech/blog/stop-burning-cash-customer-support' }
 };
 
 export default function Post() {

@@ -19,6 +19,8 @@ export const metadata = {
         title: 'The Complete Guide to AI Receptionists for Small Businesses in 2026',
         description: 'Everything you need to know about AI receptionists: costs, features, setup, ROI, and how they compare to human receptionists.',
     },
+    robots: { index: true, follow: true, googleBot: { index: true, follow: true, 'max-video-preview': -1, 'max-image-preview': 'large', 'max-snippet': -1 } },
+    alternates: { canonical: 'https://brandverse.tech/blog/ai-receptionist-guide-2026' }
 };
 
 export default function Post() {

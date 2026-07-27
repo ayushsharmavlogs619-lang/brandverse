@@ -4,6 +4,8 @@ import { ArrowLeft, TrendingUp, Calendar, Phone } from 'lucide-react';
 export const metadata = {
     title: 'Case Study: Elite Climate Control & Plumbing — Brandverse',
     description: 'How a skeptical HVAC owner automated 40% of his booking workflow and recovered $15k in missed calls in month one.',
+    robots: { index: true, follow: true, googleBot: { index: true, follow: true, 'max-video-preview': -1, 'max-image-preview': 'large', 'max-snippet': -1 } },
+    alternates: { canonical: 'https://brandverse.tech/blog/case-study-elite-climate' }
 };
 
 export default function CaseStudy() {

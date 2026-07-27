@@ -11,6 +11,8 @@ export const metadata = {
     description: 'Track the right KPIs to measure your AI voice agent ROI: answer rate, booking rate, cost per lead, revenue impact, and customer satisfaction.',
     openGraph: { title: 'Measuring AI Agent Performance & KPIs — Brandverse', description: 'Track the right KPIs to measure your AI voice agent ROI.', type: 'article' },
     twitter: { card: 'summary_large_image', title: 'Measuring AI Agent Performance & KPIs — Brandverse', description: 'Track the right KPIs to measure your AI voice agent ROI.' },
+    robots: { index: true, follow: true, googleBot: { index: true, follow: true, 'max-video-preview': -1, 'max-image-preview': 'large', 'max-snippet': -1 } },
+    alternates: { canonical: 'https://brandverse.tech/blog/measuring-success' }
 };
 
 export default function Post() {

@@ -5,6 +5,8 @@ import RelatedArticles from '../../components/RelatedArticles';
 export const metadata = {
     title: 'Will My Customers Hate It? The Truth About AI Voice Acceptance — Brandverse',
     description: 'The #1 fear of business owners debunked. Data shows customers prefer instant AI answers over handling annoying hold music or voicemail.',
+    robots: { index: true, follow: true, googleBot: { index: true, follow: true, 'max-video-preview': -1, 'max-image-preview': 'large', 'max-snippet': -1 } },
+    alternates: { canonical: 'https://brandverse.tech/blog/voice-ai-ethics-trust' }
 };
 
 export default function Post() {

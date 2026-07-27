@@ -6,6 +6,8 @@ export const metadata = {
     title: 'The Hidden Cost of "Good Enough" Web Design | Brandverse',
     description: 'A cheap website signals low quality to high-ticket clients. Learn why premium web design is the highest leverage asset for increasing conversion rates.',
     keywords: ['premium web design ROI', 'high ticket website design', 'luxury web design', 'website conversion rate optimization', 'cost of bad web design'],
+    robots: { index: true, follow: true, googleBot: { index: true, follow: true, 'max-video-preview': -1, 'max-image-preview': 'large', 'max-snippet': -1 } },
+    alternates: { canonical: 'https://brandverse.tech/blog/hidden-cost-good-enough-web-design' }
 };
 
 export default function Post() {

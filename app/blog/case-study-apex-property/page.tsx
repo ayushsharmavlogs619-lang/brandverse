@@ -4,6 +4,8 @@ import { ArrowLeft, Building2, UserCheck, Globe } from 'lucide-react';
 export const metadata = {
     title: 'Case Study: Apex Property Group — Brandverse',
     description: 'How we used personal branding and automation to scale a real estate portfolio.',
+    robots: { index: true, follow: true, googleBot: { index: true, follow: true, 'max-video-preview': -1, 'max-image-preview': 'large', 'max-snippet': -1 } },
+    alternates: { canonical: 'https://brandverse.tech/blog/case-study-apex-property' }
 };
 
 export default function CaseStudy() {

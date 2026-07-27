@@ -6,6 +6,8 @@ export const metadata = {
     title: 'Step Up Your Practice: Filling Cancellations with AI in Podiatry | Brandverse',
     description: 'Specialist appointments are high-value. Don\'t let cancellations leave holes in your revenue. Use AI to auto-fill slots from your waitlist.',
     keywords: ['podiatry practice marketing', 'medical specialist automated scheduling', 'waitlist automation software', 'clinic cancellation filler', 'patient recall system'],
+    robots: { index: true, follow: true, googleBot: { index: true, follow: true, 'max-video-preview': -1, 'max-image-preview': 'large', 'max-snippet': -1 } },
+    alternates: { canonical: 'https://brandverse.tech/blog/podiatry-patient-growth' }
 };
 
 export default function Post() {

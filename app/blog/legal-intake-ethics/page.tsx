@@ -6,6 +6,8 @@ export const metadata = {
     title: 'Stop Missing Clients: The Ethics of AI Legal Intake | Brandverse',
     description: 'Law firms lose high-value cases to missed calls. Learn how to use AI for ethical, secure, and instant client intake.',
     keywords: ['legal intake automation', 'law firm ai receptionist', 'attorney lead conversion', 'legal ethics ai', 'automate case screening'],
+    robots: { index: true, follow: true, googleBot: { index: true, follow: true, 'max-video-preview': -1, 'max-image-preview': 'large', 'max-snippet': -1 } },
+    alternates: { canonical: 'https://brandverse.tech/blog/legal-intake-ethics' }
 };
 
 export default function Post() {

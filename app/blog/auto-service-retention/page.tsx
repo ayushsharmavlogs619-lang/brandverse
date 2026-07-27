@@ -6,6 +6,8 @@ export const metadata = {
     title: 'Fill Your Bays: Automating Service Reminders for Auto Shops | Brandverse',
     description: 'Stop relying on generic postcards. Use AI to sync with your shop management system and predict exactly when customers need service.',
     keywords: ['auto repair shop marketing', 'automated service reminders', 'mechanic shop scheduling software', 'car repair lead generation', 'auto shop crm'],
+    robots: { index: true, follow: true, googleBot: { index: true, follow: true, 'max-video-preview': -1, 'max-image-preview': 'large', 'max-snippet': -1 } },
+    alternates: { canonical: 'https://brandverse.tech/blog/auto-service-retention' }
 };
 
 export default function Post() {

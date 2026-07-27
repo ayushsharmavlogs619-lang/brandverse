@@ -19,6 +19,8 @@ export const metadata = {
         title: 'The Ultimate Guide to Business Automation for Service Businesses',
         description: 'A comprehensive guide to automating your service business: CRM automation, AI phone agents, scheduling, follow-ups, and more.',
     },
+    robots: { index: true, follow: true, googleBot: { index: true, follow: true, 'max-video-preview': -1, 'max-image-preview': 'large', 'max-snippet': -1 } },
+    alternates: { canonical: 'https://brandverse.tech/blog/ultimate-guide-business-automation' }
 };
 
 export default function Post() {

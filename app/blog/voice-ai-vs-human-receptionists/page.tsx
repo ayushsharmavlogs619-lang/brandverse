@@ -19,6 +19,8 @@ export const metadata = {
         title: 'Voice AI vs Human Receptionists: Which Is Right for Your Business?',
         description: 'A detailed comparison of AI receptionists vs human receptionists: costs, coverage, customer experience, and which option is best for different business types.',
     },
+    robots: { index: true, follow: true, googleBot: { index: true, follow: true, 'max-video-preview': -1, 'max-image-preview': 'large', 'max-snippet': -1 } },
+    alternates: { canonical: 'https://brandverse.tech/blog/voice-ai-vs-human-receptionists' }
 };
 
 export default function Post() {

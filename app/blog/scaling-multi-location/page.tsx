@@ -11,6 +11,8 @@ export const metadata = {
     description: 'Best practices for deploying AI agents across franchises, multi-location businesses, and regional teams with consistent brand voice.',
     openGraph: { title: 'Scaling Across Multiple Locations — Brandverse', description: 'Best practices for deploying AI agents across franchises.' },
     twitter: { card: 'summary_large_image', title: 'Scaling Across Multiple Locations — Brandverse', description: 'Best practices for deploying AI agents across franchises.' },
+    robots: { index: true, follow: true, googleBot: { index: true, follow: true, 'max-video-preview': -1, 'max-image-preview': 'large', 'max-snippet': -1 } },
+    alternates: { canonical: 'https://brandverse.tech/blog/scaling-multi-location' }
 };
 
 export default function Post() {

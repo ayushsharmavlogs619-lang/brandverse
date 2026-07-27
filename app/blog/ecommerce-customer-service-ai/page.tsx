@@ -7,6 +7,8 @@ export const metadata = {
     title: 'AI Voice Agents for E-Commerce: Handling Order Status and Customer Support 24/7 | Brandverse',
     description: 'Discover how AI voice agents transform e-commerce customer service — handling order status inquiries, return processing, and support around the clock with Shopify and WooCommerce integration.',
     keywords: ['AI voice agent e-commerce', 'e-commerce customer service automation', 'order status AI', 'Shopify AI customer support', 'WooCommerce voice agent', 'automated return processing', '24/7 e-commerce support'],
+    robots: { index: true, follow: true, googleBot: { index: true, follow: true, 'max-video-preview': -1, 'max-image-preview': 'large', 'max-snippet': -1 } },
+    alternates: { canonical: 'https://brandverse.tech/blog/ecommerce-customer-service-ai' }
 };
 
 export default function Post() {

@@ -6,6 +6,8 @@ export const metadata = {
     title: 'Automating Bids: How to Quote Jobs While You Sleep | Brandverse',
     description: 'Contractors spend 10+ hours a week driving to estimates that don\'t convert. Automate your bidding process with AI.',
     keywords: ['construction estimating automation', 'automated quoting software', 'contractor sales automation', 'ai for construction', 'digital bidding'],
+    robots: { index: true, follow: true, googleBot: { index: true, follow: true, 'max-video-preview': -1, 'max-image-preview': 'large', 'max-snippet': -1 } },
+    alternates: { canonical: 'https://brandverse.tech/blog/construction-bidding-automation' }
 };
 
 export default function Post() {

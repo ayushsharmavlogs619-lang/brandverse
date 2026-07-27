@@ -7,6 +7,8 @@ export const metadata = {
     title: 'AI Voice for Restaurants: Automating Reservations, Takeout, and Catering Inquiries | Brandverse',
     description: 'How restaurants use AI voice agents to handle reservations, takeout orders, and catering inquiries 24/7 without adding staff.',
     keywords: ['ai voice restaurant', 'automate restaurant reservations', 'ai restaurant phone system', 'catering inquiry automation', 'restaurant takeout ai'],
+    robots: { index: true, follow: true, googleBot: { index: true, follow: true, 'max-video-preview': -1, 'max-image-preview': 'large', 'max-snippet': -1 } },
+    alternates: { canonical: 'https://brandverse.tech/blog/restaurant-reservations-ai' }
 };
 
 export default function Post() {

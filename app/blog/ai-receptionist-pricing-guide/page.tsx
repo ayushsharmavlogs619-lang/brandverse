@@ -11,6 +11,8 @@ export const metadata = {
     description: 'Complete guide to AI receptionist pricing. Compare per-minute, flat-rate, and hybrid pricing models. Includes hidden costs, ROI calculator, and vendor comparison.',
     openGraph: { title: 'AI Receptionist Pricing Guide 2025 — Full Cost Breakdown — Brandverse', description: 'Complete pricing guide for AI receptionists with model comparison and ROI analysis.' },
     twitter: { card: 'summary_large_image', title: 'AI Receptionist Pricing Guide 2025', description: 'AI receptionist pricing models compared: per-minute vs flat-rate vs hybrid.' },
+    robots: { index: true, follow: true, googleBot: { index: true, follow: true, 'max-video-preview': -1, 'max-image-preview': 'large', 'max-snippet': -1 } },
+    alternates: { canonical: 'https://brandverse.tech/blog/ai-receptionist-pricing-guide' }
 };
 
 const pricingModels = [

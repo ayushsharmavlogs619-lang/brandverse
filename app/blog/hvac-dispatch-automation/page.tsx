@@ -7,6 +7,8 @@ export const metadata = {
     title: 'Why 78% of Emergency Plumbing Calls Go to Voicemail (And How to Fix It) | Brandverse',
     description: 'Stop losing jobs to the "first-to-answer" competitor. Learn how AI dispatchers verify emergencies and book jobs 24/7.',
     keywords: ['plumbing answering service', 'hvac dispatch automation', 'after hours dispatch', 'emergency field service scheduling', 'field edge integration'],
+    robots: { index: true, follow: true, googleBot: { index: true, follow: true, 'max-video-preview': -1, 'max-image-preview': 'large', 'max-snippet': -1 } },
+    alternates: { canonical: 'https://brandverse.tech/blog/hvac-dispatch-automation' }
 };
 
 export default function Post() {

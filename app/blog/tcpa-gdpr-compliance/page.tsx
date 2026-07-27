@@ -11,6 +11,8 @@ export const metadata = {
     description: 'Practical compliance checklist for TCPA and GDPR when deploying AI voice agents. Consent scripts, record-keeping, and opt-out flows.',
     openGraph: { title: 'Telecom & Privacy Compliance (TCPA/GDPR) — Brandverse', description: 'Practical compliance checklist for TCPA and GDPR when deploying AI voice agents.' },
     twitter: { card: 'summary_large_image', title: 'Telecom & Privacy Compliance (TCPA/GDPR) — Brandverse', description: 'Practical compliance checklist for TCPA and GDPR.' },
+    robots: { index: true, follow: true, googleBot: { index: true, follow: true, 'max-video-preview': -1, 'max-image-preview': 'large', 'max-snippet': -1 } },
+    alternates: { canonical: 'https://brandverse.tech/blog/tcpa-gdpr-compliance' }
 };
 
 export default function Post() {

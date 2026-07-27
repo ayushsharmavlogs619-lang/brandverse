@@ -11,6 +11,8 @@ export const metadata = {
     description: 'How to use multilingual AI agents to expand market reach, capture more leads, and improve conversion rates with Spanish and other language support.',
     openGraph: { title: 'Multilingual Outreach Strategies — Brandverse', description: 'How to use multilingual AI agents to expand market reach.' },
     twitter: { card: 'summary_large_image', title: 'Multilingual Outreach Strategies — Brandverse', description: 'How to use multilingual AI agents to expand market reach.' },
+    robots: { index: true, follow: true, googleBot: { index: true, follow: true, 'max-video-preview': -1, 'max-image-preview': 'large', 'max-snippet': -1 } },
+    alternates: { canonical: 'https://brandverse.tech/blog/multilingual-outreach' }
 };
 
 export default function Post() {

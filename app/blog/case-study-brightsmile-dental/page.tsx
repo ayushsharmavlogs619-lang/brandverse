@@ -4,6 +4,8 @@ import { ArrowLeft, Clock, HeartPulse, ShieldCheck } from 'lucide-react';
 export const metadata = {
     title: 'Case Study: Brightsmile Dental — Brandverse',
     description: 'Transforming a local dental clinic into a digital fortress. How Brandverse became the backend technical partner.',
+    robots: { index: true, follow: true, googleBot: { index: true, follow: true, 'max-video-preview': -1, 'max-image-preview': 'large', 'max-snippet': -1 } },
+    alternates: { canonical: 'https://brandverse.tech/blog/case-study-brightsmile-dental' }
 };
 
 export default function CaseStudy() {

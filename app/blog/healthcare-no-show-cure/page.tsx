@@ -6,6 +6,8 @@ export const metadata = {
     title: 'The No-Show Cure: AI Appointment Reminders for Modern Clinics | Brandverse',
     description: 'Patient no-shows cost healthcare providers billions annually. Eliminate gaps in your schedule with intelligent, conversational AI reminders.',
     keywords: ['patient appointment reminders', 'medical no show reduction', 'healthcare ai scheduling', 'doctor appointment automation', 'clinic efficiency'],
+    robots: { index: true, follow: true, googleBot: { index: true, follow: true, 'max-video-preview': -1, 'max-image-preview': 'large', 'max-snippet': -1 } },
+    alternates: { canonical: 'https://brandverse.tech/blog/healthcare-no-show-cure' }
 };
 
 export default function Post() {

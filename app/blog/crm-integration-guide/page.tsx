@@ -11,6 +11,8 @@ export const metadata = {
     description: 'How to connect Brandverse AI voice agents to ServiceTitan, Housecall Pro, Calendly, and CRMs for seamless booking and lead capture.',
     openGraph: { title: 'CRM & Calendar Integration Guide — Brandverse', description: 'How to connect Brandverse to ServiceTitan, Housecall Pro, Calendly, and CRMs.', type: 'article' },
     twitter: { card: 'summary_large_image', title: 'CRM & Calendar Integration Guide — Brandverse', description: 'How to connect Brandverse to ServiceTitan, Housecall Pro, Calendly, and CRMs.' },
+    robots: { index: true, follow: true, googleBot: { index: true, follow: true, 'max-video-preview': -1, 'max-image-preview': 'large', 'max-snippet': -1 } },
+    alternates: { canonical: 'https://brandverse.tech/blog/crm-integration-guide' }
 };
 
 export default function Post() {

@@ -6,6 +6,8 @@ export const metadata = {
     title: 'Stop Paying for Ads Until You Fix This One Phone Problem | Brandverse',
     description: 'You are pouring water into a leaky bucket. Learn why 35% of your paid traffic is wasted on unanswered calls and how AI fixes it.',
     keywords: ['leaky marketing funnel', 'missed call cost', 'ad spend ROI', 'marketing conversion optimization', 'AI lead capture'],
+    robots: { index: true, follow: true, googleBot: { index: true, follow: true, 'max-video-preview': -1, 'max-image-preview': 'large', 'max-snippet': -1 } },
+    alternates: { canonical: 'https://brandverse.tech/blog/stop-wasting-marketing-budget' }
 };
 
 export default function Post() {

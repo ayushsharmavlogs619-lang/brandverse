@@ -6,6 +6,8 @@ export const metadata = {
     title: 'Cure Data Blindness: Stop Guessing Where Your Money Is | Brandverse',
     description: 'Stop treating marketing as an expense. Use precision analytics to track customer LTV, attribution, and conversion rates to turn ad spend into a predictable investment.',
     keywords: ['business analytics dashboard', 'marketing attribution tracking', 'customer LTV calculation', 'conversion rate optimization tools', 'data driven marketing'],
+    robots: { index: true, follow: true, googleBot: { index: true, follow: true, 'max-video-preview': -1, 'max-image-preview': 'large', 'max-snippet': -1 } },
+    alternates: { canonical: 'https://brandverse.tech/blog/cure-data-blindness-analytics' }
 };
 
 export default function Post() {

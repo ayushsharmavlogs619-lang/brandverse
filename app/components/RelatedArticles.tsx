@@ -25,6 +25,9 @@ const categoryColors: Record<string, { text: string; border: string }> = {
     'Operations': { text: 'text-emerald-400', border: 'border-emerald-500/30' },
     'Lead Generation': { text: 'text-amber-400', border: 'border-amber-500/30' },
     'Comparison': { text: 'text-rose-400', border: 'border-rose-500/30' },
+    'Legal & Compliance': { text: 'text-red-400', border: 'border-red-500/30' },
+    'Analytics': { text: 'text-indigo-400', border: 'border-indigo-500/30' },
+    'Implementation': { text: 'text-blue-400', border: 'border-blue-500/30' },
 };
 
 export default function RelatedArticles({ currentSlug }: RelatedArticlesProps) {

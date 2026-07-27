@@ -1,10 +1,11 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { ArrowLeft, Clock, CheckCircle2, ArrowRight, Calendar, Wrench } from 'lucide-react';
+import { ArrowLeft, Clock, CheckCircle2, ArrowRight, Calendar } from 'lucide-react';
 import { caseStudies } from '@/lib/case-studies';
 import { config } from '@/lib/config';
 import CTABlock from '@/app/components/Article/CTABlock';
 import KeyTakeaways from '@/app/components/Article/KeyTakeaways';
+import ArticleSchema from '@/app/components/Article/ArticleSchema';
 
 export function generateStaticParams() {
     return caseStudies.map((cs) => ({ slug: cs.slug }));
@@ -16,6 +17,14 @@ export default function CaseStudyPage({ params }: { params: { slug: string } }) 
 
     return (
         <div className="min-h-screen bg-[#020617] text-slate-200 selection:bg-blue-500/30">
+            <ArticleSchema
+                title={study.title}
+                description={study.subtitle}
+                slug={`case-studies/${study.slug}`}
+                date={new Date().toISOString().split('T')[0]}
+                category={study.industry}
+                faqs={study.faqs.map(f => ({ question: f.q, answer: f.a }))}
+            />
             <header className="relative pt-32 pb-20 px-6 border-b border-white/5 overflow-hidden">
                 <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[400px] bg-blue-600/10 blur-[100px] rounded-full -z-10" />
                 <div className="max-w-3xl mx-auto space-y-6">

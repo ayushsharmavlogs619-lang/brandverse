@@ -130,16 +130,23 @@ async function deliverLead(leadData, env) {
   const formSubmitUrl = env.FORMSUBMIT_ACTION || FORM_SUBMIT_DEFAULT;
   const workerUrl = env.WORKER_URL || WORKER_URL_DEFAULT;
 
-  const channels = [
-    // Channel 1: Edge worker lead endpoint
-    fetch(`${workerUrl}/api/brandverse/leads`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(leadData),
-    }).catch((e) => console.warn('[vapi/deliver] Worker failed:', e.message)),
-  ];
+  const workerResponse = await fetch(`${workerUrl}/api/brandverse/leads`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(leadData),
+  }).catch((e) => {
+    console.error('[vapi/deliver] Worker channel failed:', e.message);
+    return null;
+  });
 
-  // Channel 2: FormSubmit email
+  const workerOk = workerResponse && workerResponse.ok;
+  let workerBody;
+  try { workerBody = workerResponse && await workerResponse.json(); } catch {}
+  console.log(`[vapi/deliver] Worker channel: ${workerOk ? 'OK' : 'FAILED'} — ${workerResponse ? workerResponse.status : 'network error'}`);
+  if (workerBody) {
+    console.log(`[vapi/deliver] Worker response:`, JSON.stringify(workerBody));
+  }
+
   const formBody = new URLSearchParams({
     _subject: `[Phone Lead] ${leadData.name || 'Unknown'} - ${leadData.phoneNumber}`,
     _captcha: 'false',
@@ -153,15 +160,19 @@ async function deliverLead(leadData, env) {
     source: leadData.source,
   });
 
-  channels.push(
-    fetch(formSubmitUrl, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: formBody.toString(),
-    }).catch((e) => console.warn('[vapi/deliver] FormSubmit failed:', e.message))
-  );
+  const formResponse = await fetch(formSubmitUrl, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: formBody.toString(),
+  }).catch((e) => {
+    console.error('[vapi/deliver] FormSubmit channel failed:', e.message);
+    return null;
+  });
 
-  const results = await Promise.allSettled(channels);
-  const ok = results.filter((r) => r.status === 'fulfilled').length;
-  console.log(`[vapi/deliver] ${ok}/${channels.length} channels delivered`);
+  const formOk = formResponse && formResponse.ok;
+  console.log(`[vapi/deliver] FormSubmit channel: ${formOk ? 'OK' : 'FAILED'} — ${formResponse ? formResponse.status : 'network error'}`);
+
+  if (!workerOk && !formOk) {
+    console.error('[vapi/deliver] CRITICAL: ALL delivery channels failed — lead may be lost!', JSON.stringify(leadData));
+  }
 }

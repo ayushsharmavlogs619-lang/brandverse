@@ -11,6 +11,8 @@ export const metadata = {
     description: 'Explore the future of voice AI in business: emotional intelligence, real-time sentiment adaptation, autonomous voice agents, and human-like conversations.',
     openGraph: { title: 'The Future of Voice AI in Business: 2025–2030 — Brandverse', description: 'Voice AI trends and predictions for the next 5 years.' },
     twitter: { card: 'summary_large_image', title: 'The Future of Voice AI in Business: 2025–2030', description: 'Voice AI trends and predictions for the next 5 years.' },
+    robots: { index: true, follow: true, googleBot: { index: true, follow: true, 'max-video-preview': -1, 'max-image-preview': 'large', 'max-snippet': -1 } },
+    alternates: { canonical: 'https://brandverse.tech/blog/future-of-voice-ai' }
 };
 
 const trends = [

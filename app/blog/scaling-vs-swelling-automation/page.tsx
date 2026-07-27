@@ -6,6 +6,8 @@ export const metadata = {
     title: 'Scaling vs. Swelling: The Difference That Kills Companies | Brandverse',
     description: 'If revenue doubles but headaches triple, you aren\'t scaling—you\'re swelling. Learn how to grow efficiently using automated systems instead of headcount.',
     keywords: ['business scaling strategies', 'operational efficiency', 'automation vs hiring', 'business growth problems', 'systemizing business'],
+    robots: { index: true, follow: true, googleBot: { index: true, follow: true, 'max-video-preview': -1, 'max-image-preview': 'large', 'max-snippet': -1 } },
+    alternates: { canonical: 'https://brandverse.tech/blog/scaling-vs-swelling-automation' }
 };
 
 export default function Post() {

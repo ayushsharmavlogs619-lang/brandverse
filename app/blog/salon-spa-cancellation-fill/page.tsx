@@ -7,6 +7,8 @@ export const metadata = {
     title: 'Salon & Spa Automation: Fill Last-Minute Cancellations with AI Booking | Brandverse',
     description: 'No-shows and last-minute cancellations drain salon revenue. Use AI voice agents to instantly fill gaps from your waitlist and recover lost bookings.',
     keywords: ['salon booking automation', 'spa no show solution', 'ai salon scheduler', 'beauty industry automation', 'last minute cancellation fill'],
+    robots: { index: true, follow: true, googleBot: { index: true, follow: true, 'max-video-preview': -1, 'max-image-preview': 'large', 'max-snippet': -1 } },
+    alternates: { canonical: 'https://brandverse.tech/blog/salon-spa-cancellation-fill' }
 };
 
 export default function Post() {
