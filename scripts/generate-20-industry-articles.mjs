@@ -552,7 +552,6 @@ function createPageFiles() {
       continue;
     }
 
-    const keywords = article.keywords.map(k => `'${k}'`).join(', ');
     const keywordsPretty = article.keywords.map(k => `'${k}'`).join(', ');
 
     const pageContent = `import ArticleLayout from '../../components/Article/ArticleLayout';
@@ -644,9 +643,8 @@ function addContentOverrides() {
   }
 
   // Build override entries
-  const overrideEntries = articlesNeedingOverrides.map((a, idx) => {
+  const overrideEntries = articlesNeedingOverrides.map((a) => {
     const industry = a.industry;
-    const cat = a.category;
     const slug = a.slug;
 
     return `  '${slug}': \`

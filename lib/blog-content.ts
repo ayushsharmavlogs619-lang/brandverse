@@ -1211,7 +1211,7 @@ const CONTENT_OVERRIDES: Record<string, string> = {
 function defaultArticleBody(article: Article): string {
   const links = buildLinks(article.category);
   const caseStudyLink = industryCaseStudyMap(article);
-  const relatedGuides = links.guides.map((g, i) => {
+  const relatedGuides = links.guides.map((g) => {
     const guide = articles.find(a => `/blog/${a.slug}` === g);
     return guide ? guide : null;
   }).filter(Boolean);
