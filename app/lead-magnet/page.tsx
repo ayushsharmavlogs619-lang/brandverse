@@ -202,6 +202,7 @@ export default function LeadMagnetPage() {
                         </div>
                         <div className="text-3xl font-black text-white mb-1">2,500+</div>
                         <div className="text-slate-400 text-sm">Business Owners</div>
+                        <div className="text-[10px] text-slate-600 mt-1">across 40+ industries</div>
                     </div>
                     <div className="text-center p-6 rounded-2xl bg-white/5 border border-white/10">
                         <div className="w-12 h-12 bg-green-500/10 rounded-full flex items-center justify-center mx-auto mb-3">
@@ -209,6 +210,7 @@ export default function LeadMagnetPage() {
                         </div>
                         <div className="text-3xl font-black text-white mb-1">200%</div>
                         <div className="text-slate-400 text-sm">Avg Revenue Increase</div>
+                        <div className="text-[10px] text-slate-600 mt-1">based on client case studies</div>
                     </div>
                     <div className="text-center p-6 rounded-2xl bg-white/5 border border-white/10">
                         <div className="w-12 h-12 bg-purple-500/10 rounded-full flex items-center justify-center mx-auto mb-3">
@@ -216,13 +218,14 @@ export default function LeadMagnetPage() {
                         </div>
                         <div className="text-3xl font-black text-white mb-1">40+ hrs</div>
                         <div className="text-slate-400 text-sm">Saved Per Week</div>
+                        <div className="text-[10px] text-slate-600 mt-1">per automation deployment</div>
                     </div>
                     <div className="text-center p-6 rounded-2xl bg-white/5 border border-white/10">
                         <div className="w-12 h-12 bg-red-500/10 rounded-full flex items-center justify-center mx-auto mb-3">
                             <Shield className="w-6 h-6 text-red-400" />
                         </div>
                         <div className="text-3xl font-black text-white mb-1">100%</div>
-                        <div className="text-slate-400 text-sm">Risk-Free Download</div>
+                        <div className="text-slate-400 text-sm">Risk-Free Consultation</div>
                     </div>
                 </div>
 
