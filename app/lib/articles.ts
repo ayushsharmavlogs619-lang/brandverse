@@ -511,6 +511,147 @@ export const articles: Article[] = [
         date: 'Jul 27, 2026',
         category: 'Industry Focus'
     },
+
+    {
+        slug: 'optometrist-ai-appointment-scheduling',
+        title: 'AI Appointment Scheduling for Optometrists: Fill Your Calendar with Confirmed Patients',
+        excerpt: 'Optometrists and eye care clinics lose 30% of new patient calls to voicemail. AI voice agents book exams, verify insurance, send appointment reminders, and handle frame selection inquiries around the clock — without adding front desk staff.',
+        date: 'Jul 27, 2026',
+        category: 'Industry Focus'
+    },
+    {
+        slug: 'physical-therapy-ai-patient-intake',
+        title: 'AI Patient Intake for Physical Therapy Clinics: Automate New Patient Onboarding',
+        excerpt: 'Physical therapy clinics spend 15+ hours per week on patient intake calls. AI voice agents handle new patient inquiries, insurance verification, intake form completion, and appointment scheduling — freeing your front desk to focus on patient care.',
+        date: 'Jul 27, 2026',
+        category: 'Industry Focus'
+    },
+    {
+        slug: 'massage-therapy-ai-booking',
+        title: 'AI Booking for Massage Therapy Businesses: Fill Your Table 24/7',
+        excerpt: 'Massage therapy businesses lose calls after hours and during booked sessions. AI voice agents handle appointment bookings, gift certificate sales, membership inquiries, and practitioner preference questions — so you never miss a booking opportunity.',
+        date: 'Jul 27, 2026',
+        category: 'Industry Focus'
+    },
+    {
+        slug: 'dispensary-ai-customer-service',
+        title: 'AI Customer Service for Cannabis Dispensaries: Handle Budtender Calls 24/7',
+        excerpt: 'Cannabis dispensaries face unique challenges: compliance verification, product education, and high call volume during peak hours. AI voice agents handle customer inquiries, verify age and medical status, provide product recommendations, and manage order status — all while maintaining strict compliance protocols.',
+        date: 'Jul 27, 2026',
+        category: 'Industry Focus'
+    },
+    {
+        slug: 'car-wash-ai-customer-communication',
+        title: 'AI Customer Communication for Car Washes: Automate Memberships, Bookings, and Inquiries',
+        excerpt: 'Car washes lose membership sales and fleet account inquiries when calls go unanswered. AI voice agents handle membership pricing questions, package upgrades, fleet account setup, and customer support calls — driving recurring revenue without adding staff.',
+        date: 'Jul 27, 2026',
+        category: 'Industry Focus'
+    },
+    {
+        slug: 'tutoring-center-ai-student-intake',
+        title: 'AI Student Intake for Tutoring Centers: Automate Enrollment and Parent Communication',
+        excerpt: 'Tutoring centers spend hours on the phone with parents evaluating programs, discussing pricing, and scheduling assessments. AI voice agents handle the entire intake process — from initial inquiry to trial session booking — freeing administrators to focus on curriculum and teaching.',
+        date: 'Jul 27, 2026',
+        category: 'Industry Focus'
+    },
+    {
+        slug: 'dance-studio-ai-class-booking',
+        title: 'AI Class Booking for Dance Studios: Automate Enrollment, Recitals, and Studio Management',
+        excerpt: 'Dance studio owners juggle teaching, choreography, and administrative work. AI voice agents handle the phone — booking trial classes, explaining class levels, managing recital registrations, answering costume and dress code questions, and sending class reminders to parents.',
+        date: 'Jul 27, 2026',
+        category: 'Industry Focus'
+    },
+    {
+        slug: 'martial-arts-ai-student-retention',
+        title: 'AI Student Retention for Martial Arts Schools: Automate Belts, Attendance, and Member Communication',
+        excerpt: 'Martial arts schools thrive on consistent attendance and membership retention. AI voice agents handle trial class bookings, explain belt ranking systems, manage membership upgrades, send attendance alerts, and keep students engaged between classes — all without pulling instructors off the mat.',
+        date: 'Jul 27, 2026',
+        category: 'Industry Focus'
+    },
+    {
+        slug: 'yoga-studio-ai-member-engagement',
+        title: 'AI Member Engagement for Yoga Studios: Automate Class Bookings, Memberships, and Wellness Communication',
+        excerpt: 'Yoga studios thrive on community and consistent attendance. AI voice agents handle class bookings, membership inquiries, workshop registrations, teacher training program questions, and wellness check-ins — building deeper connections with students while freeing instructors to focus on teaching.',
+        date: 'Jul 27, 2026',
+        category: 'Industry Focus'
+    },
+    {
+        slug: 'photography-ai-client-booking',
+        title: 'AI Client Booking for Photographers: Automate Sessions, Galleries, and Client Communication',
+        excerpt: 'Photographers spend hours on the phone discussing packages, availability, and creative vision. AI voice agents handle session inquiries, explain pricing packages, check availability, book consultations, and send gallery links — so photographers can spend more time behind the camera and less time on the phone.',
+        date: 'Jul 27, 2026',
+        category: 'Industry Focus'
+    },
+    {
+        slug: 'event-planner-ai-client-intake',
+        title: 'AI Client Intake for Event Planners: Automate Inquiries, Proposals, and Vendor Coordination',
+        excerpt: 'Event planners juggle multiple clients, vendors, and venues simultaneously. AI voice agents handle initial client inquiries, qualify event details, explain service packages, send proposals, and coordinate with vendors — ensuring no inquiry falls through the cracks.',
+        date: 'Jul 27, 2026',
+        category: 'Industry Focus'
+    },
+    {
+        slug: 'catering-ai-event-coordination',
+        title: 'AI Event Coordination for Catering Companies: Automate Quotes, Menus, and Event Logistics',
+        excerpt: 'Catering companies field dozens of calls daily about menus, pricing, dietary restrictions, and event logistics. AI voice agents handle menu inquiries, generate quotes, schedule tastings, coordinate delivery logistics, and manage dietary restriction databases — streamlining operations from first call to final plate.',
+        date: 'Jul 27, 2026',
+        category: 'Industry Focus'
+    },
+    {
+        slug: 'cleaning-service-ai-estimate-scheduling',
+        title: 'AI Estimate Scheduling for Cleaning Services: Automate Quotes, Bookings, and Recurring Contracts',
+        excerpt: 'Cleaning service owners spend hours on the phone providing estimates, answering service questions, and scheduling recurring cleanings. AI voice agents handle the entire process — from initial estimate request to recurring booking — so you can focus on delivering spotless results.',
+        date: 'Jul 27, 2026',
+        category: 'Industry Focus'
+    },
+    {
+        slug: 'moving-company-ai-customer-intake',
+        title: 'AI Customer Intake for Moving Companies: Automate Quotes, Bookings, and Logistics Coordination',
+        excerpt: 'Moving companies handle complex logistics while managing non-stop customer calls. AI voice agents handle moving estimate requests, explain services, coordinate moving day logistics, provide real-time crew arrival updates, and manage storage inquiries — keeping customers informed without tying up your dispatch team.',
+        date: 'Jul 27, 2026',
+        category: 'Industry Focus'
+    },
+    {
+        slug: 'locksmith-ai-dispatch-calls',
+        title: 'AI Dispatch for Locksmiths: Automate Emergency Calls, Estimates, and Service Routing',
+        excerpt: 'Locksmiths operate in a high-urgency environment where speed determines the sale. AI voice agents handle emergency lockout calls, provide upfront pricing, verify location and lock type, and dispatch the nearest technician — all within seconds of the first ring.',
+        date: 'Jul 27, 2026',
+        category: 'Industry Focus'
+    },
+    {
+        slug: 'electrician-ai-customer-calls',
+        title: 'AI Customer Calls for Electricians: Automate Emergency Dispatch, Estimates, and Scheduling',
+        excerpt: 'Electrical contractors balance on-site work with constant customer calls about emergencies, estimates, and scheduling. AI voice agents handle emergency dispatch (identifying hazards and dispatching immediately), collect estimate details, schedule inspections, and manage service calls — so electricians can focus on wiring, not phone calls.',
+        date: 'Jul 27, 2026',
+        category: 'Industry Focus'
+    },
+    {
+        slug: 'painting-contractor-ai-lead-generation',
+        title: 'AI Lead Generation for Painting Contractors: Automate Estimates, Color Consultations, and Project Bids',
+        excerpt: 'Painting contractors juggle multiple project estimates, color consultations, and client communications daily. AI voice agents handle estimate requests, explain service options, schedule color consultations, manage project timelines, and follow up on bids — ensuring no project inquiry goes unanswered.',
+        date: 'Jul 27, 2026',
+        category: 'Industry Focus'
+    },
+    {
+        slug: 'tree-service-ai-phone-answering',
+        title: 'AI Phone Answering for Tree Service Companies: Automate Estimates, Emergency Dispatch, and Seasonal Bookings',
+        excerpt: 'Tree service companies face intense seasonal call surges and storm emergencies. AI voice agents handle storm damage assessment calls, estimate requests for tree removal and trimming, schedule stump grinding services, and manage seasonal pruning bookings — capturing every lead during peak seasons.',
+        date: 'Jul 27, 2026',
+        category: 'Industry Focus'
+    },
+    {
+        slug: 'pool-maintenance-ai-customer-scheduling',
+        title: 'AI Customer Scheduling for Pool Maintenance: Automate Service Routes, Chemical Balancing, and Seasonal Openings',
+        excerpt: 'Pool service companies manage complex weekly routes while handling customer calls about chemical issues, equipment repairs, and seasonal openings. AI voice agents handle service inquiries, schedule weekly maintenance routes, triage chemical emergency calls, book pool openings and closings, and manage equipment repair scheduling — all without adding dispatchers.',
+        date: 'Jul 27, 2026',
+        category: 'Industry Focus'
+    },
+    {
+        slug: 'dry-cleaning-ai-order-management',
+        title: 'AI Order Management for Dry Cleaning Businesses: Automate Pickup, Delivery, and Customer Inquiries',
+        excerpt: 'Dry cleaning businesses handle hundreds of garments daily while managing customer calls about order status, pickup times, and special care instructions. AI voice agents handle order status inquiries, schedule pickup and delivery windows, log special care instructions, manage loyalty program questions, and send automated garment-ready notifications.',
+        date: 'Jul 27, 2026',
+        category: 'Industry Focus'
+    }
 ];
 
 /**
