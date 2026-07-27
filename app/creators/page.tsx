@@ -704,10 +704,8 @@ function BookingSection() {
           <p className="text-white/38 text-sm mb-8">
             Ready to streamline your creator operations? Book a 30-minute strategy call to discuss your account.
           </p>
-          <a
-            href="https://calendly.com/ayushsharmavlogs619/30min"
-            target="_blank"
-            rel="noopener noreferrer"
+            <a
+            href="/contact"
             className="group inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-white text-black font-semibold text-[0.95rem] hover:bg-white/92 active:scale-[0.97] transition-all shadow-2xl shadow-white/[0.07]"
           >
             <Calendar className="w-4 h-4" />

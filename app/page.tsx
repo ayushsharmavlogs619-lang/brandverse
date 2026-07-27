@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import { leadService } from '../lib/lead-service';
 import {
   Zap,
   Shield,
@@ -55,6 +56,30 @@ export default function Page() {
   const aiCost = 997;
   const monthlyROI = Math.round(((monthlyRevenue - aiCost) / aiCost) * 100);
   const yearlyROI = Math.round(((yearlyRevenue - (aiCost * 12)) / (aiCost * 12)) * 100);
+
+  const [email, setEmail] = useState('');
+  const [auditName, setAuditName] = useState('');
+  const [auditStatus, setAuditStatus] = useState<'idle' | 'loading' | 'success'>('idle');
+
+  const handleAuditSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email || !auditName) return;
+    setAuditStatus('loading');
+    try {
+      await leadService.submitLeadWithRetry({
+        full_name: auditName,
+        email,
+        service_interest: 'Free AI Readiness Audit',
+        source_page: '/',
+        source_form: 'homepage_audit_cta'
+      }, 1);
+      setAuditStatus('success');
+      setEmail('');
+      setAuditName('');
+    } catch {
+      setAuditStatus('idle');
+    }
+  };
 
   // Services data
   const services = [
@@ -317,6 +342,56 @@ export default function Page() {
             <p className="text-slate-400 text-lg md:text-xl font-medium leading-relaxed">
               67% of callers hang up if they get voicemail. They don't leave a message—they call your competitor. Every missed call is a donation to the guy down the street who answered.
             </p>
+          </div>
+        </section>
+
+        {/* 📧 EMAIL CAPTURE - Mid-Funnel Lead Magnet */}
+        <section className="py-24 px-6 bg-gradient-to-r from-blue-900/20 via-purple-900/20 to-slate-900/20 border-y border-white/5">
+          <div className="max-w-3xl mx-auto text-center space-y-8">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-[10px] font-black uppercase tracking-[0.2em]">
+              Free AI Readiness Audit
+            </div>
+            <h2 className="text-3xl md:text-5xl font-black text-white uppercase italic tracking-tighter">
+              Find Out What You're <span className="text-emerald-400">Leaking</span>
+            </h2>
+            <p className="text-slate-400 text-lg max-w-xl mx-auto">
+              Get a personalized 2-minute audit: how many leads you're losing, what it's costing you, and exactly which AI system plugs the leak.
+            </p>
+
+            {auditStatus === 'success' ? (
+              <div className="p-6 rounded-2xl bg-emerald-500/10 border border-emerald-500/20">
+                <p className="text-emerald-400 font-bold text-lg">✓ Check your inbox — your audit is on the way.</p>
+                <p className="text-slate-400 text-sm mt-2">We'll send the AI Readiness Assessment to {email} within 60 seconds.</p>
+              </div>
+            ) : (
+              <form onSubmit={handleAuditSubmit} className="max-w-md mx-auto flex flex-col sm:flex-row gap-3">
+                <div className="flex-1 flex flex-col sm:flex-row gap-3 w-full">
+                  <input
+                    type="text"
+                    placeholder="Your name"
+                    value={auditName}
+                    onChange={(e) => setAuditName(e.target.value)}
+                    required
+                    className="flex-1 px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-slate-600 focus:outline-none focus:border-emerald-500/50 text-sm"
+                  />
+                  <input
+                    type="email"
+                    placeholder="your@email.com"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                    className="flex-1 px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-slate-600 focus:outline-none focus:border-emerald-500/50 text-sm"
+                  />
+                </div>
+                <button
+                  type="submit"
+                  disabled={auditStatus === 'loading'}
+                  className="px-6 py-3 rounded-xl bg-emerald-500 text-white font-bold text-sm hover:bg-emerald-400 transition-colors disabled:opacity-50 shrink-0"
+                >
+                  {auditStatus === 'loading' ? 'Sending...' : 'Get My Audit'}
+                </button>
+              </form>
+            )}
           </div>
         </section>
 
@@ -869,7 +944,7 @@ export default function Page() {
             <div className="relative z-10 space-y-10">
               <h2 className="text-4xl md:text-6xl font-black text-white uppercase italic tracking-tighter">Ready to Deploy?</h2>
               <p className="text-slate-300 text-lg font-bold max-w-2xl mx-auto">
-                We take on <strong className="text-white">3 new infrastructure builds per month</strong>. Current availability for approved partners deploying in <strong className="text-blue-400">Q1 2026</strong>.
+                We take on <strong className="text-white">3 new infrastructure builds per month</strong>. Current availability for approved partners deploying in <strong className="text-blue-400">Q3 2026</strong>.
               </p>
               <Link href="/contact" className="inline-block px-12 py-6 bg-brand-gradient text-white rounded-2xl font-black uppercase tracking-widest text-sm shadow-2xl shadow-blue-500/30 hover:scale-105 hover:shadow-blue-500/50 transition-all">
                 Apply for Partnership

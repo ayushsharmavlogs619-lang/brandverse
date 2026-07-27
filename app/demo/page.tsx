@@ -359,7 +359,7 @@ export default function DemoPage() {
                             <div className="p-6 rounded-2xl bg-gradient-to-br from-blue-900/30 to-purple-900/30 border border-blue-500/20">
                                 <h3 className="text-sm font-black uppercase tracking-widest text-blue-400 mb-3">Ready for Your Business?</h3>
                                 <p className="text-sm text-slate-300 mb-4">This simulation shows a fraction of what Brandverse AI can do. Your actual AI receptionist will be trained on your business, your services, and your customers.</p>
-                                <Link href={config.calendlyUrl || 'https://calendly.com/ayushsharmavlogs619/30min'} className="flex items-center justify-center gap-2 bg-blue-500 hover:bg-blue-400 text-white px-5 py-3 rounded-xl font-bold text-sm transition-all w-full shadow-lg shadow-blue-500/25">
+                                <Link href={config.calendlyUrl || '/contact'} className="flex items-center justify-center gap-2 bg-blue-500 hover:bg-blue-400 text-white px-5 py-3 rounded-xl font-bold text-sm transition-all w-full shadow-lg shadow-blue-500/25">
                                     Book Your Demo <ArrowRight className="w-4 h-4" />
                                 </Link>
                             </div>
