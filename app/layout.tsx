@@ -7,6 +7,7 @@ import Footer from "./components/Footer";
 import Analytics from "./components/Analytics";
 import StructuredData from "./components/StructuredData";
 import PushNotificationBanner from "./components/PushNotificationBanner";
+import LeadPopup from "./components/LeadPopup";
 import ErrorBoundary from "./components/ErrorBoundary";
 import ReadingProgress from "./components/ui/ReadingProgress";
 import { config } from "../lib/config";
@@ -157,6 +158,9 @@ export default function RootLayout({
         </ErrorBoundary>
         <ErrorBoundary fallback={null}>
           <PushNotificationBanner />
+        </ErrorBoundary>
+        <ErrorBoundary fallback={null}>
+          <LeadPopup delay={30000} enableExitIntent={true} />
         </ErrorBoundary>
       </body>
     </html>
