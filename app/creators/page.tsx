@@ -691,21 +691,29 @@ function FaqSection() {
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════════
-   BOOKING PLACEHOLDER
+   BOOKING SECTION
    ═══════════════════════════════════════════════════════════════════════════════ */
 
-function BookingPlaceholder() {
+function BookingSection() {
   return (
     <section className="py-20 px-5 sm:px-8 border-t border-white/[0.04]" aria-label="Booking">
       <div className="mx-auto max-w-2xl text-center">
         <FadeIn>
           <Label>Schedule</Label>
           <h2 className="text-2xl font-black text-white mb-3 tracking-tight">Book your discovery call</h2>
-          <p className="text-white/32 text-sm mb-8">Direct scheduler coming soon. Use the form below in the meantime.</p>
-          <div className="rounded-2xl border border-dashed border-white/[0.06] bg-white/[0.008] p-16 flex flex-col items-center gap-3">
-            <Calendar className="w-8 h-8 text-white/12" />
-            <p className="text-white/18 text-sm font-medium">Calendly integration — coming soon</p>
-          </div>
+          <p className="text-white/38 text-sm mb-8">
+            Ready to streamline your creator operations? Book a 30-minute strategy call to discuss your account.
+          </p>
+          <a
+            href="https://calendly.com/ayushsharmavlogs619/30min"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-white text-black font-semibold text-[0.95rem] hover:bg-white/92 active:scale-[0.97] transition-all shadow-2xl shadow-white/[0.07]"
+          >
+            <Calendar className="w-4 h-4" />
+            Book Your Free Call
+            <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+          </a>
         </FadeIn>
       </div>
     </section>
@@ -924,7 +932,7 @@ export default function CreatorsPage() {
         <HowWeWork />
         <Confidentiality />
         <FaqSection />
-        <BookingPlaceholder />
+        <BookingSection />
         <ContactSection />
       </main>
 
