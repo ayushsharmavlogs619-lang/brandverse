@@ -1,3 +1,4 @@
+import ArticleSchema from '../../components/Article/ArticleSchema';
 import Link from 'next/link';
 import { ArrowLeft, Clock, Moon, Phone, Zap } from 'lucide-react';
 import RelatedArticles from '../../components/RelatedArticles';
@@ -8,11 +9,21 @@ export const metadata = {
     keywords: ['24/7 sales team', 'after hours lead capture', 'AI sales agents', 'missed call automation', 'increase conversion from leads'],
     robots: { index: true, follow: true, googleBot: { index: true, follow: true, 'max-video-preview': -1, 'max-image-preview': 'large', 'max-snippet': -1 } },
     alternates: { canonical: 'https://brandverse.tech/blog/24-7-sales-revolution' }
+,
+  openGraph: { title: 'Your 24/7 Sales Team: Why "Business Hours" Are Killing Your Growth', description: 'The modern consumer doesn\'t wait. Capture the 40% of leads you\'re ignoring.', type: 'article' as const, siteName: 'Brandverse' },
+  twitter: { card: 'summary_large_image' as const, title: 'Your 24/7 Sales Team: Why "Business Hours" Are Killing Your Growth', description: 'The modern consumer doesn\'t wait. Capture the 40% of leads you\'re ignoring.' }
 };
 
 export default function Post() {
     return (
         <div className="min-h-screen bg-[#020617] text-slate-200 selection:bg-blue-500/30">
+        <ArticleSchema
+          title={'Your 24/7 Sales Team: Why "Business Hours" Are Killing Your Growth'}
+          description={'The modern consumer doesn\'t wait. Capture the 40% of leads you\'re ignoring.'}
+          slug="24-7-sales-revolution"
+          date="Dec 30, 2024"
+          category="Growth Strategy"
+        />
             <header className="relative pt-32 pb-20 px-6 border-b border-white/5 overflow-hidden">
                 <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[400px] bg-indigo-600/10 blur-[100px] rounded-full -z-10" />
                 <div className="max-w-3xl mx-auto space-y-6">

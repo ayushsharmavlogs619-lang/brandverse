@@ -1,3 +1,4 @@
+import ArticleSchema from '../../components/Article/ArticleSchema';
 import Link from 'next/link';
 import { ArrowLeft, CheckCircle2, TrendingUp, DollarSign, Users, Zap } from 'lucide-react';
 import RelatedArticles from '../../components/RelatedArticles';
@@ -7,11 +8,21 @@ export const metadata = {
     description: 'Are you leaving money on the table? These 5 signs prove you\'re already past the "should I" phase and deep into the "when do I start" zone.',
     robots: { index: true, follow: true, googleBot: { index: true, follow: true, 'max-video-preview': -1, 'max-image-preview': 'large', 'max-snippet': -1 } },
     alternates: { canonical: 'https://brandverse.tech/blog/5-signs-youre-ready' }
+,
+  openGraph: { title: '5 Signs You\'re Ready for AI Voice Agents', description: 'If you recognize 3+ of these signs, you\'re leaving money on the table.', type: 'article' as const, siteName: 'Brandverse' },
+  twitter: { card: 'summary_large_image' as const, title: '5 Signs You\'re Ready for AI Voice Agents', description: 'If you recognize 3+ of these signs, you\'re leaving money on the table.' }
 };
 
 export default function Post() {
     return (
         <div className="min-h-screen bg-[#020617] text-slate-200 selection:bg-blue-500/30">
+        <ArticleSchema
+          title={'5 Signs You\'re Ready for AI Voice Agents'}
+          description={'If you recognize 3+ of these signs, you\'re leaving money on the table.'}
+          slug="5-signs-youre-ready"
+          date="Dec 27, 2024"
+          category="Assessment"
+        />
             <header className="relative pt-32 pb-20 px-6 border-b border-white/5 overflow-hidden">
                 <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[400px] bg-purple-600/10 blur-[100px] rounded-full -z-10" />
                 <div className="max-w-3xl mx-auto space-y-6">

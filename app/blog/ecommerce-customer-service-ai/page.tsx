@@ -1,3 +1,4 @@
+import ArticleSchema from '../../components/Article/ArticleSchema';
 import Link from 'next/link';
 import { ArrowLeft, RotateCcw, Headphones, Clock, ArrowRight } from 'lucide-react';
 import RelatedArticles from '../../components/RelatedArticles';
@@ -9,11 +10,21 @@ export const metadata = {
     keywords: ['AI voice agent e-commerce', 'e-commerce customer service automation', 'order status AI', 'Shopify AI customer support', 'WooCommerce voice agent', 'automated return processing', '24/7 e-commerce support'],
     robots: { index: true, follow: true, googleBot: { index: true, follow: true, 'max-video-preview': -1, 'max-image-preview': 'large', 'max-snippet': -1 } },
     alternates: { canonical: 'https://brandverse.tech/blog/ecommerce-customer-service-ai' }
+,
+  openGraph: { title: 'AI Voice Agents for E-Commerce: Handling Order Status and Customer Support 24/7', description: 'How e-commerce businesses use AI voice agents to handle order status checks, return and exchange processing, and customer support inquiries 24/7 with Shopify and WooCommerce integration.', type: 'article' as const, siteName: 'Brandverse' },
+  twitter: { card: 'summary_large_image' as const, title: 'AI Voice Agents for E-Commerce: Handling Order Status and Customer Support 24/7', description: 'How e-commerce businesses use AI voice agents to handle order status checks, return and exchange processing, and customer support inquiries 24/7 with Shopify and WooCommerce integration.' }
 };
 
 export default function Post() {
     return (
         <div className="min-h-screen bg-[#020617] text-slate-200 selection:bg-purple-500/30">
+        <ArticleSchema
+          title={'AI Voice Agents for E-Commerce: Handling Order Status and Customer Support 24/7'}
+          description={'How e-commerce businesses use AI voice agents to handle order status checks, return and exchange processing, and customer support inquiries 24/7 with Shopify and WooCommerce integration.'}
+          slug="ecommerce-customer-service-ai"
+          date="Jul 27, 2026"
+          category="Industry Focus"
+        />
             <header className="relative pt-32 pb-20 px-6 border-b border-white/5 overflow-hidden">
                 <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[400px] bg-purple-600/10 blur-[100px] rounded-full -z-10" />
                 <div className="max-w-3xl mx-auto space-y-6">

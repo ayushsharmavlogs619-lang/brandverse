@@ -1,3 +1,4 @@
+import ArticleSchema from '../../components/Article/ArticleSchema';
 import Link from 'next/link';
 import { ArrowLeft, Scissors, RefreshCw, CalendarCheck, Star } from 'lucide-react';
 import RelatedArticles from '../../components/RelatedArticles';
@@ -9,11 +10,21 @@ export const metadata = {
     keywords: ['salon booking automation', 'spa no show solution', 'ai salon scheduler', 'beauty industry automation', 'last minute cancellation fill'],
     robots: { index: true, follow: true, googleBot: { index: true, follow: true, 'max-video-preview': -1, 'max-image-preview': 'large', 'max-snippet': -1 } },
     alternates: { canonical: 'https://brandverse.tech/blog/salon-spa-cancellation-fill' }
+,
+  openGraph: { title: 'Salon & Spa Automation: Fill Last-Minute Cancellations with AI Booking', description: 'No-shows and last-minute cancellations drain salon revenue. Use AI voice agents to instantly fill gaps from your waitlist.', type: 'article' as const, siteName: 'Brandverse' },
+  twitter: { card: 'summary_large_image' as const, title: 'Salon & Spa Automation: Fill Last-Minute Cancellations with AI Booking', description: 'No-shows and last-minute cancellations drain salon revenue. Use AI voice agents to instantly fill gaps from your waitlist.' }
 };
 
 export default function Post() {
     return (
         <div className="min-h-screen bg-[#020617] text-slate-200 selection:bg-pink-500/30">
+        <ArticleSchema
+          title={'Salon & Spa Automation: Fill Last-Minute Cancellations with AI Booking'}
+          description={'No-shows and last-minute cancellations drain salon revenue. Use AI voice agents to instantly fill gaps from your waitlist.'}
+          slug="salon-spa-cancellation-fill"
+          date="Jul 27, 2026"
+          category="Industry Focus"
+        />
             <header className="relative pt-32 pb-20 px-6 border-b border-white/5 overflow-hidden">
                 <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[400px] bg-pink-600/10 blur-[100px] rounded-full -z-10" />
                 <div className="max-w-3xl mx-auto space-y-6">

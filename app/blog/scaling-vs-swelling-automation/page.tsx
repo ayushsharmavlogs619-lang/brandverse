@@ -1,3 +1,4 @@
+import ArticleSchema from '../../components/Article/ArticleSchema';
 import Link from 'next/link';
 import { ArrowLeft, Rocket, Anchor, Layers, TrendingUp, AlertTriangle, Code2 } from 'lucide-react';
 import RelatedArticles from '../../components/RelatedArticles';
@@ -8,11 +9,21 @@ export const metadata = {
     keywords: ['business scaling strategies', 'operational efficiency', 'automation vs hiring', 'business growth problems', 'systemizing business'],
     robots: { index: true, follow: true, googleBot: { index: true, follow: true, 'max-video-preview': -1, 'max-image-preview': 'large', 'max-snippet': -1 } },
     alternates: { canonical: 'https://brandverse.tech/blog/scaling-vs-swelling-automation' }
+,
+  openGraph: { title: 'Scaling vs. Swelling: The Difference That Kills Companies', description: 'Most businesses don\'t scale; they swell. Learn how to grow your revenue without bloating your payroll.', type: 'article' as const, siteName: 'Brandverse' },
+  twitter: { card: 'summary_large_image' as const, title: 'Scaling vs. Swelling: The Difference That Kills Companies', description: 'Most businesses don\'t scale; they swell. Learn how to grow your revenue without bloating your payroll.' }
 };
 
 export default function Post() {
     return (
         <div className="min-h-screen bg-[#020617] text-slate-200 selection:bg-violet-500/30">
+        <ArticleSchema
+          title={'Scaling vs. Swelling: The Difference That Kills Companies'}
+          description={'Most businesses don\'t scale; they swell. Learn how to grow your revenue without bloating your payroll.'}
+          slug="scaling-vs-swelling-automation"
+          date="Jan 1, 2025"
+          category="Business Strategy"
+        />
             <header className="relative pt-32 pb-20 px-6 border-b border-white/5 overflow-hidden">
                 <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[400px] bg-violet-600/10 blur-[100px] rounded-full -z-10" />
                 <div className="max-w-3xl mx-auto space-y-6">

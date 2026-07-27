@@ -1,3 +1,4 @@
+import ArticleSchema from '../../components/Article/ArticleSchema';
 import Link from 'next/link';
 import { ArrowLeft, AlertTriangle, XCircle, TrendingDown, Clock, Users } from 'lucide-react';
 import RelatedArticles from '../../components/RelatedArticles';
@@ -7,11 +8,21 @@ export const metadata = {
     description: 'What you lose every single day you delay. A sobering breakdown of the hidden costs killing your profit margins right now.',
     robots: { index: true, follow: true, googleBot: { index: true, follow: true, 'max-video-preview': -1, 'max-image-preview': 'large', 'max-snippet': -1 } },
     alternates: { canonical: 'https://brandverse.tech/blog/cost-of-not-using-ai' }
+,
+  openGraph: { title: 'The True Cost of NOT Using AI Voice Agents in 2025', description: 'Every day you wait is $500-$2000 donated to competitors.', type: 'article' as const, siteName: 'Brandverse' },
+  twitter: { card: 'summary_large_image' as const, title: 'The True Cost of NOT Using AI Voice Agents in 2025', description: 'Every day you wait is $500-$2000 donated to competitors.' }
 };
 
 export default function Post() {
     return (
         <div className="min-h-screen bg-[#020617] text-slate-200 selection:bg-blue-500/30">
+        <ArticleSchema
+          title={'The True Cost of NOT Using AI Voice Agents in 2025'}
+          description={'Every day you wait is $500-$2000 donated to competitors.'}
+          slug="cost-of-not-using-ai"
+          date="Dec 28, 2024"
+          category="Warning"
+        />
             <header className="relative pt-32 pb-20 px-6 border-b border-white/5 overflow-hidden">
                 <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[400px] bg-red-600/10 blur-[100px] rounded-full -z-10" />
                 <div className="max-w-3xl mx-auto space-y-6">

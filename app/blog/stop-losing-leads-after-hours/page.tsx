@@ -1,3 +1,4 @@
+import ArticleSchema from '../../components/Article/ArticleSchema';
 import Link from 'next/link';
 import { ArrowLeft, Phone, Clock, Moon, Sun, DollarSign, TrendingUp, Users, AlertTriangle, CheckCircle, ArrowRight, Calendar, Zap } from 'lucide-react';
 import RelatedArticles from '../../components/RelatedArticles';
@@ -26,6 +27,13 @@ export const metadata = {
 export default function Post() {
     return (
         <div className="min-h-screen bg-[#020617] text-slate-200 selection:bg-amber-500/30">
+        <ArticleSchema
+          title={'How Local Businesses Can Stop Losing Leads After Business Hours'}
+          description={'Local businesses lose 40% of leads after hours. Learn how AI receptionists, automated booking, and 24/7 lead capture can recover thousands in monthly revenue.'}
+          slug="stop-losing-leads-after-hours"
+          date="Jul 26, 2026"
+          category="Lead Generation"
+        />
             <header className="relative pt-32 pb-20 px-6 border-b border-white/5 overflow-hidden">
                 <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[400px] bg-amber-600/10 blur-[100px] rounded-full -z-10" />
                 <div className="max-w-3xl mx-auto space-y-6">

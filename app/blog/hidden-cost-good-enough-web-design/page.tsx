@@ -1,3 +1,4 @@
+import ArticleSchema from '../../components/Article/ArticleSchema';
 import Link from 'next/link';
 import { ArrowLeft, Monitor, Eye, MousePointer, Award, Trophy, Layout } from 'lucide-react';
 import RelatedArticles from '../../components/RelatedArticles';
@@ -8,11 +9,21 @@ export const metadata = {
     keywords: ['premium web design ROI', 'high ticket website design', 'luxury web design', 'website conversion rate optimization', 'cost of bad web design'],
     robots: { index: true, follow: true, googleBot: { index: true, follow: true, 'max-video-preview': -1, 'max-image-preview': 'large', 'max-snippet': -1 } },
     alternates: { canonical: 'https://brandverse.tech/blog/hidden-cost-good-enough-web-design' }
+,
+  openGraph: { title: 'The Hidden Cost of "Good Enough" Web Design', description: 'A "good enough" website is costing you your best clients. Premium design is the only way to command premium prices.', type: 'article' as const, siteName: 'Brandverse' },
+  twitter: { card: 'summary_large_image' as const, title: 'The Hidden Cost of "Good Enough" Web Design', description: 'A "good enough" website is costing you your best clients. Premium design is the only way to command premium prices.' }
 };
 
 export default function Post() {
     return (
         <div className="min-h-screen bg-[#020617] text-slate-200 selection:bg-amber-500/30">
+        <ArticleSchema
+          title={'The Hidden Cost of "Good Enough" Web Design'}
+          description={'A "good enough" website is costing you your best clients. Premium design is the only way to command premium prices.'}
+          slug="hidden-cost-good-enough-web-design"
+          date="Jan 1, 2025"
+          category="Brand Authority"
+        />
             <header className="relative pt-32 pb-20 px-6 border-b border-white/5 overflow-hidden">
                 <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[400px] bg-amber-600/10 blur-[100px] rounded-full -z-10" />
                 <div className="max-w-3xl mx-auto space-y-6">

@@ -1,3 +1,4 @@
+import ArticleSchema from '../../components/Article/ArticleSchema';
 import Link from 'next/link';
 import { ArrowLeft, Settings, Zap, DollarSign, Clock, CheckCircle, Users, Layers, TrendingUp, ArrowRight, Calendar, BarChart, Phone } from 'lucide-react';
 import RelatedArticles from '../../components/RelatedArticles';
@@ -26,6 +27,13 @@ export const metadata = {
 export default function Post() {
     return (
         <div className="min-h-screen bg-[#020617] text-slate-200 selection:bg-emerald-500/30">
+        <ArticleSchema
+          title={'The Ultimate Guide to Business Automation for Service Businesses'}
+          description={'A comprehensive guide to automating your service business: CRM automation, AI phone agents, scheduling, follow-ups, and more. Reduce costs and scale without adding staff.'}
+          slug="ultimate-guide-business-automation"
+          date="Jul 26, 2026"
+          category="Operations"
+        />
             <header className="relative pt-32 pb-20 px-6 border-b border-white/5 overflow-hidden">
                 <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[400px] bg-emerald-600/10 blur-[100px] rounded-full -z-10" />
                 <div className="max-w-3xl mx-auto space-y-6">

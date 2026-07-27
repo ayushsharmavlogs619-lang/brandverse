@@ -1,3 +1,4 @@
+import ArticleSchema from '../../components/Article/ArticleSchema';
 import Link from 'next/link';
 import { ArrowLeft, UserCheck, HeartHandshake, ShieldCheck, MessageSquare, BrainCircuit } from 'lucide-react';
 import RelatedArticles from '../../components/RelatedArticles';
@@ -7,11 +8,21 @@ export const metadata = {
     description: 'The #1 fear of business owners debunked. Data shows customers prefer instant AI answers over handling annoying hold music or voicemail.',
     robots: { index: true, follow: true, googleBot: { index: true, follow: true, 'max-video-preview': -1, 'max-image-preview': 'large', 'max-snippet': -1 } },
     alternates: { canonical: 'https://brandverse.tech/blog/voice-ai-ethics-trust' }
+,
+  openGraph: { title: 'Will My Customers Hate It? The Truth About AI Voice Acceptance', description: 'Data shows customers prefer instant AI answers over voicemail.', type: 'article' as const, siteName: 'Brandverse' },
+  twitter: { card: 'summary_large_image' as const, title: 'Will My Customers Hate It? The Truth About AI Voice Acceptance', description: 'Data shows customers prefer instant AI answers over voicemail.' }
 };
 
 export default function Post() {
     return (
         <div className="min-h-screen bg-[#020617] text-slate-200 selection:bg-blue-500/30">
+        <ArticleSchema
+          title={'Will My Customers Hate It? The Truth About AI Voice Acceptance'}
+          description={'Data shows customers prefer instant AI answers over voicemail.'}
+          slug="voice-ai-ethics-trust"
+          date="Dec 30, 2024"
+          category="Ethics & Trust"
+        />
             <header className="relative pt-32 pb-20 px-6 border-b border-white/5 overflow-hidden">
                 <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[400px] bg-sky-600/10 blur-[100px] rounded-full -z-10" />
                 <div className="max-w-3xl mx-auto space-y-6">

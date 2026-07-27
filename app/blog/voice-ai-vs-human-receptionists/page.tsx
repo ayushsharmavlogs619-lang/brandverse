@@ -1,3 +1,4 @@
+import ArticleSchema from '../../components/Article/ArticleSchema';
 import Link from 'next/link';
 import { ArrowLeft, Phone, Users, DollarSign, Clock, CheckCircle, XCircle, TrendingUp, BarChart, Star, ArrowRight, Calendar, HelpCircle } from 'lucide-react';
 import RelatedArticles from '../../components/RelatedArticles';
@@ -26,6 +27,13 @@ export const metadata = {
 export default function Post() {
     return (
         <div className="min-h-screen bg-[#020617] text-slate-200 selection:bg-rose-500/30">
+        <ArticleSchema
+          title={'Voice AI vs Human Receptionists: Which Is Right for Your Business?'}
+          description={'A detailed comparison of AI receptionists vs human receptionists: costs, coverage, customer experience, and which option is best for different business types.'}
+          slug="voice-ai-vs-human-receptionists"
+          date="Jul 26, 2026"
+          category="Comparison"
+        />
             <header className="relative pt-32 pb-20 px-6 border-b border-white/5 overflow-hidden">
                 <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[400px] bg-rose-600/10 blur-[100px] rounded-full -z-10" />
                 <div className="max-w-3xl mx-auto space-y-6">

@@ -1,3 +1,4 @@
+import ArticleSchema from '../../components/Article/ArticleSchema';
 import Link from 'next/link';
 import { ArrowLeft, CheckCircle2, TrendingUp, Clock, DollarSign, Shield, Zap } from 'lucide-react';
 import RelatedArticles from '../../components/RelatedArticles';
@@ -7,11 +8,21 @@ export const metadata = {
     description: 'The decision that pays for itself in 48 hours. Why thousands of service businesses are switching to AI voice agents and never returning to human-only teams.',
     robots: { index: true, follow: true, googleBot: { index: true, follow: true, 'max-video-preview': -1, 'max-image-preview': 'large', 'max-snippet': -1 } },
     alternates: { canonical: 'https://brandverse.tech/blog/why-never-regret-ai-agents' }
+,
+  openGraph: { title: 'Why Smart Business Owners Choose AI Voice Agents (And Never Look Back)', description: 'The decision that pays for itself in 48 hours. Zero regrets. Ever.', type: 'article' as const, siteName: 'Brandverse' },
+  twitter: { card: 'summary_large_image' as const, title: 'Why Smart Business Owners Choose AI Voice Agents (And Never Look Back)', description: 'The decision that pays for itself in 48 hours. Zero regrets. Ever.' }
 };
 
 export default function Post() {
     return (
         <div className="min-h-screen bg-[#020617] text-slate-200 selection:bg-blue-500/30">
+        <ArticleSchema
+          title={'Why Smart Business Owners Choose AI Voice Agents (And Never Look Back)'}
+          description={'The decision that pays for itself in 48 hours. Zero regrets. Ever.'}
+          slug="why-never-regret-ai-agents"
+          date="Dec 29, 2024"
+          category="Value Proposition"
+        />
             <header className="relative pt-32 pb-20 px-6 border-b border-white/5 overflow-hidden">
                 <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[400px] bg-green-600/10 blur-[100px] rounded-full -z-10" />
                 <div className="max-w-3xl mx-auto space-y-6">

@@ -1,3 +1,4 @@
+import ArticleSchema from '../../components/Article/ArticleSchema';
 import Link from 'next/link';
 import { ArrowLeft, Phone, Headphones, Smile, TrendingUp, Clock, CheckCircle, AlertTriangle, BarChart, ArrowRight, Calendar } from 'lucide-react';
 import RelatedArticles from '../../components/RelatedArticles';
@@ -26,6 +27,13 @@ export const metadata = {
 export default function Post() {
     return (
         <div className="min-h-screen bg-[#020617] text-slate-200 selection:bg-purple-500/30">
+        <ArticleSchema
+          title={'How AI Voice Agents Are Transforming Customer Service'}
+          description={'AI voice agents are revolutionizing customer service. Learn how businesses use voice AI to reduce costs, improve satisfaction, and provide instant 24/7 support.'}
+          slug="ai-voice-agents-transforming-customer-service"
+          date="Jul 26, 2026"
+          category="Customer Experience"
+        />
             <header className="relative pt-32 pb-20 px-6 border-b border-white/5 overflow-hidden">
                 <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[400px] bg-purple-600/10 blur-[100px] rounded-full -z-10" />
                 <div className="max-w-3xl mx-auto space-y-6">

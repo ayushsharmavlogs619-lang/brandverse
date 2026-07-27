@@ -1,3 +1,4 @@
+import ArticleSchema from '../../components/Article/ArticleSchema';
 import Link from 'next/link';
 import { ArrowLeft, Building2, ShieldCheck, Search, Calendar } from 'lucide-react';
 import RelatedArticles from '../../components/RelatedArticles';
@@ -9,11 +10,21 @@ export const metadata = {
     keywords: ['property management automation', 'tenant screening ai', 'maintenance request automation', 'property manager ai', 'rental property automation'],
     robots: { index: true, follow: true, googleBot: { index: true, follow: true, 'max-video-preview': -1, 'max-image-preview': 'large', 'max-snippet': -1 } },
     alternates: { canonical: 'https://brandverse.tech/blog/property-management-tenant-screening' }
+,
+  openGraph: { title: 'Property Management Automation: AI for Maintenance Requests and Tenant Screening', description: 'Property managers waste hours on maintenance calls and tenant screening. Automate emergency dispatch and tenant qualification.', type: 'article' as const, siteName: 'Brandverse' },
+  twitter: { card: 'summary_large_image' as const, title: 'Property Management Automation: AI for Maintenance Requests and Tenant Screening', description: 'Property managers waste hours on maintenance calls and tenant screening. Automate emergency dispatch and tenant qualification.' }
 };
 
 export default function Post() {
     return (
         <div className="min-h-screen bg-[#020617] text-slate-200 selection:bg-amber-500/30">
+        <ArticleSchema
+          title={'Property Management Automation: AI for Maintenance Requests and Tenant Screening'}
+          description={'Property managers waste hours on maintenance calls and tenant screening. Automate emergency dispatch and tenant qualification.'}
+          slug="property-management-tenant-screening"
+          date="Jul 27, 2026"
+          category="Industry Focus"
+        />
             <header className="relative pt-32 pb-20 px-6 border-b border-white/5 overflow-hidden">
                 <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[400px] bg-amber-600/10 blur-[100px] rounded-full -z-10" />
                 <div className="max-w-3xl mx-auto space-y-6">

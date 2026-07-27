@@ -1,3 +1,4 @@
+import ArticleSchema from '../../components/Article/ArticleSchema';
 import Link from 'next/link';
 import { ArrowLeft, Users, Clock, TrendingUp, CheckCircle, Calendar, ArrowRight } from 'lucide-react';
 import RelatedArticles from '../../components/RelatedArticles';
@@ -9,11 +10,21 @@ export const metadata = {
     keywords: ['ai gym booking', 'fitness studio automation', 'ai voice agent gym', 'membership sales ai', 'fitness class scheduling ai'],
     robots: { index: true, follow: true, googleBot: { index: true, follow: true, 'max-video-preview': -1, 'max-image-preview': 'large', 'max-snippet': -1 } },
     alternates: { canonical: 'https://brandverse.tech/blog/fitness-studio-booking-ai' }
+,
+  openGraph: { title: 'How Gyms and Fitness Studios Use AI to Book More Classes and Sell Memberships', description: 'Fitness studios and gyms use AI voice agents to book classes, sell memberships, and handle member inquiries around the clock.', type: 'article' as const, siteName: 'Brandverse' },
+  twitter: { card: 'summary_large_image' as const, title: 'How Gyms and Fitness Studios Use AI to Book More Classes and Sell Memberships', description: 'Fitness studios and gyms use AI voice agents to book classes, sell memberships, and handle member inquiries around the clock.' }
 };
 
 export default function Post() {
     return (
         <div className="min-h-screen bg-[#020617] text-slate-200 selection:bg-emerald-500/30">
+        <ArticleSchema
+          title={'How Gyms and Fitness Studios Use AI to Book More Classes and Sell Memberships'}
+          description={'Fitness studios and gyms use AI voice agents to book classes, sell memberships, and handle member inquiries around the clock.'}
+          slug="fitness-studio-booking-ai"
+          date="Jul 26, 2026"
+          category="Industry Focus"
+        />
             <header className="relative pt-32 pb-20 px-6 border-b border-white/5 overflow-hidden">
                 <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[400px] bg-emerald-600/10 blur-[100px] rounded-full -z-10" />
                 <div className="max-w-3xl mx-auto space-y-6">

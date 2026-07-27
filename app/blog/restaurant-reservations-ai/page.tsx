@@ -1,3 +1,4 @@
+import ArticleSchema from '../../components/Article/ArticleSchema';
 import Link from 'next/link';
 import { ArrowLeft, Phone, Clock, Bell, Calendar, ArrowRight } from 'lucide-react';
 import RelatedArticles from '../../components/RelatedArticles';
@@ -9,11 +10,21 @@ export const metadata = {
     keywords: ['ai voice restaurant', 'automate restaurant reservations', 'ai restaurant phone system', 'catering inquiry automation', 'restaurant takeout ai'],
     robots: { index: true, follow: true, googleBot: { index: true, follow: true, 'max-video-preview': -1, 'max-image-preview': 'large', 'max-snippet': -1 } },
     alternates: { canonical: 'https://brandverse.tech/blog/restaurant-reservations-ai' }
+,
+  openGraph: { title: 'AI Voice for Restaurants: Automating Reservations, Takeout, and Catering Inquiries', description: 'How restaurants use AI voice agents to handle reservations, takeout orders, and catering inquiries 24/7 without adding staff.', type: 'article' as const, siteName: 'Brandverse' },
+  twitter: { card: 'summary_large_image' as const, title: 'AI Voice for Restaurants: Automating Reservations, Takeout, and Catering Inquiries', description: 'How restaurants use AI voice agents to handle reservations, takeout orders, and catering inquiries 24/7 without adding staff.' }
 };
 
 export default function Post() {
     return (
         <div className="min-h-screen bg-[#020617] text-slate-200 selection:bg-orange-500/30">
+        <ArticleSchema
+          title={'AI Voice for Restaurants: Automating Reservations, Takeout, and Catering Inquiries'}
+          description={'How restaurants use AI voice agents to handle reservations, takeout orders, and catering inquiries 24/7 without adding staff.'}
+          slug="restaurant-reservations-ai"
+          date="Jul 26, 2026"
+          category="Industry Focus"
+        />
             <header className="relative pt-32 pb-20 px-6 border-b border-white/5 overflow-hidden">
                 <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[400px] bg-orange-600/10 blur-[100px] rounded-full -z-10" />
                 <div className="max-w-3xl mx-auto space-y-6">

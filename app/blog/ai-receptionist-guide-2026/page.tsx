@@ -1,3 +1,4 @@
+import ArticleSchema from '../../components/Article/ArticleSchema';
 import Link from 'next/link';
 import { ArrowLeft, Phone, Clock, DollarSign, CheckCircle, Shield, Zap, BarChart, Users, ArrowRight, Calendar } from 'lucide-react';
 import RelatedArticles from '../../components/RelatedArticles';
@@ -26,6 +27,13 @@ export const metadata = {
 export default function Post() {
     return (
         <div className="min-h-screen bg-[#020617] text-slate-200 selection:bg-blue-500/30">
+        <ArticleSchema
+          title={'The Complete Guide to AI Receptionists for Small Businesses in 2026'}
+          description={'Everything small business owners need to know about AI receptionists in 2026: costs, features, setup process, ROI, and how they compare to human receptionists.'}
+          slug="ai-receptionist-guide-2026"
+          date="Jul 26, 2026"
+          category="Guides"
+        />
             <header className="relative pt-32 pb-20 px-6 border-b border-white/5 overflow-hidden">
                 <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[400px] bg-blue-600/10 blur-[100px] rounded-full -z-10" />
                 <div className="max-w-3xl mx-auto space-y-6">

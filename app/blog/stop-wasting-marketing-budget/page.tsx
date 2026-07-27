@@ -1,3 +1,4 @@
+import ArticleSchema from '../../components/Article/ArticleSchema';
 import Link from 'next/link';
 import { ArrowLeft, Trash2, StopCircle, DollarSign, Filter, Search } from 'lucide-react';
 import RelatedArticles from '../../components/RelatedArticles';
@@ -8,11 +9,21 @@ export const metadata = {
     keywords: ['leaky marketing funnel', 'missed call cost', 'ad spend ROI', 'marketing conversion optimization', 'AI lead capture'],
     robots: { index: true, follow: true, googleBot: { index: true, follow: true, 'max-video-preview': -1, 'max-image-preview': 'large', 'max-snippet': -1 } },
     alternates: { canonical: 'https://brandverse.tech/blog/stop-wasting-marketing-budget' }
+,
+  openGraph: { title: 'Stop Paying for Ads Until You Fix This One Phone Problem', description: 'Fix your lead capture rate before you spend another cent on Google Ads.', type: 'article' as const, siteName: 'Brandverse' },
+  twitter: { card: 'summary_large_image' as const, title: 'Stop Paying for Ads Until You Fix This One Phone Problem', description: 'Fix your lead capture rate before you spend another cent on Google Ads.' }
 };
 
 export default function Post() {
     return (
         <div className="min-h-screen bg-[#020617] text-slate-200 selection:bg-blue-500/30">
+        <ArticleSchema
+          title={'Stop Paying for Ads Until You Fix This One Phone Problem'}
+          description={'Fix your lead capture rate before you spend another cent on Google Ads.'}
+          slug="stop-wasting-marketing-budget"
+          date="Dec 30, 2024"
+          category="Marketing ROI"
+        />
             <header className="relative pt-32 pb-20 px-6 border-b border-white/5 overflow-hidden">
                 <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[400px] bg-orange-600/10 blur-[100px] rounded-full -z-10" />
                 <div className="max-w-3xl mx-auto space-y-6">

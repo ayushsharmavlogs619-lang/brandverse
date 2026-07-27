@@ -1,3 +1,4 @@
+import ArticleSchema from '../../components/Article/ArticleSchema';
 import Link from 'next/link';
 import { ArrowLeft, TrendingUp, Calendar, Phone } from 'lucide-react';
 
@@ -6,11 +7,21 @@ export const metadata = {
     description: 'How a skeptical HVAC owner automated 40% of his booking workflow and recovered $15k in missed calls in month one.',
     robots: { index: true, follow: true, googleBot: { index: true, follow: true, 'max-video-preview': -1, 'max-image-preview': 'large', 'max-snippet': -1 } },
     alternates: { canonical: 'https://brandverse.tech/blog/case-study-elite-climate' }
+,
+  openGraph: { title: 'Case Study: Elite Climate Control & Plumbing', description: 'How a skeptical HVAC owner recovered $15k in month one.', type: 'article' as const, siteName: 'Brandverse' },
+  twitter: { card: 'summary_large_image' as const, title: 'Case Study: Elite Climate Control & Plumbing', description: 'How a skeptical HVAC owner recovered $15k in month one.' }
 };
 
 export default function CaseStudy() {
     return (
         <div className="min-h-screen bg-[#020617] text-slate-200 selection:bg-blue-500/30 font-sans">
+        <ArticleSchema
+          title={'Case Study: Elite Climate Control & Plumbing'}
+          description={'How a skeptical HVAC owner recovered $15k in month one.'}
+          slug="case-study-elite-climate"
+          date="Dec 22, 2024"
+          category="Case Study"
+        />
             <div className="fixed top-0 left-0 w-full h-[600px] bg-blue-900/10 blur-[120px] -z-10 pointer-events-none" />
 
             <main className="pt-32 pb-20 px-6 max-w-4xl mx-auto">
