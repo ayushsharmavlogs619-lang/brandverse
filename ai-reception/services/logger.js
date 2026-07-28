@@ -40,7 +40,10 @@ export function createLogger(request, clientId) {
     },
 
     child(childClientId) {
-      return createLogger(request, childClientId || clientId);
+      const childId = childClientId || clientId || '';
+      const sub = createLogger(request, childId);
+      sub.id = id;
+      return sub;
     },
   };
 }
