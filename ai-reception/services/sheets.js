@@ -4,6 +4,30 @@ const SHEETS_SCOPE = 'https://www.googleapis.com/auth/spreadsheets';
 
 const HEADERS = ['Date', 'Time', 'Client ID', 'Name', 'Phone', 'Email', 'Channel', 'Intent', 'Status', 'Service', 'Requested Time', 'Booked Time', 'Outcome', 'Notes', 'Duration', 'Follow Up Required'];
 
+async function withRetry(fn, maxRetries = 2) {
+  for (let attempt = 0; attempt <= maxRetries; attempt++) {
+    try {
+      return await fn();
+    } catch (error) {
+      if (attempt === maxRetries) throw error;
+      const msg = error.message || '';
+      const isTransient = msg.includes('503') || msg.includes('429') || msg.includes('ECONNRESET') || msg.includes('timeout') || msg.includes('network') || msg.includes('ETIMEDOUT');
+      if (!isTransient) throw error;
+      await new Promise(r => setTimeout(r, Math.pow(2, attempt) * 500));
+    }
+  }
+}
+
+async function fetchWithRetry(url, opts) {
+  return withRetry(async () => {
+    const r = await fetch(url, opts);
+    if (!r.ok && (r.status === 503 || r.status === 429)) {
+      throw new Error(`HTTP ${r.status}`);
+    }
+    return r;
+  });
+}
+
 export class GoogleSheetsService {
   constructor(env) {
     this.env = env;
@@ -64,7 +88,7 @@ export class GoogleSheetsService {
 
   async logInteraction(sheetId, data) {
     try {
-      await this.ensureWorksheet(sheetId);
+      await withRetry(() => this.ensureWorksheet(sheetId));
       const token = await this.auth.getAccessToken(SHEETS_SCOPE);
 
       const row = [
@@ -79,7 +103,7 @@ export class GoogleSheetsService {
       const nextRow = await this.nextRow(sheetId, token);
       const range = `Interactions!A${nextRow}:${String.fromCharCode(64 + HEADERS.length)}${nextRow}`;
 
-      const resp = await fetch(`${this.baseURL}/${sheetId}/values/${range}?valueInputOption=USER_ENTERED`, {
+      const resp = await fetchWithRetry(`${this.baseURL}/${sheetId}/values/${range}?valueInputOption=USER_ENTERED`, {
         method: 'PUT', headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
         body: JSON.stringify({ values: [row] }), signal: AbortSignal.timeout(10000),
       });

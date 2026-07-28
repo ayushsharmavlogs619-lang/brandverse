@@ -19,7 +19,10 @@
     "deploy:all": "npm run build && npm run deploy:cloudflare && npm run deploy:subdomain-router",
     "test": "node tests/unit.test.js",
     "test:api": "node tests/api.test.js",
-    "test:worker": "node tests/unit.test.js"
+    "test:worker": "node tests/unit.test.js",
+    "onboard": "node scripts/onboard-client.js",
+    "ops:check": "node scripts/ops-check.js",
+    "doctor": "node scripts/doctor.js"
   },
   "dependencies": {
     "@vapi-ai/web": "^2.6.1",

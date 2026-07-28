@@ -45,6 +45,8 @@ const worker = {
 
     if (method === 'OPTIONS') return new Response(null, { headers: ch });
 
+    const clientId = path.split('/')[2];
+
     const rateKey = request.headers.get('CF-Connecting-IP') || clientId || 'unknown';
     const rateCheck = rateLimiter.check(rateKey);
     if (!rateCheck.allowed) {
@@ -68,7 +70,6 @@ const worker = {
         return await handleVapiOutboundCall(request, env, ch, log);
       }
 
-      const clientId = path.split('/')[2];
       if (!clientId) return json({ error: 'Client ID required' }, 400, ch);
 
       const clientLog = log.child(clientId);
@@ -119,7 +120,8 @@ async function handleAvailability(clientId, params, engine, ch, log) {
     return json({ clientId, date, service, availableSlots: slots, timestamp: new Date().toISOString() }, 200, ch);
   } catch (error) {
     log.complete(`/api/${clientId}/availability`, false, { error: error.message });
-    return json({ error: 'Failed to check availability', message: error.message }, 500, ch);
+    const isConfigError = error.message?.includes('calendar_id') || error.message?.includes('Service not found') || error.message?.includes('Invalid date');
+    return json({ error: 'Failed to check availability', message: error.message }, isConfigError ? 400 : 500, ch);
   }
 }
 

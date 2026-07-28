@@ -22,7 +22,8 @@ export class ClientConfigService {
       const client = clientsData.clients.find(c => c.id === clientId);
 
       if (!client) {
-        throw new Error(`Client configuration not found: ${clientId}`);
+        console.warn(`Client configuration not found: ${clientId}`);
+        return null;
       }
 
       // Validate required fields

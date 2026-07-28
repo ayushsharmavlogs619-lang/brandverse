@@ -23,6 +23,9 @@ export class VapiService {
 
   // Handle incoming Vapi webhook
   async handleWebhook(request) {
+    if (!this.verifySignature(request)) {
+      return { status: 401, body: { error: 'Invalid webhook signature' } };
+    }
     const body = await request.json();
     const message = body.message || body;
 

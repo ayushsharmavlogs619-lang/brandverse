@@ -176,9 +176,12 @@ class LeadService {
 
     private async formSubmitBackup(data: LeadData): Promise<LeadSubmissionResult> {
         try {
+            const controller = new AbortController();
+            const timeout = setTimeout(() => controller.abort(), 10000);
             const response = await fetch(FORMSUBMIT_ACTION, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                signal: controller.signal,
                 body: JSON.stringify({
                     _subject: `LEAD [${data.source_form || 'website'}]: ${data.full_name || data.company || 'Unknown'}`,
                     _template: 'table',
@@ -200,14 +203,19 @@ class LeadService {
                 }),
             });
 
+            clearTimeout(timeout);
             if (response.ok) {
                 console.log('Lead captured via FormSubmit');
                 return { success: true, fallback: true };
             }
 
             console.error('FormSubmit failed:', response.status, response.statusText);
-        } catch (error) {
-            console.error('FormSubmit error:', error);
+        } catch (error: any) {
+            if (error?.name === 'AbortError') {
+                console.error('FormSubmit timed out');
+            } else {
+                console.error('FormSubmit error:', error);
+            }
         }
 
         return { success: false, fallback: true, error: 'FormSubmit failed' };
