@@ -18,7 +18,7 @@
     "deploy:all": "node deploy-cloudflare.js && npm run deploy:subdomain-router"
   },
   "dependencies": {
-    "@vapi-ai/web": "^2.5.2",
+    "@vapi-ai/web": "^2.6.1",
     "framer-motion": "^12.42.2",
     "lucide-react": "^0.555.0",
     "next": "^16.1.1",

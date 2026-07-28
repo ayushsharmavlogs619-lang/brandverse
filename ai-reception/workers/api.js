@@ -1,6 +1,3 @@
-// AI Receptionist API - Cloudflare Worker
-// Handles real bookings, calendar integration, and lead logging
-
 import { GoogleCalendarService } from '../services/calendar.js';
 import { GoogleSheetsService } from '../services/sheets.js';
 import { ClientConfigService } from '../services/client-config.js';
@@ -9,77 +6,72 @@ import { BookingEngine } from '../services/booking.js';
 import { LoggingEngine } from '../services/logging.js';
 import { VapiService } from '../services/vapi.js';
 import { NotificationService } from '../services/notify.js';
+import { createLogger } from '../services/logger.js';
+import { RateLimiter, validateBookingInput, validateLogInput, sanitizeStr } from '../services/validate.js';
 
-function getCorsHeaders(request, env) {
+const rateLimiter = new RateLimiter();
+
+function corsHeaders(request, env) {
   const origin = request.headers.get('Origin');
-  const allowedOrigins = new Set([
+  const allowed = new Set([
     env.APP_BASE_URL,
     'https://brandverse.tech',
     'https://www.brandverse.tech',
     'https://edge.brandverse.tech',
   ].filter(Boolean));
-
-  const allowOrigin = origin && allowedOrigins.has(origin)
-    ? origin
-    : 'https://brandverse.tech';
-
+  const allow = origin && allowed.has(origin) ? origin : 'https://brandverse.tech';
   return {
-    'Access-Control-Allow-Origin': allowOrigin,
+    'Access-Control-Allow-Origin': allow,
     'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
-    'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+    'Access-Control-Allow-Headers': 'Content-Type',
     'Vary': 'Origin',
   };
+}
+
+function json(body, status = 200, headers = {}) {
+  return new Response(JSON.stringify(body), {
+    status,
+    headers: { 'Content-Type': 'application/json', ...headers },
+  });
 }
 
 const worker = {
   async fetch(request, env, ctx) {
     const url = new URL(request.url);
-    const path = url.pathname;
     const method = request.method;
+    const path = url.pathname;
+    const log = createLogger(request, '');
+    const ch = corsHeaders(request, env);
 
-    void ctx;
+    if (method === 'OPTIONS') return new Response(null, { headers: ch });
 
-    // CORS headers for cross-origin requests
-    const corsHeaders = getCorsHeaders(request, env);
-
-    // Handle CORS preflight
-    if (method === 'OPTIONS') {
-      return new Response(null, { headers: corsHeaders });
+    const rateKey = request.headers.get('CF-Connecting-IP') || clientId || 'unknown';
+    const rateCheck = rateLimiter.check(rateKey);
+    if (!rateCheck.allowed) {
+      log.warn('rate_limited', { rateKey });
+      return json({ error: 'Too many requests' }, 429, { ...ch, 'Retry-After': String(Math.ceil(rateCheck.resetMs / 1000)) });
     }
 
     try {
-      // Health check endpoint
       if (path === '/health') {
-        return new Response(JSON.stringify({ 
-          status: 'healthy', 
-          timestamp: new Date().toISOString(),
-          version: '1.0.0'
-        }), {
-          headers: { 'Content-Type': 'application/json', ...corsHeaders }
-        });
+        log.info('health_check');
+        return json({
+          status: 'healthy', timestamp: new Date().toISOString(), version: '1.1.0',
+        }, 200, ch);
       }
 
-      // Vapi webhook endpoints (no client ID needed in path)
       if (path === '/api/vapi/webhook' && method === 'POST') {
-        return handleVapiWebhook(request, env, corsHeaders);
+        return await handleVapiWebhook(request, env, ch, log);
       }
 
       if (path === '/api/vapi/call' && method === 'POST') {
-        return handleVapiOutboundCall(request, env, corsHeaders);
+        return await handleVapiOutboundCall(request, env, ch, log);
       }
 
-      // Extract client ID from URL for client-specific routes
-      const pathParts = path.split('/');
-      const clientId = pathParts[2]; // /api/:clientId/...
+      const clientId = path.split('/')[2];
+      if (!clientId) return json({ error: 'Client ID required' }, 400, ch);
 
-      if (!clientId) {
-        return new Response(JSON.stringify({ error: 'Client ID required' }), {
-          status: 400,
-          headers: { 'Content-Type': 'application/json', ...corsHeaders }
-        });
-      }
-
-      // Initialize services
+      const clientLog = log.child(clientId);
       const clientConfig = new ClientConfigService(env);
       const calendarService = new GoogleCalendarService(env);
       const sheetsService = new GoogleSheetsService(env);
@@ -88,210 +80,108 @@ const worker = {
       const loggingEngine = new LoggingEngine(sheetsService, clientConfig);
       const notificationService = new NotificationService(env);
 
-      // Route handling
       if (path === `/api/${clientId}/availability` && method === 'GET') {
-        return handleAvailability(clientId, url.searchParams, availabilityEngine, corsHeaders);
+        return await handleAvailability(clientId, url.searchParams, availabilityEngine, ch, clientLog);
       }
 
       if (path === `/api/${clientId}/book` && method === 'POST') {
-        return handleBooking(clientId, await request.json(), bookingEngine, loggingEngine, notificationService, corsHeaders);
+        return await handleBooking(clientId, await request.json(), bookingEngine, loggingEngine, notificationService, ch, clientLog);
       }
 
       if (path === `/api/${clientId}/log` && method === 'POST') {
-        return handleLog(clientId, await request.json(), loggingEngine, corsHeaders);
+        return await handleLog(clientId, await request.json(), loggingEngine, ch, clientLog);
       }
 
       if (path === `/api/${clientId}/client-config` && method === 'GET') {
-        return handleClientConfig(clientId, clientConfig, corsHeaders);
+        return await handleClientConfig(clientId, clientConfig, ch, clientLog);
       }
 
-      return new Response(JSON.stringify({ error: 'Endpoint not found' }), {
-        status: 404,
-        headers: { 'Content-Type': 'application/json', ...corsHeaders }
-      });
+      clientLog.warn('route_not_found', { path, method });
+      return json({ error: 'Endpoint not found' }, 404, ch);
 
     } catch (error) {
-      console.error('API Error:', error);
-      return new Response(JSON.stringify({ 
-        error: 'Internal server error',
-        message: error.message 
-      }), {
-        status: 500,
-        headers: { 'Content-Type': 'application/json', ...corsHeaders }
-      });
+      log.error('unhandled_error', { path, method, error: error.message });
+      return json({ error: 'Internal server error', message: error.message }, 500, ch);
     }
-  }
+  },
 };
 
 export default worker;
 
-// Handle availability requests
-async function handleAvailability(clientId, searchParams, availabilityEngine, corsHeaders) {
+async function handleAvailability(clientId, params, engine, ch, log) {
+  const date = params.get('date');
+  const service = params.get('service');
+  if (!date || !service) return json({ error: 'Date and service parameters required' }, 400, ch);
+
   try {
-    const date = searchParams.get('date');
-    const service = searchParams.get('service');
-
-    if (!date || !service) {
-      return new Response(JSON.stringify({ 
-        error: 'Date and service parameters required' 
-      }), {
-        status: 400,
-        headers: { 'Content-Type': 'application/json', ...corsHeaders }
-      });
-    }
-
-    const availableSlots = await availabilityEngine.getAvailableSlots(
-      clientId, 
-      date, 
-      service
-    );
-
-    return new Response(JSON.stringify({
-      clientId,
-      date,
-      service,
-      availableSlots,
-      timestamp: new Date().toISOString()
-    }), {
-      headers: { 'Content-Type': 'application/json', ...corsHeaders }
-    });
-
+    const slots = await engine.getAvailableSlots(clientId, date, service);
+    log.complete(`/api/${clientId}/availability`, true, { date, service });
+    return json({ clientId, date, service, availableSlots: slots, timestamp: new Date().toISOString() }, 200, ch);
   } catch (error) {
-    console.error('Availability Error:', error);
-    return new Response(JSON.stringify({ 
-      error: 'Failed to check availability',
-      message: error.message 
-    }), {
-      status: 500,
-      headers: { 'Content-Type': 'application/json', ...corsHeaders }
-    });
+    log.complete(`/api/${clientId}/availability`, false, { error: error.message });
+    return json({ error: 'Failed to check availability', message: error.message }, 500, ch);
   }
 }
 
-// Handle booking requests
-async function handleBooking(clientId, bookingData, bookingEngine, loggingEngine, notificationService, corsHeaders) {
+async function handleBooking(clientId, body, engine, loggingEngine, notificationService, ch, log) {
+  const errors = validateBookingInput(body);
+  if (errors.length) return json({ error: 'Validation failed', details: errors }, 400, ch);
+
+  const name = sanitizeStr(body.name, 200);
+  const phone = sanitizeStr(body.phone, 20);
+  const email = sanitizeStr(body.email, 200);
+  const service = sanitizeStr(body.service, 100);
+  const notes = sanitizeStr(body.notes, 2000);
+
   try {
-    const { name, phone, email, service, dateTime, notes } = bookingData;
-
-    // Validate required fields
-    if (!name || !phone || !service || !dateTime) {
-      return new Response(JSON.stringify({ 
-        error: 'Missing required fields: name, phone, service, dateTime' 
-      }), {
-        status: 400,
-        headers: { 'Content-Type': 'application/json', ...corsHeaders }
-      });
-    }
-
-    // Attempt booking
-    const bookingResult = await bookingEngine.createBooking(clientId, {
-      name,
-      phone,
-      email,
-      service,
-      dateTime: new Date(dateTime),
-      notes
-    });
-
-    // Log the booking attempt
+    const result = await engine.createBooking(clientId, { name, phone, email, service, dateTime: new Date(body.dateTime), notes });
     await loggingEngine.logInteraction(clientId, {
-      type: 'booking',
-      channel: 'api',
-      name,
-      phone,
-      email,
-      service,
-      requestedTime: dateTime,
-      status: bookingResult.success ? 'confirmed' : 'failed',
-      outcome: bookingResult.message,
-      timestamp: new Date().toISOString()
+      type: 'booking', channel: 'api', name, phone, email, service, requestedTime: body.dateTime,
+      status: result.success ? 'confirmed' : 'failed', outcome: result.message, timestamp: new Date().toISOString(),
     });
 
-    if (bookingResult.success) {
-      notificationService.sendBookingNotification(null, {
-        name, phone, email, service, dateTime, notes
-      }).catch(() => {});
+    if (result.success) {
+      notificationService.sendBookingNotification(null, { name, phone, email, service, dateTime: body.dateTime, notes }).catch(() => {});
     }
 
-    return new Response(JSON.stringify(bookingResult), {
-      headers: { 'Content-Type': 'application/json', ...corsHeaders }
-    });
-
+    log.complete(`/api/${clientId}/book`, result.success, { service });
+    return json(result, result.success ? 200 : 400, ch);
   } catch (error) {
-    console.error('Booking Error:', error);
-    return new Response(JSON.stringify({ 
-      error: 'Failed to create booking',
-      message: error.message 
-    }), {
-      status: 500,
-      headers: { 'Content-Type': 'application/json', ...corsHeaders }
-    });
+    log.complete(`/api/${clientId}/book`, false, { error: error.message });
+    return json({ error: 'Failed to create booking', message: error.message }, 500, ch);
   }
 }
 
-// Handle logging requests
-async function handleLog(clientId, logData, loggingEngine, corsHeaders) {
+async function handleLog(clientId, body, loggingEngine, ch, log) {
+  const logErrors = validateLogInput(body);
+  if (logErrors.length) return json({ error: 'Validation failed', details: logErrors }, 400, ch);
+
   try {
-    await loggingEngine.logInteraction(clientId, {
-      ...logData,
-      timestamp: logData.timestamp || new Date().toISOString()
-    });
-
-    return new Response(JSON.stringify({ 
-      success: true,
-      message: 'Log entry created'
-    }), {
-      headers: { 'Content-Type': 'application/json', ...corsHeaders }
-    });
-
+    await loggingEngine.logInteraction(clientId, { ...body, timestamp: body.timestamp || new Date().toISOString() });
+    log.complete(`/api/${clientId}/log`, true);
+    return json({ success: true, message: 'Log entry created' }, 200, ch);
   } catch (error) {
-    console.error('Logging Error:', error);
-    return new Response(JSON.stringify({ 
-      error: 'Failed to create log entry',
-      message: error.message 
-    }), {
-      status: 500,
-      headers: { 'Content-Type': 'application/json', ...corsHeaders }
-    });
+    log.complete(`/api/${clientId}/log`, false, { error: error.message });
+    return json({ error: 'Failed to create log entry', message: error.message }, 500, ch);
   }
 }
 
-// Handle client config requests
-async function handleClientConfig(clientId, clientConfig, corsHeaders) {
+async function handleClientConfig(clientId, clientConfig, ch, log) {
   try {
-    console.log(`[DEBUG] Getting client config for: ${clientId}`);
     const config = await clientConfig.getClientConfig(clientId);
-
     if (!config) {
-      console.log(`[DEBUG] Client config not found for: ${clientId}`);
-      return new Response(JSON.stringify({ 
-        error: 'Client configuration not found' 
-      }), {
-        status: 404,
-        headers: { 'Content-Type': 'application/json', ...corsHeaders }
-      });
+      log.complete(`/api/${clientId}/client-config`, false, { error: 'not_found' });
+      return json({ error: 'Client configuration not found' }, 404, ch);
     }
-
-    console.log(`[DEBUG] Client config found for: ${clientId}`);
-    return new Response(JSON.stringify(config), {
-      headers: { 'Content-Type': 'application/json', ...corsHeaders }
-    });
-
+    log.complete(`/api/${clientId}/client-config`, true);
+    return json(config, 200, ch);
   } catch (error) {
-    console.error('Config Error:', error);
-    return new Response(JSON.stringify({ 
-      error: 'Failed to load client configuration',
-      message: error.message 
-    }), {
-      status: 500,
-      headers: { 'Content-Type': 'application/json', ...corsHeaders }
-    });
+    log.complete(`/api/${clientId}/client-config`, false, { error: error.message });
+    return json({ error: 'Failed to load client configuration', message: error.message }, 500, ch);
   }
 }
 
-// ==================== VAPI HANDLERS ====================
-
-async function handleVapiWebhook(request, env, corsHeaders) {
+async function handleVapiWebhook(request, env, ch, log) {
   try {
     const clientConfig = new ClientConfigService(env);
     const sheetsService = new GoogleSheetsService(env);
@@ -299,51 +189,31 @@ async function handleVapiWebhook(request, env, corsHeaders) {
     const notificationService = new NotificationService(env);
     const vapiService = new VapiService(env, clientConfig, loggingEngine, notificationService);
     const result = await vapiService.handleWebhook(request);
-
-    return new Response(JSON.stringify(result.body), {
-      status: result.status,
-      headers: { 'Content-Type': 'application/json', ...corsHeaders },
-    });
+    log.complete('/api/vapi/webhook', result.status < 500);
+    return json(result.body, result.status, ch);
   } catch (error) {
-    console.error('Vapi webhook error:', error);
-    return new Response(JSON.stringify({ error: 'Vapi webhook processing failed', message: error.message }), {
-      status: 500,
-      headers: { 'Content-Type': 'application/json', ...corsHeaders },
-    });
+    log.complete('/api/vapi/webhook', false, { error: error.message });
+    return json({ error: 'Vapi webhook processing failed', message: error.message }, 500, ch);
   }
 }
 
-async function handleVapiOutboundCall(request, env, corsHeaders) {
+async function handleVapiOutboundCall(request, env, ch, log) {
   try {
     const body = await request.json();
     const { clientId, customerNumber, ...overrides } = body;
-
     if (!clientId || !customerNumber) {
-      return new Response(JSON.stringify({ error: 'clientId and customerNumber are required' }), {
-        status: 400,
-        headers: { 'Content-Type': 'application/json', ...corsHeaders },
-      });
+      return json({ error: 'clientId and customerNumber are required' }, 400, ch);
     }
-
     const clientConfig = new ClientConfigService(env);
     const sheetsService = new GoogleSheetsService(env);
     const loggingEngine = new LoggingEngine(sheetsService, clientConfig);
     const notificationService = new NotificationService(env);
     const vapiService = new VapiService(env, clientConfig, loggingEngine, notificationService);
     const callResult = await vapiService.triggerOutboundCall(clientId, customerNumber, overrides);
-
-    return new Response(JSON.stringify({
-      success: true,
-      callId: callResult.id,
-      message: 'Outbound call initiated',
-    }), {
-      headers: { 'Content-Type': 'application/json', ...corsHeaders },
-    });
+    log.complete('/api/vapi/call', true, { clientId });
+    return json({ success: true, callId: callResult.id, message: 'Outbound call initiated' }, 200, ch);
   } catch (error) {
-    console.error('Vapi outbound call error:', error);
-    return new Response(JSON.stringify({ error: 'Failed to initiate outbound call', message: error.message }), {
-      status: 500,
-      headers: { 'Content-Type': 'application/json', ...corsHeaders },
-    });
+    log.complete('/api/vapi/call', false, { error: error.message });
+    return json({ error: 'Failed to initiate outbound call', message: error.message }, 500, ch);
   }
 }

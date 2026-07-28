@@ -250,10 +250,6 @@ export class VapiService {
     const functionName = message.functionCall?.name;
     const args = message.functionCall?.parameters || {};
 
-    console.log(`Vapi function call: ${functionName}`, args);
-
-    // function-call is handled by Vapi's HTTP tool mechanism directly.
-    // This endpoint is for server-side functions only.
     return {
       status: 200,
       body: {
