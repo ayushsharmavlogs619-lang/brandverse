@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { useState, useMemo } from 'react';
-import { Search, Clock, ArrowRight, TrendingUp, BookOpen, ArrowUpRight, Mail, ChevronRight } from 'lucide-react';
+import { Clock, ArrowRight, TrendingUp, ArrowUpRight, Mail, ChevronRight } from 'lucide-react';
 import { articles, type Article } from '../lib/articles';
 
 const categoryColors: Record<string, string> = {
@@ -47,7 +47,6 @@ function getCategoryIcon(cat: string): string {
 export default function BlogIndex() {
     const [searchQuery, setSearchQuery] = useState('');
     const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
-    const [showNewsletter, setShowNewsletter] = useState(false);
 
     const categories = useMemo(() => {
         const catSet = new Set(articles.map((a) => a.category));
@@ -73,7 +72,7 @@ export default function BlogIndex() {
 
     const featured = articles[0];
     const trending = articles.slice(1, 4);
-    const latest = selectedCategory || searchQuery ? filteredArticles : articles.slice(0, 12);
+    const latest = (selectedCategory || searchQuery) ? filteredArticles : articles.slice(0, 12);
 
     return (
         <div className="min-h-screen bg-[#020617] text-slate-200 selection:bg-blue-500/30">
@@ -86,46 +85,6 @@ export default function BlogIndex() {
                             <h1 className="text-5xl md:text-6xl font-black text-white mb-4 leading-tight">
                                 Intelligence
                             </h1>
-                            <p className="text-lg text-slate-400 max-w-2xl leading-relaxed">
-                                Practical guides, industry insights, and real-world case studies about AI voice automation, lead capture, and business growth for local service businesses.
-                            </p>
-                        </div>
-                        <Link
-                            href="/authors"
-                            className="shrink-0 flex items-center gap-2 px-5 py-3 rounded-xl bg-white/5 border border-white/10 text-sm font-semibold text-slate-300 hover:text-white hover:bg-white/10 transition-all"
-                        >
-                            <BookOpen className="w-4 h-4" /> Our Authors
-                        </Link>
-                    </div>
-
-                    {/* Search + Categories */}
-                    <div className="space-y-4">
-                        <div className="relative max-w-md">
-                            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
-                            <input
-                                type="text"
-                                placeholder="Search articles..."
-                                value={searchQuery}
-                                onChange={(e) => setSearchQuery(e.target.value)}
-                                className="w-full pl-11 pr-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-slate-500 focus:outline-none focus:border-blue-500/50 focus:bg-white/[0.07] transition-all text-sm"
-                            />
-                        </div>
-                        <div className="flex flex-wrap gap-2">
-                            <button
-                                onClick={() => setSelectedCategory(null)}
-                                className={`px-3 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest transition-all border ${!selectedCategory ? 'bg-blue-500/20 text-blue-400 border-blue-500/30' : 'bg-white/5 text-slate-400 border-white/10 hover:bg-white/[0.07]'}`}
-                            >
-                                All
-                            </button>
-                            {categories.map((cat) => (
-                                <button
-                                    key={cat}
-                                    onClick={() => setSelectedCategory(selectedCategory === cat ? null : cat)}
-                                    className={`px-3 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest transition-all border ${selectedCategory === cat ? getCategoryColor(cat) : 'bg-white/5 text-slate-400 border-white/10 hover:bg-white/[0.07]'}`}
-                                >
-                                    {cat}
-                                </button>
-                            ))}
                         </div>
                     </div>
                 </div>

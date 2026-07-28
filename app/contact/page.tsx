@@ -88,6 +88,7 @@ export default function ContactPage() {
                                     <div className="text-sm text-slate-500 font-bold uppercase tracking-wider">Socials</div>
                                     <div className="flex gap-4 mt-2">
                                         <a href="https://twitter.com/brandverse_tech" target="_blank" className="text-slate-400 hover:text-white transition-colors">X (Twitter)</a>
+                                        <a href="https://instagram.com/brandverse.tech" target="_blank" className="text-slate-400 hover:text-white transition-colors">Instagram</a>
                                         <a href="https://linkedin.com/company/brandverse-tech" target="_blank" className="text-slate-400 hover:text-white transition-colors">LinkedIn</a>
                                     </div>
                                 </div>

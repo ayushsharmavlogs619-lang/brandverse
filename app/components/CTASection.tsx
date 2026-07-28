@@ -40,7 +40,7 @@ export default function CTASection({
   title = "Ready to Automate Your Business?",
   subtitle = "Join 50+ businesses that have deployed AI voice agents with Brandverse",
   primaryText = "Book Your Free Audit",
-  primaryLink = config.calendlyUrl || 'https://calendly.com/brandverse/30min',
+  primaryLink = config.calendlyUrl || 'https://calendly.com/ayushsharmavlogs619/30min',
   secondaryText = "See Live Demo",
   secondaryLink = '/portfolio',
   variant = 'default'
@@ -52,7 +52,7 @@ export default function CTASection({
     : "max-w-6xl mx-auto text-center space-y-10";
 
   // Set dynamic links based on variant
-  const calendlyFallback = config.calendlyUrl || 'https://calendly.com/brandverse/30min';
+  const calendlyFallback = config.calendlyUrl || 'https://calendly.com/ayushsharmavlogs619/30min';
   const finalPrimaryLink = variant === 'form' ? calendlyFallback : primaryLink;
   const finalSecondaryLink = variant === 'form' ? secondaryLink : (secondaryLink || '/contact');
 

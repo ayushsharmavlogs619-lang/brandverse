@@ -13,6 +13,7 @@ interface AppConfig {
   // Other services
   vapiPublicKey: string;
   vapiAssistantId: string;
+  razorpayKeyId: string;
   calendlyUrl: string;
   linkedInPartnerId: string;
   cookiebotId: string;
@@ -40,7 +41,8 @@ export const config: AppConfig = {
   },
   vapiPublicKey: getEnvVar('NEXT_PUBLIC_VAPI_PUBLIC_KEY', ''),
   vapiAssistantId: getEnvVar('NEXT_PUBLIC_VAPI_ASSISTANT_ID', ''),
-  calendlyUrl: getEnvVar('NEXT_PUBLIC_CALENDLY_URL', 'https://calendly.com/brandverse/30min'),
+  razorpayKeyId: getEnvVar('NEXT_PUBLIC_RAZORPAY_KEY_ID', ''),
+  calendlyUrl: getEnvVar('NEXT_PUBLIC_CALENDLY_URL', 'https://calendly.com/ayushsharmavlogs619/30min'),
   linkedInPartnerId: getEnvVar('NEXT_PUBLIC_LINKEDIN_PARTNER_ID', ''),
   cookiebotId: getEnvVar('NEXT_PUBLIC_COOKIEBOT_ID', ''),
   googleSiteVerification: getEnvVar('NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION', ''),
