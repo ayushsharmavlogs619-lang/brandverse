@@ -3,7 +3,6 @@
 import { FORMSUBMIT_ACTION } from '@/lib/forms';
 import { useState } from 'react';
 import { Calendar, CheckCircle2, TrendingUp, Users, Clock, Shield } from 'lucide-react';
-import { mailchimpService } from '@/lib/mailchimp-service';
 
 // Declare global types for analytics
 declare global {
@@ -23,19 +22,8 @@ export default function LeadMagnetPage() {
         const formData = new FormData(e.currentTarget);
         const email = formData.get('email') as string;
         const name = formData.get('name') as string;
-        const nameParts = name.split(' ');
-        const firstName = nameParts[0] || '';
-        const lastName = nameParts.slice(1).join(' ') || '';
 
-        // Add to Mailchimp for automated follow-ups
-        try {
-            await mailchimpService.addContact(email, firstName, lastName, ['Lead Magnet Download']);
-            // Contact added to Mailchimp successfully
-        } catch (error) {
-            console.error('Mailchimp error (form will still submit):', error);
-        }
-
-        // Also send to Google Sheets via the Apps Script proxy (best-effort,
+        // Send to Google Sheets via the Apps Script proxy (best-effort,
         // never blocks the FormSubmit flow below)
         try {
             await fetch('/api/leads/apps-script', {

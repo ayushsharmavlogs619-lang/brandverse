@@ -3,13 +3,10 @@
 
 import { GoogleCalendarService } from '../services/calendar.js';
 import { GoogleSheetsService } from '../services/sheets.js';
-import { SMSService } from '../services/sms.js';
 import { ClientConfigService } from '../services/client-config.js';
 import { AvailabilityEngine } from '../services/availability.js';
 import { BookingEngine } from '../services/booking.js';
 import { LoggingEngine } from '../services/logging.js';
-import { DatabaseService } from '../services/database.js';
-import { AirtableService } from '../services/airtable.js';
 import { VapiService } from '../services/vapi.js';
 
 function getCorsHeaders(request, env) {
@@ -61,7 +58,16 @@ const worker = {
         });
       }
 
-      // Extract client ID from URL
+      // Vapi webhook endpoints (no client ID needed in path)
+      if (path === '/api/vapi/webhook' && method === 'POST') {
+        return handleVapiWebhook(request, env, corsHeaders);
+      }
+
+      if (path === '/api/vapi/call' && method === 'POST') {
+        return handleVapiOutboundCall(request, env, corsHeaders);
+      }
+
+      // Extract client ID from URL for client-specific routes
       const pathParts = path.split('/');
       const clientId = pathParts[2]; // /api/:clientId/...
 
@@ -76,30 +82,9 @@ const worker = {
       const clientConfig = new ClientConfigService(env);
       const calendarService = new GoogleCalendarService(env);
       const sheetsService = new GoogleSheetsService(env);
-      const smsService = new SMSService(env);
       const availabilityEngine = new AvailabilityEngine(calendarService, clientConfig);
-      const bookingEngine = new BookingEngine(calendarService, sheetsService, smsService, clientConfig);
+      const bookingEngine = new BookingEngine(calendarService, sheetsService, clientConfig);
       const loggingEngine = new LoggingEngine(sheetsService, clientConfig);
-      const airtableService = new AirtableService(env);
-      
-      // Initialize Supabase Database Service (if credentials available - deprecated but kept for compatibility)
-      let dbService = null;
-      try {
-        if (env.SUPABASE_URL && env.SUPABASE_SERVICE_KEY) {
-          dbService = new DatabaseService(env);
-        }
-      } catch (dbError) {
-        console.warn('Database service not available:', dbError.message);
-      }
-
-      // Vapi webhook endpoints (no client ID needed)
-      if (path === '/api/vapi/webhook' && method === 'POST') {
-        return handleVapiWebhook(request, env, clientConfig, loggingEngine, corsHeaders);
-      }
-
-      if (path === '/api/vapi/call' && method === 'POST') {
-        return handleVapiOutboundCall(request, env, clientConfig, loggingEngine, corsHeaders);
-      }
 
       // Route handling
       if (path === `/api/${clientId}/availability` && method === 'GET') {
@@ -116,48 +101,6 @@ const worker = {
 
       if (path === `/api/${clientId}/client-config` && method === 'GET') {
         return handleClientConfig(clientId, clientConfig, corsHeaders);
-      }
-
-      // REAL test routes - no mock data
-      if (path === `/api/${clientId}/test-availability` && method === 'GET') {
-        return handleTestAvailability(clientId, availabilityEngine, corsHeaders);
-      }
-
-      if (path === `/api/${clientId}/test-book` && method === 'POST') {
-        return handleTestBooking(clientId, bookingEngine, loggingEngine, corsHeaders);
-      }
-
-      // Supabase database routes
-      if (path === `/api/${clientId}/test-db` && method === 'GET') {
-        return handleTestDatabase(dbService, corsHeaders);
-      }
-
-      if (path === `/api/${clientId}/leads` && method === 'GET') {
-        return handleGetLeads(clientId, url.searchParams, dbService, corsHeaders);
-      }
-
-      if (path === `/api/${clientId}/leads` && method === 'POST') {
-        return handleCreateLead(clientId, await request.json(), airtableService, loggingEngine, corsHeaders);
-      }
-
-      if (path === `/api/${clientId}/call-logs` && method === 'GET') {
-        return handleGetCallLogs(clientId, url.searchParams, dbService, corsHeaders);
-      }
-
-      if (path === `/api/${clientId}/call-logs` && method === 'POST') {
-        return handleCreateCallLog(clientId, await request.json(), dbService, corsHeaders);
-      }
-
-      if (path === `/api/${clientId}/bookings` && method === 'GET') {
-        return handleGetBookings(clientId, url.searchParams, dbService, corsHeaders);
-      }
-
-      if (path === `/api/${clientId}/bookings` && method === 'POST') {
-        return handleCreateBooking(clientId, await request.json(), dbService, corsHeaders);
-      }
-
-      if (path === `/api/${clientId}/analytics` && method === 'GET') {
-        return handleGetAnalytics(clientId, url.searchParams, dbService, corsHeaders);
       }
 
       return new Response(JSON.stringify({ error: 'Endpoint not found' }), {
@@ -338,462 +281,13 @@ async function handleClientConfig(clientId, clientConfig, corsHeaders) {
   }
 }
 
-// Handle test availability requests (REAL ONLY)
-async function handleTestAvailability(clientId, availabilityEngine, corsHeaders) {
-  try {
-    console.log(`[DEBUG] REAL test availability for client: ${clientId}`);
-    
-    // Use tomorrow's date for testing
-    const tomorrow = new Date();
-    tomorrow.setDate(tomorrow.getDate() + 1);
-    const dateStr = tomorrow.toISOString().split('T')[0];
-    
-    console.log(`[DEBUG] Testing real availability for: ${clientId} on ${dateStr}`);
-    
-    // Test with 'cleaning' service - REAL calendar integration
-    const result = await availabilityEngine.getAvailableSlots(
-      clientId, 
-      dateStr, 
-      'cleaning'
-    );
-
-    console.log(`[DEBUG] REAL test availability result:`, result);
-
-    return new Response(JSON.stringify({
-      message: 'REAL availability test - using Google Calendar',
-      clientId,
-      date: dateStr,
-      service: 'cleaning',
-      result: result,
-      timestamp: new Date().toISOString()
-    }), {
-      headers: { 'Content-Type': 'application/json', ...corsHeaders }
-    });
-
-  } catch (error) {
-    console.error('[DEBUG] REAL Test Availability Error:', error);
-    return new Response(JSON.stringify({ 
-      error: 'REAL availability test failed',
-      message: error.message,
-      note: 'This error indicates missing Google Calendar integration or configuration issues'
-    }), {
-      status: 500,
-      headers: { 'Content-Type': 'application/json', ...corsHeaders }
-    });
-  }
-}
-
-// MOCK FUNCTION REMOVED - No fake data allowed
-
-// Handle test booking requests (REAL ONLY)
-async function handleTestBooking(clientId, bookingEngine, loggingEngine, corsHeaders) {
-  try {
-    console.log(`[DEBUG] REAL test booking for client: ${clientId}`);
-    
-    // Create REAL test booking data for tomorrow
-    const tomorrow = new Date();
-    tomorrow.setDate(tomorrow.getDate() + 1);
-    tomorrow.setHours(10, 0, 0, 0); // Set to 10:00 AM
-    
-    const testBookingData = {
-      name: 'REAL Test User',
-      phone: '+1234567890',
-      email: 'real-test@example.com',
-      service: 'cleaning',
-      dateTime: tomorrow.toISOString(),
-      notes: 'This is a REAL test booking - will create actual Google Calendar event'
-    };
-
-    console.log(`[DEBUG] Attempting REAL booking:`, testBookingData);
-
-    // Attempt REAL booking (creates actual Google Calendar event)
-    const bookingResult = await bookingEngine.createBooking(clientId, testBookingData);
-    console.log(`[DEBUG] REAL test booking result:`, bookingResult);
-
-    // Log the REAL test booking to Google Sheets
-    await loggingEngine.logInteraction(clientId, {
-      type: 'real_test_booking',
-      channel: 'api',
-      ...testBookingData,
-      status: bookingResult.success ? 'confirmed' : 'failed',
-      outcome: bookingResult.message,
-      timestamp: new Date().toISOString()
-    });
-
-    return new Response(JSON.stringify({
-      message: 'REAL test booking completed - created actual Google Calendar event',
-      bookingData: testBookingData,
-      result: bookingResult,
-      calendarEventCreated: bookingResult.success,
-      googleSheetsLogged: true,
-      timestamp: new Date().toISOString()
-    }), {
-      headers: { 'Content-Type': 'application/json', ...corsHeaders }
-    });
-
-  } catch (error) {
-    console.error('[DEBUG] REAL Test Booking Error:', error);
-    return new Response(JSON.stringify({ 
-      error: 'REAL test booking failed',
-      message: error.message,
-      note: 'This error indicates missing Google Calendar or Google Sheets integration'
-    }), {
-      status: 500,
-      headers: { 'Content-Type': 'application/json', ...corsHeaders }
-    });
-  }
-}
-
-// ==================== SUPABASE DATABASE HANDLERS ====================
-
-async function handleTestDatabase(dbService, corsHeaders) {
-  try {
-    if (!dbService) {
-      return new Response(JSON.stringify({
-        error: 'Database service not initialized',
-        status: 'unavailable',
-        note: 'SUPABASE_URL and SUPABASE_SERVICE_KEY must be set in environment'
-      }), {
-        status: 503,
-        headers: { 'Content-Type': 'application/json', ...corsHeaders }
-      });
-    }
-    
-    // Test connection by attempting a simple query
-    const result = await dbService.getAnalytics('test-client', 1);
-    
-    return new Response(JSON.stringify({
-      message: 'Supabase database connection successful',
-      status: 'connected',
-      timestamp: new Date().toISOString(),
-      testResult: result.success
-    }), {
-      headers: { 'Content-Type': 'application/json', ...corsHeaders }
-    });
-  } catch (error) {
-    console.error('[DEBUG] Database Test Error:', error);
-    return new Response(JSON.stringify({
-      error: 'Database connection test failed',
-      message: error.message,
-      status: 'error'
-    }), {
-      status: 500,
-      headers: { 'Content-Type': 'application/json', ...corsHeaders }
-    });
-  }
-}
-
-async function handleGetLeads(clientId, searchParams, dbService, corsHeaders) {
-  try {
-    if (!dbService) {
-      return new Response(JSON.stringify({ error: 'Database service unavailable' }), {
-        status: 503,
-        headers: { 'Content-Type': 'application/json', ...corsHeaders }
-      });
-    }
-    
-    const options = {
-      status: searchParams.get('status') || undefined,
-      limit: parseInt(searchParams.get('limit')) || 50,
-      orderBy: searchParams.get('orderBy') || 'created_at',
-      ascending: searchParams.get('ascending') === 'true'
-    };
-    
-    const result = await dbService.getLeads(clientId, options);
-    
-    return new Response(JSON.stringify({
-      success: true,
-      clientId,
-      leads: result.data,
-      count: result.data.length
-    }), {
-      headers: { 'Content-Type': 'application/json', ...corsHeaders }
-    });
-  } catch (error) {
-    console.error('Error getting leads:', error);
-    return new Response(JSON.stringify({
-      error: 'Failed to get leads',
-      message: error.message
-    }), {
-      status: 500,
-      headers: { 'Content-Type': 'application/json', ...corsHeaders }
-    });
-  }
-}
-
-async function handleCreateLead(clientId, body, airtableService, loggingEngine, corsHeaders) {
-  try {
-    // Validate required fields (Email or Phone is required)
-    if (!body.email && !body.phone && !body.phoneNumber) {
-      return new Response(JSON.stringify({
-        error: 'Validation failed',
-        message: 'At least email or phone is required'
-      }), {
-        status: 400,
-        headers: { 'Content-Type': 'application/json', ...corsHeaders }
-      });
-    }
-
-    const leadData = {
-      full_name: body.full_name || body.customerName || 'Unknown',
-      email: body.email || '',
-      phone: body.phone || body.phoneNumber || '',
-      company: body.company || body.businessName || '',
-      website: body.website || '',
-      business_type: body.business_type || body.serviceRequested || 'Other',
-      service_interest: body.service_interest || 'AI Voice Agents',
-      message: body.message || body.notes || '',
-      source_page: body.source_page || 'unknown',
-      source_form: body.source_form || 'unknown',
-      utm_source: body.utm_source || '',
-      utm_medium: body.utm_medium || '',
-      utm_campaign: body.utm_campaign || ''
-    };
-
-    try {
-      // Step 1: Attempt to save to Airtable
-      console.log(`[DEBUG] Attempting to write lead for ${clientId} to Airtable`);
-      const result = await airtableService.createLead(clientId, leadData);
-      return new Response(JSON.stringify({
-        success: true,
-        leadId: result.leadId,
-        message: 'Lead created successfully in Airtable'
-      }), {
-        status: 201,
-        headers: { 'Content-Type': 'application/json', ...corsHeaders }
-      });
-    } catch (airtableError) {
-      console.warn('Airtable insertion failed, logging to Google Sheets backup:', airtableError.message);
-
-      // Step 2: Fallback to Google Sheets
-      const sheetLogData = {
-        name: leadData.full_name,
-        email: leadData.email,
-        phone: leadData.phone,
-        notes: `[FALLBACK BACKUP] Company: ${leadData.company}. Website: ${leadData.website}. Message: ${leadData.message}. Page: ${leadData.source_page}. Form: ${leadData.source_form}`,
-        service: leadData.service_interest,
-        intent: 'lead_fallback',
-        formType: leadData.source_form,
-        channel: 'web_form',
-        status: 'submitted',
-        timestamp: new Date().toISOString()
-      };
-
-      try {
-        const fallbackResult = await loggingEngine.logFormSubmission(clientId, sheetLogData);
-        return new Response(JSON.stringify({
-          success: true,
-          leadId: fallbackResult.logId || 'fallback-sheet-row',
-          message: 'Airtable down - lead safely backed up to Google Sheets',
-          fallback: true,
-          note: airtableError.message
-        }), {
-          status: 202,
-          headers: { 'Content-Type': 'application/json', ...corsHeaders }
-        });
-      } catch (sheetError) {
-        console.error('Google Sheets fallback logging also failed:', sheetError.message);
-        throw new Error(`Primary (Airtable) and Fallback (Sheets) both failed. Airtable error: ${airtableError.message}. Sheets error: ${sheetError.message}`);
-      }
-    }
-  } catch (error) {
-    console.error('Error creating lead:', error);
-    return new Response(JSON.stringify({
-      error: 'Failed to create lead',
-      message: error.message
-    }), {
-      status: 500,
-      headers: { 'Content-Type': 'application/json', ...corsHeaders }
-    });
-  }
-}
-
-async function handleGetCallLogs(clientId, searchParams, dbService, corsHeaders) {
-  try {
-    if (!dbService) {
-      return new Response(JSON.stringify({ error: 'Database service unavailable' }), {
-        status: 503,
-        headers: { 'Content-Type': 'application/json', ...corsHeaders }
-      });
-    }
-    
-    const options = {
-      limit: parseInt(searchParams.get('limit')) || 50
-    };
-    
-    const result = await dbService.getCallLogs(clientId, options);
-    
-    return new Response(JSON.stringify({
-      success: true,
-      clientId,
-      callLogs: result.data,
-      count: result.data.length
-    }), {
-      headers: { 'Content-Type': 'application/json', ...corsHeaders }
-    });
-  } catch (error) {
-    console.error('Error getting call logs:', error);
-    return new Response(JSON.stringify({
-      error: 'Failed to get call logs',
-      message: error.message
-    }), {
-      status: 500,
-      headers: { 'Content-Type': 'application/json', ...corsHeaders }
-    });
-  }
-}
-
-async function handleCreateCallLog(clientId, body, dbService, corsHeaders) {
-  try {
-    if (!dbService) {
-      return new Response(JSON.stringify({ error: 'Database service unavailable' }), {
-        status: 503,
-        headers: { 'Content-Type': 'application/json', ...corsHeaders }
-      });
-    }
-    
-    // Validate required fields
-    if (!body.callerNumber) {
-      return new Response(JSON.stringify({
-        error: 'Validation failed',
-        message: 'callerNumber is required'
-      }), {
-        status: 400,
-        headers: { 'Content-Type': 'application/json', ...corsHeaders }
-      });
-    }
-    
-    const callData = {
-      clientId,
-      callerNumber: body.callerNumber,
-      transcript: body.transcript,
-      aiResponse: body.aiResponse,
-      durationSeconds: body.durationSeconds,
-      sentiment: body.sentiment,
-      callOutcome: body.callOutcome,
-      recordingUrl: body.recordingUrl,
-      escalationRequired: body.escalationRequired,
-      leadCreated: body.leadCreated,
-      metadata: body.metadata
-    };
-    
-    const result = await dbService.createCallLog(callData);
-    
-    return new Response(JSON.stringify({
-      success: true,
-      message: 'Call log created successfully',
-      callLog: result.data
-    }), {
-      headers: { 'Content-Type': 'application/json', ...corsHeaders }
-    });
-  } catch (error) {
-    console.error('Error creating call log:', error);
-    return new Response(JSON.stringify({
-      error: 'Failed to create call log',
-      message: error.message
-    }), {
-      status: 500,
-      headers: { 'Content-Type': 'application/json', ...corsHeaders }
-    });
-  }
-}
-
-async function handleGetBookings(clientId, searchParams, dbService, corsHeaders) {
-  try {
-    if (!dbService) {
-      return new Response(JSON.stringify({ error: 'Database service unavailable' }), {
-        status: 503,
-        headers: { 'Content-Type': 'application/json', ...corsHeaders }
-      });
-    }
-    
-    const options = {
-      status: searchParams.get('status') || undefined,
-      fromDate: searchParams.get('fromDate') || undefined,
-      toDate: searchParams.get('toDate') || undefined,
-      limit: parseInt(searchParams.get('limit')) || 50
-    };
-    
-    const result = await dbService.getBookings(clientId, options);
-    
-    return new Response(JSON.stringify({
-      success: true,
-      clientId,
-      bookings: result.data,
-      count: result.data.length
-    }), {
-      headers: { 'Content-Type': 'application/json', ...corsHeaders }
-    });
-  } catch (error) {
-    console.error('Error getting bookings:', error);
-    return new Response(JSON.stringify({
-      error: 'Failed to get bookings',
-      message: error.message
-    }), {
-      status: 500,
-      headers: { 'Content-Type': 'application/json', ...corsHeaders }
-    });
-  }
-}
-
-async function handleCreateBooking(clientId, body, dbService, corsHeaders) {
-  try {
-    if (!dbService) {
-      return new Response(JSON.stringify({ error: 'Database service unavailable' }), {
-        status: 503,
-        headers: { 'Content-Type': 'application/json', ...corsHeaders }
-      });
-    }
-    
-    // Validate required fields
-    if (!body.phoneNumber || !body.appointmentDate) {
-      return new Response(JSON.stringify({
-        error: 'Validation failed',
-        message: 'phoneNumber and appointmentDate are required'
-      }), {
-        status: 400,
-        headers: { 'Content-Type': 'application/json', ...corsHeaders }
-      });
-    }
-    
-    const bookingData = {
-      clientId,
-      customerName: body.customerName,
-      phoneNumber: body.phoneNumber,
-      serviceType: body.serviceType,
-      appointmentDate: body.appointmentDate,
-      appointmentTime: body.appointmentTime,
-      bookingStatus: body.bookingStatus,
-      notes: body.notes,
-      calendarEventId: body.calendarEventId,
-      reminderSent: body.reminderSent
-    };
-    
-    const result = await dbService.createBooking(bookingData);
-    
-    return new Response(JSON.stringify({
-      success: true,
-      message: 'Booking created successfully',
-      booking: result.data
-    }), {
-      headers: { 'Content-Type': 'application/json', ...corsHeaders }
-    });
-  } catch (error) {
-    console.error('Error creating booking:', error);
-    return new Response(JSON.stringify({
-      error: 'Failed to create booking',
-      message: error.message
-    }), {
-      status: 500,
-      headers: { 'Content-Type': 'application/json', ...corsHeaders }
-    });
-  }
-}
-
 // ==================== VAPI HANDLERS ====================
 
-async function handleVapiWebhook(request, env, clientConfig, loggingEngine, corsHeaders) {
+async function handleVapiWebhook(request, env, corsHeaders) {
   try {
+    const clientConfig = new ClientConfigService(env);
+    const sheetsService = new GoogleSheetsService(env);
+    const loggingEngine = new LoggingEngine(sheetsService, clientConfig);
     const vapiService = new VapiService(env, clientConfig, loggingEngine);
     const result = await vapiService.handleWebhook(request);
 
@@ -810,7 +304,7 @@ async function handleVapiWebhook(request, env, clientConfig, loggingEngine, cors
   }
 }
 
-async function handleVapiOutboundCall(request, env, clientConfig, loggingEngine, corsHeaders) {
+async function handleVapiOutboundCall(request, env, corsHeaders) {
   try {
     const body = await request.json();
     const { clientId, customerNumber, ...overrides } = body;
@@ -822,6 +316,9 @@ async function handleVapiOutboundCall(request, env, clientConfig, loggingEngine,
       });
     }
 
+    const clientConfig = new ClientConfigService(env);
+    const sheetsService = new GoogleSheetsService(env);
+    const loggingEngine = new LoggingEngine(sheetsService, clientConfig);
     const vapiService = new VapiService(env, clientConfig, loggingEngine);
     const callResult = await vapiService.triggerOutboundCall(clientId, customerNumber, overrides);
 
@@ -837,39 +334,6 @@ async function handleVapiOutboundCall(request, env, clientConfig, loggingEngine,
     return new Response(JSON.stringify({ error: 'Failed to initiate outbound call', message: error.message }), {
       status: 500,
       headers: { 'Content-Type': 'application/json', ...corsHeaders },
-    });
-  }
-}
-
-async function handleGetAnalytics(clientId, searchParams, dbService, corsHeaders) {
-  try {
-    if (!dbService) {
-      return new Response(JSON.stringify({ error: 'Database service unavailable' }), {
-        status: 503,
-        headers: { 'Content-Type': 'application/json', ...corsHeaders }
-      });
-    }
-    
-    const days = parseInt(searchParams.get('days')) || 30;
-    
-    const result = await dbService.getAnalytics(clientId, days);
-    
-    return new Response(JSON.stringify({
-      success: true,
-      clientId,
-      days,
-      analytics: result.data
-    }), {
-      headers: { 'Content-Type': 'application/json', ...corsHeaders }
-    });
-  } catch (error) {
-    console.error('Error getting analytics:', error);
-    return new Response(JSON.stringify({
-      error: 'Failed to get analytics',
-      message: error.message
-    }), {
-      status: 500,
-      headers: { 'Content-Type': 'application/json', ...corsHeaders }
     });
   }
 }

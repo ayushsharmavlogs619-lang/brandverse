@@ -3,14 +3,12 @@
  * Production-safe lead capture system with defensive programming
  */
 
-import { config } from './config';
 import { FORMSUBMIT_ACTION } from './forms';
 import { GoogleSheetsService, createGoogleSheetsService } from './google-sheets-service';
-import { CerebrasService, createCerebrasService } from './cerebras-service';
-import type { LeadData, AIAnalysis } from './types';
+import type { LeadData } from './types';
 
 // Re-export for convenience so consumers can import from lead-service
-export type { LeadData, AIAnalysis };
+export type { LeadData };
 
 export interface LeadSubmissionResult {
     success: boolean;
@@ -32,20 +30,18 @@ class LeadValidator {
 
     static isValidPhone(phone: string): boolean {
         if (!phone || phone.trim() === '') return false;
-        // Allow international formats: +1234567890, 123-456-7890, (123) 456-7890
         const phoneRegex = /^[\+]?[0-9\s\-()]{10,20}$/;
         return phoneRegex.test(phone.trim());
     }
 
     static sanitizeInput(input: string): string {
         if (!input) return '';
-        return input.trim().substring(0, 1000); // Prevent excessively long inputs
+        return input.trim().substring(0, 1000);
     }
 
     static sanitizeUrl(url: string): string {
         if (!url) return '';
         const sanitized = url.trim().substring(0, 500);
-        // Basic URL validation
         if (sanitized && !sanitized.startsWith('http')) {
             return 'https://' + sanitized;
         }
@@ -54,27 +50,19 @@ class LeadValidator {
 
     static validateLeadData(data: LeadData): { valid: boolean; errors: string[] } {
         const errors: string[] = [];
-
         if (!data.email && !data.phone) {
             errors.push('At least email or phone is required');
         }
-
         if (data.email && !this.isValidEmail(data.email)) {
             errors.push('Invalid email format');
         }
-
         if (data.phone && !this.isValidPhone(data.phone)) {
             errors.push('Invalid phone format');
         }
-
         if (data.full_name && data.full_name.length < 2) {
             errors.push('Name must be at least 2 characters');
         }
-
-        return {
-            valid: errors.length === 0,
-            errors
-        };
+        return { valid: errors.length === 0, errors };
     }
 
     static sanitizeLeadData(data: LeadData): LeadData {
@@ -96,37 +84,22 @@ class LeadValidator {
     }
 
     static detectSpam(data: LeadData): boolean {
-        // Basic spam detection
         const spamPatterns = [
-            /test/i,
-            /spam/i,
-            /xxx/i,
-            /viagra/i,
-            /casino/i,
-            /lottery/i,
-            /winner/i
+            /test/i, /spam/i, /xxx/i, /viagra/i, /casino/i, /lottery/i, /winner/i
         ];
-
         const message = (data.message || '').toLowerCase();
         const fullName = (data.full_name || '').toLowerCase();
-
-        // Check for spam patterns in message
         for (const pattern of spamPatterns) {
             if (pattern.test(message)) return true;
         }
-
-        // Check for suspicious email domains
         if (data.email) {
             const suspiciousDomains = ['tempmail.com', 'throwaway.email', 'guerrillamail.com'];
             const domain = data.email.split('@')[1]?.toLowerCase();
             if (suspiciousDomains.includes(domain)) return true;
         }
-
-        // Check for obviously fake data
         if (fullName === 'test test' || fullName === 'john doe') {
             return true;
         }
-
         return false;
     }
 }
@@ -136,22 +109,16 @@ class LeadValidator {
 // =====================================================
 
 class LeadService {
-    private isConfigured: boolean;
-    private workerUrl: string;
     private googleSheetsService: GoogleSheetsService | null;
-    private cerebrasService: CerebrasService | null;
 
     constructor() {
-        this.workerUrl = config.workerUrl || 'https://edge.brandverse.tech';
-        this.isConfigured = !!this.workerUrl;
         this.googleSheetsService = createGoogleSheetsService();
-        this.cerebrasService = createCerebrasService();
     }
 
-    private async submitToSheets(data: LeadData, aiAnalysis?: AIAnalysis): Promise<boolean> {
+    private async submitToSheets(data: LeadData): Promise<boolean> {
         if (!this.googleSheetsService) return false;
         try {
-            const result = await this.googleSheetsService.appendLead(data, aiAnalysis);
+            const result = await this.googleSheetsService.appendLead(data);
             if (result.success) {
                 console.log('Lead submitted to Google Sheets');
                 return true;
@@ -164,91 +131,41 @@ class LeadService {
         }
     }
 
-    private async submitToWorker(data: LeadData): Promise<{ ok: boolean; leadId?: string; usedFallback?: boolean }> {
-        if (!this.isConfigured) return { ok: false };
-        try {
-            const response = await fetch(`${this.workerUrl}/api/brandverse/leads`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(data),
-            });
-
-            if (response.ok) {
-                const result = await response.json();
-                console.log('Lead submitted to Worker Proxy:', result);
-                return { ok: true, leadId: result.leadId, usedFallback: !!result.fallback };
-            }
-            console.error('Worker Proxy returned error status:', response.status);
-            return { ok: false };
-        } catch (error) {
-            console.error('Worker Proxy request failed:', error);
-            return { ok: false };
-        }
-    }
-
     async submitLead(data: LeadData): Promise<LeadSubmissionResult> {
         try {
-            // Step 1: Validate input
+            // Step 1: Validate
             const validationResult = LeadValidator.validateLeadData(data);
             if (!validationResult.valid) {
                 console.warn('Lead validation failed:', validationResult.errors);
-                return {
-                    success: false,
-                    error: validationResult.errors.join(', '),
-                };
+                return { success: false, error: validationResult.errors.join(', ') };
             }
 
-            // Step 2: Sanitize input
+            // Step 2: Sanitize
             const sanitizedData = LeadValidator.sanitizeLeadData(data);
 
             // Step 3: Detect spam
             if (LeadValidator.detectSpam(sanitizedData)) {
                 console.warn('Potential spam detected:', sanitizedData);
-                return {
-                    success: false,
-                    error: 'Potential spam detected',
-                };
+                return { success: false, error: 'Potential spam detected' };
             }
 
-            // Step 4: Generate AI analysis (if Cerebras is configured)
-            let aiAnalysis: AIAnalysis | undefined;
-            if (this.cerebrasService) {
-                try {
-                    aiAnalysis = await this.cerebrasService.analyzeLead(sanitizedData);
-                    console.log('AI analysis generated:', aiAnalysis);
-                } catch (error) {
-                    console.error('AI analysis failed, continuing without it:', error);
-                }
-            }
-
-            // Step 5: Fire Google Sheets, Worker Proxy, and FormSubmit CONCURRENTLY.
-            // FormSubmit must never be skipped just because Sheets/Worker succeeded,
-            // so all three race together via Promise.allSettled.
-            const [sheetsResult, workerResult, formSubmitResult] = await Promise.allSettled([
-                this.submitToSheets(sanitizedData, aiAnalysis),
-                this.submitToWorker(sanitizedData),
+            // Step 4: Fire Google Sheets and FormSubmit CONCURRENTLY
+            const [sheetsResult, formSubmitResult] = await Promise.allSettled([
+                this.submitToSheets(sanitizedData),
                 this.formSubmitBackup(sanitizedData),
             ]);
 
             const submittedToSheets = sheetsResult.status === 'fulfilled' && sheetsResult.value === true;
-
-            const workerValue = workerResult.status === 'fulfilled' ? workerResult.value : { ok: false };
-            const submittedToWorker = workerValue.ok;
-
             const submittedToFormSubmit =
                 formSubmitResult.status === 'fulfilled' && formSubmitResult.value.success === true;
 
-            // Step 6: Success if ANY channel got through.
-            if (submittedToSheets || submittedToWorker || submittedToFormSubmit) {
-                return {
-                    success: true,
-                    leadId: workerValue.leadId,
-                    fallback: !submittedToWorker || !!workerValue.usedFallback,
-                };
+            // Step 5: Success if ANY channel got through
+            if (submittedToSheets || submittedToFormSubmit) {
+                return { success: true, fallback: !submittedToSheets };
             }
 
-            // Step 7: All three failed - last-resort mailto + localStorage
-            console.error('All lead channels failed (Sheets, Worker, FormSubmit)');
+            // Step 6: Both failed — last-resort mailto + localStorage
+            console.error('All lead channels failed (Sheets, FormSubmit)');
             return this.fallbackSubmit(sanitizedData);
 
         } catch (error) {
@@ -261,10 +178,7 @@ class LeadService {
         try {
             const response = await fetch(FORMSUBMIT_ACTION, {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json',
-                },
+                headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
                 body: JSON.stringify({
                     _subject: `LEAD [${data.source_form || 'website'}]: ${data.full_name || data.company || 'Unknown'}`,
                     _template: 'table',
@@ -296,15 +210,10 @@ class LeadService {
             console.error('FormSubmit error:', error);
         }
 
-        return {
-            success: false,
-            fallback: true,
-            error: 'FormSubmit failed',
-        };
+        return { success: false, fallback: true, error: 'FormSubmit failed' };
     }
 
     private async fallbackSubmit(data: LeadData): Promise<LeadSubmissionResult> {
-        // Last resort: localStorage + mailto (all three channels already failed by this point)
         const emailBody = `
 BRANDVERSE LEAD BACKUP (Database Failed)
 
@@ -326,26 +235,18 @@ UTM Campaign: ${data.utm_campaign || 'unknown'}
 Timestamp: ${new Date().toISOString()}
         `.trim();
 
-        // Open email client with lead data
         const mailtoLink = `mailto:ayush@brandverse.tech?subject=LEAD BACKUP: ${data.full_name || 'Unknown'} - ${data.company || 'No Company'}&body=${encodeURIComponent(emailBody)}`;
 
-        // Store in localStorage for retry
         try {
             if (typeof window !== 'undefined') {
                 const failedLeads = JSON.parse(localStorage.getItem('failed_leads') || '[]');
-                failedLeads.push({
-                    ...data,
-                    timestamp: new Date().toISOString(),
-                    attempted: false
-                });
+                failedLeads.push({ ...data, timestamp: new Date().toISOString(), attempted: false });
                 localStorage.setItem('failed_leads', JSON.stringify(failedLeads));
-                console.warn('Lead stored in localStorage for retry');
             }
         } catch (e) {
             console.error('Failed to store lead in localStorage:', e);
         }
 
-        // Trigger email client
         try {
             if (typeof window !== 'undefined') {
                 window.open(mailtoLink, '_blank');
@@ -354,7 +255,6 @@ Timestamp: ${new Date().toISOString()}
             console.error('Failed to open email client:', e);
         }
 
-        // Alert founder immediately
         console.error('CRITICAL: Lead submission failed - email backup triggered', data);
 
         return {
@@ -364,17 +264,12 @@ Timestamp: ${new Date().toISOString()}
         };
     }
 
-    async submitLeadWithRetry(
-        data: LeadData,
-        maxRetries: number = 2
-    ): Promise<LeadSubmissionResult> {
+    async submitLeadWithRetry(data: LeadData, maxRetries: number = 2): Promise<LeadSubmissionResult> {
         let lastResult: LeadSubmissionResult | null = null;
 
         for (let attempt = 0; attempt <= maxRetries; attempt++) {
             const result = await this.submitLead(data);
-            if (result.success) {
-                return result;
-            }
+            if (result.success) return result;
 
             lastResult = result;
 
@@ -384,22 +279,16 @@ Timestamp: ${new Date().toISOString()}
                 result.error?.includes('spam') ||
                 result.fallback;
 
-            if (nonRetryable) {
-                return result;
-            }
+            if (nonRetryable) return result;
 
             if (attempt < maxRetries) {
                 await new Promise(resolve => setTimeout(resolve, Math.pow(2, attempt) * 1000));
             }
         }
 
-        return lastResult || {
-            success: false,
-            error: 'Max retries exceeded',
-        };
+        return lastResult || { success: false, error: 'Max retries exceeded' };
     }
 
-    // Helper to get current page URL for source tracking
     static getCurrentSourcePage(): string {
         if (typeof window !== 'undefined') {
             return window.location.pathname;
@@ -407,10 +296,8 @@ Timestamp: ${new Date().toISOString()}
         return 'unknown';
     }
 
-    // Helper to get UTM parameters from URL
     static getUtmParameters(): Record<string, string> {
         if (typeof window === 'undefined') return {};
-
         const urlParams = new URLSearchParams(window.location.search);
         return {
             utm_source: urlParams.get('utm_source') || '',

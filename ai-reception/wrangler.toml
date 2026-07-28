@@ -8,28 +8,15 @@ name = "ai-receptionist-prod"
 vars = [
   { name = "APP_BASE_URL", value = "https://edge.brandverse.tech" },
   { name = "APP_SUBDOMAIN", value = "edge.brandverse.tech" },
-  { name = "DEFAULT_TIMEZONE", value = "Australia/Melbourne" },
-  { name = "SUPABASE_URL", value = "https://ewqbqrelnjpauqablnvt.supabase.co" }
+  { name = "DEFAULT_TIMEZONE", value = "Australia/Melbourne" }
 ]
 
 # Required secrets/vars must be configured in Cloudflare before production use:
-# wrangler secret put CEREBRAS_API_KEY --env production
-# wrangler secret put OPENAI_API_KEY --env production
-# wrangler secret put TWILIO_SID --env production
-# wrangler secret put TWILIO_AUTH_TOKEN --env production
-# wrangler secret put TWILIO_PHONE_NUMBER --env production
 # wrangler secret put GOOGLE_CLIENT_EMAIL --env production
 # wrangler secret put GOOGLE_PRIVATE_KEY --env production
 # wrangler secret put GOOGLE_CALENDAR_API_KEY --env production
 # wrangler secret put GOOGLE_SHEETS_API_KEY --env production
 # wrangler secret put VAPI_API_KEY --env production
-# wrangler secret put SUPABASE_SERVICE_KEY --env production
-
-# KV namespace will be added later when needed
-# [[env.production.kv_namespaces]]
-# binding = "CLIENT_CACHE"
-# id = "your-kv-namespace-id"
-# preview_id = "your-preview-kv-namespace-id"
 
 [env.staging]
 name = "ai-receptionist-staging"
@@ -37,8 +24,7 @@ name = "ai-receptionist-staging"
 vars = [
   { name = "APP_BASE_URL", value = "https://staging-edge.brandverse.tech" },
   { name = "APP_SUBDOMAIN", value = "staging-edge.brandverse.tech" },
-  { name = "DEFAULT_TIMEZONE", value = "Australia/Melbourne" },
-  { name = "SUPABASE_URL", value = "https://ewqbqrelnjpauqablnvt.supabase.co" }
+  { name = "DEFAULT_TIMEZONE", value = "Australia/Melbourne" }
 ]
 
 # Required secrets/vars must be configured in Cloudflare before staging use.
