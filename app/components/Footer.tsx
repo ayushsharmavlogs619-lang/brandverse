@@ -14,7 +14,7 @@ export default function Footer() {
             <div className="max-w-7xl mx-auto grid md:grid-cols-4 gap-12">
                 <div className="space-y-6">
                     <div className="text-2xl font-black text-white">BRANDVERSE.TECH</div>
-                    <p className="text-slate-500 leading-relaxed">AI-powered solutions specifically designed for Small to Medium Sized Businesses. Transform your operations with intelligent automation.</p>
+                    <p className="text-slate-500 leading-relaxed">AI-powered solutions specifically designed for electrical contractors. Transform your call handling and dispatch with intelligent automation.</p>
                     <div className="flex gap-4">
                         <a href="https://twitter.com/brandverse_tech" target="_blank" className="p-2 rounded-full bg-white/5 hover:bg-blue-500/20 hover:text-blue-400 transition-colors">
                             <Twitter className="w-5 h-5" />

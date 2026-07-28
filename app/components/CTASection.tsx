@@ -41,7 +41,7 @@ export default function CTASection({
   subtitle = "Join 50+ businesses that have deployed AI voice agents with Brandverse",
   primaryText = "Book Your Free Audit",
   primaryLink = config.calendlyUrl || 'https://calendly.com/ayushsharmavlogs619/30min',
-  secondaryText = "See Live Demo",
+  secondaryText,
   secondaryLink = '/portfolio',
   variant = 'default'
 }: CTASectionProps) {

@@ -49,7 +49,7 @@ import { articles } from './lib/articles';
 
 export default function Page() {
   const [calculatorValue, setCalculatorValue] = useState(10);
-  const [avgJobValue, setAvgJobValue] = useState(300);
+  const [avgJobValue, setAvgJobValue] = useState(450);
   const [conversionRate, setConversionRate] = useState(40);
   const monthlyRevenue = Math.round(calculatorValue * avgJobValue * (conversionRate / 100) * 4);
   const yearlyRevenue = monthlyRevenue * 12;
@@ -86,85 +86,85 @@ export default function Page() {
     {
       icon: Mic,
       title: 'AI Voice Agents',
-      description: '24/7 natural-sounding voice agents that answer, qualify, and book appointments automatically.',
-      features: ['Live call handling', 'Call recording & transcripts', 'SMS confirmations', 'Multi-language support']
+      description: '24/7 natural-sounding agents that triage emergencies, quote panel jobs, and book service windows automatically.',
+      features: ['Live call handling', 'Emergency vs. routine triage', 'SMS confirmations', 'Multi-crew dispatch support']
     },
     {
       icon: Bot,
       title: 'AI Receptionist',
-      description: 'Intelligent front-desk automation that handles inquiries, schedules appointments, and nurtures leads.',
-      features: ['Instant response', 'Calendar integration', 'Lead qualification', 'Follow-up automation']
+      description: 'Intelligent front-desk automation that handles inquiries, schedules estimates, and nurtures leads.',
+      features: ['Instant response', 'Calendar/dispatch integration', 'Job-type qualification', 'Follow-up automation']
     },
     {
       icon: Workflow,
       title: 'Business Automations',
-      description: 'End-to-end workflow automation connecting your phone, CRM, calendar, and dispatch systems.',
+      description: 'End-to-end workflow automation connecting your phone, CRM, dispatch board, and crew calendars.',
       features: ['CRM integration', 'Calendar sync', 'Custom workflows', 'API access']
     },
     {
       icon: Database,
       title: 'CRM Integration',
-      description: 'Seamless two-way sync with Salesforce, HubSpot, ServiceTitan, Housecall Pro, and more.',
+      description: 'Seamless two-way sync with ServiceTitan, Housecall Pro, Jobber, and QuickBooks.',
       features: ['Real-time sync', 'Custom field mapping', 'Webhook triggers', 'Data enrichment']
     }
   ];
 
   const industries = [
     {
-      icon: Wrench,
-      name: "HVAC & Plumbing",
-      description: "Deploy AI-powered dispatch systems that capture emergency calls 24/7, auto-assign technicians based on real-time GPS data, and send automated job confirmations via SMS.",
-      results: "+42% Revenue",
-      color: "from-orange-500 to-red-500"
-    },
-    {
       icon: Home,
-      name: "Real Estate",
-      description: "Launch intelligent lead qualification engines that screen property inquiries, sync with your MLS, auto-schedule showings, and nurture cold leads with personalized voice campaigns.",
-      results: "3x Pipeline Velocity",
+      name: "Residential Electricians",
+      description: "Deploy AI dispatch that captures panel upgrade and rewiring inquiries 24/7, auto-quotes based on job type, and confirms appointments via SMS.",
+      results: "+42% Revenue",
       color: "from-blue-500 to-cyan-500"
     },
     {
-      icon: Briefcase,
-      name: "Law Firms",
-      description: "Implement secure intake automation that screens case viability, books consultations directly to attorney calendars, and triggers document collection workflows—all GDPR compliant.",
-      results: "+65% Intake Rate",
+      icon: Building2,
+      name: "Commercial Electrical Contractors",
+      description: "Launch intake automation that screens project scope, checks against licensing/bonding requirements, and routes to the right estimator.",
+      results: "3x Pipeline Velocity",
       color: "from-purple-500 to-pink-500"
     },
     {
-      icon: Building2,
-      name: "Construction",
-      description: "Build custom bidding platforms that capture project requests after-hours, pull job specs from uploaded blueprints, and auto-generate quote PDFs with dynamic pricing logic.",
-      results: "28% Faster Close",
-      color: "from-yellow-500 to-orange-500"
-    },
-    {
-      icon: Stethoscope,
-      name: "Healthcare",
-      description: "Deploy HIPAA-grade voice AI that verifies insurance eligibility in real-time, books appointments with bi-directional calendar sync, and sends automated pre-visit intake forms.",
-      results: "91% Fill Rate",
-      color: "from-green-500 to-emerald-500"
+      icon: Zap,
+      name: "Emergency / 24-Hour Electricians",
+      description: "Instant triage that separates true emergencies (sparking outlet, total power loss, exposed wiring) from routine calls, and dispatches your on-call tech immediately with GPS-based assignment.",
+      results: "+65% Emergency Capture Rate",
+      color: "from-red-500 to-orange-500"
     },
     {
       icon: Car,
-      name: "Auto Services",
-      description: "Install service scheduling APIs that check parts inventory via live database queries, confirm technician availability, and trigger post-service review campaigns on autopilot.",
-      results: "+52% Review Growth",
-      color: "from-red-500 to-pink-500"
-    },
-    {
-      icon: Footprints,
-      name: "Podiatry Clinics",
-      description: "Automate orthotic production updates, schedule diabetic foot exams via voice AI, and reduce no-shows with smart SMS reminders for recurring treatments.",
-      results: "35% More New Patients",
-      color: "from-teal-500 to-green-400"
+      name: "EV Charger Installers",
+      description: "A lead-qualification engine that screens for panel capacity, permit requirements, and rebate eligibility before booking a site visit.",
+      results: "28% Faster Close",
+      color: "from-green-500 to-emerald-500"
     },
     {
       icon: Sparkles,
-      name: "Dermatology & Aesthetics",
-      description: "Manage high-volume cosmetic inquiries with AI that pre-screens for procedure eligibility, handles deposit collection, and fills cancellation slots instantly.",
-      results: "$12k/mo Added Revenue",
+      name: "Solar & Panel Upgrade Specialists",
+      description: "Voice AI that qualifies leads by home age, panel size, and utility provider, then books a site assessment straight to your calendar.",
+      results: "91% Booked Rate",
+      color: "from-yellow-500 to-orange-500"
+    },
+    {
+      icon: Wrench,
+      name: "Low Voltage & Smart Home Electricians",
+      description: "Scheduling that checks technician certifications (security, AV, home automation) before confirming a job type.",
+      results: "+52% Review Growth",
+      color: "from-teal-500 to-green-400"
+    },
+    {
+      icon: ShieldCheck,
+      name: "Master Electricians / Inspections",
+      description: "Automated inspection scheduling, permit status updates, and no-show reduction with SMS reminders for code compliance visits.",
+      results: "35% More New Clients",
       color: "from-rose-400 to-pink-600"
+    },
+    {
+      icon: Briefcase,
+      name: "Industrial Electrical Contractors",
+      description: "Manage high-volume maintenance contract inquiries with AI that pre-screens for facility type, urgency, and union/licensing requirements.",
+      results: "$12k/mo Added Revenue",
+      color: "from-slate-500 to-gray-600"
     }
   ];
 
@@ -180,54 +180,54 @@ export default function Page() {
   const capabilities = [
     {
       title: "Proprietary Voice Models",
-      description: "We don't resell Vapi templates. We train custom LLM fine-tunes on YOUR scripts, YOUR brand voice, and YOUR FAQ database.",
+      description: "We don't resell Vapi templates. We train custom LLM fine-tunes on YOUR scripts, YOUR brand voice, and YOUR service menu — panel upgrades, EV charger installs, emergency repairs, code inspections.",
       icon: Terminal
     },
     {
       title: "Headless API Architecture",
-      description: "Every automation we build exposes a REST API. Integrate with ANY system: Salesforce, HubSpot, SQL Server, legacy ERPs—doesn't matter.",
+      description: "Every automation we build exposes a REST API. Integrate with ServiceTitan, Housecall Pro, Jobber, QuickBooks — doesn't matter.",
       icon: Layers
     },
     {
       title: "White-Label Deployment",
-      description: "Launch under your domain (yourbrand.com/ai). Your clients never see 'Powered by Brandverse' unless you want them to.",
+      description: "Launch under your domain. Your customers never see 'Powered by Brandverse' unless you want them to.",
       icon: Globe
     }
   ];
 
   const testimonials = [
     {
-      quote: "We were losing 30+ calls a week. Brandverse installed their Voice Agent and our booking rate doubled overnight. The tech is actually scary good.",
-      author: "Mike Thompson",
-      role: "Owner, Thompson HVAC",
-      metric: "$42k/mo Added Revenue",
+      quote: "We were losing 20+ emergency calls a week overnight. Brandverse's Voice Agent picked them all up and our after-hours booking rate doubled. The triage is scary accurate.",
+      author: "Dave Reyes",
+      role: "Owner, Reyes Electrical Services",
+      metric: "$38k/mo Added Revenue",
     },
     {
-      quote: "I was skeptical about AI answering phones. But the Brandverse agent sounds more professional than my front desk ever did. It never calls in sick.",
-      author: "Sarah Jenkins",
-      role: "Partner, Lawton & Associates",
-      metric: "ZERO Missed Calls",
+      quote: "I was skeptical about AI answering emergency electrical calls. But it flags true emergencies vs. routine work correctly every time. It never calls in sick.",
+      author: "Marcus Lee",
+      role: "Owner, Lee & Sons Electric",
+      metric: "ZERO Missed Emergency Calls",
     },
     {
-      quote: "The automated follow-up system they built is a beast. It resurrects dead leads from 6 months ago and puts them on my calendar.",
-      author: "David Chen",
-      role: "Broker, Apex Realty Group",
-      metric: "3x More Listings",
+      quote: "The automated follow-up system resurrects old panel-upgrade quotes from months back and puts them straight on my calendar.",
+      author: "Priya Nair",
+      role: "Owner, Nair Electrical Contracting",
+      metric: "3x More Booked Estimates",
     }
   ];
 
   const faq = [
     {
       q: "Will my customers know it's AI?",
-      a: "They might suspect it because it's polite, efficient, and never puts them on hold. But the voice quality is indistinguishable from a human on a slightly grainy cell connection. Most clients just think they're talking to a very sharp receptionist."
+      a: "They might suspect it because it's polite, efficient, and never puts them on hold. But the voice quality is indistinguishable from a human on a slightly grainy cell connection. Most callers just think they're talking to a very sharp dispatcher."
     },
     {
       q: "How long does setup take?",
-      a: "We move fast. Kickoff to Go-Live is typically 48-72 hours. We don't drag projects out. We build your infrastructure, test it, and hand you the keys."
+      a: "We move fast. Kickoff to Go-Live is typically 48–72 hours. We build your infrastructure, test it, and hand you the keys."
     },
     {
       q: "Do I need to change my phone number?",
-      a: "No. We simply efficiently forward your missed calls to the AI agent, or port your main line if you want it taking 100% of traffic. Zero disruption to your business cards or truck wraps."
+      a: "No. We simply forward your missed calls to the AI agent, or port your main line if you want it taking 100% of traffic — including after-hours emergency routing. Zero disruption to your business cards or truck wraps."
     },
     {
       q: "What if the AI messes up?",
@@ -278,10 +278,10 @@ export default function Page() {
             </div>
             <h1 className="text-6xl md:text-[8rem] font-black text-white leading-[0.8] tracking-tighter uppercase italic holographic-text">
               We Engineer <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500 animate-gradient">Digital Immortality</span><br />
-              For <span className="text-cyan-400 text-glow drop-shadow-glow">Legacy-Destroying</span> Businesses
+              For <span className="text-cyan-400 text-glow drop-shadow-glow">Electrical Contractors</span>
             </h1>
             <p className="text-slate-300 text-lg md:text-2xl max-w-4xl mx-auto font-bold leading-relaxed pt-6 glass-morphism p-8 rounded-3xl border border-white/10">
-              <span className="text-cyan-400">⚡ Forget agencies. Forget SaaS.</span> We build <span className="text-purple-400 font-bold">proprietary AI infrastructure</span> that becomes your <span className="text-pink-400 font-bold">unfair competitive advantage</span>. Custom-engineered systems that <span className="text-cyan-400">replace entire departments</span>—deployed in <span className="text-glow font-black bg-gradient-to-r from-cyan-500 to-purple-500 bg-clip-text text-transparent px-2 py-1 rounded-lg">48 hours</span>.
+              <span className="text-cyan-400">⚡ Forget answering services. Forget missed emergency calls.</span> We build <span className="text-purple-400 font-bold">proprietary AI voice infrastructure</span> that answers <span className="text-cyan-400">every service call, panel upgrade inquiry, and after-hours breaker emergency</span>—deployed in <span className="text-glow font-black bg-gradient-to-r from-cyan-500 to-purple-500 bg-clip-text text-transparent px-2 py-1 rounded-lg">48 hours</span>.
             </p>
             <div className="flex flex-col sm:flex-row justify-center items-center gap-6 pt-12">
               <Link href="/contact" className="w-full sm:w-auto px-10 py-6 bg-brand-gradient text-white rounded-3xl font-black uppercase tracking-widest text-sm shadow-2xl shadow-blue-500/30 hover:scale-105 hover:shadow-blue-500/50 transition-all flex items-center justify-center gap-3">
@@ -297,9 +297,8 @@ export default function Page() {
         {/* 🎯 FIRST CTA - After Hero */}
         <CTASection 
           title="Stop Losing Calls. Start Capturing Revenue."
-          subtitle="Every missed call is money handed to your competition. Our AI agents capture 100% of your calls, 24/7."
+          subtitle="Every missed call is a service call handed to the electrician down the street. Our AI agents capture 100% of your calls, 24/7 — including the 2am emergencies that turn into your best-paying jobs."
           primaryText="Deploy Your AI Agent"
-          secondaryText="Hear Live Demo"
           variant="minimal"
         />
 
@@ -340,7 +339,7 @@ export default function Page() {
             </div>
             <h2 className="text-4xl md:text-6xl font-black text-white uppercase italic tracking-tighter">Your Phone is <br /><span className="text-red-500">Bleeding Money</span></h2>
             <p className="text-slate-400 text-lg md:text-xl font-medium leading-relaxed">
-              67% of callers hang up if they get voicemail. They don't leave a message—they call your competitor. Every missed call is a donation to the guy down the street who answered.
+              67% of callers hang up if they get voicemail. They don't leave a message — they call the next electrician in the search results. Every missed call — a tripped panel, a burnt outlet, a dead sub-panel at midnight — is a donation to your competitor.
             </p>
           </div>
         </section>
@@ -355,7 +354,7 @@ export default function Page() {
               Find Out What You're <span className="text-emerald-400">Leaking</span>
             </h2>
             <p className="text-slate-400 text-lg max-w-xl mx-auto">
-              Get a personalized 2-minute audit: how many leads you're losing, what it's costing you, and exactly which AI system plugs the leak.
+              Get a personalized 2-minute audit: how many service calls you're losing, what it's costing you in panel upgrades and emergency jobs, and exactly which AI system plugs the leak.
             </p>
 
             {auditStatus === 'success' ? (
@@ -445,7 +444,7 @@ export default function Page() {
                   </div>
                   <h3 className="text-3xl md:text-5xl font-black text-white uppercase italic tracking-tighter">Programmable Voice SDK</h3>
                   <p className="text-slate-300 text-lg max-w-md font-bold leading-relaxed">
-                    Build ultra-realistic AI phone agents with custom LLM fine-tuning, real-time calendar integrations, and CRM webhooks. Think Twilio, but for the AI era.
+                    Build ultra-realistic AI phone agents that triage true emergencies from routine calls, quote panel upgrades, and book service windows — with real-time dispatch calendar sync.
                   </p>
                   <div className="flex items-center gap-3">
                     <button className="flex items-center gap-2 px-5 py-3 bg-blue-500/10 border border-blue-500/30 rounded-xl text-blue-400 font-black uppercase tracking-widest text-xs hover:bg-blue-500/20 transition-all">
@@ -466,7 +465,7 @@ export default function Page() {
                   </div>
                   <h3 className="text-3xl font-black text-white uppercase italic tracking-tighter">Workflow Engine</h3>
                   <p className="text-slate-300 font-medium leading-relaxed">
-                    Automate contracts, payments, and collections with serverless functions that run on Firebase Cloud.
+                    Automate estimates, deposit collection, and permit paperwork reminders with serverless functions that run on Firebase Cloud.
                   </p>
                 </div>
               </div>
@@ -507,7 +506,7 @@ export default function Page() {
               {/* Row 4 */}
               <div className="grid grid-cols-3 p-6 border-b border-white/5 hover:bg-white/5 transition-colors">
                 <div className="font-bold text-white">Sick Days</div>
-                <div className="text-center text-slate-400">10+ Year</div>
+                <div className="text-center text-slate-400">10+/Year</div>
                 <div className="text-center text-blue-400 font-bold">Zero</div>
               </div>
               {/* Row 5 */}
@@ -523,7 +522,7 @@ export default function Page() {
         {/* � THIRD CTA - After Comparison */}
         <CTASection 
           title="The Math Doesn't Lie."
-          subtitle="For less than one employee's monthly salary, get unlimited 24/7 coverage. The ROI is undeniable."
+          subtitle="For less than one employee's monthly salary, get unlimited 24/7 emergency and service call coverage. The ROI is undeniable."
           primaryText="Start Saving Money"
           secondaryText="Calculate My ROI"
           variant="minimal"
@@ -534,10 +533,11 @@ export default function Page() {
           <div className="max-w-7xl mx-auto space-y-16">
             <div className="text-center space-y-6">
               <h2 className="text-5xl md:text-7xl font-black text-white uppercase italic tracking-tighter">
-                Industry-Specific <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">Tech Stacks</span>
+                Built For How <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">Electrical Contractors</span><br />
+                Actually Run Calls
               </h2>
               <p className="text-slate-400 text-lg max-w-3xl mx-auto font-bold">
-                We don't ship generic templates. Every deployment is a custom-engineered software solution built for your vertical's compliance requirements, CRM integrations, and customer expectations.
+                We don't ship generic templates. Every deployment is engineered for emergency triage, code compliance, and permit timing.
               </p>
             </div>
 
@@ -568,7 +568,7 @@ export default function Page() {
               <h2 className="text-4xl md:text-6xl font-black text-white uppercase italic tracking-tighter">
                 Deployment <span className="text-blue-500">Protocol</span>
               </h2>
-              <p className="text-slate-500 font-bold uppercase tracking-widest text-xs">From kickoff to autopilot in 48 hours</p>
+              <p className="text-slate-500 font-bold uppercase tracking-widest text-xs">From Kickoff to Answering Electrical Calls in 48 Hours</p>
             </div>
             <div className="grid md:grid-cols-3 gap-12 relative">
               <div className="absolute top-1/2 left-0 w-full h-1 bg-white/5 -z-10 hidden md:block" />
@@ -576,19 +576,19 @@ export default function Page() {
               <div className="relative group">
                 <div className="w-20 h-20 rounded-full bg-[#020617] border border-blue-500/30 flex items-center justify-center text-3xl font-black text-blue-500 mb-8 mx-auto group-hover:scale-110 transition-transform shadow-2xl shadow-blue-500/20">1</div>
                 <h3 className="text-xl font-bold text-white text-center mb-4">Discovery & Scripting</h3>
-                <p className="text-center text-slate-400 text-sm leading-relaxed">We audit your current phone flow, ingest your FAQs, and craft a bespoke conversation script that matches your brand voice perfectly.</p>
+                <p className="text-center text-slate-400 text-sm leading-relaxed">We audit your current call flow, ingest your service menu and pricing, and craft a script that matches how you talk to homeowners and GCs.</p>
               </div>
 
               <div className="relative group">
                 <div className="w-20 h-20 rounded-full bg-[#020617] border border-purple-500/30 flex items-center justify-center text-3xl font-black text-purple-500 mb-8 mx-auto group-hover:scale-110 transition-transform shadow-2xl shadow-purple-500/20">2</div>
                 <h3 className="text-xl font-bold text-white text-center mb-4">Training & Integration</h3>
-                <p className="text-center text-slate-400 text-sm leading-relaxed">We fine-tune the LLM on your specific knowledge base and connect the voice API to your CRM (Salesforce, HubSpot, Zapier) for real-time data sync.</p>
+                <p className="text-center text-slate-400 text-sm leading-relaxed">We fine-tune the LLM on your electrical service catalog and connect the voice API to ServiceTitan, Housecall Pro, or Jobber for real-time dispatch sync.</p>
               </div>
 
               <div className="relative group">
                 <div className="w-20 h-20 rounded-full bg-[#020617] border border-green-500/30 flex items-center justify-center text-3xl font-black text-green-500 mb-8 mx-auto group-hover:scale-110 transition-transform shadow-2xl shadow-green-500/20">3</div>
                 <h3 className="text-xl font-bold text-white text-center mb-4">Go Live & Optimize</h3>
-                <p className="text-center text-slate-400 text-sm leading-relaxed">We flip the switch. Your AI agent starts answering calls immediately. We monitor the first 100 calls to refine tone and accuracy to 99%.</p>
+                <p className="text-center text-slate-400 text-sm leading-relaxed">We flip the switch. Your AI agent starts answering calls immediately. We monitor the first 100 calls to refine emergency-triage accuracy to 99%.</p>
               </div>
             </div>
           </div>
@@ -606,7 +606,7 @@ export default function Page() {
                 Everything You Need to <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">Automate</span>
               </h2>
               <p className="text-slate-400 text-lg max-w-3xl mx-auto font-bold">
-                From voice agents to CRM integration, we build complete automation systems that replace entire departments.
+                From voice agents to dispatch integration, we build complete automation systems that replace entire front-desk operations.
               </p>
             </div>
 
@@ -649,7 +649,7 @@ export default function Page() {
                 Invest In <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-500">Growth</span>
               </h2>
               <p className="text-slate-400 text-lg max-w-3xl mx-auto font-bold">
-                A full-time receptionist costs ~$45,000/year. Brandverse costs less than a coffee a day.
+                A full-time receptionist/dispatcher costs ~$45,000/year. Brandverse costs less than a coffee a day.
                 <span className="text-blue-400 font-bold"> No contracts. Cancel anytime.</span>
               </p>
             </div>
@@ -658,7 +658,7 @@ export default function Page() {
               {/* Starter */}
               <div className="p-10 rounded-3xl bg-[#0b1121] border border-white/10 text-center hover:border-blue-500/30 transition-all">
                 <h3 className="text-2xl font-bold mb-2 text-white">Starter</h3>
-                <div className="text-sm text-slate-500 font-medium mb-6">Perfect for Solopreneurs</div>
+                <div className="text-sm text-slate-500 font-medium mb-6">Perfect for Solo Electricians</div>
                 <div className="text-5xl font-black mb-2 text-white">$497<span className="text-lg text-slate-500 font-normal">/mo</span></div>
                 <div className="text-xs text-slate-500 mb-8 uppercase tracking-widest font-semibold">Risk Free Guarantee</div>
                 <ul className="text-slate-400 space-y-4 mb-10 text-left text-sm">
@@ -675,12 +675,12 @@ export default function Page() {
               <div className="p-12 rounded-[2.5rem] bg-indigo-600 border border-indigo-400 relative shadow-2xl shadow-indigo-500/30 -translate-y-6 z-10">
                 <div className="absolute top-0 right-1/2 translate-x-1/2 -translate-y-1/2 bg-white text-indigo-700 px-6 py-2 rounded-full text-xs font-black tracking-widest uppercase border border-indigo-200">Best ROI</div>
                 <h3 className="text-3xl font-bold mb-2 text-white">Growth</h3>
-                <div className="text-sm text-indigo-200 font-medium mb-6">For Established Teams</div>
+                <div className="text-sm text-indigo-200 font-medium mb-6">For Established Electrical Contractors</div>
                 <div className="text-6xl font-black mb-2 text-white">$997<span className="text-lg text-indigo-200 font-normal">/mo</span></div>
                 <div className="text-xs text-indigo-200 mb-8 uppercase tracking-widest font-semibold">No Setup Fees This Week</div>
                 <ul className="text-white space-y-5 mb-12 text-left">
                   <li className="flex items-center gap-3"><Check className="w-5 h-5 text-indigo-200" /> <strong>Everything in Starter</strong></li>
-                  <li className="flex items-center gap-3"><Check className="w-5 h-5 text-indigo-200" /> <strong>Full CRM Integration</strong> (2-way)</li>
+                  <li className="flex items-center gap-3"><Check className="w-5 h-5 text-indigo-200" /> <strong>Full CRM/Dispatch Integration</strong> (2-way)</li>
                   <li className="flex items-center gap-3"><Check className="w-5 h-5 text-indigo-200" /> Custom Voice Cloning</li>
                   <li className="flex items-center gap-3"><Check className="w-5 h-5 text-indigo-200" /> Unlimited Minutes</li>
                   <li className="flex items-center gap-3"><Check className="w-5 h-5 text-indigo-200" /> Multilingual (ES/FR)</li>
@@ -692,7 +692,7 @@ export default function Page() {
               {/* Enterprise */}
               <div className="p-10 rounded-3xl bg-[#0b1121] border border-white/10 text-center hover:border-blue-500/30 transition-all">
                 <h3 className="text-2xl font-bold mb-2 text-white">Enterprise</h3>
-                <div className="text-sm text-slate-500 font-medium mb-6">Franchises & Multi-Location</div>
+                <div className="text-sm text-slate-500 font-medium mb-6">Multi-Crew & Multi-Location Electrical Companies</div>
                 <div className="text-5xl font-black mb-2 text-white">Custom</div>
                 <div className="text-xs text-slate-500 mb-8 uppercase tracking-widest font-semibold">White Glove Service</div>
                 <ul className="text-slate-400 space-y-4 mb-10 text-left text-sm">
@@ -721,7 +721,7 @@ export default function Page() {
 
         {/* 🎯 SIXTH CTA - After Pricing */}
         <CTASection 
-          title="Ready to Automate Your Business?"
+          title="Ready to Automate Your Electrical Business?"
           subtitle="We build custom AI infrastructure that becomes your competitive advantage."
           primaryText="Get Started"
           secondaryText="View Pricing"
@@ -735,7 +735,7 @@ export default function Page() {
               <h2 className="text-4xl md:text-6xl font-black text-white uppercase italic tracking-tighter">
                 CALCULATE YOUR <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400">ALPHA</span>
               </h2>
-              <p className="text-slate-500 font-bold uppercase tracking-widest text-xs">Quantify the cost of manual operations</p>
+              <p className="text-slate-500 font-bold uppercase tracking-widest text-xs">Quantify the cost of missed electrical service calls</p>
             </div>
 
             <div className="bg-gradient-to-br from-slate-900/80 to-slate-900/40 rounded-[3.5rem] border border-white/5 p-8 md:p-16 shadow-2xl relative overflow-hidden">
