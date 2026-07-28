@@ -37,7 +37,6 @@ export const metadata: Metadata = {
   alternates: {
     canonical: 'https://brandverse.tech',
   },
-  manifest: 'https://brandverse.tech/manifest.json',
   icons: {
     icon: [
       { url: '/favicon.ico', sizes: 'any' },
