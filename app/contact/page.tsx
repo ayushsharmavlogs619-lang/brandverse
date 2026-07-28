@@ -93,17 +93,6 @@ export default function ContactPage() {
                                 </div>
                             </div>
 
-                            <div className="flex items-start gap-4">
-                                <div className="p-3 rounded-lg bg-green-500/20 text-green-400">
-                                    <Phone className="w-6 h-6" />
-                                </div>
-                                <div>
-                                    <div className="text-sm text-slate-500 font-bold uppercase tracking-wider">Voice Demo</div>
-                                    <div className="mt-1">
-                                        <a href="/demos/voice" className="text-green-400 hover:underline font-bold">Talk to our AI Agent →</a>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
 
                         <div className="p-8 rounded-2xl bg-gradient-to-br from-blue-600/20 to-purple-600/20 border border-blue-500/30">

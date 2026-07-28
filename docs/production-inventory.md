@@ -60,7 +60,7 @@ NEXT_PUBLIC_LINKEDIN_PARTNER_ID=your_linkedin_partner_id
 NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION=your_google_search_console_token
 
 # Scheduling
-NEXT_PUBLIC_CALENDLY_URL=https://calendly.com/your-username/30min
+NEXT_PUBLIC_CALENDLY_URL=https://calendly.com/brandverse/30min
 
 # Voice AI
 VAPI_API_KEY=your_vapi_api_key_here

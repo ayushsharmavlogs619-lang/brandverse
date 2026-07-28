@@ -5,7 +5,7 @@ import { Calendar, Loader2 } from 'lucide-react';
 
 export default function CalendlyEmbed({ url }: { url?: string }) {
     const [mounted, setMounted] = useState(false);
-    const calendlyUrl = url || 'https://calendly.com/your-username/30min';
+    const calendlyUrl = url || 'https://calendly.com/brandverse/30min';
 
     useEffect(() => {
         setMounted(true);

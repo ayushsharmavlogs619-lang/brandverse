@@ -630,7 +630,7 @@ curl -X GET https://api.vapi.ai/assistant/{assistant_id} \
 #### Verification Commands
 ```bash
 # Test Calendly URL
-curl -I https://calendly.com/your-username/30min
+curl -I https://calendly.com/brandverse/30min
 
 # Check Calendly status
 # https://status.calendly.com
