@@ -11,12 +11,19 @@ vars = [
   { name = "DEFAULT_TIMEZONE", value = "Australia/Melbourne" }
 ]
 
-# Required secrets/vars must be configured in Cloudflare before production use:
-# wrangler secret put GOOGLE_CLIENT_EMAIL --env production
-# wrangler secret put GOOGLE_PRIVATE_KEY --env production
-# wrangler secret put GOOGLE_CALENDAR_API_KEY --env production
-# wrangler secret put GOOGLE_SHEETS_API_KEY --env production
-# wrangler secret put VAPI_API_KEY --env production
+# Required secrets (set via dashboard or wrangler secret):
+#   wrangler secret put GOOGLE_CLIENT_EMAIL --env production
+#   wrangler secret put GOOGLE_PRIVATE_KEY --env production
+#
+# Optional secrets (for booking email notifications via Google Apps Script):
+#   wrangler secret put GOOGLE_APPS_SCRIPT_WEBHOOK_URL --env production
+#   wrangler secret put GOOGLE_APPS_SCRIPT_SECRET --env production
+#
+# Vapi (for outbound calls):
+#   wrangler secret put VAPI_API_KEY --env production
+#
+# Client config override (JSON string, optional — falls back to embedded config):
+#   wrangler secret put CLIENTS_CONFIG --env production
 
 [env.staging]
 name = "ai-receptionist-staging"
@@ -27,9 +34,7 @@ vars = [
   { name = "DEFAULT_TIMEZONE", value = "Australia/Melbourne" }
 ]
 
-# Required secrets/vars must be configured in Cloudflare before staging use.
-
-# Routes configuration for subdomain
+# Routes
 [[env.production.routes]]
 pattern = "edge.brandverse.tech/api/*"
 zone_name = "brandverse.tech"
@@ -38,7 +43,6 @@ zone_name = "brandverse.tech"
 pattern = "edge.brandverse.tech/health"
 zone_name = "brandverse.tech"
 
-# Staging routes
 [[env.staging.routes]]
 pattern = "staging-edge.brandverse.tech/api/*"
 zone_name = "brandverse.tech"
@@ -46,7 +50,3 @@ zone_name = "brandverse.tech"
 [[env.staging.routes]]
 pattern = "staging-edge.brandverse.tech/health"
 zone_name = "brandverse.tech"
-
-# Limits and quotas (removed for free plan)
-# [env.production.limits]
-# cpu_ms = 50000

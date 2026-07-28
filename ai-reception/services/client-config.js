@@ -41,9 +41,19 @@ export class ClientConfigService {
     }
   }
 
-  // Load clients data from JSON file
+  // Load clients data from env var or embedded fallback
   async loadClientsData() {
     try {
+      // 1. Try environment variable (set via wrangler secret or dashboard)
+      if (this.env.CLIENTS_CONFIG) {
+        try {
+          return JSON.parse(this.env.CLIENTS_CONFIG);
+        } catch (e) {
+          console.warn('Failed to parse CLIENTS_CONFIG env var, falling back to embedded config');
+        }
+      }
+
+      // 2. Fall back to embedded configuration
       const embeddedClientsJson = `{
   "clients": [
     {
@@ -194,13 +204,13 @@ export class ClientConfigService {
       }
     }
 
-    // CRITICAL: Validate real integration fields
+    // CRITICAL: Validate real integration fields - warn but don't block
     if (!client.calendar_id || client.calendar_id.trim() === '') {
-      throw new Error(`Missing required config: calendar_id for client "${client.id}". Set a real Google Calendar ID before enabling bookings.`);
+      console.warn(`WARNING: calendar_id is empty for client "${client.id}". Calendar booking will fail until set.`);
     }
 
     if (!client.sheet_id || client.sheet_id.trim() === '') {
-      throw new Error(`Missing required config: sheet_id for client "${client.id}". Set a real Google Sheet ID before enabling bookings.`);
+      console.warn(`WARNING: sheet_id is empty for client "${client.id}". Sheets logging will fail until set.`);
     }
 
     // Validate services

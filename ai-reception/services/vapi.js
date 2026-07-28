@@ -4,11 +4,12 @@
 const VAPI_BASE = 'https://api.vapi.ai';
 
 export class VapiService {
-  constructor(env, clientConfigService, loggingEngine) {
+  constructor(env, clientConfigService, loggingEngine, notificationService) {
     this.env = env;
     this.apiKey = env.VAPI_API_KEY;
     this.clientConfigService = clientConfigService;
     this.loggingEngine = loggingEngine;
+    this.notificationService = notificationService || null;
   }
 
   // Verify webhook signature (if VAPI_WEBHOOK_SECRET is configured)
@@ -215,6 +216,16 @@ export class VapiService {
         callId: call.id,
         recordingUrl: message.recordingUrl || call.recordingUrl || '',
       }).catch(() => {});
+
+      if (this.notificationService) {
+        this.notificationService.sendCallNotification(client, {
+          callerNumber: call.customer?.number || '',
+          callerName: call.customer?.name || '',
+          outcome: message.endedReason || 'completed',
+          notes: message.summary || '',
+          duration: message.durationSeconds || call.durationSeconds || 0,
+        }).catch(() => {});
+      }
 
       if (message.transcript) {
         await this.loggingEngine.logInteraction(client.id, {

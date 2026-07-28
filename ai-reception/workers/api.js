@@ -8,6 +8,7 @@ import { AvailabilityEngine } from '../services/availability.js';
 import { BookingEngine } from '../services/booking.js';
 import { LoggingEngine } from '../services/logging.js';
 import { VapiService } from '../services/vapi.js';
+import { NotificationService } from '../services/notify.js';
 
 function getCorsHeaders(request, env) {
   const origin = request.headers.get('Origin');
@@ -83,8 +84,9 @@ const worker = {
       const calendarService = new GoogleCalendarService(env);
       const sheetsService = new GoogleSheetsService(env);
       const availabilityEngine = new AvailabilityEngine(calendarService, clientConfig);
-      const bookingEngine = new BookingEngine(calendarService, sheetsService, clientConfig);
+      const bookingEngine = new BookingEngine(calendarService, sheetsService, null, clientConfig);
       const loggingEngine = new LoggingEngine(sheetsService, clientConfig);
+      const notificationService = new NotificationService(env);
 
       // Route handling
       if (path === `/api/${clientId}/availability` && method === 'GET') {
@@ -92,7 +94,7 @@ const worker = {
       }
 
       if (path === `/api/${clientId}/book` && method === 'POST') {
-        return handleBooking(clientId, await request.json(), bookingEngine, loggingEngine, corsHeaders);
+        return handleBooking(clientId, await request.json(), bookingEngine, loggingEngine, notificationService, corsHeaders);
       }
 
       if (path === `/api/${clientId}/log` && method === 'POST') {
@@ -167,7 +169,7 @@ async function handleAvailability(clientId, searchParams, availabilityEngine, co
 }
 
 // Handle booking requests
-async function handleBooking(clientId, bookingData, bookingEngine, loggingEngine, corsHeaders) {
+async function handleBooking(clientId, bookingData, bookingEngine, loggingEngine, notificationService, corsHeaders) {
   try {
     const { name, phone, email, service, dateTime, notes } = bookingData;
 
@@ -204,6 +206,12 @@ async function handleBooking(clientId, bookingData, bookingEngine, loggingEngine
       outcome: bookingResult.message,
       timestamp: new Date().toISOString()
     });
+
+    if (bookingResult.success) {
+      notificationService.sendBookingNotification(null, {
+        name, phone, email, service, dateTime, notes
+      }).catch(() => {});
+    }
 
     return new Response(JSON.stringify(bookingResult), {
       headers: { 'Content-Type': 'application/json', ...corsHeaders }
@@ -288,7 +296,8 @@ async function handleVapiWebhook(request, env, corsHeaders) {
     const clientConfig = new ClientConfigService(env);
     const sheetsService = new GoogleSheetsService(env);
     const loggingEngine = new LoggingEngine(sheetsService, clientConfig);
-    const vapiService = new VapiService(env, clientConfig, loggingEngine);
+    const notificationService = new NotificationService(env);
+    const vapiService = new VapiService(env, clientConfig, loggingEngine, notificationService);
     const result = await vapiService.handleWebhook(request);
 
     return new Response(JSON.stringify(result.body), {
@@ -319,7 +328,8 @@ async function handleVapiOutboundCall(request, env, corsHeaders) {
     const clientConfig = new ClientConfigService(env);
     const sheetsService = new GoogleSheetsService(env);
     const loggingEngine = new LoggingEngine(sheetsService, clientConfig);
-    const vapiService = new VapiService(env, clientConfig, loggingEngine);
+    const notificationService = new NotificationService(env);
+    const vapiService = new VapiService(env, clientConfig, loggingEngine, notificationService);
     const callResult = await vapiService.triggerOutboundCall(clientId, customerNumber, overrides);
 
     return new Response(JSON.stringify({
