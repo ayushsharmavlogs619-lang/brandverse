@@ -25,6 +25,7 @@ import {
   Briefcase,
   Building2,
   Stethoscope,
+  Calendar,
   Car,
   Sparkles,
   TrendingUp,
@@ -41,6 +42,7 @@ import {
   Footprints,
   Check,
   HelpCircle,
+  Phone,
   Play
 } from 'lucide-react';
 import ChatWidget from './components/ChatWidget';
@@ -169,12 +171,12 @@ export default function Page() {
   ];
 
   const techStack = [
-    { name: "Next.js 15 (Turbopack)", description: "Server Components + Edge Runtime", icon: Code2 },
-    { name: "Supabase (Postgres)", description: "Real-time Relational Database", icon: Database },
-    { name: "Firebase Cloud Functions", description: "Serverless Backend Infrastructure", icon: Globe },
+    { name: "Next.js 16 (Turbopack)", description: "Static Site Generation + Edge Runtime", icon: Code2 },
+    { name: "Cloudflare Pages", description: "Global CDN + Instant Rollbacks", icon: Globe },
     { name: "Vapi AI SDK", description: "Programmable Voice Intelligence", icon: Mic },
-    { name: "n8n / Zapier", description: "Workflow Orchestration Layer", icon: Workflow },
-    { name: "Vercel Edge Network", description: "Global CDN + Instant Rollbacks", icon: Rocket }
+    { name: "Cloudflare Workers", description: "Edge Compute Infrastructure", icon: Workflow },
+    { name: "Google Sheets API", description: "Lead Data Storage Layer", icon: Database },
+    { name: "Tailwind CSS 4", description: "Utility-First Styling Engine", icon: Layers }
   ];
 
   const capabilities = [
@@ -256,7 +258,7 @@ export default function Page() {
           <div className="flex items-center gap-4">
             <Link href="/contact" className="hidden sm:block text-[11px] font-black uppercase tracking-widest text-blue-400 hover:text-white transition-colors">Client Login</Link>
             <Link href="/contact" className="px-6 py-3 bg-brand-gradient text-white rounded-full text-[11px] font-black uppercase tracking-widest shadow-lg shadow-blue-500/20 hover:scale-105 active:scale-95 transition-all">
-              Book Audit
+              Book a Free Demo
             </Link>
           </div>
         </div>
@@ -274,22 +276,36 @@ export default function Page() {
           <div className="max-w-6xl mx-auto text-center space-y-12 relative z-20">
             <div className="inline-flex items-center gap-3 px-6 py-2 rounded-2xl glass-morphism border border-white/10 text-cyan-400 text-[10px] font-black uppercase tracking-[0.2em] animate-fade-in neon-glow">
               <div className="w-4 h-4 bg-cyan-400 rounded-full mr-2 pulse-glow" />
-              Quantum AI Infrastructure
+              AI Receptionist for Electrical Contractors
             </div>
-            <h1 className="text-6xl md:text-[8rem] font-black text-white leading-[0.8] tracking-tighter uppercase italic holographic-text">
-              We Engineer <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500 animate-gradient">Digital Immortality</span><br />
-              For <span className="text-cyan-400 text-glow drop-shadow-glow">Electrical Contractors</span>
+            <h1 className="text-5xl md:text-7xl lg:text-8xl font-black text-white leading-[1.1] tracking-tight holographic-text">
+              Your Phone Should Make You Money.<br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500 animate-gradient">Not Cost You Jobs.</span>
             </h1>
-            <p className="text-slate-300 text-lg md:text-2xl max-w-4xl mx-auto font-bold leading-relaxed pt-6 glass-morphism p-8 rounded-3xl border border-white/10">
-              <span className="text-cyan-400">⚡ Forget answering services. Forget missed emergency calls.</span> We build <span className="text-purple-400 font-bold">proprietary AI voice infrastructure</span> that answers <span className="text-cyan-400">every service call, panel upgrade inquiry, and after-hours breaker emergency</span>—deployed in <span className="text-glow font-black bg-gradient-to-r from-cyan-500 to-purple-500 bg-clip-text text-transparent px-2 py-1 rounded-lg">48 hours</span>.
+            <p className="text-slate-300 text-lg md:text-2xl max-w-4xl mx-auto font-bold leading-relaxed glass-morphism p-8 rounded-3xl border border-white/10">
+              Brandverse answers <span className="text-cyan-400">every customer call</span>, qualifies <span className="text-cyan-400">every lead</span>, and books appointments <span className="text-cyan-400">automatically</span>, so your electrical business <span className="text-glow font-black bg-gradient-to-r from-cyan-500 to-purple-500 bg-clip-text text-transparent px-2 py-1 rounded-lg">never misses another opportunity</span>.
             </p>
             <div className="flex flex-col sm:flex-row justify-center items-center gap-6 pt-12">
               <Link href="/contact" className="w-full sm:w-auto px-10 py-6 bg-brand-gradient text-white rounded-3xl font-black uppercase tracking-widest text-sm shadow-2xl shadow-blue-500/30 hover:scale-105 hover:shadow-blue-500/50 transition-all flex items-center justify-center gap-3">
-                Deploy Your Stack <ArrowRight className="w-5 h-5" />
+                Book a Free Demo <Calendar className="w-5 h-5" />
               </Link>
-              <Link href="/portfolio" className="text-sm font-black uppercase tracking-widest text-slate-400 hover:text-white transition-colors flex items-center gap-2">
-                <Code2 className="w-4 h-4" /> View Source Code
+              <Link href="#platform" className="text-sm font-black uppercase tracking-widest text-slate-400 hover:text-white transition-colors flex items-center gap-2">
+                <Play className="w-4 h-4" /> See How It Works
               </Link>
+            </div>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 pt-8 max-w-3xl mx-auto">
+              <div className="flex items-center justify-center gap-2 text-slate-400 text-sm font-bold">
+                <Phone className="w-4 h-4 text-cyan-400" /> Answer Every Call
+              </div>
+              <div className="flex items-center justify-center gap-2 text-slate-400 text-sm font-bold">
+                <Calendar className="w-4 h-4 text-cyan-400" /> Book More Jobs
+              </div>
+              <div className="flex items-center justify-center gap-2 text-slate-400 text-sm font-bold">
+                <Target className="w-4 h-4 text-cyan-400" /> Qualify Every Lead
+              </div>
+              <div className="flex items-center justify-center gap-2 text-slate-400 text-sm font-bold">
+                <Clock className="w-4 h-4 text-cyan-400" /> Available 24/7
+              </div>
             </div>
           </div>
         </section>
@@ -314,11 +330,11 @@ export default function Page() {
             </div>
             <div className="grid grid-cols-2 md:grid-cols-5 gap-8 items-center">
               {[
-                { icon: Code2, name: "Next.js 16", desc: "Quantum-Optimized Runtime" },
-                { icon: Database, name: "Supabase", desc: "Real-time Database" },
-                { icon: Mic, name: "Vapi AI", desc: "Neural Voice Interface" },
-                { icon: Globe, name: "Firebase", desc: "Cloud Infrastructure" },
-                { icon: Rocket, name: "Vercel Edge", desc: "Global CDN" }
+                { icon: Code2, name: "Next.js 16", desc: "Static Generation" },
+                { icon: Globe, name: "Cloudflare", desc: "Edge Network" },
+                { icon: Mic, name: "Vapi AI", desc: "Voice Intelligence" },
+                { icon: Workflow, name: "Workers", desc: "Edge Compute" },
+                { icon: Database, name: "Google Sheets", desc: "Data Storage" }
               ].map((tech, i) => (
                 <div key={i} className="group premium-card p-6 text-center hover:scale-105 transition-all duration-300 relative overflow-hidden">
                   <div className="absolute inset-0 bg-gradient-to-r from-transparent via-cyan-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
@@ -447,12 +463,12 @@ export default function Page() {
                     Build ultra-realistic AI phone agents that triage true emergencies from routine calls, quote panel upgrades, and book service windows — with real-time dispatch calendar sync.
                   </p>
                   <div className="flex items-center gap-3">
-                    <button className="flex items-center gap-2 px-5 py-3 bg-blue-500/10 border border-blue-500/30 rounded-xl text-blue-400 font-black uppercase tracking-widest text-xs hover:bg-blue-500/20 transition-all">
+                    <Link href="/demos" className="flex items-center gap-2 px-5 py-3 bg-blue-500/10 border border-blue-500/30 rounded-xl text-blue-400 font-black uppercase tracking-widest text-xs hover:bg-blue-500/20 transition-all">
                       <Mic className="w-4 h-4" /> Listen to Demo
-                    </button>
-                    <button className="flex items-center gap-2 text-slate-400 font-black uppercase tracking-widest text-xs hover:text-white transition-all">
+                    </Link>
+                    <Link href="/features" className="flex items-center gap-2 text-slate-400 font-black uppercase tracking-widest text-xs hover:text-white transition-all">
                       API Docs <ChevronRight className="w-4 h-4" />
-                    </button>
+                    </Link>
                   </div>
                 </div>
               </div>

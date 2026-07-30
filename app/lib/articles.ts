@@ -651,6 +651,76 @@ export const articles: Article[] = [
         excerpt: 'Dry cleaning businesses handle hundreds of garments daily while managing customer calls about order status, pickup times, and special care instructions. AI voice agents handle order status inquiries, schedule pickup and delivery windows, log special care instructions, manage loyalty program questions, and send automated garment-ready notifications.',
         date: 'Jul 27, 2026',
         category: 'Industry Focus'
+    },
+    {
+        slug: 'why-electricians-miss-more-jobs',
+        title: 'Why Electricians Miss More Jobs Than They Realize',
+        excerpt: 'Most electrical contractors have no idea how many calls they are missing. The real number will shock you — and fixing it could double your revenue.',
+        date: 'Jul 31, 2026',
+        category: 'Lead Generation'
+    },
+    {
+        slug: 'best-ai-tools-for-electrical-contractors',
+        title: 'Best AI Tools for Electrical Contractors in 2026',
+        excerpt: 'A no-nonsense comparison of AI tools built for electrical contractors — from call handling and dispatch to CRM integration and scheduling.',
+        date: 'Jul 31, 2026',
+        category: 'Guides'
+    },
+    {
+        slug: 'how-to-grow-an-electrical-business',
+        title: 'How to Grow an Electrical Business: The Complete Guide',
+        excerpt: 'The systems, tools, and strategies that turn a one-truck electrical operation into a multi-crew business without drowning in overhead.',
+        date: 'Jul 31, 2026',
+        category: 'Growth Strategy'
+    },
+    {
+        slug: 'electrical-business-automation-guide',
+        title: 'Electrical Business Automation: A Step-by-Step Guide',
+        excerpt: 'Automate your electrical business from the first phone call to the final invoice. No coding required. No tech experience needed.',
+        date: 'Jul 31, 2026',
+        category: 'Operations'
+    },
+    {
+        slug: 'how-ai-improves-customer-experience-electricians',
+        title: 'How AI Improves Customer Experience for Electrical Contractors',
+        excerpt: 'Why homeowners and commercial clients prefer instant AI answers over waiting for a callback — and how it boosts your bottom line.',
+        date: 'Jul 31, 2026',
+        category: 'Customer Experience'
+    },
+    {
+        slug: '24-7-call-answering-for-electricians',
+        title: '24/7 Call Answering for Electrical Contractors: What You Need to Know',
+        excerpt: 'How 24/7 AI call answering captures emergency panel upgrades, after-hours service calls, and weekend estimates you would otherwise miss.',
+        date: 'Jul 31, 2026',
+        category: 'Operations'
+    },
+    {
+        slug: 'true-cost-missed-emergency-call-electricians',
+        title: 'The True Cost of a Missed Emergency Call for Electricians',
+        excerpt: 'Every unanswered emergency call costs more than just a job. Here is the math — and how to stop the bleeding immediately.',
+        date: 'Jul 31, 2026',
+        category: 'Financial Strategy'
+    },
+    {
+        slug: 'how-many-leads-electricians-lose',
+        title: 'How Many Leads Do Electricians Lose to Missed Calls? (2026 Data)',
+        excerpt: 'New data reveals exactly how many electrical service calls go unanswered each day — and what that costs electrical contractors in real dollars.',
+        date: 'Jul 31, 2026',
+        category: 'Lead Generation'
+    },
+    {
+        slug: 'what-to-look-for-ai-receptionist-electrical',
+        title: 'What to Look for in an AI Receptionist for Your Electrical Business',
+        excerpt: 'A buyer guide for electrical contractors evaluating AI receptionists — features that matter, pricing models, and deal-breakers to avoid.',
+        date: 'Jul 31, 2026',
+        category: 'Guides'
+    },
+    {
+        slug: 'from-missed-calls-to-booked-jobs-electricians',
+        title: 'From Missed Calls to Booked Jobs: How Electricians Win with AI',
+        excerpt: 'Real electrical contractors share how they turned missed calls into booked jobs and recovered thousands in lost monthly revenue.',
+        date: 'Jul 31, 2026',
+        category: 'Growth Strategy'
     }
 ];
 
