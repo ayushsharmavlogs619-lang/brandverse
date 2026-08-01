@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useState, useMemo } from 'react';
 import { Clock, ArrowRight, TrendingUp, ArrowUpRight, Mail, ChevronRight } from 'lucide-react';
 import { articles, type Article } from '../lib/articles';
+import { leadService } from '../../lib/lead-service';
 
 const categoryColors: Record<string, string> = {
     'Industry Focus': 'text-sky-400 bg-sky-500/10 border-sky-500/20',
@@ -47,6 +48,22 @@ function getCategoryIcon(cat: string): string {
 export default function BlogIndex() {
     const [searchQuery, setSearchQuery] = useState('');
     const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+    const [subscribeEmail, setSubscribeEmail] = useState('');
+    const [subscribeStatus, setSubscribeStatus] = useState<'idle' | 'loading' | 'success'>('idle');
+
+    const onSubscribe = async (e: React.FormEvent) => {
+        e.preventDefault();
+        if (!subscribeEmail || subscribeStatus === 'loading') return;
+        setSubscribeStatus('loading');
+        await leadService.submitLeadWithRetry({
+            full_name: '',
+            email: subscribeEmail,
+            service_interest: 'Newsletter',
+            source_page: window.location.pathname,
+            source_form: 'blog_newsletter',
+        }, 1);
+        setSubscribeStatus('success');
+    };
 
     const categories = useMemo(() => {
         const catSet = new Set(articles.map((a) => a.category));
@@ -234,17 +251,26 @@ export default function BlogIndex() {
                             <p className="text-slate-400 text-sm">
                                 Get the latest AI automation insights, industry guides, and case studies delivered to your inbox.
                             </p>
-                            <div className="flex flex-col sm:flex-row gap-3 justify-center">
+                            <form onSubmit={onSubscribe} className="flex flex-col sm:flex-row gap-3 justify-center">
                                 <input
                                     type="email"
+                                    required
                                     placeholder="your@email.com"
+                                    value={subscribeEmail}
+                                    onChange={(e) => setSubscribeEmail(e.target.value)}
                                     className="flex-1 px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-slate-500 focus:outline-none focus:border-blue-500/50 text-sm"
                                 />
-                                <button className="px-6 py-3 rounded-xl bg-blue-500 text-white font-bold text-sm hover:bg-blue-400 transition-colors">
-                                    Subscribe
+                                <button
+                                    type="submit"
+                                    disabled={subscribeStatus === 'loading'}
+                                    className="px-6 py-3 rounded-xl bg-blue-500 text-white font-bold text-sm hover:bg-blue-400 transition-colors disabled:opacity-50"
+                                >
+                                    {subscribeStatus === 'loading' ? 'Subscribing...' : subscribeStatus === 'success' ? 'Subscribed!' : 'Subscribe'}
                                 </button>
-                            </div>
-                            <p className="text-xs text-slate-600">No spam. Unsubscribe anytime.</p>
+                            </form>
+                            <p className="text-xs text-slate-600">
+                                {subscribeStatus === 'success' ? "You're in — check your inbox for a confirmation." : 'No spam. Unsubscribe anytime.'}
+                            </p>
                         </div>
                     </section>
                 </div>

@@ -74,7 +74,7 @@ export default function TermsPage() {
                         </ul>
                         <p><strong>Refund Policy:</strong></p>
                         <ul className="list-disc space-y-2">
-                            <li>7-day money-back guarantee for new clients</li>
+                            <li>30-day money-back guarantee for new clients</li>
                             <li>Pro-rated refunds available for annual plans</li>
                             <li>No refunds for used services or setup fees</li>
                         </ul>

@@ -256,7 +256,7 @@ export default function Page() {
             <Link href="/blog" className="hover:text-blue-400 transition-colors">Intelligence</Link>
           </nav>
           <div className="flex items-center gap-4">
-            <Link href="/contact" className="hidden sm:block text-[11px] font-black uppercase tracking-widest text-blue-400 hover:text-white transition-colors">Client Login</Link>
+            <Link href="/audit" className="hidden sm:block text-[11px] font-black uppercase tracking-widest text-blue-400 hover:text-white transition-colors">Free Audit</Link>
             <Link href="/contact" className="px-6 py-3 bg-brand-gradient text-white rounded-full text-[11px] font-black uppercase tracking-widest shadow-lg shadow-blue-500/20 hover:scale-105 active:scale-95 transition-all">
               Book a Free Demo
             </Link>
@@ -442,6 +442,7 @@ export default function Page() {
           subtitle="We build custom AI systems that become your competitive advantage. No monthly subscriptions, no vendor lock-in."
           primaryText="Build My Stack"
           secondaryText="View Case Studies"
+          secondaryLink="/case-studies"
           variant="minimal"
         />
 
@@ -541,6 +542,7 @@ export default function Page() {
           subtitle="For less than one employee's monthly salary, get unlimited 24/7 emergency and service call coverage. The ROI is undeniable."
           primaryText="Start Saving Money"
           secondaryText="Calculate My ROI"
+          secondaryLink="/roi-calculator"
           variant="minimal"
         />
 
@@ -741,6 +743,7 @@ export default function Page() {
           subtitle="We build custom AI infrastructure that becomes your competitive advantage."
           primaryText="Get Started"
           secondaryText="View Pricing"
+          secondaryLink="/pricing"
           variant="minimal"
         />
 
@@ -856,6 +859,7 @@ export default function Page() {
           subtitle="You just calculated how much money you're losing. Let us help you capture it instead."
           primaryText="Stop The Bleeding"
           secondaryText="See Case Studies"
+          secondaryLink="/case-studies"
           variant="minimal"
         />
 

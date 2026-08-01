@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { ArrowRight, HardHat, Wrench, Zap, Home, Stethoscope, Building2, Scale, UtensilsCrossed, Sparkles, Car, Briefcase } from 'lucide-react';
 import { caseStudies } from '@/lib/case-studies';
 import CaseStudyCard from '@/app/components/ui/CaseStudyCard';
+import CTASection from '@/app/components/CTASection';
 
 export const metadata: Metadata = {
     title: 'Case Studies — Brandverse',
@@ -83,6 +84,13 @@ export default function CaseStudiesPage() {
                             </Link>
                         </div>
                     </section>
+
+                    <CTASection
+                        title="Your Industry Could Be Next."
+                        subtitle="Get a free audit of your missed calls and see exactly how much revenue your business is leaving on the table."
+                        primaryText="Get My Free Audit"
+                        primaryLink="/audit"
+                    />
                 </div>
             </main>
         </div>

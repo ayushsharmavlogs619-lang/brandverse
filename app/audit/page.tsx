@@ -2,7 +2,6 @@
 
 import Link from 'next/link';
 import { ArrowLeft, CheckCircle2, AlertTriangle, Phone, Mail, ArrowRight, ShieldCheck } from 'lucide-react';
-import CTASection from '../components/CTASection';
 import { useState } from 'react';
 import LeadForm, { SuccessMessage } from '../components/LeadForm';
 
@@ -85,7 +84,7 @@ export default function AuditPage() {
 
                         <div className="bg-[#0f172a] border border-white/10 rounded-[2.5rem] p-8 md:p-10 shadow-2xl relative z-10">
                             <div className="mb-8">
-                                <h3 className="text-2xl font-black text-white italic">Claim Your Audit</h3>
+                                <h3 className="text-2xl font-black text-white italic">Get Your Free Audit</h3>
                                 <p className="text-slate-400">Enter your details to generate your tracking line.</p>
                             </div>
 
@@ -165,8 +164,6 @@ export default function AuditPage() {
                     </div>
                 </div>
             </div>
-
-            <CTASection />
 
             {showSuccess && (
                 <SuccessMessage 

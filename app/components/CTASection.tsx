@@ -42,7 +42,7 @@ export default function CTASection({
   primaryText = "Book Your Free Audit",
   primaryLink = config.calendlyUrl || 'https://calendly.com/ayushsharmavlogs619/30min',
   secondaryText,
-  secondaryLink = '/portfolio',
+  secondaryLink = '/case-studies',
   variant = 'default'
 }: CTASectionProps) {
   
@@ -67,7 +67,7 @@ export default function CTASection({
     : "text-xl text-slate-300 max-w-3xl mx-auto font-bold leading-relaxed";
 
   const buttonClasses = variant === 'minimal'
-    ? "px-8 py-4 bg-brand-gradient text-white rounded-full font-black uppercase tracking-widest text-sm shadow-lg hover:scale-105 transition-all neon-glow"
+    ? "px-8 py-4 bg-brand-gradient text-white rounded-2xl font-black uppercase tracking-widest text-sm shadow-lg hover:scale-105 transition-all neon-glow"
     : "px-12 py-6 bg-brand-gradient text-white rounded-2xl font-black uppercase tracking-widest text-sm shadow-2xl shadow-blue-500/30 hover:scale-105 hover:shadow-blue-500/50 transition-all flex items-center justify-center gap-3 premium-card";
 
   const bgClasses = variant === 'minimal'

@@ -2409,7 +2409,7 @@ function defaultArticleBody(article: Article): string {
     <section class="space-y-6">
       <h2 class="text-2xl font-black text-white uppercase italic tracking-wide">Ready to Take Action?</h2>
       <p class="text-slate-400 leading-8 text-lg">The cost of inaction is clear: every day without an AI voice agent means more missed calls, more lost leads, and more revenue handed to competitors who answer their phones.</p>
-      <p class="text-slate-400 leading-8 text-lg">Start by <a href="/roi-calculator" class="text-blue-400 underline hover:text-blue-300">calculating your potential ROI</a>, then <a href="/pricing" class="text-blue-400 underline hover:text-blue-300">explore pricing</a> or <a href="/demo" class="text-blue-400 underline hover:text-blue-300">see a live demo</a> of Brandverse AI in action.</p>
+      <p class="text-slate-400 leading-8 text-lg">Start by <a href="/roi-calculator" class="text-blue-400 underline hover:text-blue-300">calculating your potential ROI</a>, then <a href="/pricing" class="text-blue-400 underline hover:text-blue-300">explore pricing</a> or <a href="/demos" class="text-blue-400 underline hover:text-blue-300">try a live demo</a> of Brandverse AI in action.</p>
     </section>
   `;
 }

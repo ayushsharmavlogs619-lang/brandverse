@@ -16,9 +16,9 @@ const features = [
 ] as const;
 
 const plans = [
-    { name: 'Starter', price: 299, description: 'For small businesses getting started with AI', maxCalls: 500, maxLocations: 1, features: ['Appointment Booking', 'Voice AI', 'Basic Analytics'] },
-    { name: 'Growth', price: 599, description: 'For growing businesses with higher call volume', maxCalls: 2000, maxLocations: 3, features: ['Everything in Starter', 'CRM Integration', 'SMS Follow-ups', 'After-Hours Coverage', 'Advanced Analytics'] },
-    { name: 'Enterprise', price: 999, description: 'For multi-location businesses with complex needs', maxCalls: 10000, maxLocations: 10, features: ['Everything in Growth', 'Dedicated Account Manager', 'Custom Scripts', 'API Access', 'White-Label Option', 'Priority Support'] },
+    { name: 'Starter', price: 497, description: 'For small businesses getting started with AI', maxCalls: 500, maxLocations: 1, features: ['Appointment Booking', 'Voice AI', 'Basic Analytics'] },
+    { name: 'Growth', price: 997, description: 'For growing businesses with higher call volume', maxCalls: 2000, maxLocations: 3, features: ['Everything in Starter', 'CRM Integration', 'SMS Follow-ups', 'After-Hours Coverage', 'Advanced Analytics'] },
+    { name: 'Enterprise', price: 1497, description: 'For multi-location businesses with complex needs', maxCalls: 10000, maxLocations: 10, features: ['Everything in Growth', 'Dedicated Account Manager', 'Custom Scripts', 'API Access', 'White-Label Option', 'Priority Support'] },
 ];
 
 export default function PricingCalculator() {
@@ -38,7 +38,7 @@ export default function PricingCalculator() {
         }, 0);
         const locationMultiplier = 1 + (locations - 1) * 0.3;
         const callMultiplier = businessSize === 'small' ? 1 : businessSize === 'medium' ? 1.5 : 2.5;
-        const basePrice = businessSize === 'small' ? 299 : businessSize === 'medium' ? 599 : 999;
+        const basePrice = businessSize === 'small' ? 497 : businessSize === 'medium' ? 997 : 1497;
         const estimatedMonthly = Math.round((basePrice + featureCost) * locationMultiplier * callMultiplier);
         const humanReplacement = businessSize === 'small' ? 3500 : businessSize === 'medium' ? 7000 : 14000;
         const monthlySavings = humanReplacement - estimatedMonthly;

@@ -10,6 +10,8 @@ interface LeadPopupProps {
   storageKey?: string;
 }
 
+const EXCLUDED_ROUTES = ['/sales', '/crm', '/prospecting', '/checkout', '/workroom', '/creators', '/onlyfans', '/audit', '/lead-magnet', '/contact', '/demos'];
+
 export default function LeadPopup({
   delay = 30000,
   enableExitIntent = true,
@@ -23,6 +25,9 @@ export default function LeadPopup({
 
   useEffect(() => {
     if (hasShownRef.current) return;
+
+    const pathname = typeof window !== 'undefined' ? window.location.pathname : '';
+    if (EXCLUDED_ROUTES.some((route) => pathname === route || pathname.startsWith(route))) return;
 
     const dismissed = (() => {
       try {

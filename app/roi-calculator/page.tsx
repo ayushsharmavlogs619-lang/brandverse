@@ -34,7 +34,7 @@ export default function ROICalculator() {
     const [convRate, setConvRate] = useState(30);
     const [margin, setMargin] = useState(45);
     const [hours, setHours] = useState(12);
-    const [aiCost, setAiCost] = useState(500);
+    const [aiCost, setAiCost] = useState(497);
     const [aiRecovery, setAiRecovery] = useState(70);
     const [showResults, setShowResults] = useState(false);
 
@@ -89,7 +89,7 @@ export default function ROICalculator() {
                         </span>
                     </h1>
                     <p className="text-lg text-slate-400 max-w-2xl mx-auto leading-relaxed font-medium">
-                        Use our interactive calculator to see exactly how much revenue you lose from unanswered calls — and what you could recover with Brandvoice AI.
+                        Use our interactive calculator to see exactly how much revenue you lose from unanswered calls — and what you could recover with Brandverse AI.
                     </p>
                 </div>
             </header>
@@ -252,7 +252,7 @@ export default function ROICalculator() {
                         <h2 className="text-2xl font-black text-white uppercase italic tracking-wide">Frequently Asked Questions</h2>
                         <div className="p-6 rounded-2xl bg-white/5 border border-white/10"><h3 className="font-bold text-white mb-2">How accurate is this calculator?</h3><p className="text-sm text-slate-400 leading-relaxed">This calculator uses industry averages and your inputs to provide a strong estimate. For a precise ROI analysis tailored to your exact business metrics, book a strategy call with our team.</p></div>
                         <div className="p-6 rounded-2xl bg-white/5 border border-white/10"><h3 className="font-bold text-white mb-2">What if my numbers are different from the defaults?</h3><p className="text-sm text-slate-400 leading-relaxed">All inputs are adjustable. Simply change the sliders to match your actual business metrics. The results update in real time.</p></div>
-                        <div className="p-6 rounded-2xl bg-white/5 border border-white/10"><h3 className="font-bold text-white mb-2">How quickly can I see results with Brandverse?</h3><p className="text-sm text-slate-400 leading-relaxed">Most businesses see ROI within the first 30 days. Our typical onboarding takes 1–2 weeks, and call recovery begins immediately after launch.</p></div>
+                        <div className="p-6 rounded-2xl bg-white/5 border border-white/10"><h3 className="font-bold text-white mb-2">How quickly can I see results with Brandverse?</h3><p className="text-sm text-slate-400 leading-relaxed">Most businesses see ROI within the first 30 days. Our typical onboarding takes 48–72 hours, and call recovery begins immediately after launch.</p></div>
                     </section>
 
                     <div className="text-center p-10 rounded-3xl bg-gradient-to-r from-blue-900/40 to-purple-900/40 border border-blue-500/30 space-y-6">

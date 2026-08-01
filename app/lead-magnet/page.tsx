@@ -131,7 +131,7 @@ export default function LeadMagnetPage() {
                             <input type="hidden" name="_subject" value="New Strategy Call Request - Brandverse" />
                             <input type="hidden" name="_captcha" value="false" />
                             <input type="hidden" name="_template" value="table" />
-                            <input type="hidden" name="_next" value="https://brandverse.tech/contact" />
+                            <input type="hidden" name="_next" value="https://brandverse.tech/lead-magnet/thank-you" />
                             <input type="hidden" name="service_interest" value="Strategy Call" />
 
                             <div>

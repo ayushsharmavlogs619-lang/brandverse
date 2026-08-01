@@ -2,8 +2,8 @@ import Link from "next/link";
 import { CheckCircle2, Mail } from "lucide-react";
 
 export const metadata = {
-  title: "Guide request received — Brandverse",
-  description: "Thank you for requesting the Brandverse AI automation guide.",
+  title: "Strategy call request received — Brandverse",
+  description: "Thank you for requesting a Brandverse strategy call.",
 };
 
 export default function LeadMagnetThankYouPage() {
@@ -17,9 +17,9 @@ export default function LeadMagnetThankYouPage() {
         <p className="text-slate-400 leading-relaxed flex items-start justify-center gap-2 text-left max-w-md mx-auto">
           <Mail className="w-5 h-5 text-blue-400 shrink-0 mt-0.5" />
           <span>
-            Check the inbox for the email you submitted. You will receive a confirmation from our form provider,
-            and we will follow up from <span className="text-white font-semibold">ayush@brandverse.tech</span>{" "}
-            with next steps for your download.
+            We&apos;ve received your request. We&apos;ll reach out from{" "}
+            <span className="text-white font-semibold">ayush@brandverse.tech</span> within 24 hours
+            to schedule your free strategy call.
           </span>
         </p>
         <p className="text-sm text-slate-500">
