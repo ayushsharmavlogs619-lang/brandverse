@@ -7,10 +7,10 @@ import CTABlock from '../../components/Article/CTABlock';
 import { config } from '@/lib/config';
 
 export const metadata = {
-    title: 'AI Receptionist Pricing Guide 2025 — Full Cost Breakdown — Brandverse',
+    title: 'AI Receptionist Pricing Guide 2026 — Full Cost Breakdown — Brandverse',
     description: 'Complete guide to AI receptionist pricing. Compare per-minute, flat-rate, and hybrid pricing models. Includes hidden costs, ROI calculator, and vendor comparison.',
-    openGraph: { title: 'AI Receptionist Pricing Guide 2025 — Full Cost Breakdown — Brandverse', description: 'Complete pricing guide for AI receptionists with model comparison and ROI analysis.' },
-    twitter: { card: 'summary_large_image', title: 'AI Receptionist Pricing Guide 2025', description: 'AI receptionist pricing models compared: per-minute vs flat-rate vs hybrid.' },
+    openGraph: { title: 'AI Receptionist Pricing Guide 2026 — Full Cost Breakdown — Brandverse', description: 'Complete pricing guide for AI receptionists with model comparison and ROI analysis.' },
+    twitter: { card: 'summary_large_image', title: 'AI Receptionist Pricing Guide 2026', description: 'AI receptionist pricing models compared: per-minute vs flat-rate vs hybrid.' },
     robots: { index: true, follow: true, googleBot: { index: true, follow: true, 'max-video-preview': -1, 'max-image-preview': 'large', 'max-snippet': -1 } },
     alternates: { canonical: 'https://brandverse.tech/blog/ai-receptionist-pricing-guide' }
 };
@@ -24,15 +24,15 @@ const pricingModels = [
 export default function Post() {
     return (
         <div className="min-h-screen bg-[#020617] text-slate-200 selection:bg-emerald-500/30">
-            <ArticleSchema title="AI Receptionist Pricing Guide 2025" description="Complete guide to AI receptionist pricing models, hidden costs, and ROI." slug="ai-receptionist-pricing-guide" date="Mar 15, 2025" category="Guides" />
+            <ArticleSchema title="AI Receptionist Pricing Guide 2026" description="Complete guide to AI receptionist pricing models, hidden costs, and ROI." slug="ai-receptionist-pricing-guide" date="Mar 15, 2026" category="Guides" />
             <header className="relative pt-32 pb-20 px-6 border-b border-white/5 overflow-hidden">
                 <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[400px] bg-emerald-600/10 blur-[100px] rounded-full -z-10" />
                 <div className="max-w-3xl mx-auto space-y-6">
                     <Link href="/blog" className="text-emerald-400 text-sm font-bold uppercase tracking-widest flex items-center gap-2 hover:text-white transition-colors"><ArrowLeft className="w-4 h-4" /> Back to Intelligence</Link>
                     <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-black uppercase tracking-widest">Guides</div>
-                    <h1 className="text-4xl md:text-5xl font-black text-white leading-tight">AI Receptionist <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-teal-400">Pricing Guide 2025</span></h1>
+                    <h1 className="text-4xl md:text-5xl font-black text-white leading-tight">AI Receptionist <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-teal-400">Pricing Guide 2026</span></h1>
                     <p className="text-lg text-slate-400 font-medium">Complete cost breakdown: per-minute vs flat-rate vs hybrid pricing, hidden costs, and ROI analysis.</p>
-                    <div className="flex items-center gap-4 text-sm text-slate-500"><span>Mar 15, 2025</span><span>·</span><span>10 min read</span><span>·</span><span className="text-emerald-400">Guides</span></div>
+                    <div className="flex items-center gap-4 text-sm text-slate-500"><span>Mar 15, 2026</span><span>·</span><span>10 min read</span><span>·</span><span className="text-emerald-400">Guides</span></div>
                 </div>
             </header>
             <main className="px-6 py-20">

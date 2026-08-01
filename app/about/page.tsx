@@ -13,66 +13,56 @@ export default function AboutPage() {
       role: "Founder & CEO",
       description: "Visionary leader driving the transition from manual operations to autonomous enterprise infrastructure.",
       initials: "AS",
-      imageSrc: "/team/ayush.jpg",
       color: "blue" as const
     },
     {
       name: "Arjun Sen",
       role: "Co-Founder & CTO",
-      description: "The architectural genius behind our core technology stack. His code lives on in every system we deploy.",
+      description: "The architectural mind behind our core voice and automation systems.",
       initials: "AS",
-      imageSrc: "/team/arjun-sen.jpg",
-      color: "purple" as const,
-      isLegacy: true
+      color: "purple" as const
     },
     {
       name: "Raveena Kataria",
       role: "Co-Founder & Legal Counsel",
       description: "Ensuring enterprise-grade compliance, data sovereignty, and regulatory adherence across all deployments.",
       initials: "RK",
-      imageSrc: "/team/raveena.jpg",
     },
     {
       name: "Krishanu Maik",
       role: "Director of Sales (APAC)",
       description: "Leading expansion and partnerships across Australia, New Zealand, and Asia-Pacific markets.",
       initials: "KM",
-      imageSrc: "/team/krishanu.jpg",
     },
     {
       name: "Siddhant Mohapatra",
       role: "Director of Sales (Europe & South America)",
       description: "Leading our expansion into European and LATAM territories with enterprise-grade solutions.",
       initials: "SM",
-      imageSrc: "/team/siddhant.jpg",
     },
     {
       name: "Rohit Monga",
       role: "Director of Backend Engineering",
       description: "Head of Backend Systems. Overseeing core processing pipelines, reliability, and architectural decisions.",
       initials: "RM",
-      imageSrc: "/team/rohit.jpg",
     },
     {
       name: "Harsh Varma",
       role: "Backend Systems Architect",
       description: "Architecting scalable backend infrastructure and robust integrations under Rohit's leadership.",
       initials: "HV",
-      imageSrc: "/team/harsh.jpg",
     },
     {
       name: "Arjun Nair",
       role: "Director of Sales (Middle East & Asia)",
       description: "Driving strategic partnerships and growth across the Middle East and Asian markets.",
       initials: "AN",
-      imageSrc: "/team/arjun-nair.jpg",
     },
     {
       name: "Amit Tiwari",
       role: "Head of Customer Success",
       description: "Ensuring every partner deployment achieves maximum ROI and long-term stability.",
       initials: "AT",
-      imageSrc: "/team/amit.jpg",
     }
   ];
 

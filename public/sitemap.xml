@@ -18,16 +18,10 @@
   <url><loc>https://brandverse.tech/contact/thank-you</loc><changefreq>monthly</changefreq><priority>0.3</priority></url>
   <url><loc>https://brandverse.tech/demos</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
   <url><loc>https://brandverse.tech/demos/voice</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://brandverse.tech/workroom</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://brandverse.tech/privacy</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://brandverse.tech/terms</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://brandverse.tech/creators</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
   <url><loc>https://brandverse.tech/onlyfans</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://brandverse.tech/prospects</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://brandverse.tech/prospects/bolt-electric</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://brandverse.tech/prospects/citywide-electric</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://brandverse.tech/prospects/gueldner-electric</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://brandverse.tech/admin/push</loc><changefreq>monthly</changefreq><priority>0.3</priority></url>
   <url><loc>https://brandverse.tech/blog/scaling-vs-swelling-automation</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://brandverse.tech/blog/cure-data-blindness-analytics</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://brandverse.tech/blog/24-7-employee-paradox</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
@@ -131,7 +125,6 @@
   <url><loc>https://brandverse.tech/appointment-booking</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
   <url><loc>https://brandverse.tech/roi-calculator</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://brandverse.tech/pricing-calculator</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://brandverse.tech/demo</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://brandverse.tech/implementation</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://brandverse.tech/case-studies/electricians</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://brandverse.tech/case-studies/hvac</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>

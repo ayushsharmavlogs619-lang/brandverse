@@ -16,7 +16,7 @@ export default function PricingPage() {
         <div className="text-center max-w-3xl mx-auto mb-20">
           <h1 className="text-4xl md:text-6xl font-black text-white mb-6">Invest In Growth, Not Overhead</h1>
           <p className="text-xl text-slate-400">
-            A full-time receptionist costs ~$45,000/year. Brandverse costs less than a coffee a day.
+            A full-time receptionist costs ~$45,000/year. Brandverse starts at $497/mo — less than what one missed service call costs you.
             <span className="text-blue-400 font-bold"> No contracts. Cancel anytime.</span>
           </p>
         </div>
@@ -44,7 +44,7 @@ export default function PricingPage() {
             <h3 className="text-3xl font-bold mb-2 text-white">Growth</h3>
             <div className="text-sm text-indigo-200 font-medium mb-6">For Established Teams</div>
             <div className="text-6xl font-black mb-2 text-white">$997<span className="text-lg text-indigo-200 font-normal">/mo</span></div>
-            <div className="text-xs text-indigo-200 mb-8 uppercase tracking-widest font-semibold">No Setup Fees This Week</div>
+            <div className="text-xs text-indigo-200 mb-8 uppercase tracking-widest font-semibold">No Setup Fees — Ever</div>
             <ul className="text-white space-y-5 mb-12 text-left">
               <li className="flex items-center gap-3"><Check className="w-5 h-5 text-indigo-200" /> <strong>Everything in Starter</strong></li>
               <li className="flex items-center gap-3"><Check className="w-5 h-5 text-indigo-200" /> <strong>Full CRM Integration</strong> (2-way)</li>
@@ -60,7 +60,7 @@ export default function PricingPage() {
           <div className="p-10 rounded-3xl bg-[#0b1121] border border-white/10 text-center hover:border-blue-500/30 transition-all">
             <h3 className="text-2xl font-bold mb-2 text-white">Enterprise</h3>
             <div className="text-sm text-slate-500 font-medium mb-6">Franchises & Multi-Location</div>
-            <div className="text-5xl font-black mb-2 text-white">Custom</div>
+            <div className="text-5xl font-black mb-2 text-white">$1,497<span className="text-lg text-slate-500 font-normal">/mo</span></div>
             <div className="text-xs text-slate-500 mb-8 uppercase tracking-widest font-semibold">White Glove Service</div>
             <ul className="text-slate-400 space-y-4 mb-10 text-left text-sm">
               <li className="flex items-center gap-3"><Check className="w-5 h-5 text-blue-500" /> Multi-location Routing Logic</li>
@@ -80,7 +80,7 @@ export default function PricingPage() {
           </div>
           <div className="text-left">
             <h3 className="text-2xl font-bold text-white mb-2">Our 30-Day Happiness Guarantee</h3>
-            <p className="text-slate-400">We are so confident that Brandverse will increase your booking rate that if you don't generate at least 3x your monthly ROI in the first 30 days, we'll refund your subscription in full. No questions asked.</p>
+            <p className="text-slate-400">Not delighted within your first 30 days? We'll refund your subscription in full — no questions, no hoops.</p>
           </div>
         </div>
 

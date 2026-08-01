@@ -1,4 +1,10 @@
 User-agent: *
 Allow: /
+Disallow: /workroom
+Disallow: /admin/
+Disallow: /prospects/
+Disallow: /crm
+Disallow: /sales
+Disallow: /prospecting
 
 Sitemap: https://brandverse.tech/sitemap.xml

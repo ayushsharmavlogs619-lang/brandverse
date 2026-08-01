@@ -53,6 +53,14 @@ export default function ContactPage() {
                                 </div>
                             </div>
                             <CalendlyEmbed url={config.calendlyUrl} />
+                            <a
+                                href={config.calendlyUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="mt-4 flex items-center justify-center gap-2 w-full py-3 rounded-xl bg-blue-500/10 border border-blue-500/30 text-blue-400 text-sm font-bold hover:bg-blue-500/20 transition-all"
+                            >
+                                <Calendar className="w-4 h-4" /> Open Booking Page Instead
+                            </a>
                         </div>
                     </div>
                     {/* Contact Info */}

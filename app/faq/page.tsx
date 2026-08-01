@@ -14,15 +14,15 @@ export default function FAQPage() {
       items: [
         {
           q: "Does it actually sound human? Be honest.",
-          a: "Yes. It sounds 99% human. We use 'ultra-low latency' voice synthesis that includes breaths, pauses, and natural intonation. We've had clients tell us their own mothers couldn't tell the difference. You have to hear it to believe it."
+          a: "Yes — very close. We use low-latency voice synthesis with natural pacing and intonation. Most callers don't notice they're speaking with AI, and we never misrepresent it if asked."
         },
         {
           q: "What voices and accents do you have?",
-          a: "We have a library of 50+ professionally cloned voices. American (Southern, East Coast, Neutral), British, Australian, and Spanish. We can pick a voice that perfectly matches your brand's vibe."
+          a: "We have a library of 50+ voices: American (Southern, East Coast, Neutral), British, Australian, and Spanish. We'll pick a voice that matches your brand's vibe."
         },
         {
           q: "Can it handle angry customers?",
-          a: "Surprisingly, yes. The AI never loses its temper. It is programmed to de-escalate situations, listen patiently, and apologize sincerely. It then flags the call as 'Urgent' so you can handle it personally."
+          a: "Yes. The AI never loses its temper. It's programmed to de-escalate, listen patiently, and apologize sincerely. It then flags the call as 'Urgent' so you can follow up personally."
         }
       ]
     },
@@ -35,7 +35,7 @@ export default function FAQPage() {
         },
         {
           q: "Does it integrate with ServiceTitan / Housecall Pro?",
-          a: "Yes. We have deep native integrations. The AI can look up your real-time availability and inject bookings directly into your dispatch board. No manual data entry required."
+          a: "Yes. We connect with your existing dispatch tools, including ServiceTitan and Housecall Pro. The AI can check real-time availability and write bookings straight to your dispatch board — no manual data entry."
         }
       ]
     },
@@ -43,12 +43,20 @@ export default function FAQPage() {
       name: "Billing & Contracts",
       items: [
         {
+          q: "How much does it cost?",
+          a: "Starter is $497/mo, Growth is $997/mo, and Enterprise is $1,497/mo. Growth and Enterprise include unlimited minutes; Starter includes 500 AI minutes with transparent per-minute overage. No contracts, no setup fees."
+        },
+        {
           q: "Is there a long-term contract?",
           a: "Never. We operate month-to-month. We believe we should earn your business every single month. You can cancel anytime with a simple email."
         },
         {
           q: "What happens if I go over my minutes?",
-          a: "If you're on the Starter plan, we simply bill a small per-minute overage fee (similar to a cell carrier). However, most growing businesses switch to our Unlimited plan to avoid thinking about limits."
+          a: "If you're on the Starter plan, we bill a transparent per-minute rate for anything beyond your 500 included minutes — no surprise charges. Most growing businesses switch to Growth for unlimited minutes."
+        },
+        {
+          q: "How fast do I go live after signing up?",
+          a: "Most businesses are answering calls within 48–72 hours. Full optimization — CRM depth, custom scripts, and conversion tuning — continues over the following 2–3 weeks."
         }
       ]
     }
@@ -103,7 +111,7 @@ export default function FAQPage() {
         <div className="mt-20 p-8 rounded-3xl bg-blue-600 border border-blue-400 text-center text-white">
           <MessageCircle className="w-12 h-12 mx-auto mb-4 text-blue-200" />
           <h3 className="text-2xl font-bold mb-2">Still have questions?</h3>
-          <p className="mb-8 text-blue-100">Our founders read every email. Sends us a message and we'll reply within an hour.</p>
+          <p className="mb-8 text-blue-100">Our founders read every email. Send us a message and we'll reply within one business day.</p>
           <Link href="/contact" className="inline-block px-8 py-3 bg-white text-blue-600 rounded-xl font-bold hover:bg-slate-100 transition-colors">
             Contact Support
           </Link>

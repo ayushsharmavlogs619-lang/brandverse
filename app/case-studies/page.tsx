@@ -33,11 +33,11 @@ export default function CaseStudiesPage() {
                 <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-blue-600/5 blur-[120px] rounded-full -z-10" />
                 <div className="max-w-5xl mx-auto text-center space-y-6">
                     <h1 className="text-5xl md:text-6xl font-black text-white leading-tight">
-                        Real Results, <br />
+                        AI Receptionists for <br />
                         <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400">Every Industry</span>
                     </h1>
                     <p className="text-lg text-slate-400 max-w-3xl mx-auto leading-relaxed font-medium">
-                        See how businesses across industries use Brandverse AI voice agents to increase revenue, reduce costs, and provide 24/7 customer service.
+                        Industry-specific deployment playbooks for 12 sectors — every one engineered, tuned, and tested for that vertical's calls, objections, and emergencies.
                     </p>
                 </div>
             </header>
@@ -64,8 +64,8 @@ export default function CaseStudiesPage() {
 
                     {/* Real Case Studies Note */}
                     <section className="p-8 rounded-3xl bg-gradient-to-r from-amber-900/20 to-orange-900/20 border border-amber-500/20">
-                        <h2 className="text-2xl font-black text-white uppercase italic tracking-wide mb-4">Real Client Results</h2>
-                        <p className="text-slate-300 mb-6">We also have detailed case studies from actual Brandverse clients:</p>
+                        <h2 className="text-2xl font-black text-white uppercase italic tracking-wide mb-4">Client Stories</h2>
+                        <p className="text-slate-300 mb-6">A few of the teams we've helped deploy AI receptionists — full stories on the blog:</p>
                         <div className="grid md:grid-cols-3 gap-4">
                             <Link href="/blog/case-study-elite-climate" className="p-5 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition-all">
                                 <p className="text-xs text-blue-400 font-black uppercase tracking-widest mb-1">HVAC</p>

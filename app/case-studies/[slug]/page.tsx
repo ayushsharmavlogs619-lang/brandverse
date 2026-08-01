@@ -11,8 +11,9 @@ export function generateStaticParams() {
     return caseStudies.map((cs) => ({ slug: cs.slug }));
 }
 
-export default function CaseStudyPage({ params }: { params: { slug: string } }) {
-    const study = caseStudies.find((cs) => cs.slug === params.slug);
+export default async function CaseStudyPage({ params }: { params: Promise<{ slug: string }> }) {
+    const { slug } = await params;
+    const study = caseStudies.find((cs) => cs.slug === slug);
     if (!study) return notFound();
 
     return (

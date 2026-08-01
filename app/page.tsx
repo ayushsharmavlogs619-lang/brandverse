@@ -221,7 +221,7 @@ export default function Page() {
   const faq = [
     {
       q: "Will my customers know it's AI?",
-      a: "They might suspect it because it's polite, efficient, and never puts them on hold. But the voice quality is indistinguishable from a human on a slightly grainy cell connection. Most callers just think they're talking to a very sharp dispatcher."
+      a: "The agent speaks naturally, so most callers simply continue the conversation. We never hide that it's AI if asked, and callers can always request a human."
     },
     {
       q: "How long does setup take?",
@@ -253,6 +253,7 @@ export default function Page() {
             <Link href="#hiring" className="hover:text-blue-400 transition-colors">Comparison</Link>
             <Link href="#industries" className="hover:text-blue-400 transition-colors">Industries</Link>
             <Link href="#roi" className="hover:text-blue-400 transition-colors">ROI Engine</Link>
+            <Link href="/pricing" className="hover:text-blue-400 transition-colors">Pricing</Link>
             <Link href="/blog" className="hover:text-blue-400 transition-colors">Intelligence</Link>
           </nav>
           <div className="flex items-center gap-4">
@@ -313,28 +314,28 @@ export default function Page() {
         {/* 🎯 FIRST CTA - After Hero */}
         <CTASection 
           title="Stop Losing Calls. Start Capturing Revenue."
-          subtitle="Every missed call is a service call handed to the electrician down the street. Our AI agents capture 100% of your calls, 24/7 — including the 2am emergencies that turn into your best-paying jobs."
+          subtitle="Every missed call is a service call handed to the electrician down the street. Our AI agents answer every call, 24/7 — including the 2am emergencies that turn into your best-paying jobs."
           primaryText="Deploy Your AI Agent"
           variant="minimal"
         />
 
-        {/* 🔧 QUANTUM TECH STACK */}
+        {/* 🔧 INFRASTRUCTURE */}
         <section className="py-24 px-6 border-b border-white/5 relative overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-r from-blue-600/5 via-purple-600/5 to-transparent opacity-30" />
           <div className="max-w-7xl mx-auto relative z-10">
             <div className="text-center mb-12">
               <div className="inline-flex items-center gap-3 px-4 py-2 rounded-2xl glass-morphism border border-white/20 text-cyan-400 text-[10px] font-black uppercase tracking-[0.2em] animate-fade-in">
                 <div className="w-3 h-3 bg-cyan-400 rounded-full mr-2 pulse-glow" />
-                Quantum Infrastructure
+                Deployed On Modern Infrastructure
               </div>
             </div>
             <div className="grid grid-cols-2 md:grid-cols-5 gap-8 items-center">
               {[
-                { icon: Code2, name: "Next.js 16", desc: "Static Generation" },
-                { icon: Globe, name: "Cloudflare", desc: "Edge Network" },
-                { icon: Mic, name: "Vapi AI", desc: "Voice Intelligence" },
+                { icon: Code2, name: "Voice AI", desc: "Natural-Sounding Agents" },
+                { icon: Globe, name: "Cloudflare", desc: "Global Edge Network" },
+                { icon: Mic, name: "Call Handling", desc: "Live Triage & Booking" },
                 { icon: Workflow, name: "Workers", desc: "Edge Compute" },
-                { icon: Database, name: "Google Sheets", desc: "Data Storage" }
+                { icon: Database, name: "Integrations", desc: "CRM & Calendar Sync" }
               ].map((tech, i) => (
                 <div key={i} className="group premium-card p-6 text-center hover:scale-105 transition-all duration-300 relative overflow-hidden">
                   <div className="absolute inset-0 bg-gradient-to-r from-transparent via-cyan-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
@@ -370,13 +371,13 @@ export default function Page() {
               Find Out What You're <span className="text-emerald-400">Leaking</span>
             </h2>
             <p className="text-slate-400 text-lg max-w-xl mx-auto">
-              Get a personalized 2-minute audit: how many service calls you're losing, what it's costing you in panel upgrades and emergency jobs, and exactly which AI system plugs the leak.
+              Get a free audit of your missed calls: how many service calls you're likely losing after-hours, what it's costing you, and which AI system plugs the leak.
             </p>
 
             {auditStatus === 'success' ? (
               <div className="p-6 rounded-2xl bg-emerald-500/10 border border-emerald-500/20">
-                <p className="text-emerald-400 font-bold text-lg">✓ Check your inbox — your audit is on the way.</p>
-                <p className="text-slate-400 text-sm mt-2">We'll send the AI Readiness Assessment to {email} within 60 seconds.</p>
+                <p className="text-emerald-400 font-bold text-lg">✓ Request received.</p>
+                <p className="text-slate-400 text-sm mt-2">We'll be in touch within one business day to schedule your audit.</p>
               </div>
             ) : (
               <form onSubmit={handleAuditSubmit} className="max-w-md mx-auto flex flex-col sm:flex-row gap-3">
@@ -439,7 +440,7 @@ export default function Page() {
         {/* 🎯 SECOND CTA - After Platform Capabilities */}
         <CTASection 
           title="This Isn't SaaS. It's Your Infrastructure."
-          subtitle="We build custom AI systems that become your competitive advantage. No monthly subscriptions, no vendor lock-in."
+          subtitle="We build custom AI systems that become your competitive advantage. Simple monthly pricing — no contracts, cancel anytime."
           primaryText="Build My Stack"
           secondaryText="View Case Studies"
           secondaryLink="/case-studies"
@@ -506,7 +507,7 @@ export default function Page() {
               <div className="grid grid-cols-3 p-6 border-b border-white/5 hover:bg-white/5 transition-colors">
                 <div className="font-bold text-white">Cost Per Month</div>
                 <div className="text-center text-red-400">$3,500+</div>
-                <div className="text-center text-green-400 font-bold">$497 - $997</div>
+                <div className="text-center text-green-400 font-bold">$497 – $1,497</div>
               </div>
               {/* Row 2 */}
               <div className="grid grid-cols-3 p-6 border-b border-white/5 hover:bg-white/5 transition-colors">
@@ -518,7 +519,7 @@ export default function Page() {
               <div className="grid grid-cols-3 p-6 border-b border-white/5 hover:bg-white/5 transition-colors">
                 <div className="font-bold text-white">Capacity</div>
                 <div className="text-center text-slate-400">1 Call at a time</div>
-                <div className="text-center text-blue-400 font-bold">Unlimited Concurrent</div>
+                <div className="text-center text-blue-400 font-bold">Handles Multiple Callers</div>
               </div>
               {/* Row 4 */}
               <div className="grid grid-cols-3 p-6 border-b border-white/5 hover:bg-white/5 transition-colors">
@@ -530,7 +531,7 @@ export default function Page() {
               <div className="grid grid-cols-3 p-6 hover:bg-white/5 transition-colors">
                 <div className="font-bold text-white">Training Time</div>
                 <div className="text-center text-slate-400">3-4 Weeks</div>
-                <div className="text-center text-blue-400 font-bold">Instant Download</div>
+                <div className="text-center text-blue-400 font-bold">Deployed in 48–72 Hours</div>
               </div>
             </div>
           </div>
@@ -555,7 +556,7 @@ export default function Page() {
                 Actually Run Calls
               </h2>
               <p className="text-slate-400 text-lg max-w-3xl mx-auto font-bold">
-                We don't ship generic templates. Every deployment is engineered for emergency triage, code compliance, and permit timing.
+                We don't ship generic templates. Every deployment is engineered for emergency triage, code compliance, and permit timing — and the same playbook applies to HVAC, plumbing, dental, legal, restaurants, salons, and 10+ more industries.
               </p>
             </div>
 
@@ -586,7 +587,7 @@ export default function Page() {
               <h2 className="text-4xl md:text-6xl font-black text-white uppercase italic tracking-tighter">
                 Deployment <span className="text-blue-500">Protocol</span>
               </h2>
-              <p className="text-slate-500 font-bold uppercase tracking-widest text-xs">From Kickoff to Answering Electrical Calls in 48 Hours</p>
+              <p className="text-slate-500 font-bold uppercase tracking-widest text-xs">From Kickoff to Answering Calls in 48–72 Hours</p>
             </div>
             <div className="grid md:grid-cols-3 gap-12 relative">
               <div className="absolute top-1/2 left-0 w-full h-1 bg-white/5 -z-10 hidden md:block" />
@@ -667,7 +668,7 @@ export default function Page() {
                 Invest In <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-500">Growth</span>
               </h2>
               <p className="text-slate-400 text-lg max-w-3xl mx-auto font-bold">
-                A full-time receptionist/dispatcher costs ~$45,000/year. Brandverse costs less than a coffee a day.
+                A full-time receptionist/dispatcher costs ~$45,000/year. Brandverse starts at $497/mo — less than what one missed service call costs you.
                 <span className="text-blue-400 font-bold"> No contracts. Cancel anytime.</span>
               </p>
             </div>
@@ -676,7 +677,7 @@ export default function Page() {
               {/* Starter */}
               <div className="p-10 rounded-3xl bg-[#0b1121] border border-white/10 text-center hover:border-blue-500/30 transition-all">
                 <h3 className="text-2xl font-bold mb-2 text-white">Starter</h3>
-                <div className="text-sm text-slate-500 font-medium mb-6">Perfect for Solo Electricians</div>
+                <div className="text-sm text-slate-500 font-medium mb-6">For Solo Pros</div>
                 <div className="text-5xl font-black mb-2 text-white">$497<span className="text-lg text-slate-500 font-normal">/mo</span></div>
                 <div className="text-xs text-slate-500 mb-8 uppercase tracking-widest font-semibold">Risk Free Guarantee</div>
                 <ul className="text-slate-400 space-y-4 mb-10 text-left text-sm">
@@ -693,9 +694,9 @@ export default function Page() {
               <div className="p-12 rounded-[2.5rem] bg-indigo-600 border border-indigo-400 relative shadow-2xl shadow-indigo-500/30 -translate-y-6 z-10">
                 <div className="absolute top-0 right-1/2 translate-x-1/2 -translate-y-1/2 bg-white text-indigo-700 px-6 py-2 rounded-full text-xs font-black tracking-widest uppercase border border-indigo-200">Best ROI</div>
                 <h3 className="text-3xl font-bold mb-2 text-white">Growth</h3>
-                <div className="text-sm text-indigo-200 font-medium mb-6">For Established Electrical Contractors</div>
+                <div className="text-sm text-indigo-200 font-medium mb-6">For Established Teams</div>
                 <div className="text-6xl font-black mb-2 text-white">$997<span className="text-lg text-indigo-200 font-normal">/mo</span></div>
-                <div className="text-xs text-indigo-200 mb-8 uppercase tracking-widest font-semibold">No Setup Fees This Week</div>
+                <div className="text-xs text-indigo-200 mb-8 uppercase tracking-widest font-semibold">No Setup Fees — Ever</div>
                 <ul className="text-white space-y-5 mb-12 text-left">
                   <li className="flex items-center gap-3"><Check className="w-5 h-5 text-indigo-200" /> <strong>Everything in Starter</strong></li>
                   <li className="flex items-center gap-3"><Check className="w-5 h-5 text-indigo-200" /> <strong>Full CRM/Dispatch Integration</strong> (2-way)</li>
@@ -710,8 +711,8 @@ export default function Page() {
               {/* Enterprise */}
               <div className="p-10 rounded-3xl bg-[#0b1121] border border-white/10 text-center hover:border-blue-500/30 transition-all">
                 <h3 className="text-2xl font-bold mb-2 text-white">Enterprise</h3>
-                <div className="text-sm text-slate-500 font-medium mb-6">Multi-Crew & Multi-Location Electrical Companies</div>
-                <div className="text-5xl font-black mb-2 text-white">Custom</div>
+                <div className="text-sm text-slate-500 font-medium mb-6">Multi-Location & Franchises</div>
+                <div className="text-5xl font-black mb-2 text-white">$1,497<span className="text-lg text-slate-500 font-normal">/mo</span></div>
                 <div className="text-xs text-slate-500 mb-8 uppercase tracking-widest font-semibold">White Glove Service</div>
                 <ul className="text-slate-400 space-y-4 mb-10 text-left text-sm">
                   <li className="flex items-center gap-3"><Check className="w-5 h-5 text-blue-500" /> Multi-location Routing Logic</li>
@@ -731,7 +732,7 @@ export default function Page() {
               </div>
               <div className="text-left">
                 <h3 className="text-2xl font-bold text-white mb-2">Our 30-Day Happiness Guarantee</h3>
-                <p className="text-slate-400">We are so confident that Brandverse will increase your booking rate that if you don't generate at least 3x your monthly ROI in the first 30 days, we'll refund your subscription in full. No questions asked.</p>
+                <p className="text-slate-400">Not delighted within your first 30 days? We'll refund your subscription in full — no questions, no hoops.</p>
               </div>
             </div>
           </div>
@@ -868,14 +869,14 @@ export default function Page() {
           <div className="max-w-7xl mx-auto space-y-16">
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
               <div className="space-y-4">
-                <h2 className="text-4xl md:text-5xl font-black text-white uppercase italic tracking-tighter">Verified <span className="text-purple-500">Performance</span></h2>
-                <p className="text-slate-400 text-lg">Don't take our word for it.</p>
+                <h2 className="text-4xl md:text-5xl font-black text-white uppercase italic tracking-tighter">Client <span className="text-purple-500">Results</span></h2>
+                <p className="text-slate-400 text-lg">What owners say after deploying Brandverse.</p>
               </div>
               <div className="flex items-center gap-2 p-3 bg-white/5 rounded-full border border-white/10">
                 <div className="flex text-yellow-500">
                   <Star className="w-4 h-4 fill-current" /><Star className="w-4 h-4 fill-current" /><Star className="w-4 h-4 fill-current" /><Star className="w-4 h-4 fill-current" /><Star className="w-4 h-4 fill-current" />
                 </div>
-                <span className="text-xs font-bold text-white uppercase tracking-widest">5.0 Star Average</span>
+                <span className="text-xs font-bold text-white uppercase tracking-widest">Rated 5/5 by Clients</span>
               </div>
             </div>
 
@@ -940,7 +941,7 @@ export default function Page() {
         <section className="py-24 px-6 border-t border-white/5">
           <div className="max-w-4xl mx-auto space-y-16">
             <div className="text-center">
-              <h2 className="text-3xl md:text-5xl font-black text-white uppercase italic tracking-tighter">Transmission <span className="text-slate-600">Logs</span></h2>
+              <h2 className="text-3xl md:text-5xl font-black text-white uppercase italic tracking-tighter">Common <span className="text-slate-600">Questions</span></h2>
               <p className="text-slate-500 text-sm font-bold uppercase tracking-widest mt-4">Frequently Asked Questions</p>
             </div>
             <div className="space-y-8">
@@ -964,10 +965,10 @@ export default function Page() {
             <div className="relative z-10 space-y-10">
               <h2 className="text-4xl md:text-6xl font-black text-white uppercase italic tracking-tighter">Ready to Deploy?</h2>
               <p className="text-slate-300 text-lg font-bold max-w-2xl mx-auto">
-                We take on <strong className="text-white">3 new infrastructure builds per month</strong>. Current availability for approved partners deploying in <strong className="text-blue-400">Q3 2026</strong>.
+                Tell us about your business and we'll show you exactly what automation would do for it — on a free, zero-obligation call.
               </p>
               <Link href="/contact" className="inline-block px-12 py-6 bg-brand-gradient text-white rounded-2xl font-black uppercase tracking-widest text-sm shadow-2xl shadow-blue-500/30 hover:scale-105 hover:shadow-blue-500/50 transition-all">
-                Apply for Partnership
+                Book a Free Demo
               </Link>
             </div>
           </div>
