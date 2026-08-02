@@ -12,7 +12,7 @@
     "verify:cloudflare": "node scripts/verify-cloudflare.js",
     "verify:workers": "node scripts/verify-workers.js",
     "verify:deployment": "npm run build && npm run type-check && npm run verify:cloudflare && npm run verify:workers",
-    "deploy:cloudflare": "npx wrangler pages deploy out --project-name brandverse --branch=production",
+    "deploy:cloudflare": "npx wrangler pages deploy out --project-name brandverse --branch=main",
     "deploy:subdomain-router": "npx wrangler deploy --config subdomain-router/wrangler.toml",
     "deploy:worker": "npx wrangler deploy --config ai-reception/wrangler.toml --env production",
     "deploy:worker-staging": "npx wrangler deploy --config ai-reception/wrangler.toml --env staging",
