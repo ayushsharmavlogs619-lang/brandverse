@@ -69,7 +69,7 @@ const phases = [
 
 const metrics = [
     { value: '48–72', label: 'Hours to Go-Live', icon: Clock },
-    { value: '99.9%', label: 'Uptime Guarantee', icon: CheckCircle2 },
+    { value: '99.9%', label: 'Platform Uptime Target', icon: CheckCircle2 },
     { value: '8', label: 'Implementation Phases', icon: BarChart3 },
     { value: '24/7', label: 'Support After Launch', icon: LifeBuoy },
 ];

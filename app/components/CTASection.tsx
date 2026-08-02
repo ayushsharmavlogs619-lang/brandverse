@@ -38,7 +38,7 @@ interface CTASectionProps {
 
 export default function CTASection({ 
   title = "Ready to Automate Your Business?",
-  subtitle = "Join 50+ businesses that have deployed AI voice agents with Brandverse",
+  subtitle = "See exactly what a Brandverse AI voice agent would do for your business — on a free, no-obligation call.",
   primaryText = "Book Your Free Audit",
   primaryLink = config.calendlyUrl || 'https://calendly.com/ayushsharmavlogs619/30min',
   secondaryText,
@@ -120,7 +120,7 @@ export default function CTASection({
             {variant === 'blog' && (
               <div className="pt-8 border-t border-white/10">
                 <p className="text-sm text-slate-500 font-bold uppercase tracking-widest">
-                  Limited to 3 new clients per month. Apply now to secure your spot.
+                  Free audit included. No long-term contract — cancel anytime.
                 </p>
               </div>
             )}

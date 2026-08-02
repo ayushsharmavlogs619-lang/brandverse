@@ -42,8 +42,8 @@ export default function RazorpayCheckout({
 
   useEffect(() => {
     if (window.Razorpay) {
-      setScriptLoaded(true);
-      return;
+      const t = setTimeout(() => setScriptLoaded(true), 0);
+      return () => clearTimeout(t);
     }
 
     const script = document.createElement('script');

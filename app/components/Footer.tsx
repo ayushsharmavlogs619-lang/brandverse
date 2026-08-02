@@ -1,6 +1,6 @@
 'use client';
 
-import { Twitter, Linkedin, Instagram, Youtube, Mail, Phone } from 'lucide-react';
+import { Twitter, Instagram, Mail, Phone } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
@@ -19,14 +19,8 @@ export default function Footer() {
                         <a href="https://twitter.com/brandverse_tech" target="_blank" rel="noopener noreferrer" aria-label="Brandverse on X (Twitter)" className="p-2 rounded-full bg-white/5 hover:bg-blue-500/20 hover:text-blue-400 transition-colors">
                             <Twitter className="w-5 h-5" />
                         </a>
-                        <a href="https://linkedin.com/company/brandverse-tech" target="_blank" rel="noopener noreferrer" aria-label="Brandverse on LinkedIn" className="p-2 rounded-full bg-white/5 hover:bg-blue-600/20 hover:text-blue-500 transition-colors">
-                            <Linkedin className="w-5 h-5" />
-                        </a>
                         <a href="https://instagram.com/brandverse.tech" target="_blank" rel="noopener noreferrer" aria-label="Brandverse on Instagram" className="p-2 rounded-full bg-white/5 hover:bg-pink-500/20 hover:text-pink-500 transition-colors">
                             <Instagram className="w-5 h-5" />
-                        </a>
-                        <a href="https://youtube.com/@brandverse_tech" target="_blank" rel="noopener noreferrer" aria-label="Brandverse on YouTube" className="p-2 rounded-full bg-white/5 hover:bg-red-500/20 hover:text-red-500 transition-colors">
-                            <Youtube className="w-5 h-5" />
                         </a>
                     </div>
                 </div>

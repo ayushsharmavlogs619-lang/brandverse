@@ -1,19 +1,21 @@
 'use client';
 
 import Script from 'next/script';
-import { useEffect, useState } from 'react';
+import { useSyncExternalStore } from 'react';
 import { config } from '../../lib/config';
+
+const subscribe = () => () => {};
 
 export default function Analytics() {
   const GA_ID = config.analytics.gaId;
   const META_PIXEL_ID = config.analytics.metaPixelId;
 
   // Safe window.location access to prevent hydration mismatch
-  const [pagePath, setPagePath] = useState('/');
-
-  useEffect(() => {
-    setPagePath(window.location.pathname);
-  }, []);
+  const pagePath = useSyncExternalStore(
+    subscribe,
+    () => window.location.pathname,
+    () => '/'
+  );
 
   return (
     <>

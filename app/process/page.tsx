@@ -5,7 +5,7 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Process — Brandverse AI Voice Agent Onboarding",
-  description: "From signup to live in 48 hours. See how Brandverse deploys custom AI voice agents: discovery, knowledge base, voice cloning, silent launch, and autopilot revenue.",
+  description: "From signup to live in 48–72 hours. See how Brandverse deploys custom AI voice agents: discovery, knowledge base, voice cloning, silent launch, and autopilot revenue.",
   keywords: ["AI voice agent onboarding", "48 hour deployment", "AI setup process", "voice cloning setup", "AI agent launch"],
 };
 
@@ -16,7 +16,7 @@ export default function ProcessPage() {
                 <div className="text-center mb-24">
                     <h1 className="text-4xl md:text-7xl font-black text-white mb-6">
                         From Signup to Live <br />
-                        <span className="text-blue-500">In 48 Hours</span>
+                        <span className="text-blue-500">In 48–72 Hours</span>
                     </h1>
                     <p className="text-xl text-slate-400 max-w-2xl mx-auto">
                         We know you're busy. That's why we handle 100% of the heavy lifting. You don't need to be technical. You just need to want to grow.

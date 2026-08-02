@@ -1,16 +1,18 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useSyncExternalStore } from 'react';
 import { Calendar, Loader2 } from 'lucide-react';
 
+const subscribe = () => () => {};
+
 export default function CalendlyEmbed({ url }: { url?: string }) {
-    const [mounted, setMounted] = useState(false);
+    const mounted = useSyncExternalStore(
+        subscribe,
+        () => true,
+        () => false
+    );
     const base = url || 'https://calendly.com/ayushsharmavlogs619/30min';
     const calendlyUrl = `${base}${base.includes('?') ? '&' : '?'}embed_type=Inline&hide_gdpr_banner=1`;
-
-    useEffect(() => {
-        setMounted(true);
-    }, []);
 
     if (!mounted) return null;
 

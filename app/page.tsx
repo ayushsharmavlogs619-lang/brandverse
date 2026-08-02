@@ -11,11 +11,8 @@ import {
   MessageSquare,
   ArrowRight,
   CheckCircle2,
-  BarChart3,
   Mic,
   Bot,
-  Star,
-  Users,
   Menu,
   ChevronRight,
   X,
@@ -24,7 +21,6 @@ import {
   Home,
   Briefcase,
   Building2,
-  Stethoscope,
   Calendar,
   Car,
   Sparkles,
@@ -116,73 +112,64 @@ export default function Page() {
       icon: Home,
       name: "Residential Electricians",
       description: "Deploy AI dispatch that captures panel upgrade and rewiring inquiries 24/7, auto-quotes based on job type, and confirms appointments via SMS.",
-      results: "+42% Revenue",
+      benefit: "24/7 Lead Capture",
       color: "from-blue-500 to-cyan-500"
     },
     {
       icon: Building2,
       name: "Commercial Electrical Contractors",
       description: "Launch intake automation that screens project scope, checks against licensing/bonding requirements, and routes to the right estimator.",
-      results: "3x Pipeline Velocity",
+      benefit: "Qualified Lead Routing",
       color: "from-purple-500 to-pink-500"
     },
     {
       icon: Zap,
       name: "Emergency / 24-Hour Electricians",
       description: "Instant triage that separates true emergencies (sparking outlet, total power loss, exposed wiring) from routine calls, and dispatches your on-call tech immediately with GPS-based assignment.",
-      results: "+65% Emergency Capture Rate",
+      benefit: "Instant Emergency Dispatch",
       color: "from-red-500 to-orange-500"
     },
     {
       icon: Car,
       name: "EV Charger Installers",
       description: "A lead-qualification engine that screens for panel capacity, permit requirements, and rebate eligibility before booking a site visit.",
-      results: "28% Faster Close",
+      benefit: "Pre-Qualified Site Visits",
       color: "from-green-500 to-emerald-500"
     },
     {
       icon: Sparkles,
       name: "Solar & Panel Upgrade Specialists",
       description: "Voice AI that qualifies leads by home age, panel size, and utility provider, then books a site assessment straight to your calendar.",
-      results: "91% Booked Rate",
+      benefit: "Calendar-Booked Assessments",
       color: "from-yellow-500 to-orange-500"
     },
     {
       icon: Wrench,
       name: "Low Voltage & Smart Home Electricians",
       description: "Scheduling that checks technician certifications (security, AV, home automation) before confirming a job type.",
-      results: "+52% Review Growth",
+      benefit: "Certification-Matched Jobs",
       color: "from-teal-500 to-green-400"
     },
     {
       icon: ShieldCheck,
       name: "Master Electricians / Inspections",
       description: "Automated inspection scheduling, permit status updates, and no-show reduction with SMS reminders for code compliance visits.",
-      results: "35% More New Clients",
+      benefit: "Fewer No-Shows",
       color: "from-rose-400 to-pink-600"
     },
     {
       icon: Briefcase,
       name: "Industrial Electrical Contractors",
       description: "Manage high-volume maintenance contract inquiries with AI that pre-screens for facility type, urgency, and union/licensing requirements.",
-      results: "$12k/mo Added Revenue",
+      benefit: "High-Volume Screening",
       color: "from-slate-500 to-gray-600"
     }
   ];
 
-  const techStack = [
-    { name: "Next.js 16 (Turbopack)", description: "Static Site Generation + Edge Runtime", icon: Code2 },
-    { name: "Cloudflare Pages", description: "Global CDN + Instant Rollbacks", icon: Globe },
-    { name: "Vapi AI SDK", description: "Programmable Voice Intelligence", icon: Mic },
-    { name: "Cloudflare Workers", description: "Edge Compute Infrastructure", icon: Workflow },
-    { name: "Google Sheets API", description: "Lead Data Storage Layer", icon: Database },
-    { name: "Tailwind CSS 4", description: "Utility-First Styling Engine", icon: Layers }
-  ];
-
   const capabilities = [
     {
-      title: "Proprietary Voice Models",
-      description: "We don't resell Vapi templates. We train custom LLM fine-tunes on YOUR scripts, YOUR brand voice, and YOUR service menu — panel upgrades, EV charger installs, emergency repairs, code inspections.",
+      title: "Custom-Trained Voice Agents",
+      description: "We don't ship generic templates. Every agent is trained on YOUR scripts, YOUR brand voice, and YOUR service menu — panel upgrades, EV charger installs, emergency repairs, code inspections.",
       icon: Terminal
     },
     {
@@ -194,27 +181,6 @@ export default function Page() {
       title: "White-Label Deployment",
       description: "Launch under your domain. Your customers never see 'Powered by Brandverse' unless you want them to.",
       icon: Globe
-    }
-  ];
-
-  const testimonials = [
-    {
-      quote: "We were losing 20+ emergency calls a week overnight. Brandverse's Voice Agent picked them all up and our after-hours booking rate doubled. The triage is scary accurate.",
-      author: "Dave Reyes",
-      role: "Owner, Reyes Electrical Services",
-      metric: "$38k/mo Added Revenue",
-    },
-    {
-      quote: "I was skeptical about AI answering emergency electrical calls. But it flags true emergencies vs. routine work correctly every time. It never calls in sick.",
-      author: "Marcus Lee",
-      role: "Owner, Lee & Sons Electric",
-      metric: "ZERO Missed Emergency Calls",
-    },
-    {
-      quote: "The automated follow-up system resurrects old panel-upgrade quotes from months back and puts them straight on my calendar.",
-      author: "Priya Nair",
-      role: "Owner, Nair Electrical Contracting",
-      metric: "3x More Booked Estimates",
     }
   ];
 
@@ -416,10 +382,10 @@ export default function Page() {
           <div className="max-w-7xl mx-auto space-y-16">
             <div className="text-center space-y-6">
               <h2 className="text-5xl md:text-7xl font-black text-white uppercase italic tracking-tighter">
-                Not SaaS. <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400">Custom Infrastructure.</span>
+                Beyond Answering Services. <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400">Custom Infrastructure.</span>
               </h2>
               <p className="text-slate-400 text-lg max-w-3xl mx-auto font-bold">
-                We don't sell subscriptions to bloated platforms. We write production-grade code that compiles into <strong className="text-white">your proprietary software</strong>.
+                Generic answering services read from a script. We build custom AI systems engineered for how your business actually runs — trained on your services, pricing, and dispatch workflow.
               </p>
             </div>
 
@@ -439,8 +405,8 @@ export default function Page() {
 
         {/* 🎯 SECOND CTA - After Platform Capabilities */}
         <CTASection 
-          title="This Isn't SaaS. It's Your Infrastructure."
-          subtitle="We build custom AI systems that become your competitive advantage. Simple monthly pricing — no contracts, cancel anytime."
+          title="Built For Your Business, Not Around a Product."
+          subtitle="Simple monthly pricing — no contracts, cancel anytime. See what a custom system would do for your call flow."
           primaryText="Build My Stack"
           secondaryText="View Case Studies"
           secondaryLink="/case-studies"
@@ -469,7 +435,7 @@ export default function Page() {
                       <Mic className="w-4 h-4" /> Listen to Demo
                     </Link>
                     <Link href="/features" className="flex items-center gap-2 text-slate-400 font-black uppercase tracking-widest text-xs hover:text-white transition-all">
-                      API Docs <ChevronRight className="w-4 h-4" />
+                      Explore Features <ChevronRight className="w-4 h-4" />
                     </Link>
                   </div>
                 </div>
@@ -483,7 +449,7 @@ export default function Page() {
                   </div>
                   <h3 className="text-3xl font-black text-white uppercase italic tracking-tighter">Workflow Engine</h3>
                   <p className="text-slate-300 font-medium leading-relaxed">
-                    Automate estimates, deposit collection, and permit paperwork reminders with serverless functions that run on Firebase Cloud.
+                    Automate estimates, deposit collection, and permit paperwork reminders with serverless functions that run on Cloudflare's edge network.
                   </p>
                 </div>
               </div>
@@ -537,7 +503,7 @@ export default function Page() {
           </div>
         </section>
 
-        {/* � THIRD CTA - After Comparison */}
+        {/* THIRD CTA - After Comparison */}
         <CTASection 
           title="The Math Doesn't Lie."
           subtitle="For less than one employee's monthly salary, get unlimited 24/7 emergency and service call coverage. The ROI is undeniable."
@@ -547,7 +513,7 @@ export default function Page() {
           variant="minimal"
         />
 
-        {/* � INDUSTRY-SPECIFIC SECTIONS */}
+        {/* INDUSTRY-SPECIFIC SECTIONS */}
         <section id="industries" className="py-32 px-6">
           <div className="max-w-7xl mx-auto space-y-16">
             <div className="text-center space-y-6">
@@ -570,8 +536,8 @@ export default function Page() {
                     <h3 className="text-2xl font-black text-white uppercase tracking-tight mb-3">{industry.name}</h3>
                     <p className="text-slate-400 leading-relaxed mb-4 text-sm">{industry.description}</p>
                     <div className={`inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r ${industry.color} bg-opacity-10 border border-white/10`}>
-                      <TrendingUp className="w-4 h-4 text-white" />
-                      <span className="text-white font-black text-xs uppercase tracking-widest">{industry.results}</span>
+                      <CheckCircle2 className="w-4 h-4 text-white" />
+                      <span className="text-white font-black text-xs uppercase tracking-widest">{industry.benefit}</span>
                     </div>
                   </div>
                 </div>
@@ -607,7 +573,7 @@ export default function Page() {
               <div className="relative group">
                 <div className="w-20 h-20 rounded-full bg-[#020617] border border-green-500/30 flex items-center justify-center text-3xl font-black text-green-500 mb-8 mx-auto group-hover:scale-110 transition-transform shadow-2xl shadow-green-500/20">3</div>
                 <h3 className="text-xl font-bold text-white text-center mb-4">Go Live & Optimize</h3>
-                <p className="text-center text-slate-400 text-sm leading-relaxed">We flip the switch. Your AI agent starts answering calls immediately. We monitor the first 100 calls to refine emergency-triage accuracy to 99%.</p>
+                <p className="text-center text-slate-400 text-sm leading-relaxed">We flip the switch. Your AI agent starts answering calls immediately. We monitor the first 100 calls closely and refine the emergency-triage scripts based on what we hear.</p>
               </div>
             </div>
           </div>
@@ -864,37 +830,47 @@ export default function Page() {
           variant="minimal"
         />
 
-        {/* ⭐ REVIEWS / TESTIMONIALS */}
+        {/* ⭐ WHAT YOU GET */}
         <section className="py-32 px-6 bg-black/40 border-t border-white/5">
           <div className="max-w-7xl mx-auto space-y-16">
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
               <div className="space-y-4">
-                <h2 className="text-4xl md:text-5xl font-black text-white uppercase italic tracking-tighter">Client <span className="text-purple-500">Results</span></h2>
-                <p className="text-slate-400 text-lg">What owners say after deploying Brandverse.</p>
+                <h2 className="text-4xl md:text-5xl font-black text-white uppercase italic tracking-tighter">What We <span className="text-purple-500">Deliver</span></h2>
+                <p className="text-slate-400 text-lg">No vague promises. Here's exactly what happens when you sign up.</p>
               </div>
-              <div className="flex items-center gap-2 p-3 bg-white/5 rounded-full border border-white/10">
-                <div className="flex text-yellow-500">
-                  <Star className="w-4 h-4 fill-current" /><Star className="w-4 h-4 fill-current" /><Star className="w-4 h-4 fill-current" /><Star className="w-4 h-4 fill-current" /><Star className="w-4 h-4 fill-current" />
-                </div>
-                <span className="text-xs font-bold text-white uppercase tracking-widest">Rated 5/5 by Clients</span>
-              </div>
+              <Link href="/process" className="hidden md:flex items-center gap-2 text-sm font-bold uppercase tracking-widest text-blue-400 hover:text-white transition-colors">
+                See The Full Process <ArrowRight className="w-4 h-4" />
+              </Link>
             </div>
 
             <div className="grid md:grid-cols-3 gap-6">
-              {testimonials.map((t, idx) => (
-                <div key={idx} className="p-8 rounded-3xl bg-slate-900/50 border border-white/5 space-y-6">
-                  <div className="text-slate-300 italic leading-relaxed">"{t.quote}"</div>
-                  <div className="flex items-center justify-between pt-6 border-t border-white/5">
-                    <div>
-                      <div className="font-bold text-white">{t.author}</div>
-                      <div className="text-xs text-slate-500 uppercase tracking-wider">{t.role}</div>
-                    </div>
-                    <div className="text-right">
-                      <div className="text-green-400 text-xs font-black uppercase tracking-widest">{t.metric}</div>
-                    </div>
-                  </div>
+              <div className="p-8 rounded-3xl bg-slate-900/50 border border-white/5 space-y-6">
+                <div className="w-12 h-12 rounded-2xl bg-blue-600/20 flex items-center justify-center">
+                  <CheckCircle2 className="w-6 h-6 text-blue-400" />
                 </div>
-              ))}
+                <h3 className="text-xl font-black text-white">Live in 48–72 Hours</h3>
+                <p className="text-slate-400 leading-relaxed">
+                  Kickoff to go-live in 48–72 hours. Your agent is trained on your services, pricing, and calendar before it takes a single call.
+                </p>
+              </div>
+              <div className="p-8 rounded-3xl bg-slate-900/50 border border-white/5 space-y-6">
+                <div className="w-12 h-12 rounded-2xl bg-purple-600/20 flex items-center justify-center">
+                  <ShieldCheck className="w-6 h-6 text-purple-400" />
+                </div>
+                <h3 className="text-xl font-black text-white">30-Day Guarantee</h3>
+                <p className="text-slate-400 leading-relaxed">
+                  Not delighted in your first 30 days? Full refund — no questions, no hoops, no long-term contracts.
+                </p>
+              </div>
+              <div className="p-8 rounded-3xl bg-slate-900/50 border border-white/5 space-y-6">
+                <div className="w-12 h-12 rounded-2xl bg-green-600/20 flex items-center justify-center">
+                  <Phone className="w-6 h-6 text-green-400" />
+                </div>
+                <h3 className="text-xl font-black text-white">Transparent Reporting</h3>
+                <p className="text-slate-400 leading-relaxed">
+                  Every call is recorded, summarized, and delivered to you by SMS or email — so you can verify quality yourself.
+                </p>
+              </div>
             </div>
           </div>
         </section>

@@ -35,7 +35,7 @@ export default function ContactPage() {
                         Ready to <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">Scale?</span>
                     </h1>
                     <p className="text-xl text-slate-400 max-w-2xl mx-auto">
-                        Book a 15-minute discovery call. No hard sales. Just exploring if AI can fix your bottlenecks.
+                        Book a 30-minute discovery call. No hard sales. Just exploring if AI can fix your bottlenecks.
                     </p>
                 </div>
 
@@ -97,7 +97,6 @@ export default function ContactPage() {
                                     <div className="flex gap-4 mt-2">
                                         <a href="https://twitter.com/brandverse_tech" target="_blank" className="text-slate-400 hover:text-white transition-colors">X (Twitter)</a>
                                         <a href="https://instagram.com/brandverse.tech" target="_blank" className="text-slate-400 hover:text-white transition-colors">Instagram</a>
-                                        <a href="https://linkedin.com/company/brandverse-tech" target="_blank" className="text-slate-400 hover:text-white transition-colors">LinkedIn</a>
                                     </div>
                                 </div>
                             </div>

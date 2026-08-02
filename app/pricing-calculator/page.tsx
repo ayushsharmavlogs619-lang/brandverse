@@ -32,31 +32,20 @@ export default function PricingCalculator() {
     };
 
     const results = useMemo(() => {
-        const featureCost = selectedFeatures.reduce((sum, id) => {
-            const feat = features.find((f) => f.id === id);
-            return sum + (feat?.basePrice || 0);
-        }, 0);
-        const locationMultiplier = 1 + (locations - 1) * 0.3;
-        const callMultiplier = businessSize === 'small' ? 1 : businessSize === 'medium' ? 1.5 : 2.5;
-        const basePrice = businessSize === 'small' ? 497 : businessSize === 'medium' ? 997 : 1497;
-        const estimatedMonthly = Math.round((basePrice + featureCost) * locationMultiplier * callMultiplier);
-        const humanReplacement = businessSize === 'small' ? 3500 : businessSize === 'medium' ? 7000 : 14000;
-        const monthlySavings = humanReplacement - estimatedMonthly;
-        const annualSavings = monthlySavings * 12;
-        const roi = ((annualSavings / (estimatedMonthly * 12)) * 100);
-
         let recommendedPlan = plans[0];
-        let planIndex = 0;
         if (monthlyCalls > 500 || locations > 1 || selectedFeatures.length >= 4) {
             recommendedPlan = plans[1];
-            planIndex = 1;
         }
         if (monthlyCalls > 2000 || locations > 3 || selectedFeatures.length >= 5) {
             recommendedPlan = plans[2];
-            planIndex = 2;
         }
+        const estimatedMonthly = recommendedPlan.price;
+        const humanReplacement = businessSize === 'small' ? 3500 : businessSize === 'medium' ? 7000 : 14000;
+        const monthlySavings = humanReplacement - estimatedMonthly;
+        const annualSavings = monthlySavings * 12;
+        const roi = (monthlySavings / estimatedMonthly) * 100;
 
-        return { featureCost, locationMultiplier, callMultiplier, estimatedMonthly, humanReplacement, monthlySavings, annualSavings, roi, recommendedPlan, planIndex };
+        return { estimatedMonthly, humanReplacement, monthlySavings, annualSavings, roi, recommendedPlan, planIndex: plans.indexOf(recommendedPlan) };
     }, [businessSize, monthlyCalls, locations, selectedFeatures]);
 
     return (
@@ -127,7 +116,7 @@ export default function PricingCalculator() {
                                                     : 'bg-white/5 border-white/10 text-slate-400 hover:bg-white/10 hover:text-white'
                                             }`}>
                                             <span>{f.label}</span>
-                                            <span className="text-xs text-slate-500">+${f.basePrice}/mo</span>
+                                            <span className="text-xs text-slate-500">Included in plan</span>
                                         </button>
                                     ))}
                                 </div>

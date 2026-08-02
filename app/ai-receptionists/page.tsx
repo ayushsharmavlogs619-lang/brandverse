@@ -92,7 +92,7 @@ export default function AIReceptionistsHub() {
                         <h2 className="text-2xl font-black text-white uppercase italic tracking-wide">Frequently Asked Questions</h2>
                         <div className="p-6 rounded-2xl bg-white/5 border border-white/10">
                             <h3 className="font-bold text-white mb-2">How much does an AI receptionist cost?</h3>
-                            <p className="text-slate-400 leading-relaxed">AI receptionist services typically range from $300 to $1,500 per month depending on call volume. Compared to a human receptionist at $2,500-$4,500/month plus benefits, the savings are substantial.</p>
+                            <p className="text-slate-400 leading-relaxed">AI receptionist services vary by provider — typically $300 to $1,500 per month depending on call volume. Brandverse offers flat-rate plans from $497 to $1,497 per month with no per-minute charges. Compared to a human receptionist at $2,500-$4,500/month plus benefits, the savings are substantial.</p>
                         </div>
                         <div className="p-6 rounded-2xl bg-white/5 border border-white/10">
                             <h3 className="font-bold text-white mb-2">How long does it take to set up?</h3>

@@ -20,7 +20,8 @@ export default function TableOfContents() {
             h.id = id;
             tocItems.push({ id, text: h.textContent || '', level: h.tagName === 'H2' ? 2 : 3 });
         });
-        setItems(tocItems);
+        const frame = requestAnimationFrame(() => setItems(tocItems));
+        return () => cancelAnimationFrame(frame);
     }, []);
 
     useEffect(() => {

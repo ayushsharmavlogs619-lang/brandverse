@@ -139,7 +139,7 @@ const CONTENT_OVERRIDES: Record<string, string> = {
 
     <section class="space-y-6">
       <h2 class="text-2xl font-black text-white uppercase italic tracking-wide">Implementation Timeline: From Sign-Up to Live</h2>
-      <p class="text-slate-400 leading-8 text-lg">Deploying an AI voice agent for your optometry and eye care business is faster than hiring and training a new employee. Most businesses go from sign-up to live in 2-3 weeks:</p>
+      <p class="text-slate-400 leading-8 text-lg">Deploying an AI voice agent for your optometry and eye care business is faster than hiring and training a new employee. Most businesses go from sign-up to live within 48-72 hours, with deeper script customization and CRM integration refined over the first two weeks:</p>
       <h3 class="text-xl font-bold text-white mt-8 mb-4">Week 1: Discovery & Foundation</h3>
       <p class="text-slate-400 leading-8 text-lg">Discovery call, script design tailored to your optometry and eye care business, and integration setup. We map your existing workflows and identify the highest-ROI automation opportunities so nothing is missed.</p>
       <h3 class="text-xl font-bold text-white mt-8 mb-4">Week 2: Training & Customization</h3>
@@ -203,7 +203,7 @@ const CONTENT_OVERRIDES: Record<string, string> = {
 
     <section class="space-y-6">
       <h2 class="text-2xl font-black text-white uppercase italic tracking-wide">Implementation Timeline: From Sign-Up to Live</h2>
-      <p class="text-slate-400 leading-8 text-lg">Deploying an AI voice agent for your physical therapy business is faster than hiring and training a new employee. Most businesses go from sign-up to live in 2-3 weeks:</p>
+      <p class="text-slate-400 leading-8 text-lg">Deploying an AI voice agent for your physical therapy business is faster than hiring and training a new employee. Most businesses go from sign-up to live within 48-72 hours, with deeper script customization and CRM integration refined over the first two weeks:</p>
       <h3 class="text-xl font-bold text-white mt-8 mb-4">Week 1: Discovery & Foundation</h3>
       <p class="text-slate-400 leading-8 text-lg">Discovery call, script design tailored to your physical therapy business, and integration setup. We map your existing workflows and identify the highest-ROI automation opportunities so nothing is missed.</p>
       <h3 class="text-xl font-bold text-white mt-8 mb-4">Week 2: Training & Customization</h3>
@@ -267,7 +267,7 @@ const CONTENT_OVERRIDES: Record<string, string> = {
 
     <section class="space-y-6">
       <h2 class="text-2xl font-black text-white uppercase italic tracking-wide">Implementation Timeline: From Sign-Up to Live</h2>
-      <p class="text-slate-400 leading-8 text-lg">Deploying an AI voice agent for your massage therapy business is faster than hiring and training a new employee. Most businesses go from sign-up to live in 2-3 weeks:</p>
+      <p class="text-slate-400 leading-8 text-lg">Deploying an AI voice agent for your massage therapy business is faster than hiring and training a new employee. Most businesses go from sign-up to live within 48-72 hours, with deeper script customization and CRM integration refined over the first two weeks:</p>
       <h3 class="text-xl font-bold text-white mt-8 mb-4">Week 1: Discovery & Foundation</h3>
       <p class="text-slate-400 leading-8 text-lg">Discovery call, script design tailored to your massage therapy business, and integration setup. We map your existing workflows and identify the highest-ROI automation opportunities so nothing is missed.</p>
       <h3 class="text-xl font-bold text-white mt-8 mb-4">Week 2: Training & Customization</h3>
@@ -331,7 +331,7 @@ const CONTENT_OVERRIDES: Record<string, string> = {
 
     <section class="space-y-6">
       <h2 class="text-2xl font-black text-white uppercase italic tracking-wide">Implementation Timeline: From Sign-Up to Live</h2>
-      <p class="text-slate-400 leading-8 text-lg">Deploying an AI voice agent for your cannabis dispensary business is faster than hiring and training a new employee. Most businesses go from sign-up to live in 2-3 weeks:</p>
+      <p class="text-slate-400 leading-8 text-lg">Deploying an AI voice agent for your cannabis dispensary business is faster than hiring and training a new employee. Most businesses go from sign-up to live within 48-72 hours, with deeper script customization and CRM integration refined over the first two weeks:</p>
       <h3 class="text-xl font-bold text-white mt-8 mb-4">Week 1: Discovery & Foundation</h3>
       <p class="text-slate-400 leading-8 text-lg">Discovery call, script design tailored to your cannabis dispensary business, and integration setup. We map your existing workflows and identify the highest-ROI automation opportunities so nothing is missed.</p>
       <h3 class="text-xl font-bold text-white mt-8 mb-4">Week 2: Training & Customization</h3>
@@ -395,7 +395,7 @@ const CONTENT_OVERRIDES: Record<string, string> = {
 
     <section class="space-y-6">
       <h2 class="text-2xl font-black text-white uppercase italic tracking-wide">Implementation Timeline: From Sign-Up to Live</h2>
-      <p class="text-slate-400 leading-8 text-lg">Deploying an AI voice agent for your car wash business is faster than hiring and training a new employee. Most businesses go from sign-up to live in 2-3 weeks:</p>
+      <p class="text-slate-400 leading-8 text-lg">Deploying an AI voice agent for your car wash business is faster than hiring and training a new employee. Most businesses go from sign-up to live within 48-72 hours, with deeper script customization and CRM integration refined over the first two weeks:</p>
       <h3 class="text-xl font-bold text-white mt-8 mb-4">Week 1: Discovery & Foundation</h3>
       <p class="text-slate-400 leading-8 text-lg">Discovery call, script design tailored to your car wash business, and integration setup. We map your existing workflows and identify the highest-ROI automation opportunities so nothing is missed.</p>
       <h3 class="text-xl font-bold text-white mt-8 mb-4">Week 2: Training & Customization</h3>
@@ -459,7 +459,7 @@ const CONTENT_OVERRIDES: Record<string, string> = {
 
     <section class="space-y-6">
       <h2 class="text-2xl font-black text-white uppercase italic tracking-wide">Implementation Timeline: From Sign-Up to Live</h2>
-      <p class="text-slate-400 leading-8 text-lg">Deploying an AI voice agent for your tutoring business is faster than hiring and training a new employee. Most businesses go from sign-up to live in 2-3 weeks:</p>
+      <p class="text-slate-400 leading-8 text-lg">Deploying an AI voice agent for your tutoring business is faster than hiring and training a new employee. Most businesses go from sign-up to live within 48-72 hours, with deeper script customization and CRM integration refined over the first two weeks:</p>
       <h3 class="text-xl font-bold text-white mt-8 mb-4">Week 1: Discovery & Foundation</h3>
       <p class="text-slate-400 leading-8 text-lg">Discovery call, script design tailored to your tutoring business, and integration setup. We map your existing workflows and identify the highest-ROI automation opportunities so nothing is missed.</p>
       <h3 class="text-xl font-bold text-white mt-8 mb-4">Week 2: Training & Customization</h3>
@@ -523,7 +523,7 @@ const CONTENT_OVERRIDES: Record<string, string> = {
 
     <section class="space-y-6">
       <h2 class="text-2xl font-black text-white uppercase italic tracking-wide">Implementation Timeline: From Sign-Up to Live</h2>
-      <p class="text-slate-400 leading-8 text-lg">Deploying an AI voice agent for your dance studio business is faster than hiring and training a new employee. Most businesses go from sign-up to live in 2-3 weeks:</p>
+      <p class="text-slate-400 leading-8 text-lg">Deploying an AI voice agent for your dance studio business is faster than hiring and training a new employee. Most businesses go from sign-up to live within 48-72 hours, with deeper script customization and CRM integration refined over the first two weeks:</p>
       <h3 class="text-xl font-bold text-white mt-8 mb-4">Week 1: Discovery & Foundation</h3>
       <p class="text-slate-400 leading-8 text-lg">Discovery call, script design tailored to your dance studio business, and integration setup. We map your existing workflows and identify the highest-ROI automation opportunities so nothing is missed.</p>
       <h3 class="text-xl font-bold text-white mt-8 mb-4">Week 2: Training & Customization</h3>
@@ -587,7 +587,7 @@ const CONTENT_OVERRIDES: Record<string, string> = {
 
     <section class="space-y-6">
       <h2 class="text-2xl font-black text-white uppercase italic tracking-wide">Implementation Timeline: From Sign-Up to Live</h2>
-      <p class="text-slate-400 leading-8 text-lg">Deploying an AI voice agent for your martial arts school business is faster than hiring and training a new employee. Most businesses go from sign-up to live in 2-3 weeks:</p>
+      <p class="text-slate-400 leading-8 text-lg">Deploying an AI voice agent for your martial arts school business is faster than hiring and training a new employee. Most businesses go from sign-up to live within 48-72 hours, with deeper script customization and CRM integration refined over the first two weeks:</p>
       <h3 class="text-xl font-bold text-white mt-8 mb-4">Week 1: Discovery & Foundation</h3>
       <p class="text-slate-400 leading-8 text-lg">Discovery call, script design tailored to your martial arts school business, and integration setup. We map your existing workflows and identify the highest-ROI automation opportunities so nothing is missed.</p>
       <h3 class="text-xl font-bold text-white mt-8 mb-4">Week 2: Training & Customization</h3>
@@ -651,7 +651,7 @@ const CONTENT_OVERRIDES: Record<string, string> = {
 
     <section class="space-y-6">
       <h2 class="text-2xl font-black text-white uppercase italic tracking-wide">Implementation Timeline: From Sign-Up to Live</h2>
-      <p class="text-slate-400 leading-8 text-lg">Deploying an AI voice agent for your yoga studio business is faster than hiring and training a new employee. Most businesses go from sign-up to live in 2-3 weeks:</p>
+      <p class="text-slate-400 leading-8 text-lg">Deploying an AI voice agent for your yoga studio business is faster than hiring and training a new employee. Most businesses go from sign-up to live within 48-72 hours, with deeper script customization and CRM integration refined over the first two weeks:</p>
       <h3 class="text-xl font-bold text-white mt-8 mb-4">Week 1: Discovery & Foundation</h3>
       <p class="text-slate-400 leading-8 text-lg">Discovery call, script design tailored to your yoga studio business, and integration setup. We map your existing workflows and identify the highest-ROI automation opportunities so nothing is missed.</p>
       <h3 class="text-xl font-bold text-white mt-8 mb-4">Week 2: Training & Customization</h3>
@@ -715,7 +715,7 @@ const CONTENT_OVERRIDES: Record<string, string> = {
 
     <section class="space-y-6">
       <h2 class="text-2xl font-black text-white uppercase italic tracking-wide">Implementation Timeline: From Sign-Up to Live</h2>
-      <p class="text-slate-400 leading-8 text-lg">Deploying an AI voice agent for your photography business is faster than hiring and training a new employee. Most businesses go from sign-up to live in 2-3 weeks:</p>
+      <p class="text-slate-400 leading-8 text-lg">Deploying an AI voice agent for your photography business is faster than hiring and training a new employee. Most businesses go from sign-up to live within 48-72 hours, with deeper script customization and CRM integration refined over the first two weeks:</p>
       <h3 class="text-xl font-bold text-white mt-8 mb-4">Week 1: Discovery & Foundation</h3>
       <p class="text-slate-400 leading-8 text-lg">Discovery call, script design tailored to your photography business, and integration setup. We map your existing workflows and identify the highest-ROI automation opportunities so nothing is missed.</p>
       <h3 class="text-xl font-bold text-white mt-8 mb-4">Week 2: Training & Customization</h3>
@@ -779,7 +779,7 @@ const CONTENT_OVERRIDES: Record<string, string> = {
 
     <section class="space-y-6">
       <h2 class="text-2xl font-black text-white uppercase italic tracking-wide">Implementation Timeline: From Sign-Up to Live</h2>
-      <p class="text-slate-400 leading-8 text-lg">Deploying an AI voice agent for your event planning business is faster than hiring and training a new employee. Most businesses go from sign-up to live in 2-3 weeks:</p>
+      <p class="text-slate-400 leading-8 text-lg">Deploying an AI voice agent for your event planning business is faster than hiring and training a new employee. Most businesses go from sign-up to live within 48-72 hours, with deeper script customization and CRM integration refined over the first two weeks:</p>
       <h3 class="text-xl font-bold text-white mt-8 mb-4">Week 1: Discovery & Foundation</h3>
       <p class="text-slate-400 leading-8 text-lg">Discovery call, script design tailored to your event planning business, and integration setup. We map your existing workflows and identify the highest-ROI automation opportunities so nothing is missed.</p>
       <h3 class="text-xl font-bold text-white mt-8 mb-4">Week 2: Training & Customization</h3>
@@ -843,7 +843,7 @@ const CONTENT_OVERRIDES: Record<string, string> = {
 
     <section class="space-y-6">
       <h2 class="text-2xl font-black text-white uppercase italic tracking-wide">Implementation Timeline: From Sign-Up to Live</h2>
-      <p class="text-slate-400 leading-8 text-lg">Deploying an AI voice agent for your catering business is faster than hiring and training a new employee. Most businesses go from sign-up to live in 2-3 weeks:</p>
+      <p class="text-slate-400 leading-8 text-lg">Deploying an AI voice agent for your catering business is faster than hiring and training a new employee. Most businesses go from sign-up to live within 48-72 hours, with deeper script customization and CRM integration refined over the first two weeks:</p>
       <h3 class="text-xl font-bold text-white mt-8 mb-4">Week 1: Discovery & Foundation</h3>
       <p class="text-slate-400 leading-8 text-lg">Discovery call, script design tailored to your catering business, and integration setup. We map your existing workflows and identify the highest-ROI automation opportunities so nothing is missed.</p>
       <h3 class="text-xl font-bold text-white mt-8 mb-4">Week 2: Training & Customization</h3>
@@ -907,7 +907,7 @@ const CONTENT_OVERRIDES: Record<string, string> = {
 
     <section class="space-y-6">
       <h2 class="text-2xl font-black text-white uppercase italic tracking-wide">Implementation Timeline: From Sign-Up to Live</h2>
-      <p class="text-slate-400 leading-8 text-lg">Deploying an AI voice agent for your cleaning services business is faster than hiring and training a new employee. Most businesses go from sign-up to live in 2-3 weeks:</p>
+      <p class="text-slate-400 leading-8 text-lg">Deploying an AI voice agent for your cleaning services business is faster than hiring and training a new employee. Most businesses go from sign-up to live within 48-72 hours, with deeper script customization and CRM integration refined over the first two weeks:</p>
       <h3 class="text-xl font-bold text-white mt-8 mb-4">Week 1: Discovery & Foundation</h3>
       <p class="text-slate-400 leading-8 text-lg">Discovery call, script design tailored to your cleaning services business, and integration setup. We map your existing workflows and identify the highest-ROI automation opportunities so nothing is missed.</p>
       <h3 class="text-xl font-bold text-white mt-8 mb-4">Week 2: Training & Customization</h3>
@@ -971,7 +971,7 @@ const CONTENT_OVERRIDES: Record<string, string> = {
 
     <section class="space-y-6">
       <h2 class="text-2xl font-black text-white uppercase italic tracking-wide">Implementation Timeline: From Sign-Up to Live</h2>
-      <p class="text-slate-400 leading-8 text-lg">Deploying an AI voice agent for your moving services business is faster than hiring and training a new employee. Most businesses go from sign-up to live in 2-3 weeks:</p>
+      <p class="text-slate-400 leading-8 text-lg">Deploying an AI voice agent for your moving services business is faster than hiring and training a new employee. Most businesses go from sign-up to live within 48-72 hours, with deeper script customization and CRM integration refined over the first two weeks:</p>
       <h3 class="text-xl font-bold text-white mt-8 mb-4">Week 1: Discovery & Foundation</h3>
       <p class="text-slate-400 leading-8 text-lg">Discovery call, script design tailored to your moving services business, and integration setup. We map your existing workflows and identify the highest-ROI automation opportunities so nothing is missed.</p>
       <h3 class="text-xl font-bold text-white mt-8 mb-4">Week 2: Training & Customization</h3>
@@ -1035,7 +1035,7 @@ const CONTENT_OVERRIDES: Record<string, string> = {
 
     <section class="space-y-6">
       <h2 class="text-2xl font-black text-white uppercase italic tracking-wide">Implementation Timeline: From Sign-Up to Live</h2>
-      <p class="text-slate-400 leading-8 text-lg">Deploying an AI voice agent for your locksmith business is faster than hiring and training a new employee. Most businesses go from sign-up to live in 2-3 weeks:</p>
+      <p class="text-slate-400 leading-8 text-lg">Deploying an AI voice agent for your locksmith business is faster than hiring and training a new employee. Most businesses go from sign-up to live within 48-72 hours, with deeper script customization and CRM integration refined over the first two weeks:</p>
       <h3 class="text-xl font-bold text-white mt-8 mb-4">Week 1: Discovery & Foundation</h3>
       <p class="text-slate-400 leading-8 text-lg">Discovery call, script design tailored to your locksmith business, and integration setup. We map your existing workflows and identify the highest-ROI automation opportunities so nothing is missed.</p>
       <h3 class="text-xl font-bold text-white mt-8 mb-4">Week 2: Training & Customization</h3>
@@ -1099,7 +1099,7 @@ const CONTENT_OVERRIDES: Record<string, string> = {
 
     <section class="space-y-6">
       <h2 class="text-2xl font-black text-white uppercase italic tracking-wide">Implementation Timeline: From Sign-Up to Live</h2>
-      <p class="text-slate-400 leading-8 text-lg">Deploying an AI voice agent for your electrical contractor business is faster than hiring and training a new employee. Most businesses go from sign-up to live in 2-3 weeks:</p>
+      <p class="text-slate-400 leading-8 text-lg">Deploying an AI voice agent for your electrical contractor business is faster than hiring and training a new employee. Most businesses go from sign-up to live within 48-72 hours, with deeper script customization and CRM integration refined over the first two weeks:</p>
       <h3 class="text-xl font-bold text-white mt-8 mb-4">Week 1: Discovery & Foundation</h3>
       <p class="text-slate-400 leading-8 text-lg">Discovery call, script design tailored to your electrical contractor business, and integration setup. We map your existing workflows and identify the highest-ROI automation opportunities so nothing is missed.</p>
       <h3 class="text-xl font-bold text-white mt-8 mb-4">Week 2: Training & Customization</h3>
@@ -1163,7 +1163,7 @@ const CONTENT_OVERRIDES: Record<string, string> = {
 
     <section class="space-y-6">
       <h2 class="text-2xl font-black text-white uppercase italic tracking-wide">Implementation Timeline: From Sign-Up to Live</h2>
-      <p class="text-slate-400 leading-8 text-lg">Deploying an AI voice agent for your painting contractor business is faster than hiring and training a new employee. Most businesses go from sign-up to live in 2-3 weeks:</p>
+      <p class="text-slate-400 leading-8 text-lg">Deploying an AI voice agent for your painting contractor business is faster than hiring and training a new employee. Most businesses go from sign-up to live within 48-72 hours, with deeper script customization and CRM integration refined over the first two weeks:</p>
       <h3 class="text-xl font-bold text-white mt-8 mb-4">Week 1: Discovery & Foundation</h3>
       <p class="text-slate-400 leading-8 text-lg">Discovery call, script design tailored to your painting contractor business, and integration setup. We map your existing workflows and identify the highest-ROI automation opportunities so nothing is missed.</p>
       <h3 class="text-xl font-bold text-white mt-8 mb-4">Week 2: Training & Customization</h3>
@@ -1227,7 +1227,7 @@ const CONTENT_OVERRIDES: Record<string, string> = {
 
     <section class="space-y-6">
       <h2 class="text-2xl font-black text-white uppercase italic tracking-wide">Implementation Timeline: From Sign-Up to Live</h2>
-      <p class="text-slate-400 leading-8 text-lg">Deploying an AI voice agent for your tree service business is faster than hiring and training a new employee. Most businesses go from sign-up to live in 2-3 weeks:</p>
+      <p class="text-slate-400 leading-8 text-lg">Deploying an AI voice agent for your tree service business is faster than hiring and training a new employee. Most businesses go from sign-up to live within 48-72 hours, with deeper script customization and CRM integration refined over the first two weeks:</p>
       <h3 class="text-xl font-bold text-white mt-8 mb-4">Week 1: Discovery & Foundation</h3>
       <p class="text-slate-400 leading-8 text-lg">Discovery call, script design tailored to your tree service business, and integration setup. We map your existing workflows and identify the highest-ROI automation opportunities so nothing is missed.</p>
       <h3 class="text-xl font-bold text-white mt-8 mb-4">Week 2: Training & Customization</h3>
@@ -1291,7 +1291,7 @@ const CONTENT_OVERRIDES: Record<string, string> = {
 
     <section class="space-y-6">
       <h2 class="text-2xl font-black text-white uppercase italic tracking-wide">Implementation Timeline: From Sign-Up to Live</h2>
-      <p class="text-slate-400 leading-8 text-lg">Deploying an AI voice agent for your pool maintenance business is faster than hiring and training a new employee. Most businesses go from sign-up to live in 2-3 weeks:</p>
+      <p class="text-slate-400 leading-8 text-lg">Deploying an AI voice agent for your pool maintenance business is faster than hiring and training a new employee. Most businesses go from sign-up to live within 48-72 hours, with deeper script customization and CRM integration refined over the first two weeks:</p>
       <h3 class="text-xl font-bold text-white mt-8 mb-4">Week 1: Discovery & Foundation</h3>
       <p class="text-slate-400 leading-8 text-lg">Discovery call, script design tailored to your pool maintenance business, and integration setup. We map your existing workflows and identify the highest-ROI automation opportunities so nothing is missed.</p>
       <h3 class="text-xl font-bold text-white mt-8 mb-4">Week 2: Training & Customization</h3>
@@ -1355,7 +1355,7 @@ const CONTENT_OVERRIDES: Record<string, string> = {
 
     <section class="space-y-6">
       <h2 class="text-2xl font-black text-white uppercase italic tracking-wide">Implementation Timeline: From Sign-Up to Live</h2>
-      <p class="text-slate-400 leading-8 text-lg">Deploying an AI voice agent for your dry cleaning business is faster than hiring and training a new employee. Most businesses go from sign-up to live in 2-3 weeks:</p>
+      <p class="text-slate-400 leading-8 text-lg">Deploying an AI voice agent for your dry cleaning business is faster than hiring and training a new employee. Most businesses go from sign-up to live within 48-72 hours, with deeper script customization and CRM integration refined over the first two weeks:</p>
       <h3 class="text-xl font-bold text-white mt-8 mb-4">Week 1: Discovery & Foundation</h3>
       <p class="text-slate-400 leading-8 text-lg">Discovery call, script design tailored to your dry cleaning business, and integration setup. We map your existing workflows and identify the highest-ROI automation opportunities so nothing is missed.</p>
       <h3 class="text-xl font-bold text-white mt-8 mb-4">Week 2: Training & Customization</h3>
@@ -1975,7 +1975,7 @@ const CONTENT_OVERRIDES: Record<string, string> = {
       <p class="text-slate-400 leading-8 text-lg"><strong class="text-white">"How does the AI handle callers who ask for specific electricians by name?"</strong> Your existing customers often call asking for "Mike" or "the guy who fixed my panel last year." The AI should be able to look up the customer in your CRM, identify their previous technician, and route accordingly.</p>
       <p class="text-slate-400 leading-8 text-lg"><strong class="text-white">"Can the AI schedule recurring service agreements?"</strong> If you offer electrical maintenance contracts or quarterly panel inspections, the AI should be able to schedule recurring appointments without human intervention.</p>
       <p class="text-slate-400 leading-8 text-lg"><strong class="text-white">"What happens during a power outage when hundreds of customers call simultaneously?"</strong> The AI should scale to handle massive concurrent call volumes without degradation. If the answer involves "we will add more capacity" rather than "we already handle unlimited concurrent calls," test them during a storm event.</p>
-      <p class="text-slate-400 leading-8 text-lg"><strong class="text-white">"How long does setup take, and what is involved?"</strong> A properly trained AI receptionist for an electrical business should take 1-2 weeks to configure, script, and test. If the provider says "48 hours and done," they are not customizing the script for your business.</p>
+      <p class="text-slate-400 leading-8 text-lg"><strong class="text-white">"How long does setup take, and what is involved?"</strong> A properly trained AI receptionist for an electrical business typically goes live within 48-72 hours, with emergency triage scripts, business hours, and phone forwarding configured on day one. Expect to refine scripts and integrations with your team over the first 1-2 weeks after launch.</p>
       <p class="text-slate-400 leading-8 text-lg"><strong class="text-white">"Can I have a trial period with live calls before committing?"</strong> Any provider confident in their product will offer a trial period, typically 7-14 days, with a money-back guarantee. Use this trial to test the AI with real customer calls and evaluate the quality.</p>
     </section>
 
@@ -2014,7 +2014,7 @@ const CONTENT_OVERRIDES: Record<string, string> = {
 
   'from-missed-calls-to-booked-jobs-electricians': `
     <section class="space-y-6">
-      <p class="text-slate-400 leading-8 text-lg">Electrical contractors lose an average of 30-40% of inbound calls. For a business receiving 150 calls per month with an average job value of $350, that is $15,750 to $21,000 in monthly revenue walking out the door. This article presents real case studies of electrical contractors who deployed AI call answering and turned those missed calls into booked jobs — with specific dollar amounts, percentages, and lessons learned.</p>
+      <p class="text-slate-400 leading-8 text-lg">Electrical contractors lose an average of 30-40% of inbound calls. For a business receiving 150 calls per month with an average job value of $350, that is $15,750 to $21,000 in monthly revenue walking out the door. Below are illustrative deployment scenarios based on the call patterns we see across electrical businesses. They show how call-answering AI typically performs — they are planning examples, not claims about any specific client.</p>
     </section>
 
     <section class="space-y-6">
@@ -2025,7 +2025,8 @@ const CONTENT_OVERRIDES: Record<string, string> = {
     </section>
 
     <section class="space-y-6">
-      <h2 class="text-2xl font-black text-white uppercase italic tracking-wide">Results at a Glance: Summary Table</h2>
+      <h2 class="text-2xl font-black text-white uppercase italic tracking-wide">Illustrative Scenarios at a Glance</h2>
+      <p class="text-slate-400 leading-8 text-lg">The scenarios below are worked examples for planning purposes — the companies, call counts, and figures are illustrative, not claims about real clients. Your numbers will depend on call volume, average job value, and closing rates.</p>
       <div class="overflow-x-auto">
         <table class="w-full text-sm text-slate-300 border-collapse">
           <thead>
@@ -2069,11 +2070,11 @@ const CONTENT_OVERRIDES: Record<string, string> = {
           </tbody>
         </table>
       </div>
-      <p class="text-slate-400 leading-8 text-lg mt-4">Across all case studies, the average revenue recovery exceeded $3,200 per month per truck — meaning a five-truck operation recovered over $16,000 per month in previously lost revenue.</p>
+      <p class="text-slate-400 leading-8 text-lg mt-4">In the illustrative scenarios above, revenue recovered ranges from about $6,700 to $8,400 per month per company — roughly $3,000+ per month per truck in a multi-truck operation. Your actual recovery will depend on call volume, average job value, and conversion rates.</p>
     </section>
 
     <section class="space-y-6">
-      <h2 class="text-2xl font-black text-white uppercase italic tracking-wide">Case Study 1: Brighton Electrical Services — Residential Service in Phoenix</h2>
+      <h2 class="text-2xl font-black text-white uppercase italic tracking-wide">Scenario 1: Residential Service Firm in Phoenix</h2>
       <p class="text-slate-400 leading-8 text-lg"><strong class="text-white">The Problem:</strong> Brighton Electrical Services is a five-truck residential electrical company serving the Phoenix metropolitan area. Before deploying AI, they employed two office staff who answered phones from 7 AM to 5 PM, Monday through Friday. Any call that came in outside those hours — or during peak call times when both lines were busy — went to voicemail. During Arizona's monsoon season (June through September), call volume would spike by 300% as homeowners dealt with storm-related electrical issues. The office team simply could not keep up. The owner estimated they were losing 30-40% of inbound calls, but had no way to measure the exact number.</p>
       <p class="text-slate-400 leading-8 text-lg"><strong class="text-white">The Solution:</strong> Brighton deployed Brandverse AI with ServiceTitan integration and custom scripts for emergency calls, estimate requests, and service scheduling. The AI was configured to answer every call instantly, 24/7. For emergency calls — identified by keywords like "sparking," "smoke," "power out" — the AI would immediately dispatch the on-call technician via SMS while continuing to gather information from the customer. For estimate requests, the AI would capture the job type (panel upgrade, fixture installation, EV charger, etc.), property details, and preferred appointment times, then book directly into ServiceTitan. For routine service calls, the AI would diagnose the issue, check the customer's service history, and schedule the appropriate technician.</p>
       <p class="text-slate-400 leading-8 text-lg"><strong class="text-white">The Results:</strong> In the first 30 days, the AI handled 312 calls. Of those, 94 resulted in booked service appointments, 23 were emergency dispatches, and the remaining 195 were information inquiries or estimate requests that were captured for follow-up. The company estimated that 287 of those calls would have gone to voicemail without the AI — a 92% capture rate on previously lost calls. The revenue directly attributed to AI-captured calls was $8,400 in the first month. The AI paid for itself in three days. The office staff reported a 60% reduction in phone-related stress and could focus on billing, inventory management, and customer follow-up instead of racing to answer calls.</p>
@@ -2081,7 +2082,7 @@ const CONTENT_OVERRIDES: Record<string, string> = {
     </section>
 
     <section class="space-y-6">
-      <h2 class="text-2xl font-black text-white uppercase italic tracking-wide">Case Study 2: Metro Commercial Electric — Commercial Contractor in Dallas</h2>
+      <h2 class="text-2xl font-black text-white uppercase italic tracking-wide">Scenario 2: Commercial Contractor in Dallas</h2>
       <p class="text-slate-400 leading-8 text-lg"><strong class="text-white">The Problem:</strong> Metro Commercial Electric is a commercial electrical contractor in Dallas with 12 project managers and 40 field electricians. Their primary clients are property managers, general contractors, and commercial building owners. Before AI, all incoming calls went to a central office number that rang to a receptionist during business hours. After hours, calls went to voicemail. The challenge was that project managers were often on job sites and unreachable when important calls came in from GCs about change orders or new project bids. The company estimated they were losing 20-25% of new commercial inquiries because calls went to voicemail or were not returned quickly enough.</p>
       <p class="text-slate-400 leading-8 text-lg"><strong class="text-white">The Solution:</strong> Metro deployed Brandverse AI with scripts specifically designed for commercial electrical inquiries. The AI asked callers about project type (new construction, tenant improvement, renovation, service upgrade), building square footage, timeline, budget range, and decision-maker contact information. Based on the responses, the AI qualified leads as hot, warm, or cold and routed them to the appropriate project manager via email and SMS. The AI also integrated with their CRM to create lead records automatically, eliminating manual data entry.</p>
       <p class="text-slate-400 leading-8 text-lg"><strong class="text-white">The Results:</strong> Over 90 days, the AI handled 156 commercial inquiries. Of those, 89 were qualified as viable projects and 42 resulted in on-site consultations with project managers. Metro attributed $127,000 in contracted work directly to leads captured by the AI — projects that would have been lost because the initial call went unanswered or the callback came too late. The AI also reduced the average lead response time from 4 hours to under 30 seconds, which Metro believes was the key factor in their improved conversion rate.</p>
@@ -2089,7 +2090,7 @@ const CONTENT_OVERRIDES: Record<string, string> = {
     </section>
 
     <section class="space-y-6">
-      <h2 class="text-2xl font-black text-white uppercase italic tracking-wide">Case Study 3: Windy City Emergency Electric — 24/7 Emergency Service in Chicago</h2>
+      <h2 class="text-2xl font-black text-white uppercase italic tracking-wide">Scenario 3: 24/7 Emergency Service in Chicago</h2>
       <p class="text-slate-400 leading-8 text-lg"><strong class="text-white">The Problem:</strong> Windy City Emergency Electric is a 24/7 emergency electrical service in Chicago. Their entire business model depends on answering calls instantly when customers have electrical emergencies — sparking outlets, power outages, arcing breakers, downed power lines on their property. Before AI, they used a traditional human answering service that cost $1,200 per month for after-hours coverage. The answering service had a 10-15 minute response time because operators were handling calls for multiple businesses simultaneously. On busy nights, response times stretched to 20-30 minutes. The owner knew they were losing emergency calls to competitors who answered faster.</p>
       <p class="text-slate-400 leading-8 text-lg"><strong class="text-white">The Solution:</strong> Windy City replaced their answering service with Brandverse AI configured specifically for emergency electrical triage. The AI was trained to identify true emergencies versus routine issues. When a caller mentioned keywords like "sparking," "smoke," "arcing," "power completely out," or "burning smell," the AI would immediately trigger an SMS dispatch to the on-call technician while continuing to gather the caller's location, access instructions, and a description of the problem. For non-emergency calls — "my breaker tripped and I want someone to look at it tomorrow" — the AI would schedule a next-day appointment.</p>
       <p class="text-slate-400 leading-8 text-lg"><strong class="text-white">The Results:</strong> In the first week alone, the AI handled 44 after-hours calls. Of those, 31 were true emergencies that required immediate dispatch, 9 were scheduled for next-day service, and 4 were information inquiries. The emergency dispatches generated $11,200 in revenue in that single week — nearly 10x the monthly cost of the AI. The average response time dropped from 10-15 minutes to under 3 seconds. The owner calculated that the AI paid for itself in the first two days of operation. Over the first 90 days, the AI handled 487 after-hours calls, dispatched 312 emergency jobs, and generated $112,000 in emergency service revenue.</p>
@@ -2097,7 +2098,7 @@ const CONTENT_OVERRIDES: Record<string, string> = {
     </section>
 
     <section class="space-y-6">
-      <h2 class="text-2xl font-black text-white uppercase italic tracking-wide">Case Study 4: Pacific Northwest Electric — Mixed Residential and Commercial in Portland</h2>
+      <h2 class="text-2xl font-black text-white uppercase italic tracking-wide">Scenario 4: Mixed Residential and Commercial in Portland</h2>
       <p class="text-slate-400 leading-8 text-lg"><strong class="text-white">The Problem:</strong> Pacific Northwest Electric is an eight-truck electrical company in Portland that serves both residential and commercial clients. They had a full-time receptionist who handled calls from 8 AM to 5 PM, but calls after hours and during peak lunch hours were consistently missed. The owner had tried hiring a second receptionist but found the cost ($38,000/year plus benefits) hard to justify given their margins. They were also losing commercial calls on weekends, which had become a growing problem as more property managers worked flexible schedules.</p>
       <p class="text-slate-400 leading-8 text-lg"><strong class="text-white">The Solution:</strong> Pacific Northwest deployed Brandverse AI with separate scripts for residential and commercial calls. The AI was trained to identify which type of caller was on the line based on their opening language and route accordingly. For residential calls, the AI handled emergency triage, estimate scheduling, and service bookings. For commercial calls, the AI captured project details, building information, and budget ranges before routing to the commercial sales team. The AI integrated with Housecall Pro for residential scheduling and maintained a separate lead list for commercial inquiries.</p>
       <p class="text-slate-400 leading-8 text-lg"><strong class="text-white">The Results:</strong> In the first month, the AI handled 203 calls that would have otherwise been missed — 147 residential and 56 commercial. Of those, 71 resulted in booked service appointments, 18 were emergency dispatches, and 14 were commercial leads that progressed to on-site estimates. The total revenue recovered was $6,700 in month one, rising to $9,200 by month three as the AI became more effective at capturing and converting calls. The owner was able to keep their single receptionist (who now focused on administrative tasks instead of phone coverage) and avoid the cost of a second hire.</p>
@@ -2105,8 +2106,8 @@ const CONTENT_OVERRIDES: Record<string, string> = {
     </section>
 
     <section class="space-y-6">
-      <h2 class="text-2xl font-black text-white uppercase italic tracking-wide">Common Themes Across All Case Studies</h2>
-      <p class="text-slate-400 leading-8 text-lg">While each electrical contractor had a unique situation, several themes emerged across all four case studies:</p>
+      <h2 class="text-2xl font-black text-white uppercase italic tracking-wide">Common Themes Across These Scenarios</h2>
+      <p class="text-slate-400 leading-8 text-lg">While each electrical business has a unique situation, several patterns show up consistently in these deployment scenarios:</p>
       <ul class="list-disc ml-6 space-y-2 text-slate-400 leading-relaxed">
         <li><strong class="text-white">ROI was immediate.</strong> Every contractor saw positive ROI within the first week, and most within the first two days. The AI paid for itself faster than any other business expense.</li>
         <li><strong class="text-white">Customers did not complain.</strong> Across thousands of AI-handled calls, customer complaints about speaking to AI were virtually non-existent. Most customers did not realize they were talking to AI at all.</li>
@@ -2142,13 +2143,13 @@ const CONTENT_OVERRIDES: Record<string, string> = {
 
     <section class="space-y-6">
       <h2 class="text-2xl font-black text-white uppercase italic tracking-wide">The Cost of Waiting</h2>
-      <p class="text-slate-400 leading-8 text-lg">Every day you wait to deploy AI call answering, your electrical business is losing money. Based on the case studies above, a typical electrical contractor loses $200 to $400 per day in missed call revenue. That is $6,000 to $12,000 per month. Over a year, that is $72,000 to $144,000 in revenue that walks out the door because nobody answered the phone.</p>
-      <p class="text-slate-400 leading-8 text-lg">The contractors in these case studies did not wait. They deployed AI, captured their missed calls, and turned them into booked jobs. Their customers got faster service, their staff got less stress, and their bank accounts got fatter. The only question is when you will join them.</p>
+      <p class="text-slate-400 leading-8 text-lg">Every day you wait to deploy AI call answering, your electrical business is losing money. At a 30-40% missed call rate with a $350 average job value, a typical electrical contractor loses hundreds of dollars per day in missed call revenue — tens of thousands of dollars per year in revenue that walks out the door because nobody answered the phone.</p>
+      <p class="text-slate-400 leading-8 text-lg">The businesses in the scenarios above did not wait. They deployed AI, captured their missed calls, and turned them into booked jobs. Their customers got faster service, their staff got less stress, and their revenue recovered. The only question is when you will join them.</p>
     </section>
 
     <section class="space-y-6">
       <h2 class="text-2xl font-black text-white uppercase italic tracking-wide">Ready to Turn Your Missed Calls into Booked Jobs?</h2>
-      <p class="text-slate-400 leading-8 text-lg">Brandverse AI has helped dozens of electrical contractors recover millions in missed call revenue. Our AI receptionist is built specifically for electrical businesses — with emergency triage scripts, ServiceTitan and Housecall Pro integration, and flat-rate pricing that makes ROI a mathematical certainty.</p>
+      <p class="text-slate-400 leading-8 text-lg">Brandverse AI is built specifically for electrical businesses — with emergency triage scripts, ServiceTitan and Housecall Pro integration, and flat-rate pricing that makes ROI easy to calculate.</p>
       <p class="text-slate-400 leading-8 text-lg">See how many calls your electrical business is currently missing and exactly how much revenue you can recover. Schedule a call with our team for a personalized missed-call audit and live demonstration.</p>
     </section>`,
 
@@ -2291,13 +2292,13 @@ const FAQ_OVERRIDES: Record<string, { question: string; answer: string }[]> = {
     { question: 'Do customers mind talking to an AI instead of a person?', answer: 'Studies show that customers prefer instant, accurate AI responses over waiting on hold or leaving voicemails. For electrical emergencies especially, speed matters more than who answers.' },
     { question: 'Can an AI handle emergency electrical calls appropriately?', answer: 'Yes. AI voice agents are trained to identify emergency situations like sparking outlets or power outages and prioritize those calls for immediate dispatch. Routine service calls are booked for the next available window.' },
     { question: 'How does AI improve the customer experience compared to voicemail?', answer: 'Voicemail creates a one-way communication where customers are left wondering if they will get a call back. AI provides immediate confirmation, sets expectations, and sends SMS follow-ups — creating a professional experience that builds trust.' },
-    { question: 'How much does an AI voice agent cost?', answer: 'AI voice agents typically range from $300 to $1,500 per month depending on call volume, features, and integrations. Compared to a human receptionist at $2,500-$4,500/month plus benefits, the savings are substantial.' },
+    { question: 'How much does an AI voice agent cost?', answer: 'AI voice agents typically range from $497 to $1,497 per month depending on call volume, features, and integrations. Compared to a human receptionist at $2,500-$4,500/month plus benefits, the savings are substantial.' },
   ],
   '24-7-call-answering-for-electricians': [
     { question: 'How much does 24/7 call answering cost for an electrical contractor?', answer: 'AI-based 24/7 call answering starts around $497/month for basic coverage and $997/month for full CRM integration — significantly less than hiring a human for overnight/weekend coverage.' },
     { question: 'Can AI dispatch emergency electrical calls to my phone?', answer: 'Yes. The AI can be configured to forward true emergencies directly to your personal cell while booking routine calls for the next business day — you choose the rules.' },
     { question: 'Will I miss calls if I am already on a job site?', answer: 'No. AI voice agents handle unlimited simultaneous calls. You never miss a call because you are on another line or working with a customer.' },
-    { question: 'How long does it take to set up an AI voice agent?', answer: 'Basic setup takes 1-3 days. Full customization with custom scripts and CRM integration typically takes 1-2 weeks. Most businesses go live within 2-3 weeks.' },
+    { question: 'How long does it take to set up an AI voice agent?', answer: 'Basic setup takes 1-3 days. Full customization with custom scripts and CRM integration typically takes 1-2 weeks. Most businesses go live within 48-72 hours.' },
   ],
   'true-cost-missed-emergency-call-electricians': [
     { question: 'How much revenue do electrical contractors lose to missed emergency calls?', answer: 'The average electrical contractor loses between $15,000 and $40,000 per year in missed emergency call revenue alone. For multi-crew operations, that number climbs to six figures.' },
@@ -2329,7 +2330,7 @@ const FAQ_OVERRIDES: Record<string, { question: string; answer: string }[]> = {
     { question: 'How quickly do electrical contractors see results from AI call answering?', answer: 'Most see results within 24-48 hours. The first missed call that gets captured and turned into a booked job typically covers the monthly cost of the service.' },
     { question: 'What type of electrical contractor benefits most from AI call answering?', answer: 'Residential service electricians see the fastest ROI because they get the highest volume of calls during business hours when they are on job sites. Emergency electricians also see massive ROI from after-hours capture.' },
     { question: 'Do electrical contractors\' customers complain about talking to AI?', answer: 'In practice, customers rarely complain. Most do not realize they are speaking to AI because the voice quality is natural. The feedback is almost always positive — customers appreciate getting immediate answers instead of voicemail.' },
-    { question: 'How much revenue can an electrical contractor recover with AI call answering?', answer: 'Based on real case studies, typical revenue recovery ranges from $3,200 to $8,500 per month per electrical business. Emergency service providers see the highest per-call revenue from after-hours captures.' },
+    { question: 'How much revenue can an electrical contractor recover with AI call answering?', answer: 'Depending on call volume, average job value, and conversion rates, electrical businesses typically recover several thousand dollars per month in previously missed revenue. Emergency service providers see the highest per-call revenue from after-hours captures.' },
   ],
 };
 
@@ -2384,11 +2385,11 @@ function defaultArticleBody(article: Article): string {
 
     <section class="space-y-6">
       <h2 class="text-2xl font-black text-white uppercase italic tracking-wide">Implementation Timeline</h2>
-      <p class="text-slate-400 leading-8 text-lg">Deploying an AI voice agent is faster than hiring and training a human receptionist. Most businesses go from sign-up to live in 2-3 weeks:</p>
+      <p class="text-slate-400 leading-8 text-lg">Deploying an AI voice agent is faster than hiring and training a human receptionist. Most businesses go from sign-up to live within 48-72 hours, with deeper script customization and CRM integration refined over the first two weeks:</p>
       <ul class="list-disc ml-6 space-y-2 text-slate-400 leading-relaxed">
-        <li><strong class="text-white">Week 1:</strong> Discovery, script design, and CRM integration setup</li>
-        <li><strong class="text-white">Week 2:</strong> AI training, testing, and refinement with your team</li>
-        <li><strong class="text-white">Week 3:</strong> Go-live, monitoring, and optimization</li>
+        <li><strong class="text-white">Day 1:</strong> Discovery, script design, and phone forwarding setup</li>
+        <li><strong class="text-white">Days 1–2:</strong> CRM integration and calendar sync</li>
+        <li><strong class="text-white">Days 2–3:</strong> AI training, testing, and go-live — then weekly optimization for the first month</li>
       </ul>
       <p class="text-slate-400 leading-8 text-lg">See our detailed <a href="/implementation" class="text-blue-400 underline hover:text-blue-300">implementation guide</a> for the complete process.</p>
     </section>
@@ -2427,8 +2428,8 @@ export function getBlogPost(slug: string): BlogPost | null {
   if (!article) return null;
 
   const baseFAQs = [
-    { question: 'How much does an AI voice agent cost?', answer: 'AI voice agents typically range from $300 to $1,500 per month depending on call volume, features, and integrations. Compared to a human receptionist at $2,500-$4,500/month plus benefits, the savings are substantial.' },
-    { question: 'How long does it take to set up an AI voice agent?', answer: 'Basic setup takes 1-3 days. Full customization with custom scripts and CRM integration typically takes 1-2 weeks. Most businesses go live within 2-3 weeks.' },
+    { question: 'How much does an AI voice agent cost?', answer: 'AI voice agents typically range from $497 to $1,497 per month depending on call volume, features, and integrations. Compared to a human receptionist at $2,500-$4,500/month plus benefits, the savings are substantial.' },
+    { question: 'How long does it take to set up an AI voice agent?', answer: 'Basic setup takes 1-3 days. Full customization with custom scripts and CRM integration typically takes 1-2 weeks. Most businesses go live within 48-72 hours.' },
     { question: 'Will customers be frustrated talking to an AI?', answer: 'Research shows that customers care more about getting fast, accurate answers than whether they are speaking to a human or AI. Most customers prefer AI because it eliminates hold times and provides consistent information.' },
     { question: 'Can the AI handle complex or emotional calls?', answer: 'Yes. AI voice agents are programmed with escalation rules. If a caller is frustrated, the request is complex, or the caller explicitly asks for a human, the AI seamlessly transfers the call to a designated team member.' },
   ];
@@ -2515,7 +2516,7 @@ export function getBlogPost(slug: string): BlogPost | null {
     takeaways: takeawaysMap[slug] ?? [
       'AI voice agents answer every call, 24/7, and never put callers on hold',
       'They cost 80-90% less than a human receptionist per hour of coverage',
-      'Setup takes 1-3 weeks, not months — most businesses go live quickly',
+      'Setup takes 48 hours to 2 weeks, not months — most businesses go live quickly',
       'Integration with your calendar and CRM is essential for full value',
       'Most businesses see positive ROI within the first 30 days of deployment',
       'AI voice agents work across every industry — from HVAC to healthcare',

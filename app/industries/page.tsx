@@ -9,9 +9,9 @@ export const metadata = {
 };
 
 const industries = [
-    { icon: Zap, name: 'Electricians', painPoint: 'Missed after-hours emergency calls', article: '/blog/hvac-dispatch-automation', color: 'from-yellow-500/20 to-yellow-600/10 border-yellow-500/30' },
+    { icon: Zap, name: 'Electricians', painPoint: 'Missed after-hours emergency calls', article: '/blog/why-electricians-miss-more-jobs', color: 'from-yellow-500/20 to-yellow-600/10 border-yellow-500/30' },
     { icon: Wrench, name: 'HVAC Companies', painPoint: 'Overflow calls during peak seasons', article: '/blog/hvac-dispatch-automation', color: 'from-orange-500/20 to-orange-600/10 border-orange-500/30' },
-    { icon: HardHat, name: 'Plumbers', painPoint: 'Emergency dispatch coordination', article: '/blog/hvac-dispatch-automation', color: 'from-cyan-500/20 to-cyan-600/10 border-cyan-500/30' },
+    { icon: HardHat, name: 'Plumbers', painPoint: 'Emergency dispatch coordination', article: '/blog/emergency-response-automation', color: 'from-cyan-500/20 to-cyan-600/10 border-cyan-500/30' },
     { icon: Home, name: 'Roofing Companies', painPoint: 'Lead qualification for estimates', article: '/blog/construction-bidding-automation', color: 'from-amber-500/20 to-amber-600/10 border-amber-500/30' },
     { icon: Stethoscope, name: 'Dentists', painPoint: 'Appointment no-shows', article: '/blog/healthcare-no-show-cure', color: 'from-blue-500/20 to-blue-600/10 border-blue-500/30' },
     { icon: Scale, name: 'Law Firms', painPoint: 'Missed client intake calls', article: '/blog/legal-intake-ethics', color: 'from-purple-500/20 to-purple-600/10 border-purple-500/30' },

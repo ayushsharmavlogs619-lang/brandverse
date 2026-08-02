@@ -6,7 +6,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Features — Brandverse AI Voice Agents for SMBs",
   description: "Explore Brandverse features: 24/7 AI call answering, multilingual support, CRM integration, emergency triage, sentiment analysis, and enterprise-grade security.",
-  keywords: ["AI voice agent features", "24/7 call answering", "CRM integration", "multilingual AI", "HIPAA compliant", "emergency triage"],
+  keywords: ["AI voice agent features", "24/7 call answering", "CRM integration", "multilingual AI", "enterprise security", "emergency triage"],
 };
 
 export default function FeaturesPage() {

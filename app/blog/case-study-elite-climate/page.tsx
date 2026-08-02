@@ -3,24 +3,24 @@ import Link from 'next/link';
 import { ArrowLeft, TrendingUp, Calendar, Phone } from 'lucide-react';
 
 export const metadata = {
-    title: 'Case Study: Elite Climate Control & Plumbing — Brandverse',
-    description: 'How a skeptical HVAC owner automated 40% of his booking workflow and recovered $15k in missed calls in month one.',
+    title: 'Deployment Playbook: After-Hours HVAC Overflow — Brandverse',
+    description: 'A representative playbook showing how an AI receptionist captures after-hours HVAC calls, books emergency jobs, and keeps service teams from missing revenue.',
     robots: { index: true, follow: true, googleBot: { index: true, follow: true, 'max-video-preview': -1, 'max-image-preview': 'large', 'max-snippet': -1 } },
     alternates: { canonical: 'https://brandverse.tech/blog/case-study-elite-climate' }
 ,
-  openGraph: { title: 'Case Study: Elite Climate Control & Plumbing', description: 'How a skeptical HVAC owner recovered $15k in month one.', type: 'article' as const, siteName: 'Brandverse' },
-  twitter: { card: 'summary_large_image' as const, title: 'Case Study: Elite Climate Control & Plumbing', description: 'How a skeptical HVAC owner recovered $15k in month one.' }
+  openGraph: { title: 'Deployment Playbook: After-Hours HVAC Overflow', description: 'A representative playbook showing how an AI receptionist captures after-hours HVAC calls.', type: 'article' as const, siteName: 'Brandverse' },
+  twitter: { card: 'summary_large_image' as const, title: 'Deployment Playbook: After-Hours HVAC Overflow', description: 'A representative playbook showing how an AI receptionist captures after-hours HVAC calls.' }
 };
 
 export default function CaseStudy() {
     return (
         <div className="min-h-screen bg-[#020617] text-slate-200 selection:bg-blue-500/30 font-sans">
         <ArticleSchema
-          title={'Case Study: Elite Climate Control & Plumbing'}
-          description={'How a skeptical HVAC owner recovered $15k in month one.'}
+          title={'Deployment Playbook: After-Hours HVAC Overflow'}
+          description={'A representative playbook showing how an AI receptionist captures after-hours HVAC calls and books emergency jobs.'}
           slug="case-study-elite-climate"
           date="Dec 22, 2024"
-          category="Case Study"
+          category="Deployment Playbook"
         />
             <div className="fixed top-0 left-0 w-full h-[600px] bg-blue-900/10 blur-[120px] -z-10 pointer-events-none" />
 
@@ -31,6 +31,10 @@ export default function CaseStudy() {
                     </Link>
                     <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-black uppercase tracking-widest mb-6">
                         HVAC & Plumbing
+                    </div>
+                    <div className="p-4 rounded-2xl bg-amber-500/10 border border-amber-500/30 text-sm text-amber-200/90 leading-relaxed mb-8">
+                        <strong className="text-amber-300 font-black uppercase tracking-widest text-xs block mb-1">Illustrative Example</strong>
+                        This is a deployment playbook — a representative example of how Brandverse handles after-hours overflow calls, not a claim about a specific client's results.
                     </div>
                     <h1 className="text-4xl md:text-6xl font-black text-white leading-tight mb-6">
                         From "I Don't Trust Robots" to <br />

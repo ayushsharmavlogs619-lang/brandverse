@@ -52,7 +52,7 @@ export default function Post() {
               <div>
                 <h3 className="font-bold text-green-400 mb-2">The Booking Gap</h3>
                 <p className="text-sm text-green-200/60 leading-relaxed">
-                  Service businesses with 24/7 booking see 35% more appointments and 28% higher revenue than those with limited hours.
+                  Service businesses that capture after-hours calls turn would-be voicemails into booked appointments — every evening and weekend call is a booking your competitors won't get.
                 </p>
               </div>
             </div>
@@ -103,25 +103,25 @@ export default function Post() {
 
           {/* Section 3: Industry Results */}
           <section className="space-y-6">
-            <h2 className="text-2xl font-black text-white uppercase italic tracking-wide">Results by Industry</h2>
+            <h2 className="text-2xl font-black text-white uppercase italic tracking-wide">What AI Handles by Industry</h2>
             
             <div className="space-y-6">
               <div className="p-6 bg-slate-900/50 border border-white/5 rounded-2xl">
                 <h3 className="font-bold text-white mb-3">Medical Clinics</h3>
                 <p className="text-slate-400 mb-4">AI handles new patient calls, insurance questions, and appointment scheduling after hours.</p>
-                <div className="text-green-400 font-bold text-sm">Result: 42% increase in new patient bookings.</div>
+                <div className="text-green-400 font-bold text-sm">Outcome: Every new patient call gets answered and booked, even after hours.</div>
               </div>
               
               <div className="p-6 bg-slate-900/50 border border-white/5 rounded-2xl">
                 <h3 className="font-bold text-white mb-3">Salons & Spas</h3>
                 <p className="text-slate-400 mb-4">AI books services, explains treatments, and manages rescheduling requests 24/7.</p>
-                <div className="text-green-400 font-bold text-sm">Result: 35% reduction in no-shows, 28% more bookings.</div>
+                <div className="text-green-400 font-bold text-sm">Outcome: Appointments and reschedules are handled 24/7 with automated reminders.</div>
               </div>
               
               <div className="p-6 bg-slate-900/50 border border-white/5 rounded-2xl">
                 <h3 className="font-bold text-white mb-3">Service Businesses</h3>
                 <p className="text-slate-400 mb-4">AI schedules consultations, estimates, and service calls around your availability.</p>
-                <div className="text-green-400 font-bold text-sm">Result: 50% more estimate appointments scheduled.</div>
+                <div className="text-green-400 font-bold text-sm">Outcome: Consultations, estimates, and service calls get scheduled around your availability.</div>
               </div>
             </div>
           </section>

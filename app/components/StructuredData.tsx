@@ -7,14 +7,8 @@ export default function StructuredData() {
         "description": "AI Voice Automation Agency providing 24/7 AI voice agents that capture leads, book appointments, and drive revenue for local businesses.",
         "url": "https://brandverse.tech",
         "logo": "https://brandverse.tech/favicon.ico",
-        "address": {
-            "@type": "PostalAddress",
-            "addressCountry": "US"
-        },
         "sameAs": [
-            "https://twitter.com/brandverse",
-            "https://linkedin.com/company/brandverse",
-            "https://facebook.com/brandverse"
+            "https://twitter.com/brandverse_tech"
         ],
         "contactPoint": {
             "@type": "ContactPoint",
@@ -22,14 +16,7 @@ export default function StructuredData() {
             "email": "ayush@brandverse.tech",
             "availableLanguage": ["English"]
         },
-        "areaServed": {
-            "@type": "GeoCircle",
-            "geoMidpoint": {
-                "@type": "GeoCoordinates",
-                "latitude": "40.7128",
-                "longitude": "-74.0060"
-            }
-        }
+        "areaServed": "Worldwide"
     };
 
     const websiteSchema = {
@@ -41,22 +28,7 @@ export default function StructuredData() {
         "publisher": {
             "@type": "Organization",
             "name": "Brandverse"
-        },
-        "potentialAction": {
-            "@type": "SearchAction",
-            "target": {
-                "@type": "EntryPoint",
-                "urlTemplate": "https://brandverse.tech/search?q={search_term_string}"
-            },
-            "query-input": "required name=search_term_string"
         }
-    };
-
-    const searchActionSchema = {
-        "@context": "https://schema.org",
-        "@type": "SearchAction",
-        "target": "https://brandverse.tech/search?q={search_term_string}",
-        "query-input": "required name=search_term_string"
     };
 
     const serviceSchema = {
@@ -98,21 +70,7 @@ export default function StructuredData() {
         "name": "Brandverse",
         "image": "https://brandverse.tech/favicon.ico",
         "priceRange": "$$",
-        "address": {
-            "@type": "PostalAddress",
-            "addressCountry": "US"
-        },
-        "geo": {
-            "@type": "GeoCoordinates",
-            "latitude": 40.7128,
-            "longitude": -74.0060
-        },
-        "openingHoursSpecification": {
-            "@type": "OpeningHoursSpecification",
-            "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
-            "opens": "09:00",
-            "closes": "18:00"
-        }
+        "areaServed": "Worldwide"
     };
 
     const faqSchema = {
@@ -172,7 +130,7 @@ export default function StructuredData() {
             id="structured-data"
             type="application/ld+json"
             dangerouslySetInnerHTML={{
-                __html: JSON.stringify([organizationSchema, websiteSchema, searchActionSchema, serviceSchema, localBusinessSchema, faqSchema, breadcrumbSchema])
+                __html: JSON.stringify([organizationSchema, websiteSchema, serviceSchema, localBusinessSchema, faqSchema, breadcrumbSchema])
             }}
         />
     );
