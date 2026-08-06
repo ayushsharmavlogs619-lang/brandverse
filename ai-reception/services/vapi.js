@@ -1,5 +1,11 @@
 // Vapi Service - Voice AI integration
 // Handles Vapi webhooks, outbound calls, and assistant configuration
+//
+// Security: webhook signature verification happens in the worker entrypoint
+// (see services/security.js -> verifyVapiSignature) and FAILS CLOSED when
+// VAPI_WEBHOOK_SECRET is not configured.
+
+import { signClientToken } from './security.js';
 
 const VAPI_BASE = 'https://api.vapi.ai';
 
@@ -119,21 +125,14 @@ export class VapiService {
     this.notificationService = notificationService || null;
   }
 
-  // Verify webhook signature (if VAPI_WEBHOOK_SECRET is configured)
-  verifySignature(request) {
-    const secret = this.env.VAPI_WEBHOOK_SECRET;
-    if (!secret) return true; // skip verification if not configured
-    const signature = request.headers.get('x-vapi-signature') || '';
-    if (!signature) return false;
-    return signature === secret;
-  }
-
-  // Handle incoming Vapi webhook
-  async handleWebhook(request) {
-    if (!this.verifySignature(request)) {
-      return { status: 401, body: { error: 'Invalid webhook signature' } };
+  // Handle incoming Vapi webhook from a pre-verified raw body string
+  async handleWebhookBody(rawBody) {
+    let body;
+    try {
+      body = JSON.parse(rawBody);
+    } catch (err) {
+      return { status: 400, body: { error: 'Invalid webhook JSON' } };
     }
-    const body = await request.json();
     const message = body.message || body;
 
     if (!message || !message.type) {
@@ -184,6 +183,18 @@ export class VapiService {
 
     const baseUrl = this.env.APP_BASE_URL || `https://edge.brandverse.tech`;
 
+    // Sign a short-lived token the worker verifies on every tool call.
+    // Without a WORKER_HMAC_SECRET the tools would be rejected by the worker,
+    // so we fail the assistant request loudly instead of producing a broken
+    // (or insecure) configuration.
+    const token = await signClientToken(this.env, client.id);
+    if (!token) {
+      return {
+        status: 503,
+        body: { error: 'WORKER_HMAC_SECRET is not configured on the ai-receptionist Worker' },
+      };
+    }
+
     return {
       status: 200,
       body: {
@@ -217,7 +228,7 @@ export class VapiService {
                 },
               },
               server: {
-                url: `${baseUrl}/api/${client.id}/availability`,
+                url: `${baseUrl}/api/${client.id}/availability?token=${token}`,
                 method: 'GET',
                 queryParameters: {
                   date: '{{date}}',
@@ -244,7 +255,7 @@ export class VapiService {
                 },
               },
               server: {
-                url: `${baseUrl}/api/${client.id}/book`,
+                url: `${baseUrl}/api/${client.id}/book?token=${token}`,
                 method: 'POST',
                 body: {
                   name: '{{name}}',
@@ -268,7 +279,7 @@ export class VapiService {
                 },
               },
               server: {
-                url: `${baseUrl}/api/${client.id}/client-config`,
+                url: `${baseUrl}/api/${client.id}/client-config?token=${token}`,
                 method: 'GET',
               },
             },

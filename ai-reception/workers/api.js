@@ -8,6 +8,7 @@ import { VapiService } from '../services/vapi.js';
 import { NotificationService } from '../services/notify.js';
 import { createLogger } from '../services/logger.js';
 import { RateLimiter, validateBookingInput, validateLogInput, sanitizeStr } from '../services/validate.js';
+import { verifyClientToken, verifyVapiSignature } from '../services/security.js';
 
 const rateLimiter = new RateLimiter();
 
@@ -58,7 +59,7 @@ const worker = {
       if (path === '/health') {
         log.info('health_check');
         return json({
-          status: 'healthy', timestamp: new Date().toISOString(), version: '1.1.0',
+          status: 'healthy', timestamp: new Date().toISOString(), version: '1.1.1',
         }, 200, ch);
       }
 
@@ -71,6 +72,19 @@ const worker = {
       }
 
       if (!clientId) return json({ error: 'Client ID required' }, 400, ch);
+
+      // Every /api/{clientId}/* route is protected by a short-lived HMAC
+      // token that the worker embeds in the Vapi assistant tool URLs.
+      const token = url.searchParams.get('token') || '';
+      if (!env.WORKER_HMAC_SECRET) {
+        log.child(clientId).warn('security_not_configured', { path });
+        return json({ error: 'Security not configured (WORKER_HMAC_SECRET required)' }, 503, ch);
+      }
+      const tokenOk = await verifyClientToken(env, clientId, token);
+      if (!tokenOk) {
+        log.warn('unauthorized', { path, method, clientId });
+        return json({ error: 'Unauthorized' }, 403, ch);
+      }
 
       const clientLog = log.child(clientId);
       const clientConfig = new ClientConfigService(env);
@@ -185,12 +199,28 @@ async function handleClientConfig(clientId, clientConfig, ch, log) {
 
 async function handleVapiWebhook(request, env, ch, log) {
   try {
+    const rawBody = await request.text();
+    const signature = request.headers.get('x-vapi-signature') || '';
+    const verification = await verifyVapiSignature(env, rawBody, signature);
+
+    if (verification !== 'ok') {
+      log.warn('vapi_webhook_rejected', { reason: verification });
+      if (verification === 'missing_secret') {
+        return json(
+          { error: 'VAPI_WEBHOOK_SECRET is not configured. Set it on this Worker and mirror it in the Vapi dashboard before enabling webhooks.' },
+          503,
+          ch
+        );
+      }
+      return json({ error: 'Invalid webhook signature' }, 401, ch);
+    }
+
     const clientConfig = new ClientConfigService(env);
     const sheetsService = new GoogleSheetsService(env);
     const loggingEngine = new LoggingEngine(sheetsService, clientConfig);
     const notificationService = new NotificationService(env);
     const vapiService = new VapiService(env, clientConfig, loggingEngine, notificationService);
-    const result = await vapiService.handleWebhook(request);
+    const result = await vapiService.handleWebhookBody(rawBody);
     log.complete('/api/vapi/webhook', result.status < 500);
     return json(result.body, result.status, ch);
   } catch (error) {
@@ -201,10 +231,20 @@ async function handleVapiWebhook(request, env, ch, log) {
 
 async function handleVapiOutboundCall(request, env, ch, log) {
   try {
+    const url = new URL(request.url);
+    const token = url.searchParams.get('token') || '';
+    if (!env.WORKER_HMAC_SECRET) {
+      return json({ error: 'Security not configured (WORKER_HMAC_SECRET required)' }, 503, ch);
+    }
     const body = await request.json();
     const { clientId, customerNumber, ...overrides } = body;
     if (!clientId || !customerNumber) {
       return json({ error: 'clientId and customerNumber are required' }, 400, ch);
+    }
+    const tokenOk = await verifyClientToken(env, clientId, token);
+    if (!tokenOk) {
+      log.warn('unauthorized', { path: '/api/vapi/call', clientId });
+      return json({ error: 'Unauthorized' }, 403, ch);
     }
     const clientConfig = new ClientConfigService(env);
     const sheetsService = new GoogleSheetsService(env);

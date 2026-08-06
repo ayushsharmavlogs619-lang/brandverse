@@ -15,6 +15,14 @@ vars = [
 #   wrangler secret put GOOGLE_CLIENT_EMAIL --env production
 #   wrangler secret put GOOGLE_PRIVATE_KEY --env production
 #
+# Required for security (fail-closed if missing):
+#   wrangler secret put WORKER_HMAC_SECRET --env production
+#     Signs the per-client tokens embedded in Vapi assistant tool URLs.
+#     Without it every /api/{clientId}/* route returns 503.
+#   wrangler secret put VAPI_WEBHOOK_SECRET --env production
+#     Mirror this exact value in the Vapi dashboard (Webhook Secret).
+#     Without it /api/vapi/webhook returns 503 (fail closed, never open).
+#
 # Optional secrets (for booking email notifications via Google Apps Script):
 #   wrangler secret put GOOGLE_APPS_SCRIPT_WEBHOOK_URL --env production
 #   wrangler secret put GOOGLE_APPS_SCRIPT_SECRET --env production
