@@ -13,21 +13,18 @@ export default function CaseStudies() {
       category: 'Healthcare',
       description: 'Increased new patient bookings by 40% and reduced no-shows by 60% with AI appointment reminders.',
       results: ['40% more bookings', '60% fewer no-shows', '24/7 availability'],
-      image: '/api/placeholder/400/300'
     },
     {
       title: 'Elite Climate Control',
       category: 'HVAC',
       description: 'Captured 70% more after-hours emergency calls and increased revenue by $15,000/month.',
       results: ['70% more emergency calls', '$15K/month revenue increase', 'Zero missed calls'],
-      image: '/api/placeholder/400/300'
     },
     {
       title: 'Apex Property Group',
       category: 'Real Estate',
       description: 'Reduced lead response time from 4 hours to 30 seconds, doubling conversion rates.',
       results: ['30-second response time', '2x conversion rate', '200% more qualified leads'],
-      image: '/api/placeholder/400/300'
     }
   ];
 
@@ -82,9 +79,9 @@ export default function CaseStudies() {
                     </div>
                   ))}
                 </div>
-                <button className="w-full py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition-colors">
+                <Link href="/contact" className="block w-full py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition-colors text-center">
                   Read Full Case Study
-                </button>
+                </Link>
               </div>
             ))}
           </div>

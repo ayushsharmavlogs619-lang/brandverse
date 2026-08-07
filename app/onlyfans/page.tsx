@@ -161,7 +161,7 @@ export default function OnlyFansLandingPage() {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
-    revenue: 'Under $10k/mo',
+    revenue: 'Under $5k/mo',
     website: '',
     message: ''
   });
@@ -195,7 +195,7 @@ export default function OnlyFansLandingPage() {
         setFormData({
           name: '',
           email: '',
-          revenue: 'Under $10k/mo',
+          revenue: 'Under $5k/mo',
           website: '',
           message: ''
         });

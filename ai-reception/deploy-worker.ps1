@@ -9,8 +9,14 @@ if (-not (Test-Path "./wrangler.toml")) {
     exit 1
 }
 
-# Deploy the Worker
-Write-Host "Deploying Worker..." -ForegroundColor Yellow
-npx wrangler deploy
+# Deploy the Worker to the production environment (routes + vars only exist
+# under [env.production] in wrangler.toml).
+Write-Host "Deploying Worker (production)..." -ForegroundColor Yellow
+npx wrangler deploy --env production
+
+if ($LASTEXITCODE -ne 0) {
+    Write-Host "Worker deployment FAILED." -ForegroundColor Red
+    exit 1
+}
 
 Write-Host "Worker deployment complete!" -ForegroundColor Green

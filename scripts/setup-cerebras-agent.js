@@ -1,12 +1,13 @@
-import fetch from 'node-fetch';
+// Setup Cerebras-powered Vapi assistant
+// CommonJS so it runs without a package.json "type": "module".
+// Uses global fetch (Node >= 18) — no node-fetch dependency required.
 
-// CONFIGURATION
-// We will inject these from the environment when you run the script
-const VAPI_KEY = process.env.VAPI_PRIVATE_KEY;
+const VAPI_KEY = process.env.VAPI_API_KEY;
 const CEREBRAS_KEY = process.env.CEREBRAS_API_KEY;
 
 if (!VAPI_KEY || !CEREBRAS_KEY) {
-    console.error('❌ Error: Missing env vars VAPI_PRIVATE_KEY or CEREBRAS_API_KEY');
+    console.error('❌ Error: Missing env vars VAPI_API_KEY or CEREBRAS_API_KEY');
+    console.error('   Set them in your environment (e.g. .env.local) and run with: node --env-file=.env.local scripts/setup-cerebras-agent.js');
     process.exit(1);
 }
 
@@ -81,6 +82,7 @@ async function createAgent() {
 
     } catch (error) {
         console.error('❌ CRITICAL FAILURE:', error.message);
+        process.exit(1);
     }
 }
 

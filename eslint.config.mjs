@@ -29,6 +29,12 @@ const eslintConfig = [
       "@typescript-eslint/no-explicit-any": "warn"
     }
   },
+  {
+    files: ["scripts/**/*.js", "deploy-*.js"],
+    rules: {
+      "@typescript-eslint/no-require-imports": "off"
+    }
+  },
 ];
 
 export default eslintConfig;

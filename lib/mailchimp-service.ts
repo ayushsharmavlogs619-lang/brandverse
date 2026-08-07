@@ -1,71 +1,38 @@
 /**
- * Mailchimp Service for Email Marketing and Follow-ups
- * Simple client-side integration for lead capture and automated sequences
+ * Mailchimp Service for Email Marketing
+ *
+ * The server-side Page Function (see _functions/[[path]].js, POST /api/mailchimp/subscribe)
+ * makes the actual Mailchimp API call using a server-only credential. The browser
+ * never receives the Mailchimp API key.
  */
 
-interface MailchimpConfig {
-  apiKey: string;
-  audienceId: string;
-  serverPrefix: string;
-}
-
 class MailchimpService {
-  private config: MailchimpConfig;
-  private isConfigured: boolean;
-
-  constructor() {
-    this.config = {
-      apiKey: process.env.NEXT_PUBLIC_MAILCHIMP_API_KEY || '',
-      audienceId: process.env.NEXT_PUBLIC_MAILCHIMP_AUDIENCE_ID || '',
-      serverPrefix: 'us4' // Extract from API key (last part before hyphen)
-    };
-    this.isConfigured = this.checkConfiguration();
-  }
-
-  private checkConfiguration(): boolean {
-    return !!(
-      this.config.apiKey &&
-      this.config.apiKey.length > 10 &&
-      this.config.serverPrefix
-    );
-  }
-
   /**
-   * Add a contact to Mailchimp audience
+   * Add a contact to a Mailchimp audience via the server-side proxy.
+   * Returns true only when the server confirmed the member was added/upserted.
    */
   async addContact(email: string, firstName?: string, lastName?: string, tags?: string[]): Promise<boolean> {
-    if (!this.isConfigured) {
-      console.warn('Mailchimp not configured, skipping contact addition');
-      return false;
-    }
+    if (!email) return false;
 
     try {
-      const url = `https://${this.config.serverPrefix}.api.mailchimp.com/3.0/lists/${this.config.audienceId}/members`;
-      
-      const response = await fetch(url, {
+      const response = await fetch('/api/mailchimp/subscribe', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `apikey ${this.config.apiKey}`
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          email_address: email,
-          status: 'subscribed',
-          merge_fields: {
-            FNAME: firstName || '',
-            LNAME: lastName || ''
-          },
+          email,
+          firstName: firstName || '',
+          lastName: lastName || '',
           tags: tags || []
         })
       });
 
-      if (response.ok) {
-        // Contact added to Mailchimp successfully
-        return true;
-      } else {
-        console.error('Mailchimp API error:', response.status, response.statusText);
+      if (!response.ok) {
+        console.error('Mailchimp proxy error:', response.status, response.statusText);
         return false;
       }
+
+      const data = await response.json();
+      return !!(data && data.success);
     } catch (error) {
       console.error('Mailchimp contact addition error:', error);
       return false;
@@ -73,42 +40,14 @@ class MailchimpService {
   }
 
   /**
-   * Trigger an automated email flow for lead nurturing
+   * Trigger an automated email flow for lead nurturing.
+   * Contact is added to the audience first; automations are fired by the
+   * Mailchimp dashboard. Returns the addContact result.
    */
-  async triggerAutomationFlow(email: string, flowId?: string): Promise<boolean> {
-    if (!this.isConfigured) {
-      console.warn('Mailchimp not configured, skipping automation trigger');
-      return false;
-    }
-
-    try {
-      // Add to audience first (if not already subscribed)
-      await this.addContact(email);
-
-      // Note: Mailchimp automations are usually triggered by audience actions
-      // The automations need to be set up in the Mailchimp dashboard
-      // This function mainly ensures the contact is in the right audience
-
-      // Mailchimp automation flow triggered successfully
-      return true;
-    } catch (error) {
-      console.error('Mailchimp automation trigger error:', error);
-      return false;
-    }
-  }
-
-  /**
-   * Get configuration status
-   */
-  getConfigStatus(): { configured: boolean; audienceNeeded: boolean } {
-    return {
-      configured: this.isConfigured,
-      audienceNeeded: !this.config.audienceId
-    };
+  async triggerAutomationFlow(email: string): Promise<boolean> {
+    return this.addContact(email);
   }
 }
 
 // Export singleton instance
 export const mailchimpService = new MailchimpService();
-
-// Export types

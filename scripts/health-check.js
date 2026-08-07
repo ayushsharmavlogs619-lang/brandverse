@@ -161,39 +161,37 @@ async function checkWorkerProxy() {
   return result.success;
 }
 
-// Check 3: Lead Capture Endpoint
-async function checkLeadCapture() {
-  logSection('CHECK 3: Lead Capture Endpoint');
+// Check 3: Worker Reachability (read-only probe)
+// NOTE: We intentionally do NOT POST a fake lead to production during a health
+// check. A GET probe is enough to verify the worker is live without polluting
+// the leads database.
+async function checkWorkerProbe() {
+  logSection('CHECK 3: Worker Probe (read-only)');
   
-  const testLead = {
-    email: 'health-check-test@brandverse.tech',
-    full_name: 'Health Check Test',
-    message: 'Automated health check - please ignore',
-    source_form: 'health-check-script'
-  };
-  
-  const result = await checkUrl(`${WORKER_URL}/api/brandverse/leads`, 'POST', testLead);
+  // GET -> the worker should answer anything; we only care that it is reachable.
+  const result = await checkUrl(WORKER_URL);
+  const reachable = result.status !== 0;
   const check = {
-    name: 'Lead Capture Endpoint',
-    url: `${WORKER_URL}/api/brandverse/leads`,
-    status: result.success ? 'PASS' : 'FAIL',
-    details: result.success 
-      ? `HTTP ${result.status}` 
-      : `Error: ${result.error || 'HTTP ' + result.status}`
+    name: 'Worker Probe',
+    url: WORKER_URL,
+    status: reachable ? 'PASS' : 'FAIL',
+    details: reachable
+      ? `Responded (HTTP ${result.status})`
+      : `Error: ${result.error || 'No response'}`
   };
   
   results.checks.push(check);
   results.summary.total++;
   
-  if (result.success) {
+  if (reachable) {
     results.summary.passed++;
-    log(`✓ Lead capture endpoint is responding (HTTP ${result.status})`, 'green');
+    log(`✓ Worker is reachable (HTTP ${result.status})`, 'green');
   } else {
     results.summary.failed++;
-    log(`✗ Lead capture endpoint is not responding: ${check.details}`, 'red');
+    log(`✗ Worker is not reachable: ${check.details}`, 'red');
   }
   
-  return result.success;
+  return reachable;
 }
 
 // Check 4: DNS Resolution
@@ -270,8 +268,12 @@ async function checkSSL() {
           results.summary.warnings++;
           log(`⚠ SSL certificate expires in ${daysUntilExpiry} days - renew soon!`, 'yellow');
         }
-        
-        resolve(daysUntilExpiry > 7);
+
+        // Drain the response body so the socket closes cleanly.
+        res.on('data', () => {});
+        res.on('end', () => {
+          resolve(daysUntilExpiry > 7);
+        });
       } else {
         const check = {
           name: 'SSL Certificate',
@@ -279,16 +281,15 @@ async function checkSSL() {
           status: 'FAIL',
           details: 'Could not retrieve certificate'
         };
-        
+
         results.checks.push(check);
         results.summary.total++;
         results.summary.failed++;
-        
+
         log(`✗ Could not retrieve SSL certificate`, 'red');
-        resolve(false);
+        res.on('data', () => {});
+        res.on('end', () => resolve(false));
       }
-      
-      req.abort();
     });
     
     req.on('error', (error) => {
@@ -337,11 +338,10 @@ function checkEnvironmentVariables() {
   ];
   
   const optionalVars = [
-    'NEXT_PUBLIC_FIREBASE_API_KEY',
-    'NEXT_PUBLIC_FIREBASE_PROJECT_ID',
     'NEXT_PUBLIC_VAPI_PUBLIC_KEY',
+    'NEXT_PUBLIC_VAPI_ASSISTANT_ID',
     'NEXT_PUBLIC_GA_MEASUREMENT_ID',
-    'NEXT_PUBLIC_MAILCHIMP_API_KEY',
+    'NEXT_PUBLIC_VAPID_PUBLIC_KEY',
     'NEXT_PUBLIC_CALENDLY_URL'
   ];
   
@@ -527,7 +527,7 @@ async function main() {
   try {
     await checkMainSite();
     await checkWorkerProxy();
-    await checkLeadCapture();
+    await checkWorkerProbe();
     await checkDNS();
     await checkSSL();
     checkEnvironmentVariables();

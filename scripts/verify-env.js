@@ -20,39 +20,7 @@ const requiredVars = {
     defaultValue: 'https://edge.brandverse.tech',
     critical: true
   },
-  
-  // Firebase (Required for auth/cloud functions)
-  NEXT_PUBLIC_FIREBASE_API_KEY: {
-    description: 'Firebase Web API Key',
-    defaultValue: null,
-    critical: false
-  },
-  NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN: {
-    description: 'Firebase Auth Domain',
-    defaultValue: null,
-    critical: false
-  },
-  NEXT_PUBLIC_FIREBASE_PROJECT_ID: {
-    description: 'Firebase Project ID',
-    defaultValue: null,
-    critical: false
-  },
-  NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET: {
-    description: 'Firebase Storage Bucket',
-    defaultValue: null,
-    critical: false
-  },
-  NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID: {
-    description: 'Firebase Messaging Sender ID',
-    defaultValue: null,
-    critical: false
-  },
-  NEXT_PUBLIC_FIREBASE_APP_ID: {
-    description: 'Firebase App ID',
-    defaultValue: null,
-    critical: false
-  },
-  
+
   // AI Services
   GOOGLE_GENERATIVE_AI_API_KEY: {
     description: 'Google Generative AI API Key',
@@ -64,10 +32,10 @@ const requiredVars = {
     defaultValue: null,
     critical: false
   },
-  
+
   // Voice AI
   VAPI_API_KEY: {
-    description: 'Vapi API Key',
+    description: 'Vapi API Key (server-side)',
     defaultValue: null,
     critical: false
   },
@@ -86,7 +54,7 @@ const requiredVars = {
     defaultValue: null,
     critical: false
   },
-  
+
   // Analytics
   NEXT_PUBLIC_GA_MEASUREMENT_ID: {
     description: 'Google Analytics Measurement ID',
@@ -98,26 +66,26 @@ const requiredVars = {
     defaultValue: null,
     critical: false
   },
-  
-  // Marketing
-  NEXT_PUBLIC_MAILCHIMP_API_KEY: {
-    description: 'Mailchimp API Key',
+
+  // Marketing (server-side only - never NEXT_PUBLIC_)
+  MAILCHIMP_API_KEY: {
+    description: 'Mailchimp API Key (server-side)',
     defaultValue: null,
     critical: false
   },
-  NEXT_PUBLIC_MAILCHIMP_AUDIENCE_ID: {
-    description: 'Mailchimp Audience ID',
+  MAILCHIMP_AUDIENCE_ID: {
+    description: 'Mailchimp Audience ID (server-side)',
     defaultValue: null,
     critical: false
   },
-  
+
   // Scheduling
   NEXT_PUBLIC_CALENDLY_URL: {
     description: 'Calendly URL',
     defaultValue: null,
     critical: false
   },
-  
+
   // Compliance
   NEXT_PUBLIC_COOKIEBOT_ID: {
     description: 'Cookiebot ID',
@@ -134,10 +102,20 @@ const requiredVars = {
     defaultValue: null,
     critical: false
   },
-  
-  // Web Push
+
+  // Web Push (server-side secrets)
   NEXT_PUBLIC_VAPID_PUBLIC_KEY: {
     description: 'VAPID Public Key for web push',
+    defaultValue: null,
+    critical: false
+  },
+  VAPID_PRIVATE_KEY: {
+    description: 'VAPID Private Key (server-side)',
+    defaultValue: null,
+    critical: false
+  },
+  ADMIN_PUSH_PASSWORD: {
+    description: 'Admin push password (server-side)',
     defaultValue: null,
     critical: false
   }

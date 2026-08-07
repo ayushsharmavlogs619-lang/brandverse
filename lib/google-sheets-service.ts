@@ -1,14 +1,14 @@
 /**
  * Google Sheets Service for Lead CRM
- * 
- * This service handles writing leads to Google Sheets via the Google Sheets API.
- * Designed to be used in Cloudflare Workers or server-side environments.
+ *
+ * This service handles writing leads to Google Sheets via Google Apps Script Webhook.
+ * The Apps Script expects:
+ * { secret, date, name, email, phone, company, service, message }
  */
 
 interface GoogleSheetsConfig {
-  spreadsheetId: string;
-  sheetName: string;
-  apiKey: string;
+  webhookUrl: string;
+  secret: string;
 }
 
 interface LeadData {
@@ -43,182 +43,66 @@ export class GoogleSheetsService {
   }
 
   /**
-   * Append a lead to Google Sheets
+   * Append a lead to Google Sheets via Apps Script Webhook
    */
-  async appendLead(leadData: LeadData, aiAnalysis?: AIAnalysis): Promise<{ success: boolean; error?: string }> {
+  async appendLead(
+    leadData: LeadData,
+    aiAnalysis?: AIAnalysis
+  ): Promise<{ success: boolean; error?: string }> {
     try {
-      const timestamp = leadData.timestamp || new Date().toISOString();
-      
-      // Prepare row data in the correct order
-      const rowData = [
-        timestamp,
-        leadData.full_name || '',
-        leadData.email || '',
-        leadData.phone || '',
-        leadData.company || '',
-        leadData.website || '',
-        leadData.business_type || '',
-        leadData.service_interest || '',
-        leadData.message || '',
-        leadData.source_page || '',
-        leadData.source_form || '',
-        leadData.utm_source || '',
-        leadData.utm_medium || '',
-        leadData.utm_campaign || '',
-        aiAnalysis?.summary || '',
-        aiAnalysis?.urgency || '',
-        aiAnalysis?.lead_quality || '',
-        aiAnalysis?.suggested_reply || '',
-        'new' // Default status
-      ];
+      const date = leadData.timestamp || new Date().toISOString();
 
-      // Use Google Sheets API v4
-      const url = `https://sheets.googleapis.com/v4/spreadsheets/${this.config.spreadsheetId}/values/${this.config.sheetName}:append?valueInputOption=USER_ENTERED`;
-      
-      const response = await fetch(url, {
+      const payload = {
+        secret: this.config.secret,
+        date,
+        name: leadData.full_name || '',
+        email: leadData.email || '',
+        phone: leadData.phone || '',
+        company: leadData.company || '',
+        service: leadData.service_interest || leadData.business_type || '',
+        message: leadData.message || ''
+      };
+
+      console.log('==============================');
+      console.log('GOOGLE SHEETS WEBHOOK REQUEST');
+      console.log('Webhook URL:', this.config.webhookUrl);
+      console.log('Payload:', payload);
+      console.log('==============================');
+
+      const response = await fetch(this.config.webhookUrl, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${this.config.apiKey}`
+          'Content-Type': 'application/json'
         },
-        body: JSON.stringify({
-          values: [rowData]
-        })
+        body: JSON.stringify(payload)
       });
 
+      const responseText = await response.text();
+
+      console.log('==============================');
+      console.log('GOOGLE SHEETS WEBHOOK RESPONSE');
+      console.log('Status:', response.status);
+      console.log('OK:', response.ok);
+      console.log('Body:', responseText);
+      console.log('==============================');
+
       if (!response.ok) {
-        const error = await response.text();
-        throw new Error(`Google Sheets API error: ${error}`);
+        return {
+          success: false,
+          error: `HTTP ${response.status}: ${responseText}`
+        };
       }
 
-      const result = await response.json();
-      
-      return { success: true };
-    } catch (error) {
-      console.error('Google Sheets append error:', error);
-      return { 
-        success: false, 
-        error: error instanceof Error ? error.message : 'Unknown error' 
+      return {
+        success: true
       };
-    }
-  }
-
-  /**
-   * Create a new spreadsheet with headers (one-time setup)
-   */
-  async createSpreadsheet(title: string): Promise<{ success: boolean; spreadsheetId?: string; error?: string }> {
-    try {
-      const url = 'https://sheets.googleapis.com/v4/spreadsheets';
-      
-      const response = await fetch(url, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${this.config.apiKey}`
-        },
-        body: JSON.stringify({
-          properties: {
-            title
-          },
-          sheets: [
-            {
-              properties: {
-                title: this.config.sheetName
-              }
-            }
-          ]
-        })
-      });
-
-      if (!response.ok) {
-        const error = await response.text();
-        throw new Error(`Google Sheets API error: ${error}`);
-      }
-
-      const result = await response.json();
-      const spreadsheetId = result.spreadsheetId;
-
-      // Add headers
-      await this.addHeaders(spreadsheetId);
-
-      return { success: true, spreadsheetId };
     } catch (error) {
-      console.error('Google Sheets creation error:', error);
-      return { 
-        success: false, 
-        error: error instanceof Error ? error.message : 'Unknown error' 
-      };
-    }
-  }
+      console.error('Google Sheets webhook exception:', error);
 
-  /**
-   * Add headers to the sheet
-   */
-  private async addHeaders(spreadsheetId: string): Promise<void> {
-    const headers = [
-      'Timestamp',
-      'Name',
-      'Email',
-      'Phone',
-      'Company',
-      'Website',
-      'Business Type',
-      'Service Interest',
-      'Message',
-      'Source Page',
-      'Source Form',
-      'UTM Source',
-      'UTM Medium',
-      'UTM Campaign',
-      'AI Summary',
-      'AI Urgency',
-      'AI Lead Quality',
-      'AI Suggested Reply',
-      'Status'
-    ];
-
-    const url = `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${this.config.sheetName}!A1:R1?valueInputOption=USER_ENTERED`;
-    
-    await fetch(url, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${this.config.apiKey}`
-      },
-      body: JSON.stringify({
-        values: [headers]
-      })
-    });
-  }
-
-  /**
-   * Update lead status
-   */
-  async updateStatus(rowIndex: number, status: string): Promise<{ success: boolean; error?: string }> {
-    try {
-      const url = `https://sheets.googleapis.com/v4/spreadsheets/${this.config.spreadsheetId}/values/${this.config.sheetName}!R${rowIndex}C18?valueInputOption=USER_ENTERED`;
-      
-      const response = await fetch(url, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${this.config.apiKey}`
-        },
-        body: JSON.stringify({
-          values: [[status]]
-        })
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to update status');
-      }
-
-      return { success: true };
-    } catch (error) {
-      console.error('Google Sheets update error:', error);
-      return { 
-        success: false, 
-        error: error instanceof Error ? error.message : 'Unknown error' 
+      return {
+        success: false,
+        error:
+          error instanceof Error ? error.message : 'Unknown webhook error'
       };
     }
   }
@@ -228,18 +112,24 @@ export class GoogleSheetsService {
  * Factory function to create service from environment variables
  */
 export function createGoogleSheetsService(): GoogleSheetsService | null {
-  const spreadsheetId = process.env.GOOGLE_SHEETS_SPREADSHEET_ID;
-  const sheetName = process.env.GOOGLE_SHEETS_SHEET_NAME || 'Leads';
-  const apiKey = process.env.GOOGLE_SHEETS_API_KEY;
+  const webhookUrl = process.env.GOOGLE_APPS_SCRIPT_WEBHOOK_URL;
+  const secret = process.env.GOOGLE_APPS_SCRIPT_SECRET;
 
-  if (!spreadsheetId || !apiKey) {
-    console.warn('Google Sheets service not configured: missing spreadsheet ID or API key');
+  console.log('==============================');
+  console.log('GOOGLE SHEETS CONFIG');
+  console.log('Webhook URL:', webhookUrl);
+  console.log('Secret Loaded:', !!secret);
+  console.log('==============================');
+
+  if (!webhookUrl || !secret) {
+    console.warn(
+      'Google Sheets service not configured: missing webhook URL or secret'
+    );
     return null;
   }
 
   return new GoogleSheetsService({
-    spreadsheetId,
-    sheetName,
-    apiKey
+    webhookUrl,
+    secret
   });
 }

@@ -11,6 +11,11 @@ if (-not (Test-Path "./landing-pages")) {
 
 # Deploy to Cloudflare Pages
 Write-Host "Deploying to Cloudflare Pages..." -ForegroundColor Yellow
-npx wrangler pages deploy landing-pages --project-name=ai-reception
+npx wrangler pages deploy landing-pages --project-name=ai-reception --branch=production
+
+if ($LASTEXITCODE -ne 0) {
+    Write-Host "Pages deployment FAILED." -ForegroundColor Red
+    exit 1
+}
 
 Write-Host "Pages deployment complete!" -ForegroundColor Green

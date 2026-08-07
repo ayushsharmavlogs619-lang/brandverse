@@ -105,7 +105,7 @@ export default function LeadForm({
                 </div>
             )}
             
-            {submitStatus === 'success' && (
+            {submitStatus === 'success' && !onSubmit && (
                 <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
                     <div className="bg-[#0f172a] border border-green-500/30 rounded-2xl p-8 text-center max-w-md mx-4">
                         <div className="w-16 h-16 bg-green-500/10 rounded-full flex items-center justify-center mx-auto mb-4">

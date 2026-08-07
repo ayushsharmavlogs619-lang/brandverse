@@ -22,4 +22,9 @@ if ($LASTEXITCODE -ne 0) {
 Write-Host "🌐 Deploying to Vercel..." -ForegroundColor Yellow
 vercel --prod --yes
 
+if ($LASTEXITCODE -ne 0) {
+    Write-Host "❌ Deployment FAILED." -ForegroundColor Red
+    exit 1
+}
+
 Write-Host "✅ Deployment complete!" -ForegroundColor Green

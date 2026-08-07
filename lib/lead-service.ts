@@ -208,14 +208,14 @@ class LeadService {
                 }
             }
 
-            // Step 5: Submit to Google Sheets (if configured)
+            // Step 5: Submit to Google Sheets via Apps Script (if configured)
             let submittedToSheets = false;
             if (this.googleSheetsService) {
                 try {
                     const sheetsResult = await this.googleSheetsService.appendLead(sanitizedData, aiAnalysis);
                     if (sheetsResult.success) {
                         submittedToSheets = true;
-                        console.log('Lead submitted to Google Sheets');
+                        console.log('Lead submitted to Google Sheets via Apps Script');
                     } else {
                         console.warn('Google Sheets submission failed:', sheetsResult.error);
                     }
@@ -224,7 +224,7 @@ class LeadService {
                 }
             }
 
-            // Step 5: Submit to Worker Proxy (which writes to Airtable with Sheets fallback)
+            // Step 6: Submit to Worker Proxy (which writes to Airtable with Sheets fallback)
             let leadId: string | undefined;
             let submittedToWorker = false;
             let usedWorkerFallback = false;

@@ -51,9 +51,11 @@ export default function CTASection({
     ? "max-w-4xl mx-auto text-center space-y-8"
     : "max-w-6xl mx-auto text-center space-y-10";
 
-  // Set dynamic links based on variant
+  // Set dynamic links based on variant. The primary button always drives to
+  // booking (Calendly) on the 'form' variant; the secondary link should honor
+  // the caller's secondaryLink for every variant.
   const finalPrimaryLink = variant === 'form' ? 'https://calendly.com/ayushsharmavlogs619/30min' : primaryLink;
-  const finalSecondaryLink = variant === 'form' ? secondaryLink : 'https://calendly.com/ayushsharmavlogs619/30min';
+  const finalSecondaryLink = secondaryLink;
 
   const titleClasses = variant === 'minimal'
     ? "text-3xl font-black text-white"

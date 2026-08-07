@@ -12,11 +12,6 @@ interface AppConfig {
     gaId: string;
     metaPixelId: string;
   };
-  // Mailchimp
-  mailchimp: {
-    apiKey: string;
-    audienceId: string;
-  };
   // Other services
   vapidPublicKey: string; // For push notifications
   vapiPublicKey: string; // For Vapi voice API
@@ -41,10 +36,6 @@ export const config: AppConfig = {
   analytics: {
     gaId: getEnvVar('NEXT_PUBLIC_GA_MEASUREMENT_ID', ''),
     metaPixelId: getEnvVar('NEXT_PUBLIC_META_PIXEL_ID', ''),
-  },
-  mailchimp: {
-    apiKey: getEnvVar('NEXT_PUBLIC_MAILCHIMP_API_KEY', ''),
-    audienceId: getEnvVar('NEXT_PUBLIC_MAILCHIMP_AUDIENCE_ID', ''),
   },
   vapidPublicKey: getEnvVar('NEXT_PUBLIC_VAPID_PUBLIC_KEY', ''),
   vapiPublicKey: getEnvVar('NEXT_PUBLIC_VAPI_PUBLIC_KEY', ''),

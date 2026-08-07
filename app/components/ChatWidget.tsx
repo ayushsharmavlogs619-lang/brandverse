@@ -27,21 +27,14 @@ export default function ChatWidget() {
         setMessages(prev => [...prev, { role: 'user', content: userMsg }]);
         setLoading(true);
 
-        const formData = new FormData();
-        formData.append('message', userMsg);
-        formData.append('modelType', 'cerebras'); // Use Haaland speed for public demo
-
-        try {
-            // Mock AI response for static export
-            await new Promise(resolve => setTimeout(resolve, 1000));
-            const mockResponse = "Great question! Our AI Voice Agents can handle 100+ calls simultaneously, qualify leads automatically, and book appointments 24/7. Want to see a demo? Call us at +91 88510 05278!";
-            
-            setMessages(prev => [...prev, { role: 'ai', content: mockResponse }]);
-        } catch (error) {
-            setMessages(prev => [...prev, { role: 'ai', content: "Tactical error. Refresh the pitch." }]);
-        } finally {
-            setLoading(false);
-        }
+        // No AI backend is wired up for this static export. Don't fake a reply:
+        // route visitors to a real human instead.
+        await new Promise(resolve => setTimeout(resolve, 600));
+        setMessages(prev => [...prev, {
+            role: 'ai',
+            content: "I'm a demo widget, not a live AI. To talk to a real person or hear a live AI agent right now, call us at +91 88510 05278 or book a demo at brandverse.tech/contact."
+        }]);
+        setLoading(false);
     };
 
     return (

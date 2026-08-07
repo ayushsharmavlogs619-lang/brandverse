@@ -19,7 +19,7 @@ vars = [
   { name = "APP_BASE_URL", value = "https://edge.brandverse.tech" },
   { name = "APP_SUBDOMAIN", value = "edge.brandverse.tech" },
   { name = "DEFAULT_TIMEZONE", value = "Australia/Melbourne" },
-  { name = "SUPABASE_URL", value = "https://ewqbqrelnjpauqablnvt.supabase.co" }
+  { name = "SUPABASE_URL", value = "your-supabase-project-url.supabase.co" }
 ]
 
 # Note: SUPABASE_SERVICE_KEY should be set via wrangler secret put SUPABASE_SERVICE_KEY --env production
@@ -47,7 +47,7 @@ vars = [
   { name = "APP_BASE_URL", value = "https://staging-edge.brandverse.tech" },
   { name = "APP_SUBDOMAIN", value = "staging-edge.brandverse.tech" },
   { name = "DEFAULT_TIMEZONE", value = "Australia/Melbourne" },
-  { name = "SUPABASE_URL", value = "https://ewqbqrelnjpauqablnvt.supabase.co" }
+  { name = "SUPABASE_URL", value = "your-supabase-project-url.supabase.co" }
 ]
 
 # Note: SUPABASE_SERVICE_KEY should be set via wrangler secret put SUPABASE_SERVICE_KEY --env staging

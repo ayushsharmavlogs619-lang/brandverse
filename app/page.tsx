@@ -144,12 +144,12 @@ export default function Page() {
   ];
 
   const techStack = [
-    { name: "Next.js 15 (Turbopack)", description: "Server Components + Edge Runtime", icon: Code2 },
+    { name: "Next.js 16 (Turbopack)", description: "Server Components + Edge Runtime", icon: Code2 },
     { name: "Supabase (Postgres)", description: "Real-time Relational Database", icon: Database },
-    { name: "Firebase Cloud Functions", description: "Serverless Backend Infrastructure", icon: Globe },
+    { name: "Cloudflare Workers", description: "Global Edge Computing Infrastructure", icon: Globe },
     { name: "Vapi AI SDK", description: "Programmable Voice Intelligence", icon: Mic },
     { name: "n8n / Zapier", description: "Workflow Orchestration Layer", icon: Workflow },
-    { name: "Vercel Edge Network", description: "Global CDN + Instant Rollbacks", icon: Rocket }
+    { name: "Cloudflare Pages", description: "Global CDN + Instant Rollbacks", icon: Rocket }
   ];
 
   const capabilities = [

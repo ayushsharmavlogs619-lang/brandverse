@@ -1,0 +1,14 @@
+# Cloudflare Pages Redirects
+# https://developers.cloudflare.com/pages/configuration/redirects/
+
+# Force HTTPS
+http://* https://:splat 301
+
+# Remove trailing slashes for cleaner URLs (optional - keeping for now since next.config.ts has trailingSlash: true)
+# /* /:splat/ 301
+
+# Redirect old paths to new ones if needed
+# /old-path /new-path 301
+
+# Handle SPA routing if needed (not needed for static export)
+# /* /index.html 200

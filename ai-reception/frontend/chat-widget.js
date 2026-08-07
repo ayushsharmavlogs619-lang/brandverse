@@ -541,12 +541,12 @@ class AIReceptionistChat {
     async handleBookingName(message) {
         this.userData.name = message;
         this.currentStep = 'booking_phone';
-        this.addMessage('bot', `Nice to meet you, ${message}! What's your phone number?');
+        this.addMessage('bot', `Nice to meet you, ${message}! What's your phone number?`);
     }
 
     async handleBookingPhone(message) {
         // Basic phone validation
-        const phoneRegex: /^[\d\s\-\+\(\)]+$/;
+        const phoneRegex = /^[\d\s\-\+\(\)]+$/;
         if (!phoneRegex.test(message)) {
             this.addMessage('bot', 'Please provide a valid phone number. Example: +91 88510 05278');
             return;

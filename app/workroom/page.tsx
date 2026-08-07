@@ -6,7 +6,6 @@ import { Send, Bot, User, Loader2, Sparkles } from 'lucide-react';
 export default function WorkroomPage() {
     const [messages, setMessages] = useState<{ role: 'user' | 'ai', content: string }[]>([]);
     const [loading, setLoading] = useState(false);
-    const [modelType, setModelType] = useState<'pro' | 'flash' | 'cerebras'>('flash');
     const scrollRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
@@ -25,10 +24,12 @@ export default function WorkroomPage() {
         setLoading(true);
         form.reset();
 
-        await new Promise(resolve => setTimeout(resolve, 1000));
-        const mockResponse =
-            "This is the Brandverse War Room - your tactical command center. For live AI assistance, call +91 88510 05278!";
-        setMessages(prev => [...prev, { role: 'ai', content: mockResponse }]);
+        // No AI backend is wired for this static export. Don't fake replies.
+        await new Promise(resolve => setTimeout(resolve, 600));
+        setMessages(prev => [...prev, {
+            role: 'ai',
+            content: "The War Room is a UI demo - live AI isn't connected on a static build. Call +91 88510 05278 to talk to a real strategist or book a demo at brandverse.tech/contact."
+        }]);
         setLoading(false);
     }
 
@@ -45,26 +46,9 @@ export default function WorkroomPage() {
                         <p className="text-xs text-zinc-500 uppercase tracking-widest font-semibold">Unlimited Tactical AI • Active</p>
                     </div>
                 </div>
-                <div className="hidden md:flex items-center gap-4 text-sm bg-zinc-900/50 px-2 py-1 rounded-full border border-white/5">
-                    <button
-                        onClick={() => setModelType('flash')}
-                        className={`px-3 py-1 rounded-full transition-all ${modelType === 'flash' ? 'bg-zinc-700 text-white shadow-lg' : 'text-zinc-500 hover:text-zinc-300'}`}
-                    >
+                <div className="px-3 py-1 rounded-full bg-zinc-700 text-white text-sm shadow-lg">
                         Flash (Fast)
-                    </button>
-                    <button
-                        onClick={() => setModelType('pro')}
-                        className={`px-3 py-1 rounded-full transition-all ${modelType === 'pro' ? 'bg-red-600 text-white shadow-lg shadow-red-600/20' : 'text-zinc-500 hover:text-zinc-300'}`}
-                    >
-                        Pro (Ultra)
-                    </button>
-                    <button
-                        onClick={() => setModelType('cerebras')}
-                        className={`px-3 py-1 rounded-full transition-all ${modelType === 'cerebras' ? 'bg-yellow-500 text-black font-bold shadow-lg shadow-yellow-500/20' : 'text-zinc-500 hover:text-zinc-300'}`}
-                    >
-                        Lightning (Cerebras)
-                    </button>
-                </div>
+                    </div>
             </header>
 
             {/* Chat Area */}
@@ -109,7 +93,6 @@ export default function WorkroomPage() {
             {/* Footer / Input */}
             <footer className="p-4 md:p-8 bg-gradient-to-t from-black to-transparent">
                 <form onSubmit={handleChatSubmit} className="max-w-4xl mx-auto relative group">
-                    <input type="hidden" name="modelType" value={modelType} />
                     <input
                         type="text"
                         name="message"

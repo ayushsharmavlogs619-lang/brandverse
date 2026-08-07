@@ -165,12 +165,9 @@ NEXT_PUBLIC_VAPI_KEY=sk_xxx...
 NEXT_PUBLIC_VAPI_ASSISTANT_ID=asst_xxx...
 
 # === EXISTING (Already Set) ===
-NEXT_PUBLIC_FIREBASE_API_KEY=AIzaSyDCbYX5rmE8KwXO-b_Clv5On3vbAxmJlu8
-NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=brandverse-8207e.firebaseapp.com
-NEXT_PUBLIC_FIREBASE_PROJECT_ID=brandverse-8207e
-NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=brandverse-8207e.firebasestorage.app
-NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=790805284794
-NEXT_PUBLIC_FIREBASE_APP_ID=1:790805284794:web:7d8e2ec29c2b90d70f7f83
+# (Firebase keys were removed from this repo in a security cleanup —
+#  rotate any previously shared Firebase web config and keep it only in a
+#  secret manager / Cloudflare Pages env, never in tracked files.)
 ```
 
 ---
