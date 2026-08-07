@@ -1,5 +1,8 @@
 # Brandverse Cloudflare Deployment Script
-$ErrorActionPreference = "Stop"
+# NOTE: Do not use $ErrorActionPreference = "Stop": node.js warnings on stderr
+# (e.g. console.warn in scripts/validate-env.js) surface as NativeCommandError
+# records in PowerShell 5.1 and would terminate the script mid-deploy.
+$ErrorActionPreference = "Continue"
 
 Write-Host "Starting Brandverse deployment to Cloudflare..." -ForegroundColor Green
 
