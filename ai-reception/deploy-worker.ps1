@@ -1,5 +1,8 @@
 # AI Receptionist Cloudflare Worker Deployment Script
-$ErrorActionPreference = "Stop"
+# NOTE: Do not use $ErrorActionPreference = "Stop": npm/npx warnings on stderr
+# surface as NativeCommandError records in PowerShell 5.1 and would terminate
+# the script mid-deploy.
+$ErrorActionPreference = "Continue"
 
 Write-Host "Deploying AI Receptionist Worker to Cloudflare..." -ForegroundColor Green
 
