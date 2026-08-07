@@ -1,7 +1,7 @@
 /**
  * Mailchimp Service for Email Marketing
  *
- * The server-side Page Function (see _functions/[[path]].js, POST /api/mailchimp/subscribe)
+ * The server-side Page Function (see functions/[[path]].js, POST /api/mailchimp/subscribe)
  * makes the actual Mailchimp API call using a server-only credential. The browser
  * never receives the Mailchimp API key.
  */

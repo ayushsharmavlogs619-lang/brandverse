@@ -111,19 +111,19 @@ function verifyLocalConfig() {
   }
   
   // Check Pages functions
-  const functionsPath = path.join(process.cwd(), '_functions');
+  const functionsPath = path.join(process.cwd(), 'functions');
   if (fs.existsSync(functionsPath)) {
     const files = fs.readdirSync(functionsPath);
     if (files.length > 0) {
-      log(`✓ _functions directory exists with ${files.length} file(s)`, 'green');
+      log(`✓ functions directory exists with ${files.length} file(s)`, 'green');
       results.pagesConfig.exists = true;
       results.pagesConfig.valid = true;
     } else {
-      log('⚠ _functions directory exists but is empty', 'yellow');
+      log('⚠ functions directory exists but is empty', 'yellow');
       results.pagesConfig.errors.push('Directory is empty');
     }
   } else {
-    log('⚠ _functions directory not found (optional for Pages)', 'yellow');
+    log('⚠ functions directory not found (optional for Pages)', 'yellow');
   }
   
   // Check next.config.ts for Pages compatibility

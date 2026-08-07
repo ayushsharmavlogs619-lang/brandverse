@@ -110,7 +110,7 @@ npm run deploy:all
 
 ### Worker 1: Main Site Worker
 - **Name:** Brandverse Pages Functions
-- **Script:** `_functions/[[path]].js`
+- **Script:** `functions/[[path]].js`
 - **Purpose:** Subdomain routing for Pages
 - **Triggers:** HTTP requests to Pages functions
 - **Environment Variables:** None (uses Pages env vars)

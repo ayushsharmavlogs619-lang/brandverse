@@ -131,10 +131,11 @@ export default {
         return handleGetAnalytics(clientId, url.searchParams, dbService, corsHeaders);
       }
 
-      return new Response(JSON.stringify({ error: 'Endpoint not found' }), {
-        status: 404,
-        headers: { 'Content-Type': 'application/json', ...corsHeaders }
-      });
+      // Apex brandverse.tech/api/* is routed to this Worker. Paths that were
+      // previously served by Pages Functions (e.g. /api/subscribe,
+      // /api/send-push, /api/mailchimp/subscribe, /api/push-stats) are proxied
+      // back to the Pages deployment so they keep working.
+      return proxyToPages(request, env, corsHeaders);
 
     } catch (error) {
       console.error('API Error:', error);
@@ -148,6 +149,40 @@ export default {
     }
   }
 };
+
+// Proxy a request to the Cloudflare Pages deployment that serves the main site.
+// The apex brandverse.tech/api/* route is claimed by this Worker, but several
+// /api paths are legitimately served by Pages Functions (functions/*). We
+// forward those there. The Pages asset host bypasses this Worker's routes so
+// there is no loop.
+const PAGES_BASE_URL = 'https://production.brandverse.pages.dev';
+
+async function proxyToPages(request, env, corsHeaders) {
+  const url = new URL(request.url);
+  const target = new URL(PAGES_BASE_URL);
+  target.pathname = url.pathname;
+  target.search = url.search;
+
+  const init = {
+    method: request.method,
+    headers: request.headers,
+  };
+  if (request.method !== 'GET' && request.method !== 'HEAD') {
+    init.body = await request.arrayBuffer();
+  }
+
+  const upstream = await fetch(target.toString(), init);
+  const responseHeaders = new Headers(upstream.headers);
+  responseHeaders.set('Access-Control-Allow-Origin', '*');
+  responseHeaders.set('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+  responseHeaders.set('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+
+  return new Response(upstream.body, {
+    status: upstream.status,
+    statusText: upstream.statusText,
+    headers: responseHeaders,
+  });
+}
 
 // Handle availability requests
 async function handleAvailability(clientId, searchParams, availabilityEngine, corsHeaders) {

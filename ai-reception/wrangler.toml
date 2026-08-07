@@ -61,6 +61,14 @@ zone_name = "brandverse.tech"
 pattern = "edge.brandverse.tech/health"
 zone_name = "brandverse.tech"
 
+[[env.production.routes]]
+pattern = "brandverse.tech/api/*"
+zone_name = "brandverse.tech"
+
+[[env.production.routes]]
+pattern = "brandverse.tech/health"
+zone_name = "brandverse.tech"
+
 # Staging routes
 [[env.staging.routes]]
 pattern = "staging-edge.brandverse.tech/api/*"

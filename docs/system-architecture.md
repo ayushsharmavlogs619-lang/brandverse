@@ -75,9 +75,9 @@ app/
 
 ### Cloudflare Workers
 
-#### 1. Main Site Worker (`_functions/[[path]].js`)
+#### 1. Main Site Worker (`functions/[[path]].js`)
 - **Purpose:** Subdomain routing for Cloudflare Pages
-- **Location:** `_functions/[[path].js`
+- **Location:** `functions/[[path].js`
 - **Function:** Routes subdomain requests to appropriate paths
 
 #### 2. Subdomain Router Worker (`subdomain-router/worker.js`)

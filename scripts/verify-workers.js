@@ -38,7 +38,7 @@ function verifyWorkerFiles() {
   const workers = [
     {
       name: 'Main Site Worker',
-      path: '_functions/[[path]].js',
+      path: 'functions/[[path]].js',
       required: true
     },
     {
