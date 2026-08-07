@@ -9,8 +9,8 @@
  * This script does NOT modify any configuration - it only reports.
  */
 
-const fs = require('fs');
-const path = require('path');
+import fs from 'fs';
+import path from 'path';
 
 // Required variables for full functionality
 const requiredVars = {
@@ -66,8 +66,7 @@ const requiredVars = {
     defaultValue: null,
     critical: false
   },
-
-  // Marketing (server-side only - never NEXT_PUBLIC_)
+// Marketing (server-side only - never NEXT_PUBLIC_)
   MAILCHIMP_API_KEY: {
     description: 'Mailchimp API Key (server-side)',
     defaultValue: null,

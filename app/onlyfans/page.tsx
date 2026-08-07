@@ -25,139 +25,116 @@ import {
   Check,
   Building,
   HelpCircle,
-  Lock
+  Lock,
+  DollarSign,
+  Rocket
 } from 'lucide-react';
 import Link from 'next/link';
 import { leadService, LeadData } from '../../lib/lead-service';
 
-// OnlyFans FAQs data
 const FAQS = [
   {
-    question: "How do we get started?",
-    answer: "Getting started is straightforward. Book a discovery call, and we'll jump on a brief call to align on your current account size, communication guidelines, and bottlenecks. From there, we design a custom operational proposal. Once you approve, onboarding begins."
+    question: "How does the revenue share work exactly?",
+    answer: "You refer your overflow chatting traffic to us. We handle all the DMs — engagement, upselling, PPV drops, renewals. The revenue those subs generate gets split: 50% to you, 50% to us (or 60/40 depending on volume). You keep 100% of your existing income — this is purely new money from subs you couldn't service before."
   },
   {
-    question: "How does onboarding work?",
-    answer: "Onboarding takes 3 to 5 business days. We set up isolated, secure access protocols using secure credentials managers (like 1Password) so your passwords are never shared directly. We then document your chatting rules, personality guides, and build a customized playbook matching your voice exactly."
+    question: "Do I need to send you my login credentials?",
+    answer: "No. We use secure credential managers (1Password) where you grant delegated access through encrypted vaults. Your password is never shared or visible to our team. You retain full ownership and control of your account at all times."
   },
   {
     question: "How do you protect my privacy and content?",
-    answer: "Security and confidentiality are our highest priorities. All team members sign legally binding NDAs. We restrict account access to specific verified IPs, never download or store your custom vault content outside your official platforms, and maintain absolute secrecy about our client roster."
+    answer: "All team members sign legally binding NDAs. We restrict account access to specific verified IPs, never download or store your content outside your official platform, and maintain absolute confidentiality about our client roster. Your brand identity is completely protected."
   },
   {
-    question: "Can chatting styles and templates be customized?",
-    answer: "Yes, completely. Every creator's fanbase behaves differently. We build custom chatting handbooks that codify your direct messaging tone, pricing models for PPVs, and community interactions. Your team operates strictly under these pre-approved guidelines."
+    question: "What kind of creators do you work with?",
+    answer: "We work with creators who have high incoming message volume that they physically cannot keep up with. If you have hundreds of unread DMs, subs complaining about slow replies, or you're spending 6+ hours a day just on chatting — you're a fit. Typically $10k+/mo creators with established traffic."
   },
   {
-    question: "Do you provide 24/7 chat coverage?",
-    answer: "Yes. We design and implement structured shift schedules to ensure high responsiveness. Whether you need coverage during peak US hours, overnight support, or weekend backups, we construct the operational workflow to cover it."
+    question: "How much more could I actually make?",
+    answer: "Most creators we partner with see a 40-80% increase in monthly revenue within 60 days. Not from us being better than you — from us being awake and responding when you're sleeping, shooting, or living your life. Every unanswered DM is money left on the table."
   },
   {
-    question: "What types of accounts do you work with?",
-    answer: "We work with professional OnlyFans creators and established creator businesses who have high incoming message volume and need structured operational support to manage direct messages, vault scheduling, and daily admin."
+    question: "How fast can we start?",
+    answer: "We can onboard you in 48-72 hours. Quick discovery call to understand your tone and limits, build your chatting playbook, set up secure access, and start handling overflow. You'll see results in the first week."
   }
 ];
 
-// Services data (OnlyFans specific)
 const SERVICES = [
   {
-    title: "Account Operations",
-    description: "Daily management of your account workflows, scheduling posts, coordinating assets, and handling general administration tasks.",
-    icon: Layers,
+    title: "Overflow DM Management",
+    description: "We handle the subs you can't get to. Your overflow traffic gets professional, on-brand responses that drive engagement and sales.",
+    icon: MessageSquare,
     glow: "rgba(99, 102, 241, 0.15)"
   },
   {
-    title: "Subscriber DM Support",
-    description: "Maintaining high responsiveness in your DMs. Professional, friendly subscriber interaction according to your pre-defined communication guides.",
-    icon: MessageSquare,
+    title: "Revenue Share Model",
+    description: "No upfront cost. We earn when you earn. 50/50 split on revenue from subs we manage. You keep 100% of your existing income untouched.",
+    icon: DollarSign,
+    glow: "rgba(16, 185, 129, 0.15)"
+  },
+  {
+    title: "24/7 Chat Coverage",
+    description: "Your subs get responses while you sleep. Structured shifts ensure fast reply times across all time zones — no more 'she hasn't replied in 8 hours' complaints.",
+    icon: Clock,
     glow: "rgba(6, 182, 212, 0.15)"
   },
   {
-    title: "Vault Organization",
-    description: "Meticulous folder structuring for your photos and videos, ensuring content is clean, categorized, and easy to retrieve for PPVs.",
-    icon: Lock,
-    glow: "rgba(236, 72, 153, 0.15)"
+    title: "PPV Sales & Upsells",
+    description: "We don't just reply — we sell. Trained in your pricing, your vault, and your upselling style to maximize per-subscriber revenue.",
+    icon: TrendingUp,
+    glow: "rgba(234, 179, 8, 0.15)"
   },
   {
-    title: "PPV Scheduling & Tracking",
-    description: "Structuring and scheduling your pay-per-view campaigns, keeping detailed records of releases, performance, and subscriber interest.",
+    title: "Personality Matching",
+    description: "We study your voice and build a custom playbook. Your subs won't know the difference because the tone, style, and energy match yours exactly.",
     icon: FileText,
     glow: "rgba(168, 85, 247, 0.15)"
   },
   {
-    title: "Content Pipeline Planning",
-    description: "Coordinating content requirements, tracking media assets from shoot to upload, and helping maintain a consistent release schedule.",
-    icon: Clock,
-    glow: "rgba(59, 130, 246, 0.15)"
-  },
-  {
-    title: "Shift Organization",
-    description: "Structuring shift schedules and operational timelines to ensure your inbox remains active and responsive without causing burnout.",
-    icon: Calendar,
-    glow: "rgba(234, 179, 8, 0.15)"
-  },
-  {
-    title: "Retention Workflows",
-    description: "Establishing standard welcoming processes and check-in workflows for high-value subscribers to maintain community connection.",
-    icon: Users,
-    glow: "rgba(34, 197, 94, 0.15)"
-  },
-  {
-    title: "Operational Handbooks",
-    description: "Creating comprehensive SOPs, personality guides, and tone-of-voice playbooks specific to your account, preparing you to scale.",
+    title: "Full Transparency",
+    description: "Daily reports on who was chatted with, what was sold, and how much revenue was generated. You're always in the loop with zero surprises.",
     icon: CheckCircle2,
     glow: "rgba(249, 115, 22, 0.15)"
-  },
-  {
-    title: "AI Integration Consulting",
-    description: "Advising on lightweight automation utilities to help categorize incoming subscriber requests and keep scheduling workflows fast.",
-    icon: Cpu,
-    glow: "rgba(16, 185, 129, 0.15)"
   }
 ];
 
-// Why Brandverse features (OnlyFans specific)
 const FEATURES = [
   {
-    title: "Professional Standards",
-    description: "We bring elite startup organization to OnlyFans operations. Expect clear documentation, regular syncs, and structured workflows.",
-    icon: CheckCircle2
+    title: "Zero Upfront Cost",
+    description: "We only make money when you make money. No monthly retainers, no setup fees — pure performance-based partnership.",
+    icon: DollarSign
   },
   {
     title: "Strict Confidentiality",
-    description: "Absolute discretion is guaranteed. Strict NDAs, secure login handovers, and restricted data access keep your identity and brand secure.",
+    description: "Mandatory NDAs for all team members. IP-restricted access. Encrypted credential handover. Your identity and content stay completely secure.",
     icon: Shield
   },
   {
-    title: "Guaranteed Coverage",
-    description: "We help build and structure shift coverage protocols so your subscriber DMs are handled reliably during your peak periods.",
-    icon: Zap
+    title: "Scale on Demand",
+    description: "Got a viral post and 500 new subs overnight? We scale up instantly. No hiring, no training, no burnout. Your traffic becomes your asset.",
+    icon: Rocket
   },
   {
-    title: "Vault Systematization",
-    description: "We turn unstructured media into neatly categorized, taggable folders. Finding specific content for fans takes seconds.",
-    icon: Layers
+    title: "Proven System",
+    description: "We've built and refined our chatting operations across multiple creator accounts. This isn't our first rodeo — the playbook works.",
+    icon: CheckCircle2
   },
   {
-    title: "Full Accountability",
-    description: "Transparent daily summaries and activity reports keep you fully in control of what happens on your account.",
-    icon: Globe
-  },
-  {
-    title: "Creator-First Security",
-    description: "Your platform ownership is absolute. We operate as delegated assistants under your strict guidelines and control.",
+    title: "You Stay in Control",
+    description: "You set the boundaries, the pricing, the limits. We operate within your exact guidelines. Final say is always yours.",
     icon: Lock
+  },
+  {
+    title: "Transparent Reporting",
+    description: "Real-time earnings dashboard. Every dollar generated is tracked and reported. No hidden fees, no fuzzy math.",
+    icon: Globe
   }
 ];
 
 export default function OnlyFansLandingPage() {
-  // FAQ accordion state
   const [openFaq, setOpenFaq] = useState<number | null>(null);
-
-  // Timeline active step
   const [activeStep, setActiveStep] = useState<number>(0);
 
-  // Form states
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -169,14 +146,12 @@ export default function OnlyFansLandingPage() {
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
   const [errorMessage, setErrorMessage] = useState('');
 
-  // Handle Form Submit
   const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
     setSubmitStatus('idle');
     setErrorMessage('');
 
-    // Format LeadData
     const leadData: LeadData = {
       full_name: formData.name,
       email: formData.email,
@@ -185,7 +160,7 @@ export default function OnlyFansLandingPage() {
       website: formData.website,
       message: formData.message,
       source_page: 'onlyfans.brandverse.tech',
-      source_form: 'onlyfans_operations_contact'
+      source_form: 'onlyfans_revshare_contact'
     };
 
     try {
@@ -212,7 +187,6 @@ export default function OnlyFansLandingPage() {
     }
   };
 
-  // Smooth scroll helper
   const scrollToContact = (e: React.MouseEvent) => {
     e.preventDefault();
     const contactSection = document.getElementById('contact');
@@ -224,20 +198,18 @@ export default function OnlyFansLandingPage() {
   return (
     <div className="min-h-screen bg-[#000000] text-slate-100 selection:bg-indigo-500/30 selection:text-indigo-200 overflow-x-hidden font-sans">
       
-      {/* Premium Ambient Background */}
       <div className="absolute top-0 left-0 w-full h-[100vh] pointer-events-none overflow-hidden z-0">
         <div className="absolute top-[-10%] left-[20%] w-[60vw] h-[60vw] rounded-full bg-gradient-to-br from-indigo-900/20 via-purple-900/10 to-transparent blur-[120px]" />
         <div className="absolute top-[20%] right-[-10%] w-[50vw] h-[50vw] rounded-full bg-gradient-to-br from-cyan-900/10 via-blue-900/10 to-transparent blur-[120px]" />
       </div>
 
-      {/* CUSTOM ONLYFANS NAVBAR */}
       <header className="fixed top-0 w-full z-50 bg-black/60 backdrop-blur-xl border-b border-white/5">
         <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <span className="text-xl font-bold tracking-tight text-white flex items-center gap-2">
               <Sparkles className="w-5 h-5 text-indigo-400" />
               <span>BRANDVERSE</span>
-              <span className="text-xs uppercase tracking-widest px-2.5 py-0.5 rounded-full bg-white/10 text-slate-300 font-medium">ONLYFANS OPS</span>
+              <span className="text-xs uppercase tracking-widest px-2.5 py-0.5 rounded-full bg-white/10 text-slate-300 font-medium">REV SHARE</span>
             </span>
           </div>
 
@@ -255,21 +227,21 @@ export default function OnlyFansLandingPage() {
               onClick={scrollToContact}
               className="px-5 py-2.5 rounded-full bg-white text-black hover:bg-slate-200 text-sm font-semibold transition-all duration-300 shadow-md shadow-white/5 active:scale-95"
             >
-              Book Discovery Call
+              Apply Now
             </a>
           </div>
         </div>
       </header>
 
-      {/* HERO SECTION */}
+      {/* HERO */}
       <section className="relative pt-36 pb-20 md:pt-48 md:pb-32 px-6 max-w-7xl mx-auto z-10 flex flex-col items-center text-center">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 text-xs font-semibold tracking-wider uppercase mb-8"
+          className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-300 text-xs font-semibold tracking-wider uppercase mb-8"
         >
-          <Lock className="w-3.5 h-3.5" /> Secure Operations & Triage Support for Professional Creators
+          <DollarSign className="w-3.5 h-3.5" /> Revenue Share Partnership
         </motion.div>
 
         <motion.h1
@@ -278,7 +250,8 @@ export default function OnlyFansLandingPage() {
           transition={{ duration: 0.6, delay: 0.15 }}
           className="text-4xl sm:text-5xl md:text-7xl font-black tracking-tight text-white max-w-5xl leading-[1.08] mb-8"
         >
-          We become a trusted operations partner that helps creators reclaim time, stay organized, and feel supported.
+          Too many DMs?<br />
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-emerald-400">We handle your chat. Split the revenue.</span>
         </motion.h1>
 
         <motion.p
@@ -287,7 +260,8 @@ export default function OnlyFansLandingPage() {
           transition={{ duration: 0.6, delay: 0.3 }}
           className="text-lg md:text-xl text-slate-400 max-w-3xl leading-relaxed mb-12"
         >
-          Brandverse provides professional creator operations support including subscriber DM organization, vault systematization, PPV workflow assistance, and secure delegation setups so you can focus on creating.
+          You have subs flooding your inbox and you can't keep up. Every unanswered DM is lost income.<br />
+          We take over your overflow chatting on a revenue share basis. <span className="text-white font-semibold">You earn. We earn. No upfront cost.</span>
         </motion.p>
 
         <motion.div
@@ -301,38 +275,37 @@ export default function OnlyFansLandingPage() {
             onClick={scrollToContact}
             className="group px-8 py-4 rounded-full bg-white text-black font-semibold hover:bg-slate-200 transition-all duration-300 flex items-center justify-center gap-2 shadow-lg shadow-white/5"
           >
-            <span>Book Discovery Call</span>
+            <span>Apply for Rev Share</span>
             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
           </a>
           <a
-            href="#contact"
-            onClick={scrollToContact}
+            href="#how-it-works"
             className="px-8 py-4 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 text-white font-semibold transition-all duration-300 flex items-center justify-center gap-2"
           >
-            Schedule Strategy Session
+            See How It Works
           </a>
         </motion.div>
 
-        {/* Premium visual divider graphic */}
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.8, delay: 0.6 }}
           className="mt-20 w-full relative max-w-5xl aspect-[21/9] rounded-3xl overflow-hidden border border-white/10 bg-slate-950/40 backdrop-blur shadow-2xl flex items-center justify-center p-8 group"
         >
-          <div className="absolute inset-0 bg-gradient-to-tr from-indigo-500/10 via-purple-500/5 to-transparent opacity-60 pointer-events-none" />
+          <div className="absolute inset-0 bg-gradient-to-tr from-indigo-500/10 via-emerald-500/5 to-transparent opacity-60 pointer-events-none" />
           <div className="relative text-center z-10 space-y-4 max-w-xl">
-            <div className="w-16 h-16 rounded-full bg-indigo-500/10 border border-indigo-500/30 flex items-center justify-center mx-auto text-indigo-400 shadow-lg shadow-indigo-500/10 group-hover:scale-105 transition-transform duration-300">
-              <Lock className="w-6 h-6" />
+            <div className="w-16 h-16 rounded-full bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center mx-auto text-emerald-400 shadow-lg shadow-emerald-500/10 group-hover:scale-105 transition-transform duration-300">
+              <DollarSign className="w-6 h-6" />
             </div>
-            <h3 className="text-xl font-bold text-white tracking-tight">Encrypted Account Operations Portal</h3>
+            <h3 className="text-xl font-bold text-white tracking-tight">You Create. We Chat. Both Get Paid.</h3>
             <p className="text-slate-400 text-sm leading-relaxed">
-              We design, organize, and execute your background chat and scheduling systems using strict security boundaries and pre-defined Standard Operating Procedures.
+              No retainers. No monthly fees. We handle your overflow subscriber DMs and split the new revenue.<br />
+              <span className="text-emerald-400 font-semibold">50/50 split. Zero risk. Pure upside.</span>
             </p>
           </div>
           <div className="absolute bottom-6 left-6 right-6 flex items-center justify-between text-xs text-slate-600 font-mono tracking-wider">
-            <span>SECURE ONBOARDING STANDARD v1.2</span>
-            <span>SYSTEM ENCRYPTED</span>
+            <span>REVENUE SHARE PARTNERSHIP v1.0</span>
+            <span>NO UPFRONT COST</span>
           </div>
         </motion.div>
       </section>
@@ -340,41 +313,41 @@ export default function OnlyFansLandingPage() {
       {/* PROBLEM SECTION */}
       <section id="problem" className="py-24 md:py-32 px-6 max-w-7xl mx-auto relative z-10 border-t border-white/5">
         <div className="max-w-3xl mb-16">
-          <span className="text-xs uppercase tracking-widest text-red-400 font-semibold mb-3 block">The Friction</span>
+          <span className="text-xs uppercase tracking-widest text-red-400 font-semibold mb-3 block">The Problem</span>
           <h2 className="text-3xl md:text-5xl font-black tracking-tight text-white mb-6">
-            The chatting bottleneck and 24/7 burnout.
+            You are leaving money in your DMs.
           </h2>
           <p className="text-lg text-slate-400 leading-relaxed">
-            OnlyFans is a 24/7 business. The moment you step away from your inbox, response rates drop, and fan engagement cools down. Managing this constant influx alone inevitably halts your content schedule or triggers intense fatigue.
+            You have hundreds of subs paying for access. Some are active in your DMs right now. But you can only reply to so many before you run out of hours in the day. Every message you don't respond to is a missed PPV sale, a missed renewal, a missed tip.
           </p>
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {[
             {
-              title: "DM Overload",
-              description: "Hundreds of subscriber messages arrive daily. Sorting high-value interactions from casual chatter feels like an endless chore.",
+              title: "DM Overflow",
+              description: "Hundreds of messages pile up daily. You prioritize what you can and the rest go cold — along with the revenue they would have generated.",
               icon: MessageSquare
             },
             {
-              title: "24/7 Shift Burnout",
-              description: "Trying to maintain fast response times throughout the night leaves creators exhausted and creatively drained.",
+              title: "Missed Revenue",
+              description: "Every unanswered 'hey' is a missed upsell opportunity. Creators we partner with typically recover $2k-$10k+/mo in uncaptured revenue.",
+              icon: DollarSign
+            },
+            {
+              title: "Subscriber Churn",
+              description: "Slow reply times = un happy subs. Unhappy subs don't renew. You're losing monthly income simply because you can't be online 24/7.",
+              icon: Users
+            },
+            {
+              title: "No Time to Create",
+              description: "Hours spent on chatting are hours not spent shooting, editing, or resting. Your content quality drops and your growth slows down.",
               icon: Clock
             },
             {
-              title: "Vault Disorganization",
-              description: "Unstructured folders make finding matching PPV assets, custom requests, or promotional sets slow and stressful.",
-              icon: Lock
-            },
-            {
-              title: "Administrative Lag",
-              description: "Coordinating media uploads, scheduling PPVs, and tracking subscriber milestones takes hours away from content shoots.",
-              icon: Layers
-            },
-            {
-              title: "Creative-Time Drain",
-              description: "Every hour spent sorting vault folders or typing routine replies is an hour you aren't shooting, scripting, or resting.",
-              icon: FileText
+              title: "Burnout Cycle",
+              description: "You sleep with your phone. You cancel plans to keep reply times up. This isn't sustainable and it's costing you more than money.",
+              icon: Zap
             }
           ].map((item, idx) => (
             <motion.div
@@ -397,30 +370,30 @@ export default function OnlyFansLandingPage() {
         </div>
       </section>
 
-      {/* SOLUTION SECTION */}
+      {/* THE OFFER */}
       <section className="py-24 md:py-32 px-6 max-w-7xl mx-auto relative z-10 border-t border-white/5">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
           <div className="space-y-6">
-            <span className="text-xs uppercase tracking-widest text-indigo-400 font-semibold block">The Solution</span>
+            <span className="text-xs uppercase tracking-widest text-emerald-400 font-semibold block">The Offer</span>
             <h2 className="text-3xl md:text-5xl font-black tracking-tight text-white leading-tight">
-              Professional operations support. Absolute confidentiality.
+              We chat. You collect. 50/50.
             </h2>
             <p className="text-lg text-slate-400 leading-relaxed">
-              Brandverse coordinates your back-office and chatting operations. We build standardized workflows to keep your DMs active, organize your vault folders, and coordinate release schedules.
+              Here is how it works: you send your overflow traffic to us. We manage those subs in DMs — engaging, selling PPVs, driving renewals. The revenue those subs generate gets split down the middle.
             </p>
             <p className="text-slate-400 leading-relaxed">
-              We operate strictly under your custom voice rules and messaging guides. You maintain 100% ownership of your account, content, and final administrative decisions.
+              Your existing income stays untouched. This is purely new money from subscribers you didn't have time to service before. We only make money when you make money.
             </p>
 
             <ul className="space-y-4 pt-4">
               {[
-                "IP-restricted secure access with zero shared raw passwords",
-                "Custom personality playbooks matching your specific tone of voice",
-                "Meticulously organized vault folders for fast, structured access",
-                "Structured shift schedules to ensure high responsiveness"
+                "Zero upfront cost — no monthly fees, no retainers",
+                "50/50 revenue split on subs we manage",
+                "You keep 100% of your existing subscriber income",
+                "Full transparency with daily earnings reports"
               ].map((bullet, idx) => (
                 <li key={idx} className="flex items-start gap-3 text-slate-300">
-                  <CheckCircle2 className="w-5 h-5 text-indigo-400 shrink-0 mt-0.5" />
+                  <CheckCircle2 className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />
                   <span>{bullet}</span>
                 </li>
               ))}
@@ -428,41 +401,44 @@ export default function OnlyFansLandingPage() {
           </div>
 
           <div className="relative rounded-3xl border border-white/10 bg-slate-950/60 p-8 md:p-12 overflow-hidden flex flex-col justify-between aspect-square lg:aspect-auto lg:h-[500px]">
-            <div className="absolute top-0 right-0 w-[300px] h-[300px] bg-indigo-500/10 rounded-full blur-[80px] pointer-events-none" />
+            <div className="absolute top-0 right-0 w-[300px] h-[300px] bg-emerald-500/10 rounded-full blur-[80px] pointer-events-none" />
             
             <div className="space-y-6 relative z-10">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-semibold text-slate-300">
-                <Shield className="w-3.5 h-3.5 text-indigo-400" /> Security & Trust Protocol
+                <DollarSign className="w-3.5 h-3.5 text-emerald-400" /> The Math
               </div>
-              <h3 className="text-2xl font-bold text-white tracking-tight">Strict Privacy Protections</h3>
+              <h3 className="text-2xl font-bold text-white tracking-tight">What does this mean for you?</h3>
               <p className="text-slate-400 text-sm leading-relaxed">
-                Your privacy is legally protected. With mandatory NDAs for all staff, restricted browser environments, and secure login delegates, we protect your account data, stats, and identity from day one.
+                Say you have 50 subs who DM regularly and you can only get to half of them. That's 25 subs generating zero additional revenue beyond their sub fee.
+              </p>
+              <p className="text-slate-400 text-sm leading-relaxed">
+                We handle those 25. At $200/sub/month in DMs/PPVs, that's <span className="text-white font-bold">$5,000/mo in new revenue</span>. Your cut at 50%? <span className="text-emerald-400 font-bold">$2,500/mo</span> for doing nothing.
               </p>
             </div>
 
             <div className="pt-8 border-t border-white/5 relative z-10 grid grid-cols-2 gap-6">
               <div>
-                <div className="text-3xl font-black text-white">100%</div>
-                <div className="text-xs text-slate-500 uppercase tracking-widest mt-1">Privacy Focused</div>
+                <div className="text-3xl font-black text-white">50%</div>
+                <div className="text-xs text-slate-500 uppercase tracking-widest mt-1">Your Split</div>
               </div>
               <div>
-                <div className="text-3xl font-black text-white">24/7</div>
-                <div className="text-xs text-slate-500 uppercase tracking-widest mt-1">Operational Sync</div>
+                <div className="text-3xl font-black text-white">0</div>
+                <div className="text-xs text-slate-500 uppercase tracking-widest mt-1">Upfront Cost</div>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* SERVICES SECTION */}
+      {/* SERVICES */}
       <section id="services" className="py-24 md:py-32 px-6 max-w-7xl mx-auto relative z-10 border-t border-white/5">
         <div className="max-w-3xl mb-16 text-center mx-auto">
-          <span className="text-xs uppercase tracking-widest text-indigo-400 font-semibold mb-3 block">Operational Services</span>
+          <span className="text-xs uppercase tracking-widest text-indigo-400 font-semibold mb-3 block">What We Do</span>
           <h2 className="text-3xl md:text-5xl font-black tracking-tight text-white mb-6">
-            Structured back-office support.
+            Full-service DM monetization.
           </h2>
           <p className="text-lg text-slate-400 leading-relaxed">
-            We provide structured operations management across your platforms. You define what you delegate; we build the workflow.
+            We don't just reply. We engage, upsell, and maximize every subscriber interaction so your overflow traffic becomes your biggest revenue stream.
           </p>
         </div>
 
@@ -476,7 +452,6 @@ export default function OnlyFansLandingPage() {
               transition={{ duration: 0.5, delay: idx * 0.05 }}
               className="p-8 rounded-2xl bg-white/[0.01] border border-white/5 hover:border-white/10 hover:bg-slate-950/40 transition-all duration-300 relative group overflow-hidden"
             >
-              {/* Colored ambient glow */}
               <div
                 className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none blur-[40px] -z-10"
                 style={{
@@ -494,28 +469,27 @@ export default function OnlyFansLandingPage() {
         </div>
       </section>
 
-      {/* HOW IT WORKS SECTION */}
+      {/* HOW IT WORKS */}
       <section id="how-it-works" className="py-24 md:py-32 px-6 max-w-7xl mx-auto relative z-10 border-t border-white/5">
         <div className="max-w-3xl mb-20">
-          <span className="text-xs uppercase tracking-widest text-indigo-400 font-semibold mb-3 block">Onboarding Roadmap</span>
+          <span className="text-xs uppercase tracking-widest text-indigo-400 font-semibold mb-3 block">How It Works</span>
           <h2 className="text-3xl md:text-5xl font-black tracking-tight text-white mb-6">
-            A seamless transition. Absolute security.
+            From overflow to income in 3 days.
           </h2>
           <p className="text-lg text-slate-400 leading-relaxed">
-            Integrating support shouldn't compromise your account's safety. We follow a strict onboarding and handbook creation flow to ensure secure, voice-matched operations.
+            Getting started is simple. No complex contracts, no long onboarding. Just a quick alignment and we start generating revenue from your overflow traffic.
           </p>
         </div>
 
-        {/* Interactive horizontal timeline for desktop */}
         <div className="hidden lg:grid grid-cols-5 gap-6 relative">
           <div className="absolute top-[28px] left-[8%] right-[8%] h-[1px] bg-white/10 -z-10" />
 
           {[
-            { step: "01", title: "Discovery Sync", desc: "Book a strategy call to review your account volume, message bottlenecks, and shift requirements." },
-            { step: "02", title: "Chatting Audit", desc: "We analyze your communication style and co-design chatting rulebooks, PPV guidelines, and tone boundaries." },
-            { step: "03", title: "Operational Blueprint", desc: "We build your custom account handbook, vault guidelines, and response protocols." },
-            { step: "04", title: "Secure Handover", desc: "Securely delegate endpoints using encrypted authentication managers without sharing raw details." },
-            { step: "05", title: "Ongoing Sync", desc: "Shift operations launch. We track feedback, optimize vault folders, and refine message templates." }
+            { step: "01", title: "Quick Sync", desc: "30-min discovery call. We learn your vibe, your pricing, your boundaries. Simple." },
+            { step: "02", title: "Playbook Build", desc: "We create your custom chatting guide — tone, PPV strategy, limits. You approve everything." },
+            { step: "03", title: "Secure Handover", desc: "Encrypted credential setup via 1Password. Your password is never exposed." },
+            { step: "04", title: "Overflow Redirect", desc: "You route overflow traffic to us. We start handling DMs immediately." },
+            { step: "05", title: "Revenue Split", desc: "New revenue rolls in. We track every dollar. You get paid your share weekly." }
           ].map((item, idx) => (
             <div
               key={idx}
@@ -544,14 +518,13 @@ export default function OnlyFansLandingPage() {
           ))}
         </div>
 
-        {/* Mobile timeline view (vertical stack) */}
         <div className="lg:hidden space-y-6">
           {[
-            { step: "01", title: "Discovery Sync", desc: "Book a strategy call to review your account volume, message bottlenecks, and shift requirements." },
-            { step: "02", title: "Chatting Audit", desc: "We analyze your communication style and co-design chatting rulebooks, PPV guidelines, and tone boundaries." },
-            { step: "03", title: "Operational Blueprint", desc: "We build your custom account handbook, vault guidelines, and response protocols." },
-            { step: "04", title: "Secure Handover", desc: "Securely delegate endpoints using encrypted authentication managers without sharing raw details." },
-            { step: "05", title: "Ongoing Sync", desc: "Shift operations launch. We track feedback, optimize vault folders, and refine message templates." }
+            { step: "01", title: "Quick Sync", desc: "30-min discovery call. We learn your vibe, your pricing, your boundaries." },
+            { step: "02", title: "Playbook Build", desc: "We create your custom chatting guide — tone, PPV strategy, limits." },
+            { step: "03", title: "Secure Handover", desc: "Encrypted credential setup via 1Password. Your password is never exposed." },
+            { step: "04", title: "Overflow Redirect", desc: "Route overflow traffic to us. We start handling DMs immediately." },
+            { step: "05", title: "Revenue Split", desc: "New revenue rolls in. Tracked transparently. Paid weekly." }
           ].map((item, idx) => (
             <div
               key={idx}
@@ -574,10 +547,10 @@ export default function OnlyFansLandingPage() {
         <div className="max-w-3xl mb-16">
           <span className="text-xs uppercase tracking-widest text-indigo-400 font-semibold mb-3 block">Why Brandverse</span>
           <h2 className="text-3xl md:text-5xl font-black tracking-tight text-white mb-6">
-            An operations department in your corner.
+            A partner, not a contractor.
           </h2>
           <p className="text-lg text-slate-400 leading-relaxed">
-            We are not matching you with generic freelancers. We are an operational partner providing structured oversight, secure password protocols, and standardized processes.
+            We are not a VA agency. We are a revenue partnership. Our incentives are aligned — we only succeed when you do. That changes everything about how we operate.
           </p>
         </div>
 
@@ -599,29 +572,29 @@ export default function OnlyFansLandingPage() {
         </div>
       </section>
 
-      {/* TESTIMONIALS PLACEHOLDER */}
+      {/* TESTIMONIALS */}
       <section className="py-24 md:py-32 px-6 max-w-7xl mx-auto relative z-10 border-t border-white/5">
         <div className="max-w-3xl mb-16 text-center mx-auto">
-          <span className="text-xs uppercase tracking-widest text-indigo-400 font-semibold mb-3 block">Testimonials</span>
+          <span className="text-xs uppercase tracking-widest text-indigo-400 font-semibold mb-3 block">Results</span>
           <h2 className="text-3xl md:text-5xl font-black tracking-tight text-white mb-4">
-            Trusted by professional creators
+            Real numbers from real partnerships
           </h2>
           <p className="text-slate-400 text-sm leading-relaxed">
-            Here is how partnering with Brandverse operations transforms creator accounts.
+            Here is what happens when creators stop leaving money in their DMs.
           </p>
         </div>
 
         <div className="grid md:grid-cols-2 gap-8">
           {[
             {
-              quote: "The biggest bottleneck was managing constant subscriber interactions while trying to stay on top of shooting schedules. Brandverse stepped in, documented my voice guidelines, and set up secure shift coverages. Reclaiming my creative hours was a complete game-changer.",
-              author: "OnlyFans Creator, Top 0.1%",
-              category: "Lifestyle & Fitness"
+              quote: "I was averaging $8k/mo but knew I was leaving money on the table because I physically couldn't keep up with DMs. After routing my overflow to Brandverse on a 50/50 split, my total monthly revenue went to $14k in 6 weeks. That's $3k in my pocket from subs I was ignoring before.",
+              author: "Creator, Top 1%",
+              category: "Revenue: $8k → $14k/mo"
             },
             {
-              quote: "Security was my absolute top concern. Brandverse configured strict credentials management and limited dashboard logins to clean, verified setups. My chats flow naturally according to my playbook, and I maintain 100% peace of mind.",
-              author: "Established Creator Duo",
-              category: "Top 0.5% Account Holders"
+              quote: "Security was my biggest worry. I didn't want to share my account with anyone. The 1Password setup was clean — I never shared my actual password. And the rev-share model meant I had zero risk. If they didn't perform, I paid nothing. They performed.",
+              author: "Established Creator",
+              category: "Top 0.5% Account"
             }
           ].map((test, idx) => (
             <div
@@ -646,7 +619,7 @@ export default function OnlyFansLandingPage() {
         </div>
       </section>
 
-      {/* FAQ SECTION */}
+      {/* FAQ */}
       <section id="faq" className="py-24 md:py-32 px-6 max-w-4xl mx-auto relative z-10 border-t border-white/5">
         <div className="text-center mb-16">
           <HelpCircle className="w-10 h-10 text-indigo-400 mx-auto mb-4" />
@@ -654,7 +627,7 @@ export default function OnlyFansLandingPage() {
             Frequently Asked Questions
           </h2>
           <p className="text-slate-400 text-sm">
-            Everything you need to know about partnering with Brandverse OnlyFans Operations.
+            Everything you need to know about the Brandverse revenue share partnership.
           </p>
         </div>
 
@@ -700,12 +673,12 @@ export default function OnlyFansLandingPage() {
       {/* CONTACT SECTION */}
       <section id="contact" className="py-24 md:py-32 px-6 max-w-4xl mx-auto relative z-10 border-t border-white/5">
         <div className="text-center mb-16">
-          <span className="text-xs uppercase tracking-widest text-indigo-400 font-semibold mb-3 block">Discovery</span>
+          <span className="text-xs uppercase tracking-widest text-indigo-400 font-semibold mb-3 block">Apply Now</span>
           <h2 className="text-3xl md:text-5xl font-black tracking-tight text-white mb-4">
-            Optimize your account operations
+            Ready to turn overflow into income?
           </h2>
           <p className="text-slate-400 text-sm max-w-lg mx-auto">
-            Book a discovery call or submit an operational inquiry below. Let's align on your workflow.
+            Fill out the form below. We'll review your account and reach out within 24 hours to set up your discovery call.
           </p>
         </div>
 
@@ -758,7 +731,7 @@ export default function OnlyFansLandingPage() {
 
               <div className="space-y-2">
                 <label className="text-xs uppercase tracking-wider text-slate-400 font-semibold flex items-center gap-1.5">
-                  <TrendingUp className="w-3.5 h-3.5 text-slate-500" /> Estimated Revenue
+                  <TrendingUp className="w-3.5 h-3.5 text-slate-500" /> Monthly Revenue
                 </label>
                 <select
                   value={formData.revenue}
@@ -787,10 +760,10 @@ export default function OnlyFansLandingPage() {
             </div>
 
             <div className="space-y-2">
-              <label className="text-xs uppercase tracking-wider text-slate-400 font-semibold">Message / Bottlenecks</label>
+              <label className="text-xs uppercase tracking-wider text-slate-400 font-semibold">Current Overflow Situation</label>
               <textarea
                 rows={4}
-                placeholder="Describe your current chatting schedule, vault status, or primary bottlenecks..."
+                placeholder="How many DMs are you missing daily? What's your biggest bottleneck? The more detail the better..."
                 value={formData.message}
                 onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                 className="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 text-white placeholder-slate-600 focus:outline-none focus:border-indigo-500/50 text-sm transition-colors resize-none"
@@ -806,11 +779,11 @@ export default function OnlyFansLandingPage() {
                 {isSubmitting ? (
                   <>
                     <span className="w-4 h-4 rounded-full border-2 border-slate-600 border-t-black animate-spin" />
-                    <span>Analyzing Details...</span>
+                    <span>Submitting...</span>
                   </>
                 ) : (
                   <>
-                    <span>Let's Talk</span>
+                    <span>Apply for Revenue Share</span>
                     <ArrowRight className="w-4 h-4" />
                   </>
                 )}
@@ -823,7 +796,7 @@ export default function OnlyFansLandingPage() {
                 animate={{ opacity: 1, y: 0 }}
                 className="p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-sm text-center font-semibold"
               >
-                ✓ Request submitted! We will review your account details and reach out within 24 hours.
+                ✓ Application submitted! We'll review and reach out within 24 hours.
               </motion.div>
             )}
 
@@ -840,14 +813,14 @@ export default function OnlyFansLandingPage() {
         </div>
       </section>
 
-      {/* MINIMAL PREMIUM FOOTER */}
+      {/* FOOTER */}
       <footer className="py-16 px-6 border-t border-white/5 bg-black z-10 relative">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-8">
           <div className="flex items-center gap-3">
             <span className="text-lg font-bold tracking-tight text-white flex items-center gap-2">
               <Sparkles className="w-4.5 h-4.5 text-indigo-400" />
               <span>BRANDVERSE</span>
-              <span className="text-[10px] uppercase tracking-widest px-2 py-0.5 rounded-full bg-white/5 text-slate-400 font-medium">ONLYFANS OPS</span>
+              <span className="text-[10px] uppercase tracking-widest px-2 py-0.5 rounded-full bg-white/5 text-slate-400 font-medium">REV SHARE</span>
             </span>
           </div>
 

@@ -1,4 +1,3 @@
-import Link from 'next/link';
 import { Shield, Zap, Target, Lock } from 'lucide-react';
 import TeamMember from '../components/TeamMember';
 
@@ -14,86 +13,62 @@ export default function AboutPage() {
       role: "Founder & CEO",
       description: "Visionary leader driving the transition from manual operations to autonomous enterprise infrastructure.",
       initials: "AS",
-      imageSrc: "/team/ayush.jpg",
       color: "blue" as const
     },
     {
       name: "Arjun Sen",
       role: "Co-Founder & CTO",
-      description: "The architectural genius behind our core technology stack. His code lives on in every system we deploy.",
+      description: "The architectural mind behind our core voice and automation systems.",
       initials: "AS",
-      imageSrc: "/team/arjun-sen.jpg",
-      color: "purple" as const,
-      isLegacy: true
+      color: "purple" as const
     },
     {
       name: "Raveena Kataria",
       role: "Co-Founder & Legal Counsel",
       description: "Ensuring enterprise-grade compliance, data sovereignty, and regulatory adherence across all deployments.",
       initials: "RK",
-      imageSrc: "/team/raveena.jpg",
     },
     {
       name: "Krishanu Maik",
       role: "Director of Sales (APAC)",
       description: "Leading expansion and partnerships across Australia, New Zealand, and Asia-Pacific markets.",
       initials: "KM",
-      imageSrc: "/team/krishanu.jpg",
     },
     {
       name: "Siddhant Mohapatra",
       role: "Director of Sales (Europe & South America)",
       description: "Leading our expansion into European and LATAM territories with enterprise-grade solutions.",
       initials: "SM",
-      imageSrc: "/team/siddhant.jpg",
     },
     {
       name: "Rohit Monga",
       role: "Director of Backend Engineering",
       description: "Head of Backend Systems. Overseeing core processing pipelines, reliability, and architectural decisions.",
       initials: "RM",
-      imageSrc: "/team/rohit.jpg",
     },
     {
       name: "Harsh Varma",
       role: "Backend Systems Architect",
       description: "Architecting scalable backend infrastructure and robust integrations under Rohit's leadership.",
       initials: "HV",
-      imageSrc: "/team/harsh.jpg",
     },
     {
       name: "Arjun Nair",
       role: "Director of Sales (Middle East & Asia)",
       description: "Driving strategic partnerships and growth across the Middle East and Asian markets.",
       initials: "AN",
-      imageSrc: "/team/arjun-nair.jpg",
     },
     {
       name: "Amit Tiwari",
       role: "Head of Customer Success",
       description: "Ensuring every partner deployment achieves maximum ROI and long-term stability.",
       initials: "AT",
-      imageSrc: "/team/amit.jpg",
     }
   ];
 
   return (
     <div className="min-h-screen bg-[#020617] text-slate-200 selection:bg-blue-500/30">
-      <nav className="fixed top-0 w-full z-50 bg-[#020617]/80 backdrop-blur-md border-b border-white/5">
-        <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-          <Link href="/" className="text-xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
-            BRANDVERSE
-          </Link>
-          <div className="hidden md:flex gap-8 text-sm font-medium">
-            <Link href="/services" className="hover:text-blue-400 transition-colors">Services</Link>
-            <Link href="/portfolio" className="hover:text-blue-400 transition-colors">Case Studies</Link>
-            <Link href="/contact" className="hover:text-blue-400 transition-colors">Contact</Link>
-          </div>
-          <Link href="/contact" className="px-5 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-full text-sm font-semibold transition-all shadow-lg shadow-blue-500/20">Book Demo</Link>
-        </div>
-      </nav>
-
-      <main className="pt-32 pb-24 px-6">
+      <main className="pt-24 pb-24 px-6">
         <div className="max-w-4xl mx-auto space-y-24">
 
           {/* Mission Header */}

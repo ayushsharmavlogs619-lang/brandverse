@@ -2,10 +2,11 @@
 // Handles creating, confirming, and managing appointments
 
 export class BookingEngine {
-  constructor(calendarService, sheetsService, smsService) {
+  constructor(calendarService, sheetsService, smsService, clientConfigService) {
     this.calendarService = calendarService;
     this.sheetsService = sheetsService;
-    this.smsService = smsService;
+    this.clientConfigService = clientConfigService;
+    this.smsService = smsService || null;
   }
 
   // Create a new booking
@@ -25,8 +26,8 @@ export class BookingEngine {
       // Get client configuration
       const clientConfig = await this.getClientConfig(clientId);
       
-      // Validate phone number
-      const validPhone = this.smsService.validatePhoneNumber(phone);
+      // Validate phone number (basic validation if no SMS service)
+      const validPhone = phone.trim();
       if (!validPhone) {
         return {
           success: false,
@@ -110,15 +111,23 @@ export class BookingEngine {
         };
       }
 
-      // Send SMS confirmation
-      const smsResult = await this.smsService.sendBookingConfirmation(
-        name,
-        validPhone,
-        clientConfig.name,
-        service,
-        bookingDateTime,
-        clientConfig.address
-      );
+      // Send SMS confirmation (optional)
+      let smsSent = false;
+      if (this.smsService) {
+        try {
+          const smsResult = await this.smsService.sendBookingConfirmation(
+            name,
+            validPhone,
+            clientConfig.name,
+            service,
+            bookingDateTime,
+            clientConfig.address
+          );
+          smsSent = smsResult.success;
+        } catch (e) {
+          console.warn('SMS sending failed (non-blocking):', e.message);
+        }
+      }
 
       // Log the booking
       const logData = {
@@ -134,7 +143,7 @@ export class BookingEngine {
         outcome: 'Booking successful',
         notes: notes || '',
         calendarEventId: calendarResult.eventId,
-        smsSent: smsResult.success,
+        smsSent: smsSent,
         duration: serviceDuration
       };
 
@@ -146,7 +155,7 @@ export class BookingEngine {
         calendarEventId: calendarResult.eventId,
         eventLink: calendarResult.eventLink,
         message: 'Appointment booked successfully',
-        confirmationSent: smsResult.success,
+        confirmationSent: smsSent,
         bookingDetails: {
           name: name,
           phone: validPhone,
@@ -190,13 +199,17 @@ export class BookingEngine {
         };
       }
 
-      // Send cancellation SMS if we have phone number
-      if (eventDetails && eventDetails.phone) {
-        await this.smsService.sendCancellationConfirmation(
-          eventDetails.name,
-          eventDetails.phone,
-          clientConfig.name
-        );
+      // Send cancellation SMS if we have phone number and SMS service
+      if (this.smsService && eventDetails && eventDetails.phone) {
+        try {
+          await this.smsService.sendCancellationConfirmation(
+            eventDetails.name,
+            eventDetails.phone,
+            clientConfig.name
+          );
+        } catch (e) {
+          console.warn('SMS cancellation failed (non-blocking):', e.message);
+        }
       }
 
       // Log the cancellation
@@ -318,15 +331,21 @@ export class BookingEngine {
         };
       }
 
-      // Send reschedule SMS
-      await this.smsService.sendRescheduleConfirmation(
-        eventDetails.name,
-        eventDetails.phone,
-        clientConfig.name,
-        service,
-        newBookingDateTime,
-        clientConfig.address
-      );
+      // Send reschedule SMS (optional)
+      if (this.smsService) {
+        try {
+          await this.smsService.sendRescheduleConfirmation(
+            eventDetails.name,
+            eventDetails.phone,
+            clientConfig.name,
+            service,
+            newBookingDateTime,
+            clientConfig.address
+          );
+        } catch (e) {
+          console.warn('SMS reschedule failed (non-blocking):', e.message);
+        }
+      }
 
       // Log the reschedule
       const logData = {
@@ -394,30 +413,17 @@ export class BookingEngine {
     }
   }
 
-  // Get event details from calendar
   async getEventDetails(calendarId, eventId) {
     try {
-      // This would need to be implemented in the calendar service
-      // For now, return a placeholder
-      return null;
+      return await this.calendarService.getEvent(calendarId, eventId);
     } catch (error) {
       console.error('Error getting event details:', error);
       return null;
     }
   }
 
-  // Get client configuration (placeholder - would be injected)
   async getClientConfig(clientId) {
-    // This would be injected or passed to the constructor
-    // For now, return a basic structure
-    return {
-      calendar_id: '',
-      sheet_id: '',
-      name: 'Business Name',
-      address: 'Business Address',
-      services: {},
-      timezone: 'UTC'
-    };
+    return this.clientConfigService.getClientConfig(clientId);
   }
 
   // Get upcoming bookings for a client
@@ -505,6 +511,10 @@ export class BookingEngine {
   // Send reminder for upcoming booking
   async sendBookingReminder(clientId, bookingId, reminderType = '24_hours') {
     try {
+      if (!this.smsService) {
+        return { success: false, error: 'SMS service not configured' };
+      }
+
       const bookingDetails = await this.getBookingDetails(clientId, bookingId);
       
       if (!bookingDetails.success) {

@@ -1,25 +1,34 @@
-import Link from 'next/link';
+import ArticleLayout from '../../components/Article/ArticleLayout';
+import { getBlogPost } from '@/lib/blog-content';
+
+const post = getBlogPost('measuring-success')!;
 
 export const metadata = {
-  title: 'Measuring AI Agent Performance — Brandverse',
+  title: 'Measuring AI Agent Performance & KPIs | Brandverse',
   description: 'KPIs and dashboards you should track to measure the success of your AI voice agent.',
+  keywords: ['AI agent KPIs', 'voice AI performance metrics', 'AI receptionist analytics', 'call center AI measurement'],
+  openGraph: { title: 'Measuring AI Agent Performance & KPIs', description: post.excerpt, type: 'article' },
+  twitter: { card: 'summary_large_image', title: 'Measuring AI Agent Performance & KPIs', description: post.excerpt },
+    robots: { index: true, follow: true, googleBot: { index: true, follow: true, 'max-video-preview': -1, 'max-image-preview': 'large', 'max-snippet': -1 } },
+    alternates: { canonical: 'https://brandverse.tech/blog/measuring-success' }
 };
 
 export default function Post() {
   return (
-    <div className="min-h-screen bg-[#020617] text-slate-200 selection:bg-blue-500/30">
-      <main className="pt-32 pb-20 px-6 max-w-4xl mx-auto">
-        <h1 className="text-4xl font-black text-white">Measuring AI Agent Performance & KPIs</h1>
-        <p className="text-slate-400 mt-4">By Ayush Sharma — Bookings, conversion rate, time-to-pickup, and revenue per call are core metrics we monitor.</p>
-
-        <section className="mt-8 space-y-4 text-slate-400">
-          <p>We recommend dashboards that combine call quality, booked appointments, and revenue impact so you can optimize continuously.</p>
-        </section>
-
-        <div className="mt-8">
-          <Link href="/blog" className="text-blue-400 font-bold">← Back to articles</Link>
-        </div>
-      </main>
-    </div>
+    <ArticleLayout
+      slug={post.slug}
+      title="Measuring AI Agent Performance & KPIs"
+      subtitle="KPIs and dashboards you should track to measure the success of your AI voice agent."
+      description={post.excerpt}
+      date="Jan 3, 2025"
+      readTime="9 min read"
+      category={post.category}
+      accent="indigo"
+      keywords={metadata.keywords}
+      takeaways={post.takeaways}
+      faqs={post.faqs}
+    >
+      <section className="space-y-6" dangerouslySetInnerHTML={{ __html: post.content }} />
+    </ArticleLayout>
   );
 }

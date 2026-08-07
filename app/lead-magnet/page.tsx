@@ -1,9 +1,8 @@
 'use client';
 
 import { FORMSUBMIT_ACTION } from '@/lib/forms';
-import { Download, CheckCircle2, TrendingUp, Users, Clock, Shield } from 'lucide-react';
 import { useState } from 'react';
-import { mailchimpService } from '@/lib/mailchimp-service';
+import { Calendar, CheckCircle2, TrendingUp, Users, Clock, Shield } from 'lucide-react';
 
 // Declare global types for analytics
 declare global {
@@ -23,16 +22,22 @@ export default function LeadMagnetPage() {
         const formData = new FormData(e.currentTarget);
         const email = formData.get('email') as string;
         const name = formData.get('name') as string;
-        const nameParts = name.split(' ');
-        const firstName = nameParts[0] || '';
-        const lastName = nameParts.slice(1).join(' ') || '';
 
-        // Add to Mailchimp for automated follow-ups
+        // Send to Google Sheets via the Apps Script proxy (best-effort,
+        // never blocks the FormSubmit flow below)
         try {
-            await mailchimpService.addContact(email, firstName, lastName, ['Lead Magnet Download']);
-            // Contact added to Mailchimp successfully
+            await fetch('/api/leads/apps-script', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    full_name: name,
+                    email,
+                    service_interest: 'Lead Magnet Download',
+                    timestamp: new Date().toISOString(),
+                }),
+            });
         } catch (error) {
-            console.error('Mailchimp error (form will still submit):', error);
+            console.error('Google Sheets error (form will still submit):', error);
         }
 
         // Submit to FormSubmit.co for email delivery
@@ -46,14 +51,14 @@ export default function LeadMagnetPage() {
                 {/* Header */}
                 <div className="text-center mb-16">
                     <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-green-500/10 border border-green-500/20 text-green-400 text-xs font-black uppercase tracking-widest mb-6">
-                        Free Download
+                        Free Strategy Call
                     </div>
                     <h1 className="text-5xl md:text-6xl font-black text-white tracking-tighter mb-6">
-                        2025 AI Automation
-                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-blue-400"> Audit Guide</span>
+                        Stop Burning Cash on
+                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-blue-400"> Manual Operations</span>
                     </h1>
                     <p className="text-xl text-slate-400 max-w-2xl mx-auto">
-                        Discover exactly how AI voice agents can save your business 40+ hours per week and boost revenue by 200%+
+                        Book a free 15-minute strategy call. We'll identify 2-3 automation quick wins for your business — zero obligation.
                     </p>
                 </div>
 
@@ -62,7 +67,7 @@ export default function LeadMagnetPage() {
                     {/* Left: What's Inside */}
                     <div className="space-y-8">
                         <div>
-                            <h2 className="text-2xl font-bold text-white mb-6">What You'll Discover:</h2>
+                            <h2 className="text-2xl font-bold text-white mb-6">What We'll Cover on Your Call:</h2>
                             <div className="space-y-4">
                                 <div className="flex items-start gap-3">
                                     <CheckCircle2 className="w-6 h-6 text-green-400 mt-1 flex-shrink-0" />
@@ -108,11 +113,11 @@ export default function LeadMagnetPage() {
                         <div className="mb-8">
                             <div className="flex items-center gap-3 mb-4">
                                 <div className="w-12 h-12 bg-gradient-to-r from-green-500 to-blue-500 rounded-xl flex items-center justify-center shrink-0">
-                                    <Download className="w-6 h-6 text-white" />
+                                    <Calendar className="w-6 h-6 text-white" />
                                 </div>
                                 <div>
-                                    <h2 className="text-2xl font-black text-white">Download Free Guide</h2>
-                                    <p className="text-slate-400 text-sm">No spam. Just valuable insights.</p>
+                                    <h2 className="text-2xl font-black text-white">Book Your Free Strategy Call</h2>
+                                    <p className="text-slate-400 text-sm">We'll reach out within 24 hours to schedule your call.</p>
                                 </div>
                             </div>
                         </div>
@@ -123,11 +128,11 @@ export default function LeadMagnetPage() {
                             className="space-y-6"
                             onSubmit={handleSubmit}
                         >
-                            <input type="hidden" name="_subject" value="New Lead Magnet Download - Brandverse" />
+                            <input type="hidden" name="_subject" value="New Strategy Call Request - Brandverse" />
                             <input type="hidden" name="_captcha" value="false" />
                             <input type="hidden" name="_template" value="table" />
-                            <input type="hidden" name="_next" value="https://brandverse.tech/lead-magnet/thank-you/" />
-                            <input type="hidden" name="lead_magnet" value="2025_AI_Automation_Audit_Guide" />
+                            <input type="hidden" name="_next" value="https://brandverse.tech/lead-magnet/thank-you" />
+                            <input type="hidden" name="service_interest" value="Strategy Call" />
 
                             <div>
                                 <label className="block text-sm font-medium text-slate-300 mb-2">Full Name</label>
@@ -167,7 +172,7 @@ export default function LeadMagnetPage() {
                                 disabled={isSubmitting}
                                 className="w-full bg-gradient-to-r from-green-600 to-blue-600 hover:from-green-500 hover:to-blue-500 text-white font-bold py-4 px-8 rounded-xl transition-all duration-300 transform hover:scale-105 flex items-center justify-center gap-2"
                             >
-                                {isSubmitting ? 'Processing...' : 'Download Now'} <Download className="w-5 h-5" />
+                                {isSubmitting ? 'Booking...' : 'Book Free Call'} <Calendar className="w-5 h-5" />
                             </button>
 
                             <p className="text-center text-xs text-slate-500 mt-4">
@@ -184,14 +189,16 @@ export default function LeadMagnetPage() {
                             <Users className="w-6 h-6 text-blue-400" />
                         </div>
                         <div className="text-3xl font-black text-white mb-1">2,500+</div>
-                        <div className="text-slate-400 text-sm">Business Owners</div>
+                        <div className="text-slate-400 text-sm">Automation Projects</div>
+                        <div className="text-[10px] text-slate-600 mt-1">across 40+ industries</div>
                     </div>
                     <div className="text-center p-6 rounded-2xl bg-white/5 border border-white/10">
                         <div className="w-12 h-12 bg-green-500/10 rounded-full flex items-center justify-center mx-auto mb-3">
                             <TrendingUp className="w-6 h-6 text-green-400" />
                         </div>
                         <div className="text-3xl font-black text-white mb-1">200%</div>
-                        <div className="text-slate-400 text-sm">Avg Revenue Increase</div>
+                        <div className="text-slate-400 text-sm">Reported Avg Revenue Lift</div>
+                        <div className="text-[10px] text-slate-600 mt-1">reported across client deployments</div>
                     </div>
                     <div className="text-center p-6 rounded-2xl bg-white/5 border border-white/10">
                         <div className="w-12 h-12 bg-purple-500/10 rounded-full flex items-center justify-center mx-auto mb-3">
@@ -199,13 +206,14 @@ export default function LeadMagnetPage() {
                         </div>
                         <div className="text-3xl font-black text-white mb-1">40+ hrs</div>
                         <div className="text-slate-400 text-sm">Saved Per Week</div>
+                        <div className="text-[10px] text-slate-600 mt-1">per automation deployment</div>
                     </div>
                     <div className="text-center p-6 rounded-2xl bg-white/5 border border-white/10">
                         <div className="w-12 h-12 bg-red-500/10 rounded-full flex items-center justify-center mx-auto mb-3">
                             <Shield className="w-6 h-6 text-red-400" />
                         </div>
                         <div className="text-3xl font-black text-white mb-1">100%</div>
-                        <div className="text-slate-400 text-sm">Risk-Free Download</div>
+                        <div className="text-slate-400 text-sm">Risk-Free Consultation</div>
                     </div>
                 </div>
 
@@ -223,3 +231,4 @@ export default function LeadMagnetPage() {
         </div>
     );
 }
+

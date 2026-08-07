@@ -1,26 +1,34 @@
-import Link from 'next/link';
+import ArticleLayout from '../../components/Article/ArticleLayout';
+import { getBlogPost } from '@/lib/blog-content';
+
+const post = getBlogPost('scripts-that-convert')!;
 
 export const metadata = {
-  title: 'High-Converting Call Scripts — Brandverse',
+  title: 'High-Converting Call Scripts (Examples) | Brandverse',
   description: 'Real script examples that convert callers into booked appointments.',
+  keywords: ['AI call scripts', 'converting phone scripts', 'voice agent script examples', 'appointment booking scripts'],
+  openGraph: { title: 'High-Converting Call Scripts (Examples)', description: post.excerpt, type: 'article' },
+  twitter: { card: 'summary_large_image', title: 'High-Converting Call Scripts (Examples)', description: post.excerpt },
+    robots: { index: true, follow: true, googleBot: { index: true, follow: true, 'max-video-preview': -1, 'max-image-preview': 'large', 'max-snippet': -1 } },
+    alternates: { canonical: 'https://brandverse.tech/blog/scripts-that-convert' }
 };
 
 export default function Post() {
   return (
-    <div className="min-h-screen bg-[#020617] text-slate-200 selection:bg-blue-500/30">
-      <main className="pt-32 pb-20 px-6 max-w-4xl mx-auto">
-        <h1 className="text-4xl font-black text-white">High-Converting Call Scripts (Examples)</h1>
-        <p className="text-slate-400 mt-4">By Ayush Sharma — Exact phrasing we use to increase booking rates during live calls.</p>
-
-        <section className="mt-8 space-y-4 text-slate-400">
-          <p>Scripts prioritize qualification, urgency, and immediate booking. Below are short templates for common industries.</p>
-          <pre className="bg-black/40 p-4 rounded text-sm">"Hi, this is [Business]. We have an opening at 3 PM today — does that work for you?"</pre>
-        </section>
-
-        <div className="mt-8">
-          <Link href="/blog" className="text-blue-400 font-bold">← Back to articles</Link>
-        </div>
-      </main>
-    </div>
+    <ArticleLayout
+      slug={post.slug}
+      title="High-Converting Call Scripts (Examples)"
+      subtitle="Real script examples that convert callers into booked appointments."
+      description={post.excerpt}
+      date="Jan 3, 2025"
+      readTime="9 min read"
+      category={post.category}
+      accent="amber"
+      keywords={metadata.keywords}
+      takeaways={post.takeaways}
+      faqs={post.faqs}
+    >
+      <section className="space-y-6" dangerouslySetInnerHTML={{ __html: post.content }} />
+    </ArticleLayout>
   );
 }

@@ -22,7 +22,8 @@ export class ClientConfigService {
       const client = clientsData.clients.find(c => c.id === clientId);
 
       if (!client) {
-        throw new Error(`Client configuration not found: ${clientId}`);
+        console.warn(`Client configuration not found: ${clientId}`);
+        return null;
       }
 
       // Validate required fields
@@ -41,145 +42,153 @@ export class ClientConfigService {
     }
   }
 
-  // Load clients data from JSON file
+  // Load clients data from env var or embedded fallback
   async loadClientsData() {
     try {
-      // In a real implementation, this would load from a file or database
-      // For now, we'll use the hardcoded clients.json structure
-      const clientsData = {
-        "clients": [
-          {
-            "id": "dental_melbourne_1",
-            "name": "Melbourne Dental Clinic",
-            "niche": "dental",
-            "timezone": "Australia/Melbourne",
-            "services": {
-              "cleaning": 30,
-              "whitening": 45,
-              "root_canal": 60,
-              "consultation": 30,
-              "checkup": 30,
-              "filling": 45
-            },
-            "working_hours": {
-              "monday": {"start": "09:00", "end": "18:00"},
-              "tuesday": {"start": "09:00", "end": "18:00"},
-              "wednesday": {"start": "09:00", "end": "18:00"},
-              "thursday": {"start": "09:00", "end": "18:00"},
-              "friday": {"start": "09:00", "end": "18:00"},
-              "saturday": {"start": "09:00", "end": "14:00"},
-              "sunday": {"start": "closed", "end": "closed"}
-            },
-            "calendar_id": "",
-            "sheet_id": "",
-            "phone_number": "",
-            "address": "123 Dental Street, Melbourne, VIC 3000",
-            "subdomain": "edge.brandverse.tech",
-            "business_description": "Professional dental care for the whole family",
-            "after_hours_booking": true,
-            "buffer_minutes": 10,
-            "max_booking_days_ahead": 30
-          },
-          {
-            "id": "hvac_sydney_1",
-            "name": "Sydney HVAC Services",
-            "niche": "hvac",
-            "timezone": "Australia/Sydney",
-            "services": {
-              "emergency_repair": 60,
-              "maintenance": 90,
-              "installation": 180,
-              "inspection": 60,
-              "diagnostic": 45
-            },
-            "working_hours": {
-              "monday": {"start": "07:00", "end": "19:00"},
-              "tuesday": {"start": "07:00", "end": "19:00"},
-              "wednesday": {"start": "07:00", "end": "19:00"},
-              "thursday": {"start": "07:00", "end": "19:00"},
-              "friday": {"start": "07:00", "end": "19:00"},
-              "saturday": {"start": "08:00", "end": "16:00"},
-              "sunday": {"start": "closed", "end": "closed"}
-            },
-            "calendar_id": "",
-            "sheet_id": "",
-            "phone_number": "",
-            "address": "456 Service Road, Sydney, NSW 2000",
-            "subdomain": "edge.brandverse.tech",
-            "business_description": "24/7 Emergency HVAC Repair and Installation",
-            "after_hours_booking": true,
-            "buffer_minutes": 15,
-            "max_booking_days_ahead": 14,
-            "emergency_service": true
-          },
-          {
-            "id": "electrician_brisbane_1",
-            "name": "Brisbane Electricians Pro",
-            "niche": "electrician",
-            "timezone": "Australia/Brisbane",
-            "services": {
-              "emergency_callout": 60,
-              "installation": 120,
-              "repair": 90,
-              "inspection": 60,
-              "upgrade": 180
-            },
-            "working_hours": {
-              "monday": {"start": "06:00", "end": "20:00"},
-              "tuesday": {"start": "06:00", "end": "20:00"},
-              "wednesday": {"start": "06:00", "end": "20:00"},
-              "thursday": {"start": "06:00", "end": "20:00"},
-              "friday": {"start": "06:00", "end": "20:00"},
-              "saturday": {"start": "07:00", "end": "18:00"},
-              "sunday": {"start": "closed", "end": "closed"}
-            },
-            "calendar_id": "",
-            "sheet_id": "",
-            "phone_number": "",
-            "address": "789 Circuit Lane, Brisbane, QLD 4000",
-            "subdomain": "edge.brandverse.tech",
-            "business_description": "Licensed Electricians for Residential and Commercial",
-            "after_hours_booking": true,
-            "buffer_minutes": 10,
-            "max_booking_days_ahead": 21,
-            "emergency_service": true
-          },
-          {
-            "id": "plastic_surgery_melbourne_1",
-            "name": "Melbourne Plastic Surgery Center",
-            "niche": "plastic-surgery",
-            "timezone": "Australia/Melbourne",
-            "services": {
-              "consultation": 60,
-              "follow_up": 30,
-              "pre_op_assessment": 45,
-              "post_op_check": 30,
-              "non_surgical_treatment": 90
-            },
-            "working_hours": {
-              "monday": {"start": "09:00", "end": "17:00"},
-              "tuesday": {"start": "09:00", "end": "17:00"},
-              "wednesday": {"start": "09:00", "end": "17:00"},
-              "thursday": {"start": "09:00", "end": "17:00"},
-              "friday": {"start": "09:00", "end": "17:00"},
-              "saturday": {"start": "closed", "end": "closed"},
-              "sunday": {"start": "closed", "end": "closed"}
-            },
-            "calendar_id": "",
-            "sheet_id": "",
-            "phone_number": "",
-            "address": "321 Cosmetic Avenue, Melbourne, VIC 3000",
-            "subdomain": "edge.brandverse.tech",
-            "business_description": "Expert Plastic Surgery and Cosmetic Procedures",
-            "after_hours_booking": false,
-            "buffer_minutes": 30,
-            "max_booking_days_ahead": 60,
-            "consultation_required": true
-          }
-        ]
-      };
+      // 1. Try environment variable (set via wrangler secret or dashboard)
+      if (this.env.CLIENTS_CONFIG) {
+        try {
+          return JSON.parse(this.env.CLIENTS_CONFIG);
+        } catch (e) {
+          console.warn('Failed to parse CLIENTS_CONFIG env var, falling back to embedded config');
+        }
+      }
 
-      return clientsData;
+      // 2. Fall back to embedded configuration
+      const embeddedClientsJson = `{
+  "clients": [
+    {
+      "id": "dental_melbourne_1",
+      "name": "Melbourne Dental Clinic",
+      "niche": "dental",
+      "timezone": "Australia/Melbourne",
+      "services": {
+        "cleaning": 30,
+        "whitening": 45,
+        "root_canal": 60,
+        "consultation": 30,
+        "checkup": 30,
+        "filling": 45
+      },
+      "working_hours": {
+        "monday": {"start": "09:00", "end": "18:00"},
+        "tuesday": {"start": "09:00", "end": "18:00"},
+        "wednesday": {"start": "09:00", "end": "18:00"},
+        "thursday": {"start": "09:00", "end": "18:00"},
+        "friday": {"start": "09:00", "end": "18:00"},
+        "saturday": {"start": "09:00", "end": "14:00"},
+        "sunday": {"start": "closed", "end": "closed"}
+      },
+      "calendar_id": "",
+      "sheet_id": "",
+      "phone_number": "",
+      "address": "123 Dental Street, Melbourne, VIC 3000",
+      "subdomain": "edge.brandverse.tech",
+      "business_description": "Professional dental care for the whole family",
+      "after_hours_booking": true,
+      "buffer_minutes": 10,
+      "max_booking_days_ahead": 30
+    },
+    {
+      "id": "hvac_sydney_1",
+      "name": "Sydney HVAC Services",
+      "niche": "hvac",
+      "timezone": "Australia/Sydney",
+      "services": {
+        "emergency_repair": 60,
+        "maintenance": 90,
+        "installation": 180,
+        "inspection": 60,
+        "diagnostic": 45
+      },
+      "working_hours": {
+        "monday": {"start": "07:00", "end": "19:00"},
+        "tuesday": {"start": "07:00", "end": "19:00"},
+        "wednesday": {"start": "07:00", "end": "19:00"},
+        "thursday": {"start": "07:00", "end": "19:00"},
+        "friday": {"start": "07:00", "end": "19:00"},
+        "saturday": {"start": "08:00", "end": "16:00"},
+        "sunday": {"start": "closed", "end": "closed"}
+      },
+      "calendar_id": "",
+      "sheet_id": "",
+      "phone_number": "",
+      "address": "456 Service Road, Sydney, NSW 2000",
+      "subdomain": "edge.brandverse.tech",
+      "business_description": "24/7 Emergency HVAC Repair and Installation",
+      "after_hours_booking": true,
+      "buffer_minutes": 15,
+      "max_booking_days_ahead": 14,
+      "emergency_service": true
+    },
+    {
+      "id": "electrician_brisbane_1",
+      "name": "Brisbane Electricians Pro",
+      "niche": "electrician",
+      "timezone": "Australia/Brisbane",
+      "services": {
+        "emergency_callout": 60,
+        "installation": 120,
+        "repair": 90,
+        "inspection": 60,
+        "upgrade": 180
+      },
+      "working_hours": {
+        "monday": {"start": "06:00", "end": "20:00"},
+        "tuesday": {"start": "06:00", "end": "20:00"},
+        "wednesday": {"start": "06:00", "end": "20:00"},
+        "thursday": {"start": "06:00", "end": "20:00"},
+        "friday": {"start": "06:00", "end": "20:00"},
+        "saturday": {"start": "07:00", "end": "18:00"},
+        "sunday": {"start": "closed", "end": "closed"}
+      },
+      "calendar_id": "",
+      "sheet_id": "",
+      "phone_number": "",
+      "address": "789 Circuit Lane, Brisbane, QLD 4000",
+      "subdomain": "edge.brandverse.tech",
+      "business_description": "Licensed Electricians for Residential and Commercial",
+      "after_hours_booking": true,
+      "buffer_minutes": 10,
+      "max_booking_days_ahead": 21,
+      "emergency_service": true
+    },
+    {
+      "id": "plastic_surgery_melbourne_1",
+      "name": "Melbourne Plastic Surgery Center",
+      "niche": "plastic-surgery",
+      "timezone": "Australia/Melbourne",
+      "services": {
+        "consultation": 60,
+        "follow_up": 30,
+        "pre_op_assessment": 45,
+        "post_op_check": 30,
+        "non_surgical_treatment": 90
+      },
+      "working_hours": {
+        "monday": {"start": "09:00", "end": "17:00"},
+        "tuesday": {"start": "09:00", "end": "17:00"},
+        "wednesday": {"start": "09:00", "end": "17:00"},
+        "thursday": {"start": "09:00", "end": "17:00"},
+        "friday": {"start": "09:00", "end": "17:00"},
+        "saturday": {"start": "closed", "end": "closed"},
+        "sunday": {"start": "closed", "end": "closed"}
+      },
+      "calendar_id": "",
+      "sheet_id": "",
+      "phone_number": "",
+      "address": "321 Cosmetic Avenue, Melbourne, VIC 3000",
+      "subdomain": "edge.brandverse.tech",
+      "business_description": "Expert Plastic Surgery and Cosmetic Procedures",
+      "after_hours_booking": false,
+      "buffer_minutes": 30,
+      "max_booking_days_ahead": 60,
+      "consultation_required": true
+    }
+  ]
+}`;
+
+      return JSON.parse(embeddedClientsJson);
     } catch (error) {
       console.error('Error loading clients data:', error);
       throw new Error('Failed to load clients data');
@@ -196,13 +205,13 @@ export class ClientConfigService {
       }
     }
 
-    // CRITICAL: Validate real integration fields
+    // CRITICAL: Validate real integration fields - warn but don't block
     if (!client.calendar_id || client.calendar_id.trim() === '') {
-      throw new Error('Missing required config: calendar_id - Real Google Calendar integration required');
+      console.warn(`WARNING: calendar_id is empty for client "${client.id}". Calendar booking will fail until set.`);
     }
 
     if (!client.sheet_id || client.sheet_id.trim() === '') {
-      throw new Error('Missing required config: sheet_id - Real Google Sheets integration required');
+      console.warn(`WARNING: sheet_id is empty for client "${client.id}". Sheets logging will fail until set.`);
     }
 
     // Validate services
@@ -396,6 +405,22 @@ export class ClientConfigService {
     } catch (error) {
       console.error('Error getting client timezone:', error);
       throw new Error('Failed to get client timezone');
+    }
+  }
+
+  // Look up client by inbound phone number (for Vapi call routing)
+  async getClientByPhoneNumber(inboundNumber) {
+    try {
+      const clientsData = await this.loadClientsData();
+      const normalized = inboundNumber.replace(/\D/g, '');
+      const client = clientsData.clients.find(c => {
+        const clientPhone = (c.phone_number || '').replace(/\D/g, '');
+        return clientPhone && normalized.endsWith(clientPhone.slice(-10));
+      });
+      return client || null;
+    } catch (error) {
+      console.error('Error looking up client by phone:', error);
+      return null;
     }
   }
 

@@ -1,25 +1,34 @@
-import Link from 'next/link';
+import ArticleLayout from '../../components/Article/ArticleLayout';
+import { getBlogPost } from '@/lib/blog-content';
+
+const post = getBlogPost('crm-integration-guide')!;
 
 export const metadata = {
-  title: 'CRM & Calendar Integration Guide — Brandverse',
-  description: 'How to connect Brandverse to ServiceTitan, Housecall Pro, Calendly, and CRMs for seamless booking.',
+  title: 'CRM & Calendar Integration Guide | Brandverse',
+  description: 'How to connect Brandverse to ServiceTitan, Housecall Pro, Calendly, and CRMs.',
+  keywords: ['AI CRM integration', 'calendar sync AI', 'ServiceTitan integration', 'Brandverse CRM setup'],
+  openGraph: { title: 'CRM & Calendar Integration Guide', description: post.excerpt, type: 'article' },
+  twitter: { card: 'summary_large_image', title: 'CRM & Calendar Integration Guide', description: post.excerpt },
+    robots: { index: true, follow: true, googleBot: { index: true, follow: true, 'max-video-preview': -1, 'max-image-preview': 'large', 'max-snippet': -1 } },
+    alternates: { canonical: 'https://brandverse.tech/blog/crm-integration-guide' }
 };
 
 export default function Post() {
   return (
-    <div className="min-h-screen bg-[#020617] text-slate-200 selection:bg-blue-500/30">
-      <main className="pt-32 pb-20 px-6 max-w-4xl mx-auto">
-        <h1 className="text-4xl font-black text-white">CRM & Calendar Integration Guide</h1>
-        <p className="text-slate-400 mt-4">By Ayush Sharma — Step-by-step integration examples and common troubleshooting tips.</p>
-
-        <section className="mt-8 space-y-4 text-slate-400">
-          <p>We cover direct integrations, webhook setups, and fallback patterns to ensure bookings land in the right place every time.</p>
-        </section>
-
-        <div className="mt-8">
-          <Link href="/blog" className="text-blue-400 font-bold">← Back to articles</Link>
-        </div>
-      </main>
-    </div>
+    <ArticleLayout
+      slug={post.slug}
+      title="CRM & Calendar Integration Guide"
+      subtitle="How to connect Brandverse to ServiceTitan, Housecall Pro, Calendly, and CRMs."
+      description={post.excerpt}
+      date="Jan 3, 2025"
+      readTime="9 min read"
+      category={post.category}
+      accent="blue"
+      keywords={metadata.keywords}
+      takeaways={post.takeaways}
+      faqs={post.faqs}
+    >
+      <section className="space-y-6" dangerouslySetInnerHTML={{ __html: post.content }} />
+    </ArticleLayout>
   );
 }

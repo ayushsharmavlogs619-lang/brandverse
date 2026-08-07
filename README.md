@@ -8,43 +8,49 @@ Brandverse is a high-performance Next.js landing page designed to capture leads 
 - **Legal Ready**: Integrated Privacy Policy and Terms & Conditions.
 
 ## 🛠 Tech Stack
-- **Framework**: Next.js 16 (App Router)
+- **Framework**: Next.js 16 (App Router, static export)
 - **Styling**: Tailwind CSS
 - **Icons**: Lucide React
-- **Backend (Ready)**: Firebase (Configured in `lib/firebase.ts`)
+- **Deployment**: Cloudflare Pages + Pages Functions + Cloudflare Workers
+- **Lead Capture**: Cloudflare Pages Function proxy to Google Apps Script / Google Sheets, Worker fallback, FormSubmit fallback
+- **Voice / AI Demo**: Vapi client integration
 
 ## 📦 How to Deploy (Production)
 
-### Option 1: Vercel (Recommended)
-1. Install Vercel CLI: `npm install -g vercel`
-2. Run deployment:
+### Cloudflare Pages
+1. Install dependencies: `npm install`
+2. Build locally: `npm run build`
+3. Verify deployment readiness: `npm run verify:deployment`
+4. Deploy static output to Pages:
    ```bash
-   vercel login
-   vercel
-   ```
-3. Follow the prompts. Your site will be live in ~1 minute.
-
-### Option 2: Netlify
-1. Install Netlify CLI: `npm install -g netlify-cli`
-2. Run deployment:
-   ```bash
-   netlify login
-   netlify deploy --prod
+   npx wrangler pages deploy out --project-name brandverse --branch=production
    ```
 
-### Option 3: GitHub (Version Control)
-To save your work to the cloud:
-1. Create a new repository on GitHub.
-2. Run:
-   ```bash
-   git remote add origin https://github.com/YOUR_USERNAME/brandverse.git
-   git branch -M main
-   git push -u origin main
-   ```
+### AI Receptionist
+- Frontend/static assets live under `ai-reception/landing-pages`
+- Worker/backend config lives under `ai-reception/`
+- Review `ai-reception/docs/deployment.md` before production rollout
 
 ## 🔑 Environment Secrets
-To enable Firebase or other API features, create a `.env.local` file with:
+Create a `.env.local` for local development, and set production secrets in Cloudflare Pages / Workers dashboards as appropriate.
+
+Common app variables:
 ```bash
-NEXT_PUBLIC_FIREBASE_API_KEY=your_key_here
-NEXT_PUBLIC_FIREBASE_PROJECT_ID=your_id_here
+NEXT_PUBLIC_WORKER_URL=https://edge.brandverse.tech
+NEXT_PUBLIC_CALENDLY_URL=https://calendly.com/ayushsharmavlogs619/30min
+NEXT_PUBLIC_GA_MEASUREMENT_ID=G-...
+NEXT_PUBLIC_META_PIXEL_ID=...
+NEXT_PUBLIC_LINKEDIN_PARTNER_ID=...
+NEXT_PUBLIC_COOKIEBOT_ID=...
+NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION=...
+NEXT_PUBLIC_VAPI_PUBLIC_KEY=...
+NEXT_PUBLIC_VAPI_ASSISTANT_ID=...
+NEXT_PUBLIC_VAPID_PUBLIC_KEY=...
+NEXT_PUBLIC_MAILCHIMP_AUDIENCE_ID=...
+```
+
+Cloudflare Pages Function variables:
+```bash
+GOOGLE_APPS_SCRIPT_WEBHOOK_URL=...
+GOOGLE_APPS_SCRIPT_SECRET=...
 ```

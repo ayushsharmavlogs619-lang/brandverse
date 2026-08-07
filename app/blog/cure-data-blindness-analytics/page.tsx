@@ -1,3 +1,4 @@
+import ArticleSchema from '../../components/Article/ArticleSchema';
 import Link from 'next/link';
 import { ArrowLeft, LineChart, Target, Search, EyeOff, Microscope } from 'lucide-react';
 import RelatedArticles from '../../components/RelatedArticles';
@@ -6,11 +7,23 @@ export const metadata = {
     title: 'Cure Data Blindness: Stop Guessing Where Your Money Is | Brandverse',
     description: 'Stop treating marketing as an expense. Use precision analytics to track customer LTV, attribution, and conversion rates to turn ad spend into a predictable investment.',
     keywords: ['business analytics dashboard', 'marketing attribution tracking', 'customer LTV calculation', 'conversion rate optimization tools', 'data driven marketing'],
+    robots: { index: true, follow: true, googleBot: { index: true, follow: true, 'max-video-preview': -1, 'max-image-preview': 'large', 'max-snippet': -1 } },
+    alternates: { canonical: 'https://brandverse.tech/blog/cure-data-blindness-analytics' }
+,
+  openGraph: { title: 'Cure Data Blindness: Stop Guessing Where Your Money Is', description: 'You are flying blind. Precision analytics reveals exactly where you are losing revenue in your funnel.', type: 'article' as const, siteName: 'Brandverse' },
+  twitter: { card: 'summary_large_image' as const, title: 'Cure Data Blindness: Stop Guessing Where Your Money Is', description: 'You are flying blind. Precision analytics reveals exactly where you are losing revenue in your funnel.' }
 };
 
 export default function Post() {
     return (
         <div className="min-h-screen bg-[#020617] text-slate-200 selection:bg-emerald-500/30">
+        <ArticleSchema
+          title={'Cure Data Blindness: Stop Guessing Where Your Money Is'}
+          description={'You are flying blind. Precision analytics reveals exactly where you are losing revenue in your funnel.'}
+          slug="cure-data-blindness-analytics"
+          date="Jan 1, 2025"
+          category="Marketing Intelligence"
+        />
             <header className="relative pt-32 pb-20 px-6 border-b border-white/5 overflow-hidden">
                 <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[400px] bg-emerald-600/10 blur-[100px] rounded-full -z-10" />
                 <div className="max-w-3xl mx-auto space-y-6">

@@ -1,3 +1,4 @@
+import ArticleSchema from '../../components/Article/ArticleSchema';
 import Link from 'next/link';
 import { ArrowLeft, Car, RotateCw, Mail } from 'lucide-react';
 import RelatedArticles from '../../components/RelatedArticles';
@@ -6,11 +7,23 @@ export const metadata = {
     title: 'Fill Your Bays: Automating Service Reminders for Auto Shops | Brandverse',
     description: 'Stop relying on generic postcards. Use AI to sync with your shop management system and predict exactly when customers need service.',
     keywords: ['auto repair shop marketing', 'automated service reminders', 'mechanic shop scheduling software', 'car repair lead generation', 'auto shop crm'],
+    robots: { index: true, follow: true, googleBot: { index: true, follow: true, 'max-video-preview': -1, 'max-image-preview': 'large', 'max-snippet': -1 } },
+    alternates: { canonical: 'https://brandverse.tech/blog/auto-service-retention' }
+,
+  openGraph: { title: 'Fill Your Bays: Automating Service Reminders for Auto Shops', description: 'Predictive maintenance texts that drive repeat business without postcard waste.', type: 'article' as const, siteName: 'Brandverse' },
+  twitter: { card: 'summary_large_image' as const, title: 'Fill Your Bays: Automating Service Reminders for Auto Shops', description: 'Predictive maintenance texts that drive repeat business without postcard waste.' }
 };
 
 export default function Post() {
     return (
         <div className="min-h-screen bg-[#020617] text-slate-200 selection:bg-red-500/30">
+        <ArticleSchema
+          title={'Fill Your Bays: Automating Service Reminders for Auto Shops'}
+          description={'Predictive maintenance texts that drive repeat business without postcard waste.'}
+          slug="auto-service-retention"
+          date="Jan 2, 2025"
+          category="Industry Focus"
+        />
             <header className="relative pt-32 pb-20 px-6 border-b border-white/5 overflow-hidden">
                 <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[400px] bg-red-600/10 blur-[100px] rounded-full -z-10" />
                 <div className="max-w-3xl mx-auto space-y-6">

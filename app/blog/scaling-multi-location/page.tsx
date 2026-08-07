@@ -1,25 +1,34 @@
-import Link from 'next/link';
+import ArticleLayout from '../../components/Article/ArticleLayout';
+import { getBlogPost } from '@/lib/blog-content';
+
+const post = getBlogPost('scaling-multi-location')!;
 
 export const metadata = {
-  title: 'Scaling Across Multiple Locations — Brandverse',
+  title: 'Scaling Across Multiple Locations | Brandverse',
   description: 'Best practices for deploying AI agents across franchises, multi-location businesses, and regional teams.',
+  keywords: ['multi-location AI', 'franchise automation', 'scaling voice agents', 'multi-site AI deployment'],
+  openGraph: { title: 'Scaling Across Multiple Locations', description: post.excerpt, type: 'article' },
+  twitter: { card: 'summary_large_image', title: 'Scaling Across Multiple Locations', description: post.excerpt },
+    robots: { index: true, follow: true, googleBot: { index: true, follow: true, 'max-video-preview': -1, 'max-image-preview': 'large', 'max-snippet': -1 } },
+    alternates: { canonical: 'https://brandverse.tech/blog/scaling-multi-location' }
 };
 
 export default function Post() {
   return (
-    <div className="min-h-screen bg-[#020617] text-slate-200 selection:bg-blue-500/30">
-      <main className="pt-32 pb-20 px-6 max-w-4xl mx-auto">
-        <h1 className="text-4xl font-black text-white">Scaling Across Multiple Locations</h1>
-        <p className="text-slate-400 mt-4">By Ayush Sharma — Patterns for routing, local script variations, and reporting across regions.</p>
-
-        <section className="mt-8 space-y-4 text-slate-400">
-          <p>We discuss routing rules, local pricing, and consistency controls to ensure brand voice without losing local context.</p>
-        </section>
-
-        <div className="mt-8">
-          <Link href="/blog" className="text-blue-400 font-bold">← Back to articles</Link>
-        </div>
-      </main>
-    </div>
+    <ArticleLayout
+      slug={post.slug}
+      title="Scaling Across Multiple Locations"
+      subtitle="Best practices for deploying AI agents across franchises, multi-location businesses, and regional teams."
+      description={post.excerpt}
+      date="Jan 3, 2025"
+      readTime="9 min read"
+      category={post.category}
+      accent="emerald"
+      keywords={metadata.keywords}
+      takeaways={post.takeaways}
+      faqs={post.faqs}
+    >
+      <section className="space-y-6" dangerouslySetInnerHTML={{ __html: post.content }} />
+    </ArticleLayout>
   );
 }

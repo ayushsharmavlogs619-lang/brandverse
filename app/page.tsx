@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import { leadService } from '../lib/lead-service';
 import {
   Zap,
   Shield,
@@ -10,11 +11,8 @@ import {
   MessageSquare,
   ArrowRight,
   CheckCircle2,
-  BarChart3,
   Mic,
   Bot,
-  Star,
-  Users,
   Menu,
   ChevronRight,
   X,
@@ -23,7 +21,7 @@ import {
   Home,
   Briefcase,
   Building2,
-  Stethoscope,
+  Calendar,
   Car,
   Sparkles,
   TrendingUp,
@@ -40,6 +38,7 @@ import {
   Footprints,
   Check,
   HelpCircle,
+  Phone,
   Play
 } from 'lucide-react';
 import ChatWidget from './components/ChatWidget';
@@ -48,7 +47,7 @@ import { articles } from './lib/articles';
 
 export default function Page() {
   const [calculatorValue, setCalculatorValue] = useState(10);
-  const [avgJobValue, setAvgJobValue] = useState(300);
+  const [avgJobValue, setAvgJobValue] = useState(450);
   const [conversionRate, setConversionRate] = useState(40);
   const monthlyRevenue = Math.round(calculatorValue * avgJobValue * (conversionRate / 100) * 4);
   const yearlyRevenue = monthlyRevenue * 12;
@@ -56,153 +55,147 @@ export default function Page() {
   const monthlyROI = Math.round(((monthlyRevenue - aiCost) / aiCost) * 100);
   const yearlyROI = Math.round(((yearlyRevenue - (aiCost * 12)) / (aiCost * 12)) * 100);
 
+  const [email, setEmail] = useState('');
+  const [auditName, setAuditName] = useState('');
+  const [auditStatus, setAuditStatus] = useState<'idle' | 'loading' | 'success'>('idle');
+
+  const handleAuditSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email || !auditName) return;
+    setAuditStatus('loading');
+    try {
+      await leadService.submitLeadWithRetry({
+        full_name: auditName,
+        email,
+        service_interest: 'Free AI Readiness Audit',
+        source_page: '/',
+        source_form: 'homepage_audit_cta'
+      }, 1);
+      setAuditStatus('success');
+      setEmail('');
+      setAuditName('');
+    } catch {
+      setAuditStatus('idle');
+    }
+  };
+
   // Services data
   const services = [
     {
       icon: Mic,
       title: 'AI Voice Agents',
-      description: '24/7 natural-sounding voice agents that answer, qualify, and book appointments automatically.',
-      features: ['Live call handling', 'Call recording & transcripts', 'SMS confirmations', 'Multi-language support']
+      description: '24/7 natural-sounding agents that triage emergencies, quote panel jobs, and book service windows automatically.',
+      features: ['Live call handling', 'Emergency vs. routine triage', 'SMS confirmations', 'Multi-crew dispatch support']
     },
     {
       icon: Bot,
       title: 'AI Receptionist',
-      description: 'Intelligent front-desk automation that handles inquiries, schedules appointments, and nurtures leads.',
-      features: ['Instant response', 'Calendar integration', 'Lead qualification', 'Follow-up automation']
+      description: 'Intelligent front-desk automation that handles inquiries, schedules estimates, and nurtures leads.',
+      features: ['Instant response', 'Calendar/dispatch integration', 'Job-type qualification', 'Follow-up automation']
     },
     {
       icon: Workflow,
       title: 'Business Automations',
-      description: 'End-to-end workflow automation connecting your phone, CRM, calendar, and dispatch systems.',
+      description: 'End-to-end workflow automation connecting your phone, CRM, dispatch board, and crew calendars.',
       features: ['CRM integration', 'Calendar sync', 'Custom workflows', 'API access']
     },
     {
       icon: Database,
       title: 'CRM Integration',
-      description: 'Seamless two-way sync with Salesforce, HubSpot, ServiceTitan, Housecall Pro, and more.',
+      description: 'Seamless two-way sync with ServiceTitan, Housecall Pro, Jobber, and QuickBooks.',
       features: ['Real-time sync', 'Custom field mapping', 'Webhook triggers', 'Data enrichment']
     }
   ];
 
   const industries = [
     {
-      icon: Wrench,
-      name: "HVAC & Plumbing",
-      description: "Deploy AI-powered dispatch systems that capture emergency calls 24/7, auto-assign technicians based on real-time GPS data, and send automated job confirmations via SMS.",
-      results: "+42% Revenue",
-      color: "from-orange-500 to-red-500"
-    },
-    {
       icon: Home,
-      name: "Real Estate",
-      description: "Launch intelligent lead qualification engines that screen property inquiries, sync with your MLS, auto-schedule showings, and nurture cold leads with personalized voice campaigns.",
-      results: "3x Pipeline Velocity",
+      name: "Residential Electricians",
+      description: "Deploy AI dispatch that captures panel upgrade and rewiring inquiries 24/7, auto-quotes based on job type, and confirms appointments via SMS.",
+      benefit: "24/7 Lead Capture",
       color: "from-blue-500 to-cyan-500"
     },
     {
-      icon: Briefcase,
-      name: "Law Firms",
-      description: "Implement secure intake automation that screens case viability, books consultations directly to attorney calendars, and triggers document collection workflows—all GDPR compliant.",
-      results: "+65% Intake Rate",
+      icon: Building2,
+      name: "Commercial Electrical Contractors",
+      description: "Launch intake automation that screens project scope, checks against licensing/bonding requirements, and routes to the right estimator.",
+      benefit: "Qualified Lead Routing",
       color: "from-purple-500 to-pink-500"
     },
     {
-      icon: Building2,
-      name: "Construction",
-      description: "Build custom bidding platforms that capture project requests after-hours, pull job specs from uploaded blueprints, and auto-generate quote PDFs with dynamic pricing logic.",
-      results: "28% Faster Close",
-      color: "from-yellow-500 to-orange-500"
-    },
-    {
-      icon: Stethoscope,
-      name: "Healthcare",
-      description: "Deploy HIPAA-grade voice AI that verifies insurance eligibility in real-time, books appointments with bi-directional calendar sync, and sends automated pre-visit intake forms.",
-      results: "91% Fill Rate",
-      color: "from-green-500 to-emerald-500"
+      icon: Zap,
+      name: "Emergency / 24-Hour Electricians",
+      description: "Instant triage that separates true emergencies (sparking outlet, total power loss, exposed wiring) from routine calls, and dispatches your on-call tech immediately with GPS-based assignment.",
+      benefit: "Instant Emergency Dispatch",
+      color: "from-red-500 to-orange-500"
     },
     {
       icon: Car,
-      name: "Auto Services",
-      description: "Install service scheduling APIs that check parts inventory via live database queries, confirm technician availability, and trigger post-service review campaigns on autopilot.",
-      results: "+52% Review Growth",
-      color: "from-red-500 to-pink-500"
-    },
-    {
-      icon: Footprints,
-      name: "Podiatry Clinics",
-      description: "Automate orthotic production updates, schedule diabetic foot exams via voice AI, and reduce no-shows with smart SMS reminders for recurring treatments.",
-      results: "35% More New Patients",
-      color: "from-teal-500 to-green-400"
+      name: "EV Charger Installers",
+      description: "A lead-qualification engine that screens for panel capacity, permit requirements, and rebate eligibility before booking a site visit.",
+      benefit: "Pre-Qualified Site Visits",
+      color: "from-green-500 to-emerald-500"
     },
     {
       icon: Sparkles,
-      name: "Dermatology & Aesthetics",
-      description: "Manage high-volume cosmetic inquiries with AI that pre-screens for procedure eligibility, handles deposit collection, and fills cancellation slots instantly.",
-      results: "$12k/mo Added Revenue",
+      name: "Solar & Panel Upgrade Specialists",
+      description: "Voice AI that qualifies leads by home age, panel size, and utility provider, then books a site assessment straight to your calendar.",
+      benefit: "Calendar-Booked Assessments",
+      color: "from-yellow-500 to-orange-500"
+    },
+    {
+      icon: Wrench,
+      name: "Low Voltage & Smart Home Electricians",
+      description: "Scheduling that checks technician certifications (security, AV, home automation) before confirming a job type.",
+      benefit: "Certification-Matched Jobs",
+      color: "from-teal-500 to-green-400"
+    },
+    {
+      icon: ShieldCheck,
+      name: "Master Electricians / Inspections",
+      description: "Automated inspection scheduling, permit status updates, and no-show reduction with SMS reminders for code compliance visits.",
+      benefit: "Fewer No-Shows",
       color: "from-rose-400 to-pink-600"
+    },
+    {
+      icon: Briefcase,
+      name: "Industrial Electrical Contractors",
+      description: "Manage high-volume maintenance contract inquiries with AI that pre-screens for facility type, urgency, and union/licensing requirements.",
+      benefit: "High-Volume Screening",
+      color: "from-slate-500 to-gray-600"
     }
-  ];
-
-  const techStack = [
-    { name: "Next.js 16 (Turbopack)", description: "Server Components + Edge Runtime", icon: Code2 },
-    { name: "Supabase (Postgres)", description: "Real-time Relational Database", icon: Database },
-    { name: "Cloudflare Workers", description: "Global Edge Computing Infrastructure", icon: Globe },
-    { name: "Vapi AI SDK", description: "Programmable Voice Intelligence", icon: Mic },
-    { name: "n8n / Zapier", description: "Workflow Orchestration Layer", icon: Workflow },
-    { name: "Cloudflare Pages", description: "Global CDN + Instant Rollbacks", icon: Rocket }
   ];
 
   const capabilities = [
     {
-      title: "Proprietary Voice Models",
-      description: "We don't resell Vapi templates. We train custom LLM fine-tunes on YOUR scripts, YOUR brand voice, and YOUR FAQ database.",
+      title: "Custom-Trained Voice Agents",
+      description: "We don't ship generic templates. Every agent is trained on YOUR scripts, YOUR brand voice, and YOUR service menu — panel upgrades, EV charger installs, emergency repairs, code inspections.",
       icon: Terminal
     },
     {
       title: "Headless API Architecture",
-      description: "Every automation we build exposes a REST API. Integrate with ANY system: Salesforce, HubSpot, SQL Server, legacy ERPs—doesn't matter.",
+      description: "Every automation we build exposes a REST API. Integrate with ServiceTitan, Housecall Pro, Jobber, QuickBooks — doesn't matter.",
       icon: Layers
     },
     {
       title: "White-Label Deployment",
-      description: "Launch under your domain (yourbrand.com/ai). Your clients never see 'Powered by Brandverse' unless you want them to.",
+      description: "Launch under your domain. Your customers never see 'Powered by Brandverse' unless you want them to.",
       icon: Globe
-    }
-  ];
-
-  const testimonials = [
-    {
-      quote: "We were losing 30+ calls a week. Brandverse installed their Voice Agent and our booking rate doubled overnight. The tech is actually scary good.",
-      author: "Mike Thompson",
-      role: "Owner, Thompson HVAC",
-      metric: "$42k/mo Added Revenue",
-    },
-    {
-      quote: "I was skeptical about AI answering phones. But the Brandverse agent sounds more professional than my front desk ever did. It never calls in sick.",
-      author: "Sarah Jenkins",
-      role: "Partner, Lawton & Associates",
-      metric: "ZERO Missed Calls",
-    },
-    {
-      quote: "The automated follow-up system they built is a beast. It resurrects dead leads from 6 months ago and puts them on my calendar.",
-      author: "David Chen",
-      role: "Broker, Apex Realty Group",
-      metric: "3x More Listings",
     }
   ];
 
   const faq = [
     {
       q: "Will my customers know it's AI?",
-      a: "They might suspect it because it's polite, efficient, and never puts them on hold. But the voice quality is indistinguishable from a human on a slightly grainy cell connection. Most clients just think they're talking to a very sharp receptionist."
+      a: "The agent speaks naturally, so most callers simply continue the conversation. We never hide that it's AI if asked, and callers can always request a human."
     },
     {
       q: "How long does setup take?",
-      a: "We move fast. Kickoff to Go-Live is typically 48-72 hours. We don't drag projects out. We build your infrastructure, test it, and hand you the keys."
+      a: "We move fast. Kickoff to Go-Live is typically 48–72 hours. We build your infrastructure, test it, and hand you the keys."
     },
     {
       q: "Do I need to change my phone number?",
-      a: "No. We simply efficiently forward your missed calls to the AI agent, or port your main line if you want it taking 100% of traffic. Zero disruption to your business cards or truck wraps."
+      a: "No. We simply forward your missed calls to the AI agent, or port your main line if you want it taking 100% of traffic — including after-hours emergency routing. Zero disruption to your business cards or truck wraps."
     },
     {
       q: "What if the AI messes up?",
@@ -226,12 +219,13 @@ export default function Page() {
             <Link href="#hiring" className="hover:text-blue-400 transition-colors">Comparison</Link>
             <Link href="#industries" className="hover:text-blue-400 transition-colors">Industries</Link>
             <Link href="#roi" className="hover:text-blue-400 transition-colors">ROI Engine</Link>
+            <Link href="/pricing" className="hover:text-blue-400 transition-colors">Pricing</Link>
             <Link href="/blog" className="hover:text-blue-400 transition-colors">Intelligence</Link>
           </nav>
           <div className="flex items-center gap-4">
-            <Link href="/contact" className="hidden sm:block text-[11px] font-black uppercase tracking-widest text-blue-400 hover:text-white transition-colors">Client Login</Link>
+            <Link href="/audit" className="hidden sm:block text-[11px] font-black uppercase tracking-widest text-blue-400 hover:text-white transition-colors">Free Audit</Link>
             <Link href="/contact" className="px-6 py-3 bg-brand-gradient text-white rounded-full text-[11px] font-black uppercase tracking-widest shadow-lg shadow-blue-500/20 hover:scale-105 active:scale-95 transition-all">
-              Book Audit
+              Book a Free Demo
             </Link>
           </div>
         </div>
@@ -249,22 +243,36 @@ export default function Page() {
           <div className="max-w-6xl mx-auto text-center space-y-12 relative z-20">
             <div className="inline-flex items-center gap-3 px-6 py-2 rounded-2xl glass-morphism border border-white/10 text-cyan-400 text-[10px] font-black uppercase tracking-[0.2em] animate-fade-in neon-glow">
               <div className="w-4 h-4 bg-cyan-400 rounded-full mr-2 pulse-glow" />
-              Quantum AI Infrastructure
+              AI Receptionist for Electrical Contractors
             </div>
-            <h1 className="text-6xl md:text-[8rem] font-black text-white leading-[0.8] tracking-tighter uppercase italic holographic-text">
-              We Engineer <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500 animate-gradient">Digital Immortality</span><br />
-              For <span className="text-cyan-400 text-glow drop-shadow-glow">Legacy-Destroying</span> Businesses
+            <h1 className="text-5xl md:text-7xl lg:text-8xl font-black text-white leading-[1.1] tracking-tight holographic-text">
+              Your Phone Should Make You Money.<br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500 animate-gradient">Not Cost You Jobs.</span>
             </h1>
-            <p className="text-slate-300 text-lg md:text-2xl max-w-4xl mx-auto font-bold leading-relaxed pt-6 glass-morphism p-8 rounded-3xl border border-white/10">
-              <span className="text-cyan-400">⚡ Forget agencies. Forget SaaS.</span> We build <span className="text-purple-400 font-bold">proprietary AI infrastructure</span> that becomes your <span className="text-pink-400 font-bold">unfair competitive advantage</span>. Custom-engineered systems that <span className="text-cyan-400">replace entire departments</span>—deployed in <span className="text-glow font-black bg-gradient-to-r from-cyan-500 to-purple-500 bg-clip-text text-transparent px-2 py-1 rounded-lg">48 hours</span>.
+            <p className="text-slate-300 text-lg md:text-2xl max-w-4xl mx-auto font-bold leading-relaxed glass-morphism p-8 rounded-3xl border border-white/10">
+              Brandverse answers <span className="text-cyan-400">every customer call</span>, qualifies <span className="text-cyan-400">every lead</span>, and books appointments <span className="text-cyan-400">automatically</span>, so your electrical business <span className="text-glow font-black bg-gradient-to-r from-cyan-500 to-purple-500 bg-clip-text text-transparent px-2 py-1 rounded-lg">never misses another opportunity</span>.
             </p>
             <div className="flex flex-col sm:flex-row justify-center items-center gap-6 pt-12">
               <Link href="/contact" className="w-full sm:w-auto px-10 py-6 bg-brand-gradient text-white rounded-3xl font-black uppercase tracking-widest text-sm shadow-2xl shadow-blue-500/30 hover:scale-105 hover:shadow-blue-500/50 transition-all flex items-center justify-center gap-3">
-                Deploy Your Stack <ArrowRight className="w-5 h-5" />
+                Book a Free Demo <Calendar className="w-5 h-5" />
               </Link>
-              <Link href="/portfolio" className="text-sm font-black uppercase tracking-widest text-slate-400 hover:text-white transition-colors flex items-center gap-2">
-                <Code2 className="w-4 h-4" /> View Source Code
+              <Link href="#platform" className="text-sm font-black uppercase tracking-widest text-slate-400 hover:text-white transition-colors flex items-center gap-2">
+                <Play className="w-4 h-4" /> See How It Works
               </Link>
+            </div>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 pt-8 max-w-3xl mx-auto">
+              <div className="flex items-center justify-center gap-2 text-slate-400 text-sm font-bold">
+                <Phone className="w-4 h-4 text-cyan-400" /> Answer Every Call
+              </div>
+              <div className="flex items-center justify-center gap-2 text-slate-400 text-sm font-bold">
+                <Calendar className="w-4 h-4 text-cyan-400" /> Book More Jobs
+              </div>
+              <div className="flex items-center justify-center gap-2 text-slate-400 text-sm font-bold">
+                <Target className="w-4 h-4 text-cyan-400" /> Qualify Every Lead
+              </div>
+              <div className="flex items-center justify-center gap-2 text-slate-400 text-sm font-bold">
+                <Clock className="w-4 h-4 text-cyan-400" /> Available 24/7
+              </div>
             </div>
           </div>
         </section>
@@ -272,29 +280,28 @@ export default function Page() {
         {/* 🎯 FIRST CTA - After Hero */}
         <CTASection 
           title="Stop Losing Calls. Start Capturing Revenue."
-          subtitle="Every missed call is money handed to your competition. Our AI agents capture 100% of your calls, 24/7."
+          subtitle="Every missed call is a service call handed to the electrician down the street. Our AI agents answer every call, 24/7 — including the 2am emergencies that turn into your best-paying jobs."
           primaryText="Deploy Your AI Agent"
-          secondaryText="Hear Live Demo"
           variant="minimal"
         />
 
-        {/* 🔧 QUANTUM TECH STACK */}
+        {/* 🔧 INFRASTRUCTURE */}
         <section className="py-24 px-6 border-b border-white/5 relative overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-r from-blue-600/5 via-purple-600/5 to-transparent opacity-30" />
           <div className="max-w-7xl mx-auto relative z-10">
             <div className="text-center mb-12">
               <div className="inline-flex items-center gap-3 px-4 py-2 rounded-2xl glass-morphism border border-white/20 text-cyan-400 text-[10px] font-black uppercase tracking-[0.2em] animate-fade-in">
                 <div className="w-3 h-3 bg-cyan-400 rounded-full mr-2 pulse-glow" />
-                Quantum Infrastructure
+                Deployed On Modern Infrastructure
               </div>
             </div>
             <div className="grid grid-cols-2 md:grid-cols-5 gap-8 items-center">
               {[
-                { icon: Code2, name: "Next.js 16", desc: "Quantum-Optimized Runtime" },
-                { icon: Database, name: "Supabase", desc: "Real-time Database" },
-                { icon: Mic, name: "Vapi AI", desc: "Neural Voice Interface" },
-                { icon: Globe, name: "Firebase", desc: "Cloud Infrastructure" },
-                { icon: Rocket, name: "Vercel Edge", desc: "Global CDN" }
+                { icon: Code2, name: "Voice AI", desc: "Natural-Sounding Agents" },
+                { icon: Globe, name: "Cloudflare", desc: "Global Edge Network" },
+                { icon: Mic, name: "Call Handling", desc: "Live Triage & Booking" },
+                { icon: Workflow, name: "Workers", desc: "Edge Compute" },
+                { icon: Database, name: "Integrations", desc: "CRM & Calendar Sync" }
               ].map((tech, i) => (
                 <div key={i} className="group premium-card p-6 text-center hover:scale-105 transition-all duration-300 relative overflow-hidden">
                   <div className="absolute inset-0 bg-gradient-to-r from-transparent via-cyan-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
@@ -315,8 +322,58 @@ export default function Page() {
             </div>
             <h2 className="text-4xl md:text-6xl font-black text-white uppercase italic tracking-tighter">Your Phone is <br /><span className="text-red-500">Bleeding Money</span></h2>
             <p className="text-slate-400 text-lg md:text-xl font-medium leading-relaxed">
-              67% of callers hang up if they get voicemail. They don't leave a message—they call your competitor. Every missed call is a donation to the guy down the street who answered.
+              67% of callers hang up if they get voicemail. They don't leave a message — they call the next electrician in the search results. Every missed call — a tripped panel, a burnt outlet, a dead sub-panel at midnight — is a donation to your competitor.
             </p>
+          </div>
+        </section>
+
+        {/* 📧 EMAIL CAPTURE - Mid-Funnel Lead Magnet */}
+        <section className="py-24 px-6 bg-gradient-to-r from-blue-900/20 via-purple-900/20 to-slate-900/20 border-y border-white/5">
+          <div className="max-w-3xl mx-auto text-center space-y-8">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-[10px] font-black uppercase tracking-[0.2em]">
+              Free AI Readiness Audit
+            </div>
+            <h2 className="text-3xl md:text-5xl font-black text-white uppercase italic tracking-tighter">
+              Find Out What You're <span className="text-emerald-400">Leaking</span>
+            </h2>
+            <p className="text-slate-400 text-lg max-w-xl mx-auto">
+              Get a free audit of your missed calls: how many service calls you're likely losing after-hours, what it's costing you, and which AI system plugs the leak.
+            </p>
+
+            {auditStatus === 'success' ? (
+              <div className="p-6 rounded-2xl bg-emerald-500/10 border border-emerald-500/20">
+                <p className="text-emerald-400 font-bold text-lg">✓ Request received.</p>
+                <p className="text-slate-400 text-sm mt-2">We'll be in touch within one business day to schedule your audit.</p>
+              </div>
+            ) : (
+              <form onSubmit={handleAuditSubmit} className="max-w-md mx-auto flex flex-col sm:flex-row gap-3">
+                <div className="flex-1 flex flex-col sm:flex-row gap-3 w-full">
+                  <input
+                    type="text"
+                    placeholder="Your name"
+                    value={auditName}
+                    onChange={(e) => setAuditName(e.target.value)}
+                    required
+                    className="flex-1 px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-slate-600 focus:outline-none focus:border-emerald-500/50 text-sm"
+                  />
+                  <input
+                    type="email"
+                    placeholder="your@email.com"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                    className="flex-1 px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-slate-600 focus:outline-none focus:border-emerald-500/50 text-sm"
+                  />
+                </div>
+                <button
+                  type="submit"
+                  disabled={auditStatus === 'loading'}
+                  className="px-6 py-3 rounded-xl bg-emerald-500 text-white font-bold text-sm hover:bg-emerald-400 transition-colors disabled:opacity-50 shrink-0"
+                >
+                  {auditStatus === 'loading' ? 'Sending...' : 'Get My Audit'}
+                </button>
+              </form>
+            )}
           </div>
         </section>
 
@@ -325,10 +382,10 @@ export default function Page() {
           <div className="max-w-7xl mx-auto space-y-16">
             <div className="text-center space-y-6">
               <h2 className="text-5xl md:text-7xl font-black text-white uppercase italic tracking-tighter">
-                Not SaaS. <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400">Custom Infrastructure.</span>
+                Beyond Answering Services. <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400">Custom Infrastructure.</span>
               </h2>
               <p className="text-slate-400 text-lg max-w-3xl mx-auto font-bold">
-                We don't sell subscriptions to bloated platforms. We write production-grade code that compiles into <strong className="text-white">your proprietary software</strong>.
+                Generic answering services read from a script. We build custom AI systems engineered for how your business actually runs — trained on your services, pricing, and dispatch workflow.
               </p>
             </div>
 
@@ -348,10 +405,11 @@ export default function Page() {
 
         {/* 🎯 SECOND CTA - After Platform Capabilities */}
         <CTASection 
-          title="This Isn't SaaS. It's Your Infrastructure."
-          subtitle="We build custom AI systems that become your competitive advantage. No monthly subscriptions, no vendor lock-in."
+          title="Built For Your Business, Not Around a Product."
+          subtitle="Simple monthly pricing — no contracts, cancel anytime. See what a custom system would do for your call flow."
           primaryText="Build My Stack"
           secondaryText="View Case Studies"
+          secondaryLink="/case-studies"
           variant="minimal"
         />
 
@@ -370,15 +428,15 @@ export default function Page() {
                   </div>
                   <h3 className="text-3xl md:text-5xl font-black text-white uppercase italic tracking-tighter">Programmable Voice SDK</h3>
                   <p className="text-slate-300 text-lg max-w-md font-bold leading-relaxed">
-                    Build ultra-realistic AI phone agents with custom LLM fine-tuning, real-time calendar integrations, and CRM webhooks. Think Twilio, but for the AI era.
+                    Build ultra-realistic AI phone agents that triage true emergencies from routine calls, quote panel upgrades, and book service windows — with real-time dispatch calendar sync.
                   </p>
                   <div className="flex items-center gap-3">
-                    <button className="flex items-center gap-2 px-5 py-3 bg-blue-500/10 border border-blue-500/30 rounded-xl text-blue-400 font-black uppercase tracking-widest text-xs hover:bg-blue-500/20 transition-all">
+                    <Link href="/demos" className="flex items-center gap-2 px-5 py-3 bg-blue-500/10 border border-blue-500/30 rounded-xl text-blue-400 font-black uppercase tracking-widest text-xs hover:bg-blue-500/20 transition-all">
                       <Mic className="w-4 h-4" /> Listen to Demo
-                    </button>
-                    <button className="flex items-center gap-2 text-slate-400 font-black uppercase tracking-widest text-xs hover:text-white transition-all">
-                      API Docs <ChevronRight className="w-4 h-4" />
-                    </button>
+                    </Link>
+                    <Link href="/features" className="flex items-center gap-2 text-slate-400 font-black uppercase tracking-widest text-xs hover:text-white transition-all">
+                      Explore Features <ChevronRight className="w-4 h-4" />
+                    </Link>
                   </div>
                 </div>
               </div>
@@ -391,7 +449,7 @@ export default function Page() {
                   </div>
                   <h3 className="text-3xl font-black text-white uppercase italic tracking-tighter">Workflow Engine</h3>
                   <p className="text-slate-300 font-medium leading-relaxed">
-                    Automate contracts, payments, and collections with serverless functions that run on Firebase Cloud.
+                    Automate estimates, deposit collection, and permit paperwork reminders with serverless functions that run on Cloudflare's edge network.
                   </p>
                 </div>
               </div>
@@ -415,7 +473,7 @@ export default function Page() {
               <div className="grid grid-cols-3 p-6 border-b border-white/5 hover:bg-white/5 transition-colors">
                 <div className="font-bold text-white">Cost Per Month</div>
                 <div className="text-center text-red-400">$3,500+</div>
-                <div className="text-center text-green-400 font-bold">$497 - $997</div>
+                <div className="text-center text-green-400 font-bold">$497 – $1,497</div>
               </div>
               {/* Row 2 */}
               <div className="grid grid-cols-3 p-6 border-b border-white/5 hover:bg-white/5 transition-colors">
@@ -427,42 +485,44 @@ export default function Page() {
               <div className="grid grid-cols-3 p-6 border-b border-white/5 hover:bg-white/5 transition-colors">
                 <div className="font-bold text-white">Capacity</div>
                 <div className="text-center text-slate-400">1 Call at a time</div>
-                <div className="text-center text-blue-400 font-bold">Unlimited Concurrent</div>
+                <div className="text-center text-blue-400 font-bold">Handles Multiple Callers</div>
               </div>
               {/* Row 4 */}
               <div className="grid grid-cols-3 p-6 border-b border-white/5 hover:bg-white/5 transition-colors">
                 <div className="font-bold text-white">Sick Days</div>
-                <div className="text-center text-slate-400">10+ Year</div>
+                <div className="text-center text-slate-400">10+/Year</div>
                 <div className="text-center text-blue-400 font-bold">Zero</div>
               </div>
               {/* Row 5 */}
               <div className="grid grid-cols-3 p-6 hover:bg-white/5 transition-colors">
                 <div className="font-bold text-white">Training Time</div>
                 <div className="text-center text-slate-400">3-4 Weeks</div>
-                <div className="text-center text-blue-400 font-bold">Instant Download</div>
+                <div className="text-center text-blue-400 font-bold">Deployed in 48–72 Hours</div>
               </div>
             </div>
           </div>
         </section>
 
-        {/* � THIRD CTA - After Comparison */}
+        {/* THIRD CTA - After Comparison */}
         <CTASection 
           title="The Math Doesn't Lie."
-          subtitle="For less than one employee's monthly salary, get unlimited 24/7 coverage. The ROI is undeniable."
+          subtitle="For less than one employee's monthly salary, get unlimited 24/7 emergency and service call coverage. The ROI is undeniable."
           primaryText="Start Saving Money"
           secondaryText="Calculate My ROI"
+          secondaryLink="/roi-calculator"
           variant="minimal"
         />
 
-        {/* � INDUSTRY-SPECIFIC SECTIONS */}
+        {/* INDUSTRY-SPECIFIC SECTIONS */}
         <section id="industries" className="py-32 px-6">
           <div className="max-w-7xl mx-auto space-y-16">
             <div className="text-center space-y-6">
               <h2 className="text-5xl md:text-7xl font-black text-white uppercase italic tracking-tighter">
-                Industry-Specific <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">Tech Stacks</span>
+                Built For How <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">Electrical Contractors</span><br />
+                Actually Run Calls
               </h2>
               <p className="text-slate-400 text-lg max-w-3xl mx-auto font-bold">
-                We don't ship generic templates. Every deployment is a custom-engineered software solution built for your vertical's compliance requirements, CRM integrations, and customer expectations.
+                We don't ship generic templates. Every deployment is engineered for emergency triage, code compliance, and permit timing — and the same playbook applies to HVAC, plumbing, dental, legal, restaurants, salons, and 10+ more industries.
               </p>
             </div>
 
@@ -476,8 +536,8 @@ export default function Page() {
                     <h3 className="text-2xl font-black text-white uppercase tracking-tight mb-3">{industry.name}</h3>
                     <p className="text-slate-400 leading-relaxed mb-4 text-sm">{industry.description}</p>
                     <div className={`inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r ${industry.color} bg-opacity-10 border border-white/10`}>
-                      <TrendingUp className="w-4 h-4 text-white" />
-                      <span className="text-white font-black text-xs uppercase tracking-widest">{industry.results}</span>
+                      <CheckCircle2 className="w-4 h-4 text-white" />
+                      <span className="text-white font-black text-xs uppercase tracking-widest">{industry.benefit}</span>
                     </div>
                   </div>
                 </div>
@@ -493,7 +553,7 @@ export default function Page() {
               <h2 className="text-4xl md:text-6xl font-black text-white uppercase italic tracking-tighter">
                 Deployment <span className="text-blue-500">Protocol</span>
               </h2>
-              <p className="text-slate-500 font-bold uppercase tracking-widest text-xs">From kickoff to autopilot in 48 hours</p>
+              <p className="text-slate-500 font-bold uppercase tracking-widest text-xs">From Kickoff to Answering Calls in 48–72 Hours</p>
             </div>
             <div className="grid md:grid-cols-3 gap-12 relative">
               <div className="absolute top-1/2 left-0 w-full h-1 bg-white/5 -z-10 hidden md:block" />
@@ -501,19 +561,19 @@ export default function Page() {
               <div className="relative group">
                 <div className="w-20 h-20 rounded-full bg-[#020617] border border-blue-500/30 flex items-center justify-center text-3xl font-black text-blue-500 mb-8 mx-auto group-hover:scale-110 transition-transform shadow-2xl shadow-blue-500/20">1</div>
                 <h3 className="text-xl font-bold text-white text-center mb-4">Discovery & Scripting</h3>
-                <p className="text-center text-slate-400 text-sm leading-relaxed">We audit your current phone flow, ingest your FAQs, and craft a bespoke conversation script that matches your brand voice perfectly.</p>
+                <p className="text-center text-slate-400 text-sm leading-relaxed">We audit your current call flow, ingest your service menu and pricing, and craft a script that matches how you talk to homeowners and GCs.</p>
               </div>
 
               <div className="relative group">
                 <div className="w-20 h-20 rounded-full bg-[#020617] border border-purple-500/30 flex items-center justify-center text-3xl font-black text-purple-500 mb-8 mx-auto group-hover:scale-110 transition-transform shadow-2xl shadow-purple-500/20">2</div>
                 <h3 className="text-xl font-bold text-white text-center mb-4">Training & Integration</h3>
-                <p className="text-center text-slate-400 text-sm leading-relaxed">We fine-tune the LLM on your specific knowledge base and connect the voice API to your CRM (Salesforce, HubSpot, Zapier) for real-time data sync.</p>
+                <p className="text-center text-slate-400 text-sm leading-relaxed">We fine-tune the LLM on your electrical service catalog and connect the voice API to ServiceTitan, Housecall Pro, or Jobber for real-time dispatch sync.</p>
               </div>
 
               <div className="relative group">
                 <div className="w-20 h-20 rounded-full bg-[#020617] border border-green-500/30 flex items-center justify-center text-3xl font-black text-green-500 mb-8 mx-auto group-hover:scale-110 transition-transform shadow-2xl shadow-green-500/20">3</div>
                 <h3 className="text-xl font-bold text-white text-center mb-4">Go Live & Optimize</h3>
-                <p className="text-center text-slate-400 text-sm leading-relaxed">We flip the switch. Your AI agent starts answering calls immediately. We monitor the first 100 calls to refine tone and accuracy to 99%.</p>
+                <p className="text-center text-slate-400 text-sm leading-relaxed">We flip the switch. Your AI agent starts answering calls immediately. We monitor the first 100 calls closely and refine the emergency-triage scripts based on what we hear.</p>
               </div>
             </div>
           </div>
@@ -531,7 +591,7 @@ export default function Page() {
                 Everything You Need to <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">Automate</span>
               </h2>
               <p className="text-slate-400 text-lg max-w-3xl mx-auto font-bold">
-                From voice agents to CRM integration, we build complete automation systems that replace entire departments.
+                From voice agents to dispatch integration, we build complete automation systems that replace entire front-desk operations.
               </p>
             </div>
 
@@ -574,7 +634,7 @@ export default function Page() {
                 Invest In <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-500">Growth</span>
               </h2>
               <p className="text-slate-400 text-lg max-w-3xl mx-auto font-bold">
-                A full-time receptionist costs ~$45,000/year. Brandverse costs less than a coffee a day.
+                A full-time receptionist/dispatcher costs ~$45,000/year. Brandverse starts at $497/mo — less than what one missed service call costs you.
                 <span className="text-blue-400 font-bold"> No contracts. Cancel anytime.</span>
               </p>
             </div>
@@ -583,7 +643,7 @@ export default function Page() {
               {/* Starter */}
               <div className="p-10 rounded-3xl bg-[#0b1121] border border-white/10 text-center hover:border-blue-500/30 transition-all">
                 <h3 className="text-2xl font-bold mb-2 text-white">Starter</h3>
-                <div className="text-sm text-slate-500 font-medium mb-6">Perfect for Solopreneurs</div>
+                <div className="text-sm text-slate-500 font-medium mb-6">For Solo Pros</div>
                 <div className="text-5xl font-black mb-2 text-white">$497<span className="text-lg text-slate-500 font-normal">/mo</span></div>
                 <div className="text-xs text-slate-500 mb-8 uppercase tracking-widest font-semibold">Risk Free Guarantee</div>
                 <ul className="text-slate-400 space-y-4 mb-10 text-left text-sm">
@@ -602,10 +662,10 @@ export default function Page() {
                 <h3 className="text-3xl font-bold mb-2 text-white">Growth</h3>
                 <div className="text-sm text-indigo-200 font-medium mb-6">For Established Teams</div>
                 <div className="text-6xl font-black mb-2 text-white">$997<span className="text-lg text-indigo-200 font-normal">/mo</span></div>
-                <div className="text-xs text-indigo-200 mb-8 uppercase tracking-widest font-semibold">No Setup Fees This Week</div>
+                <div className="text-xs text-indigo-200 mb-8 uppercase tracking-widest font-semibold">No Setup Fees — Ever</div>
                 <ul className="text-white space-y-5 mb-12 text-left">
                   <li className="flex items-center gap-3"><Check className="w-5 h-5 text-indigo-200" /> <strong>Everything in Starter</strong></li>
-                  <li className="flex items-center gap-3"><Check className="w-5 h-5 text-indigo-200" /> <strong>Full CRM Integration</strong> (2-way)</li>
+                  <li className="flex items-center gap-3"><Check className="w-5 h-5 text-indigo-200" /> <strong>Full CRM/Dispatch Integration</strong> (2-way)</li>
                   <li className="flex items-center gap-3"><Check className="w-5 h-5 text-indigo-200" /> Custom Voice Cloning</li>
                   <li className="flex items-center gap-3"><Check className="w-5 h-5 text-indigo-200" /> Unlimited Minutes</li>
                   <li className="flex items-center gap-3"><Check className="w-5 h-5 text-indigo-200" /> Multilingual (ES/FR)</li>
@@ -617,8 +677,8 @@ export default function Page() {
               {/* Enterprise */}
               <div className="p-10 rounded-3xl bg-[#0b1121] border border-white/10 text-center hover:border-blue-500/30 transition-all">
                 <h3 className="text-2xl font-bold mb-2 text-white">Enterprise</h3>
-                <div className="text-sm text-slate-500 font-medium mb-6">Franchises & Multi-Location</div>
-                <div className="text-5xl font-black mb-2 text-white">Custom</div>
+                <div className="text-sm text-slate-500 font-medium mb-6">Multi-Location & Franchises</div>
+                <div className="text-5xl font-black mb-2 text-white">$1,497<span className="text-lg text-slate-500 font-normal">/mo</span></div>
                 <div className="text-xs text-slate-500 mb-8 uppercase tracking-widest font-semibold">White Glove Service</div>
                 <ul className="text-slate-400 space-y-4 mb-10 text-left text-sm">
                   <li className="flex items-center gap-3"><Check className="w-5 h-5 text-blue-500" /> Multi-location Routing Logic</li>
@@ -638,7 +698,7 @@ export default function Page() {
               </div>
               <div className="text-left">
                 <h3 className="text-2xl font-bold text-white mb-2">Our 30-Day Happiness Guarantee</h3>
-                <p className="text-slate-400">We are so confident that Brandverse will increase your booking rate that if you don't generate at least 3x your monthly ROI in the first 30 days, we'll refund your subscription in full. No questions asked.</p>
+                <p className="text-slate-400">Not delighted within your first 30 days? We'll refund your subscription in full — no questions, no hoops.</p>
               </div>
             </div>
           </div>
@@ -646,10 +706,11 @@ export default function Page() {
 
         {/* 🎯 SIXTH CTA - After Pricing */}
         <CTASection 
-          title="Ready to Automate Your Business?"
+          title="Ready to Automate Your Electrical Business?"
           subtitle="We build custom AI infrastructure that becomes your competitive advantage."
           primaryText="Get Started"
           secondaryText="View Pricing"
+          secondaryLink="/pricing"
           variant="minimal"
         />
 
@@ -660,7 +721,7 @@ export default function Page() {
               <h2 className="text-4xl md:text-6xl font-black text-white uppercase italic tracking-tighter">
                 CALCULATE YOUR <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400">ALPHA</span>
               </h2>
-              <p className="text-slate-500 font-bold uppercase tracking-widest text-xs">Quantify the cost of manual operations</p>
+              <p className="text-slate-500 font-bold uppercase tracking-widest text-xs">Quantify the cost of missed electrical service calls</p>
             </div>
 
             <div className="bg-gradient-to-br from-slate-900/80 to-slate-900/40 rounded-[3.5rem] border border-white/5 p-8 md:p-16 shadow-2xl relative overflow-hidden">
@@ -765,40 +826,51 @@ export default function Page() {
           subtitle="You just calculated how much money you're losing. Let us help you capture it instead."
           primaryText="Stop The Bleeding"
           secondaryText="See Case Studies"
+          secondaryLink="/case-studies"
           variant="minimal"
         />
 
-        {/* ⭐ REVIEWS / TESTIMONIALS */}
+        {/* ⭐ WHAT YOU GET */}
         <section className="py-32 px-6 bg-black/40 border-t border-white/5">
           <div className="max-w-7xl mx-auto space-y-16">
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
               <div className="space-y-4">
-                <h2 className="text-4xl md:text-5xl font-black text-white uppercase italic tracking-tighter">Verified <span className="text-purple-500">Performance</span></h2>
-                <p className="text-slate-400 text-lg">Don't take our word for it.</p>
+                <h2 className="text-4xl md:text-5xl font-black text-white uppercase italic tracking-tighter">What We <span className="text-purple-500">Deliver</span></h2>
+                <p className="text-slate-400 text-lg">No vague promises. Here's exactly what happens when you sign up.</p>
               </div>
-              <div className="flex items-center gap-2 p-3 bg-white/5 rounded-full border border-white/10">
-                <div className="flex text-yellow-500">
-                  <Star className="w-4 h-4 fill-current" /><Star className="w-4 h-4 fill-current" /><Star className="w-4 h-4 fill-current" /><Star className="w-4 h-4 fill-current" /><Star className="w-4 h-4 fill-current" />
-                </div>
-                <span className="text-xs font-bold text-white uppercase tracking-widest">5.0 Star Average</span>
-              </div>
+              <Link href="/process" className="hidden md:flex items-center gap-2 text-sm font-bold uppercase tracking-widest text-blue-400 hover:text-white transition-colors">
+                See The Full Process <ArrowRight className="w-4 h-4" />
+              </Link>
             </div>
 
             <div className="grid md:grid-cols-3 gap-6">
-              {testimonials.map((t, idx) => (
-                <div key={idx} className="p-8 rounded-3xl bg-slate-900/50 border border-white/5 space-y-6">
-                  <div className="text-slate-300 italic leading-relaxed">"{t.quote}"</div>
-                  <div className="flex items-center justify-between pt-6 border-t border-white/5">
-                    <div>
-                      <div className="font-bold text-white">{t.author}</div>
-                      <div className="text-xs text-slate-500 uppercase tracking-wider">{t.role}</div>
-                    </div>
-                    <div className="text-right">
-                      <div className="text-green-400 text-xs font-black uppercase tracking-widest">{t.metric}</div>
-                    </div>
-                  </div>
+              <div className="p-8 rounded-3xl bg-slate-900/50 border border-white/5 space-y-6">
+                <div className="w-12 h-12 rounded-2xl bg-blue-600/20 flex items-center justify-center">
+                  <CheckCircle2 className="w-6 h-6 text-blue-400" />
                 </div>
-              ))}
+                <h3 className="text-xl font-black text-white">Live in 48–72 Hours</h3>
+                <p className="text-slate-400 leading-relaxed">
+                  Kickoff to go-live in 48–72 hours. Your agent is trained on your services, pricing, and calendar before it takes a single call.
+                </p>
+              </div>
+              <div className="p-8 rounded-3xl bg-slate-900/50 border border-white/5 space-y-6">
+                <div className="w-12 h-12 rounded-2xl bg-purple-600/20 flex items-center justify-center">
+                  <ShieldCheck className="w-6 h-6 text-purple-400" />
+                </div>
+                <h3 className="text-xl font-black text-white">30-Day Guarantee</h3>
+                <p className="text-slate-400 leading-relaxed">
+                  Not delighted in your first 30 days? Full refund — no questions, no hoops, no long-term contracts.
+                </p>
+              </div>
+              <div className="p-8 rounded-3xl bg-slate-900/50 border border-white/5 space-y-6">
+                <div className="w-12 h-12 rounded-2xl bg-green-600/20 flex items-center justify-center">
+                  <Phone className="w-6 h-6 text-green-400" />
+                </div>
+                <h3 className="text-xl font-black text-white">Transparent Reporting</h3>
+                <p className="text-slate-400 leading-relaxed">
+                  Every call is recorded, summarized, and delivered to you by SMS or email — so you can verify quality yourself.
+                </p>
+              </div>
             </div>
           </div>
         </section>
@@ -845,7 +917,7 @@ export default function Page() {
         <section className="py-24 px-6 border-t border-white/5">
           <div className="max-w-4xl mx-auto space-y-16">
             <div className="text-center">
-              <h2 className="text-3xl md:text-5xl font-black text-white uppercase italic tracking-tighter">Transmission <span className="text-slate-600">Logs</span></h2>
+              <h2 className="text-3xl md:text-5xl font-black text-white uppercase italic tracking-tighter">Common <span className="text-slate-600">Questions</span></h2>
               <p className="text-slate-500 text-sm font-bold uppercase tracking-widest mt-4">Frequently Asked Questions</p>
             </div>
             <div className="space-y-8">
@@ -869,10 +941,10 @@ export default function Page() {
             <div className="relative z-10 space-y-10">
               <h2 className="text-4xl md:text-6xl font-black text-white uppercase italic tracking-tighter">Ready to Deploy?</h2>
               <p className="text-slate-300 text-lg font-bold max-w-2xl mx-auto">
-                We take on <strong className="text-white">3 new infrastructure builds per month</strong>. Current availability for approved partners deploying in <strong className="text-blue-400">Q1 2026</strong>.
+                Tell us about your business and we'll show you exactly what automation would do for it — on a free, zero-obligation call.
               </p>
               <Link href="/contact" className="inline-block px-12 py-6 bg-brand-gradient text-white rounded-2xl font-black uppercase tracking-widest text-sm shadow-2xl shadow-blue-500/30 hover:scale-105 hover:shadow-blue-500/50 transition-all">
-                Apply for Partnership
+                Book a Free Demo
               </Link>
             </div>
           </div>

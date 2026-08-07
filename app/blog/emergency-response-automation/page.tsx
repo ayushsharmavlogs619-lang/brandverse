@@ -133,7 +133,7 @@ export default function Post() {
               We train your AI on your specific emergency protocols, services, and escalation rules. It learns the difference between "can you come Tuesday?" and "my house is flooding."
             </p>
             <p className="text-slate-400 leading-8 text-lg">
-              Most emergency service businesses see 40% increase in after-hours revenue within the first month.
+              After-hours and emergency calls typically carry the highest job values — capturing them consistently is where the biggest revenue upside is.
             </p>
           </section>
 

@@ -1,16 +1,29 @@
+import ArticleSchema from '../../components/Article/ArticleSchema';
 import Link from 'next/link';
-import { ArrowLeft, Clock, Moon, TrendingUp, Phone, Calendar, Zap } from 'lucide-react';
+import { ArrowLeft, Clock, Moon, Phone, Zap } from 'lucide-react';
 import RelatedArticles from '../../components/RelatedArticles';
 
 export const metadata = {
     title: 'Your 24/7 Sales Team: Why "Business Hours" Are Killing Your Growth | Brandverse',
     description: 'The modern consumer doesn\'t wait for 9 AM. Learn how an always-on AI sales team captures the 40% of leads you\'re currently ignoring.',
     keywords: ['24/7 sales team', 'after hours lead capture', 'AI sales agents', 'missed call automation', 'increase conversion from leads'],
+    robots: { index: true, follow: true, googleBot: { index: true, follow: true, 'max-video-preview': -1, 'max-image-preview': 'large', 'max-snippet': -1 } },
+    alternates: { canonical: 'https://brandverse.tech/blog/24-7-sales-revolution' }
+,
+  openGraph: { title: 'Your 24/7 Sales Team: Why "Business Hours" Are Killing Your Growth', description: 'The modern consumer doesn\'t wait. Capture the 40% of leads you\'re ignoring.', type: 'article' as const, siteName: 'Brandverse' },
+  twitter: { card: 'summary_large_image' as const, title: 'Your 24/7 Sales Team: Why "Business Hours" Are Killing Your Growth', description: 'The modern consumer doesn\'t wait. Capture the 40% of leads you\'re ignoring.' }
 };
 
 export default function Post() {
     return (
         <div className="min-h-screen bg-[#020617] text-slate-200 selection:bg-blue-500/30">
+        <ArticleSchema
+          title={'Your 24/7 Sales Team: Why "Business Hours" Are Killing Your Growth'}
+          description={'The modern consumer doesn\'t wait. Capture the 40% of leads you\'re ignoring.'}
+          slug="24-7-sales-revolution"
+          date="Dec 30, 2024"
+          category="Growth Strategy"
+        />
             <header className="relative pt-32 pb-20 px-6 border-b border-white/5 overflow-hidden">
                 <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[400px] bg-indigo-600/10 blur-[100px] rounded-full -z-10" />
                 <div className="max-w-3xl mx-auto space-y-6">
@@ -81,7 +94,7 @@ export default function Post() {
                         <h2 className="text-2xl font-black text-white uppercase italic tracking-wide">Human Logic vs. AI Logic</h2>
                         <div className="grid md:grid-cols-2 gap-6">
                             <div className="p-6 rounded-2xl bg-white/5 border border-white/10">
-                                <h4 className="font-bold text-red-400 mb-2 flex items-center gap-2"><Clock className="w-4 h-4" /> Human Receptionist</h4>
+                                <h3 className="font-bold text-red-400 mb-2 flex items-center gap-2"><Clock className="w-4 h-4" /> Human Receptionist</h3>
                                 <ul className="space-y-2 text-sm text-slate-400">
                                     <li className="opacity-70">• Works 40 hours/week</li>
                                     <li className="opacity-70">• Costs $45,000/year</li>
@@ -90,7 +103,7 @@ export default function Post() {
                                 </ul>
                             </div>
                             <div className="p-6 rounded-2xl bg-indigo-600/10 border border-indigo-500/30">
-                                <h4 className="font-bold text-green-400 mb-2 flex items-center gap-2"><Zap className="w-4 h-4" /> AI Voice Agent</h4>
+                                <h3 className="font-bold text-green-400 mb-2 flex items-center gap-2"><Zap className="w-4 h-4" /> AI Voice Agent</h3>
                                 <ul className="space-y-2 text-sm text-slate-300">
                                     <li className="font-medium">• Works 168 hours/week</li>
                                     <li className="font-medium">• Costs fraction of a salary</li>

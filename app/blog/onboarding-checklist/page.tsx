@@ -1,30 +1,34 @@
-import Link from 'next/link';
+import ArticleLayout from '../../components/Article/ArticleLayout';
+import { getBlogPost } from '@/lib/blog-content';
+
+const post = getBlogPost('onboarding-checklist')!;
 
 export const metadata = {
-  title: 'Onboarding Checklist for AI Agents — Brandverse',
+  title: 'Onboarding Checklist for AI Agents | Brandverse',
   description: 'A step-by-step onboarding checklist to get your AI agent live and converting quickly.',
+  keywords: ['AI agent onboarding', 'voice agent setup', 'AI receptionist deployment', 'implementation checklist'],
+  openGraph: { title: 'Onboarding Checklist for AI Agents', description: post.excerpt, type: 'article' },
+  twitter: { card: 'summary_large_image', title: 'Onboarding Checklist for AI Agents', description: post.excerpt },
+    robots: { index: true, follow: true, googleBot: { index: true, follow: true, 'max-video-preview': -1, 'max-image-preview': 'large', 'max-snippet': -1 } },
+    alternates: { canonical: 'https://brandverse.tech/blog/onboarding-checklist' }
 };
 
 export default function Post() {
   return (
-    <div className="min-h-screen bg-[#020617] text-slate-200 selection:bg-blue-500/30">
-      <main className="pt-32 pb-20 px-6 max-w-4xl mx-auto">
-        <h1 className="text-4xl font-black text-white">Onboarding Checklist for AI Agents</h1>
-        <p className="text-slate-400 mt-4">By Ayush Sharma — Everything we run during discovery, script design, pilot, and scale.</p>
-
-        <section className="mt-8 space-y-4 text-slate-400">
-          <ol className="list-decimal pl-6 space-y-2">
-            <li>Discovery call & KPI definition</li>
-            <li>Script drafting and objection handling</li>
-            <li>Pilot deployment and tuning</li>
-            <li>Full rollout and weekly optimization</li>
-          </ol>
-        </section>
-
-        <div className="mt-8">
-          <Link href="/blog" className="text-blue-400 font-bold">← Back to articles</Link>
-        </div>
-      </main>
-    </div>
+    <ArticleLayout
+      slug={post.slug}
+      title="Onboarding Checklist for AI Agents"
+      subtitle="A step-by-step onboarding checklist to get your AI agent live and converting quickly."
+      description={post.excerpt}
+      date="Jan 3, 2025"
+      readTime="9 min read"
+      category={post.category}
+      accent="blue"
+      keywords={metadata.keywords}
+      takeaways={post.takeaways}
+      faqs={post.faqs}
+    >
+      <section className="space-y-6" dangerouslySetInnerHTML={{ __html: post.content }} />
+    </ArticleLayout>
   );
 }

@@ -8,31 +8,39 @@
     "build:skip-validation": "next build",
     "start": "next start",
     "lint": "eslint",
-    "deploy": "node deploy-cloudflare.js",
-    "deploy:cloudflare": "npx wrangler pages deploy out --project-name brandverse --branch=production",
+    "type-check": "tsc --noEmit",
+    "verify:cloudflare": "node scripts/verify-cloudflare.js",
+    "verify:workers": "node scripts/verify-workers.js",
+    "verify:deployment": "npm run build && npm run type-check && npm run verify:cloudflare && npm run verify:workers",
+    "deploy:cloudflare": "npx wrangler pages deploy out --project-name brandverse --branch=main",
     "deploy:subdomain-router": "npx wrangler deploy --config subdomain-router/wrangler.toml",
-    "deploy:all": "node deploy-cloudflare.js && npm run deploy:subdomain-router"
+    "deploy:worker": "npx wrangler deploy --config ai-reception/wrangler.toml --env production",
+    "deploy:worker-staging": "npx wrangler deploy --config ai-reception/wrangler.toml --env staging",
+    "deploy:all": "npm run build && npm run deploy:cloudflare && npm run deploy:subdomain-router",
+    "test": "node tests/unit.test.js",
+    "test:api": "node tests/api.test.js",
+    "test:worker": "node tests/unit.test.js",
+    "onboard": "node scripts/onboard-client.js",
+    "ops:check": "node scripts/ops-check.js",
+    "doctor": "node scripts/doctor.js"
   },
   "dependencies": {
-    "@google/generative-ai": "^0.24.1",
-    "@vapi-ai/web": "^2.5.2",
+    "@vapi-ai/web": "^2.6.1",
     "framer-motion": "^12.42.2",
     "lucide-react": "^0.555.0",
     "next": "^16.1.1",
-    "node-fetch": "^3.3.2",
     "react": "^19.2.1",
-    "react-dom": "^19.2.1",
-    "web-push": "^3.6.7"
+    "react-dom": "^19.2.1"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "@types/web-push": "^3.6.4",
     "eslint": "^9",
-    "eslint-config-next": "^15.1.7",
+    "eslint-config-next": "^16.1.1",
     "tailwindcss": "^4",
-    "typescript": "^5"
+    "typescript": "^5",
+    "wrangler": "^4.114.0"
   }
 }

@@ -10,8 +10,9 @@
  * If not provided, performs local configuration verification only
  */
 
-const fs = require('fs');
-const path = require('path');
+import fs from 'fs';
+import path from 'path';
+import { pathToFileURL } from 'url';
 
 // Color codes
 const colors = {
@@ -322,7 +323,7 @@ function main() {
   }
 }
 
-if (require.main === module) {
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
   main();
 }
 

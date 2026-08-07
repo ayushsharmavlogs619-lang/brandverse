@@ -1,3 +1,4 @@
+import ArticleSchema from '../../components/Article/ArticleSchema';
 import Link from 'next/link';
 import { ArrowLeft, Database, GitMerge, Workflow, Zap, CheckSquare } from 'lucide-react';
 import RelatedArticles from '../../components/RelatedArticles';
@@ -5,11 +6,23 @@ import RelatedArticles from '../../components/RelatedArticles';
 export const metadata = {
     title: 'The Perfect Handoff: Connecting AI Voice Agents to Your CRM — Brandverse',
     description: 'An AI that answers phones is cool. An AI that answers phones AND updates Salesforce automatically is a business revolution.',
+    robots: { index: true, follow: true, googleBot: { index: true, follow: true, 'max-video-preview': -1, 'max-image-preview': 'large', 'max-snippet': -1 } },
+    alternates: { canonical: 'https://brandverse.tech/blog/crm-automation-blueprint' }
+,
+  openGraph: { title: 'The Perfect Handoff: Connecting AI Voice Agents to Your CRM', description: 'An AI that answers phones AND updates Salesforce automatically.', type: 'article' as const, siteName: 'Brandverse' },
+  twitter: { card: 'summary_large_image' as const, title: 'The Perfect Handoff: Connecting AI Voice Agents to Your CRM', description: 'An AI that answers phones AND updates Salesforce automatically.' }
 };
 
 export default function Post() {
     return (
         <div className="min-h-screen bg-[#020617] text-slate-200 selection:bg-blue-500/30">
+        <ArticleSchema
+          title={'The Perfect Handoff: Connecting AI Voice Agents to Your CRM'}
+          description={'An AI that answers phones AND updates Salesforce automatically.'}
+          slug="crm-automation-blueprint"
+          date="Dec 30, 2024"
+          category="Technical Guide"
+        />
             <header className="relative pt-32 pb-20 px-6 border-b border-white/5 overflow-hidden">
                 <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[400px] bg-emerald-600/10 blur-[100px] rounded-full -z-10" />
                 <div className="max-w-3xl mx-auto space-y-6">
@@ -85,7 +98,7 @@ export default function Post() {
 
                         <div className="space-y-8">
                             <div>
-                                <h4 className="text-xl font-bold text-white mb-2">1. The HVAC Dispatcher</h4>
+                                <h3 className="text-xl font-bold text-white mb-2">1. The HVAC Dispatcher</h3>
                                 <p className="text-slate-400 leading-relaxed">
                                     <strong>Trigger:</strong> Customer calls saying "My AC is busted."<br />
                                     <strong>Action:</strong> AI checks ServiceTitan for the customer's history. Sees they have a warranty. Books the slot. Tags the job as "Warranty - Urgent." Sends a Push Notification to the on-call tech on Slack.
@@ -93,7 +106,7 @@ export default function Post() {
                             </div>
 
                             <div>
-                                <h4 className="text-xl font-bold text-white mb-2">2. The Real Estate Qualifier</h4>
+                                <h3 className="text-xl font-bold text-white mb-2">2. The Real Estate Qualifier</h3>
                                 <p className="text-slate-400 leading-relaxed">
                                     <strong>Trigger:</strong> Lead asks about a listing.<br />
                                     <strong>Action:</strong> AI collects budget, timeline, and pre-approval status. Updates Follow Up Boss (CRM). If qualified, transfers live to the agent's cell. If not, puts them in a "Long Term Nurture" email sequence in Mailchimp.

@@ -2,7 +2,6 @@
 
 import Link from 'next/link';
 import { ArrowLeft, CheckCircle2, AlertTriangle, Phone, Mail, ArrowRight, ShieldCheck } from 'lucide-react';
-import CTASection from '../components/CTASection';
 import { useState } from 'react';
 import LeadForm, { SuccessMessage } from '../components/LeadForm';
 
@@ -24,10 +23,10 @@ export default function AuditPage() {
                 {/* Header */}
                 <div className="flex items-center justify-between mb-16">
                     <Link href="/" className="flex items-center gap-2 text-sm font-bold uppercase tracking-widest text-slate-500 hover:text-white transition-colors">
-                        <ArrowLeft className="w-4 h-4" /> Back into the Matrix
+                        <ArrowLeft className="w-4 h-4" /> Back to Home
                     </Link>
-                    <div className="px-4 py-1.5 rounded-full bg-red-500/10 border border-red-500/20 text-red-400 text-[10px] font-black uppercase tracking-[0.2em] animate-pulse">
-                        ● Limited Availability: 3 Spots Left
+                    <div className="px-4 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-[10px] font-black uppercase tracking-[0.2em]">
+                        Free Missed-Call Audit
                     </div>
                 </div>
 
@@ -41,7 +40,7 @@ export default function AuditPage() {
                                 In 24 Hours.
                             </h1>
                             <p className="text-xl text-slate-300 font-medium leading-relaxed max-w-lg">
-                                The Brandverse "Trojan Horse" Audit. We monitor your missed calls for one day.
+                                The Brandverse Missed-Call Audit. We monitor your incoming calls for one day.
                                 If we don't find at least <strong className="text-green-400">$500</strong> in lost revenue opportunities,
                                 <span className="text-white border-b-2 border-red-500/50"> we pay you $100</span>.
                             </p>
@@ -54,7 +53,7 @@ export default function AuditPage() {
                                 </div>
                                 <div>
                                     <div className="text-white font-bold">100% Passive Test</div>
-                                    <div className="text-slate-400 text-sm">We handle the setup. Zero disruption to your ops.</div>
+                                    <div className="text-slate-400 text-sm">One-time call-forwarding setup. Zero disruption to your ops.</div>
                                 </div>
                             </div>
                             <div className="flex items-center gap-4 p-4 rounded-2xl bg-white/5 border border-white/5">
@@ -73,8 +72,8 @@ export default function AuditPage() {
                                 <AlertTriangle className="w-3 h-3 text-yellow-500" /> Audit Protocol
                             </div>
                             1. We generate a tracking number.<br />
-                            2. You forward missed calls to it for 24h.<br />
-                            3. AI analyzes every voicemail & hangup.<br />
+                            2. You add it to your phone's call-forwarding (one-time setting).<br />
+                            3. AI analyzes every voicemail &amp; hangup.<br />
                             4. You get a "Lost Revenue Report" PDF.
                         </div>
                     </div>
@@ -85,7 +84,7 @@ export default function AuditPage() {
 
                         <div className="bg-[#0f172a] border border-white/10 rounded-[2.5rem] p-8 md:p-10 shadow-2xl relative z-10">
                             <div className="mb-8">
-                                <h3 className="text-2xl font-black text-white italic">Claim Your Audit</h3>
+                                <h3 className="text-2xl font-black text-white italic">Get Your Free Audit</h3>
                                 <p className="text-slate-400">Enter your details to generate your tracking line.</p>
                             </div>
 
@@ -141,11 +140,15 @@ export default function AuditPage() {
                                         className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-4 text-white focus:outline-none focus:border-blue-500 transition-colors font-medium"
                                     >
                                         <option value="" className="bg-[#0f172a]">Select industry</option>
+                                        <option value="Electrical" className="bg-[#0f172a]">Electrical</option>
                                         <option value="HVAC" className="bg-[#0f172a]">HVAC</option>
+                                        <option value="Plumbing" className="bg-[#0f172a]">Plumbing</option>
                                         <option value="Dental" className="bg-[#0f172a]">Dental</option>
+                                        <option value="Legal" className="bg-[#0f172a]">Legal</option>
+                                        <option value="Restaurant" className="bg-[#0f172a]">Restaurant</option>
+                                        <option value="Salon" className="bg-[#0f172a]">Salon</option>
                                         <option value="Real Estate" className="bg-[#0f172a]">Real Estate</option>
                                         <option value="Healthcare" className="bg-[#0f172a]">Healthcare</option>
-                                        <option value="Legal" className="bg-[#0f172a]">Legal</option>
                                         <option value="Other" className="bg-[#0f172a]">Other</option>
                                     </select>
                                 </div>
@@ -165,8 +168,6 @@ export default function AuditPage() {
                     </div>
                 </div>
             </div>
-
-            <CTASection />
 
             {showSuccess && (
                 <SuccessMessage 

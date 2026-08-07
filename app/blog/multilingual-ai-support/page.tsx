@@ -109,19 +109,19 @@ export default function Post() {
               <div className="p-6 bg-slate-900/50 border border-white/5 rounded-2xl">
                 <h3 className="font-bold text-white mb-3">Healthcare</h3>
                 <p className="text-slate-400 mb-4">AI handles appointment scheduling, prescription questions, and insurance inquiries in patients' native languages.</p>
-                <div className="text-green-400 font-bold text-sm">Result: 50% increase in patient satisfaction scores.</div>
+                <div className="text-green-400 font-bold text-sm">Outcome: Every caller is served in their native language, 24/7.</div>
               </div>
               
               <div className="p-6 bg-slate-900/50 border border-white/5 rounded-2xl">
                 <h3 className="font-bold text-white mb-3">Legal Services</h3>
                 <p className="text-slate-400 mb-4">AI conducts initial consultations, explains services, and schedules appointments in multiple languages.</p>
-                <div className="text-green-400 font-bold text-sm">Result: 40% more consultations from diverse communities.</div>
+                <div className="text-green-400 font-bold text-sm">Outcome: Initial consultations and scheduling handled in the caller's language.</div>
               </div>
               
               <div className="p-6 bg-slate-900/50 border border-white/5 rounded-2xl">
                 <h3 className="font-bold text-white mb-3">Service Businesses</h3>
                 <p className="text-slate-400 mb-4">AI takes service requests, provides quotes, and schedules work in customers' preferred language.</p>
-                <div className="text-green-400 font-bold text-sm">Result: 35% expansion into new demographic markets.</div>
+                <div className="text-green-400 font-bold text-sm">Outcome: Service requests, quotes, and scheduling in the customer's preferred language.</div>
               </div>
             </div>
           </section>

@@ -1,14 +1,27 @@
+import ArticleSchema from '../../components/Article/ArticleSchema';
 import Link from 'next/link';
-import { ArrowLeft, CheckCircle2, TrendingUp, Users, Calendar, Phone } from 'lucide-react';
+import { ArrowLeft, TrendingUp, Calendar, Phone } from 'lucide-react';
 
 export const metadata = {
-    title: 'Case Study: Elite Climate Control & Plumbing — Brandverse',
-    description: 'How a skeptical HVAC owner automated 40% of his booking workflow and recovered $15k in missed calls in month one.',
+    title: 'Deployment Playbook: After-Hours HVAC Overflow — Brandverse',
+    description: 'A representative playbook showing how an AI receptionist captures after-hours HVAC calls, books emergency jobs, and keeps service teams from missing revenue.',
+    robots: { index: true, follow: true, googleBot: { index: true, follow: true, 'max-video-preview': -1, 'max-image-preview': 'large', 'max-snippet': -1 } },
+    alternates: { canonical: 'https://brandverse.tech/blog/case-study-elite-climate' }
+,
+  openGraph: { title: 'Deployment Playbook: After-Hours HVAC Overflow', description: 'A representative playbook showing how an AI receptionist captures after-hours HVAC calls.', type: 'article' as const, siteName: 'Brandverse' },
+  twitter: { card: 'summary_large_image' as const, title: 'Deployment Playbook: After-Hours HVAC Overflow', description: 'A representative playbook showing how an AI receptionist captures after-hours HVAC calls.' }
 };
 
 export default function CaseStudy() {
     return (
         <div className="min-h-screen bg-[#020617] text-slate-200 selection:bg-blue-500/30 font-sans">
+        <ArticleSchema
+          title={'Deployment Playbook: After-Hours HVAC Overflow'}
+          description={'A representative playbook showing how an AI receptionist captures after-hours HVAC calls and books emergency jobs.'}
+          slug="case-study-elite-climate"
+          date="Dec 22, 2024"
+          category="Deployment Playbook"
+        />
             <div className="fixed top-0 left-0 w-full h-[600px] bg-blue-900/10 blur-[120px] -z-10 pointer-events-none" />
 
             <main className="pt-32 pb-20 px-6 max-w-4xl mx-auto">
@@ -18,6 +31,10 @@ export default function CaseStudy() {
                     </Link>
                     <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-black uppercase tracking-widest mb-6">
                         HVAC & Plumbing
+                    </div>
+                    <div className="p-4 rounded-2xl bg-amber-500/10 border border-amber-500/30 text-sm text-amber-200/90 leading-relaxed mb-8">
+                        <strong className="text-amber-300 font-black uppercase tracking-widest text-xs block mb-1">Illustrative Example</strong>
+                        This is a deployment playbook — a representative example of how Brandverse handles after-hours overflow calls, not a claim about a specific client's results.
                     </div>
                     <h1 className="text-4xl md:text-6xl font-black text-white leading-tight mb-6">
                         From "I Don't Trust Robots" to <br />
@@ -53,7 +70,7 @@ export default function CaseStudy() {
                 </div>
 
                 <article className="prose prose-invert prose-lg max-w-none">
-                    <h3>The Skepticism was Real</h3>
+                    <h2>The Skepticism was Real</h2>
                     <p>
                         When we first approached Mike, the owner of Elite Climate Control, he laughed us out of the room. "My customers want to talk to a person, not a machine," he said. And frankly, he had a point. Most "chatbots" in 2023 were terrible—clunky phone trees that frustrated grandma and annoyed contractors.
                     </p>
@@ -61,7 +78,7 @@ export default function CaseStudy() {
                         But Mike had a problem. His dispatch team clocked out at 5 PM. AC units break at 7 PM. By the time his team returned calls at 9 AM the next day, 60% of those leads had already booked with a competitor who answered the phone.
                     </p>
 
-                    <h3>The "Silent" Audit</h3>
+                    <h2>The "Silent" Audit</h2>
                     <p>
                         We proposed a challenge: Let us run a "Shadow Number" for one week. We wouldn't take calls, just track missed opportunities. The results were sobering. In one week, Elite missed 14 verified leads. With an average ticket size of $850, that was nearly <strong>$12,000 in potential revenue vanishing every week</strong>.
                     </p>
@@ -69,7 +86,7 @@ export default function CaseStudy() {
                         Mike saw the data. He gave us the green light for a 30-day pilot.
                     </p>
 
-                    <h3>Deploying "EliteBot"</h3>
+                    <h2>Deploying "EliteBot"</h2>
                     <p>
                         We didn't just plug in a generic AI. We ingested 6 months of Mike's call logs. We trained the agent on:
                     </p>
@@ -79,7 +96,7 @@ export default function CaseStudy() {
                         <li>ServiceTitan Integration for real-time calendar availability</li>
                     </ul>
 
-                    <h3>The "Aha!" Moment</h3>
+                    <h2>The "Aha!" Moment</h2>
                     <p>
                         On Day 3, a call came in at 2:15 AM. A frantic homeowner with a burst pipe. The AI answered instantly, calmed the customer down using empathetic voice modulation, collected the address, and dispatched the on-call plumber via SMS.
                     </p>
@@ -87,7 +104,7 @@ export default function CaseStudy() {
                         The job was worth $3,200. The AI cost for that call? $0.45.
                     </p>
 
-                    <h3>The Outcome</h3>
+                    <h2>The Outcome</h2>
                     <p>
                         Today, Elite Climate Control refuses to operate without Brandverse. We act as their frontend filter and backend scheduler. Their human dispatchers are happier because they aren't fielding "what's your hourly rate?" calls all day—they focus on complex logistics and high-value customer service.
                     </p>

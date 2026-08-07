@@ -24,12 +24,10 @@ export default function WorkroomPage() {
         setLoading(true);
         form.reset();
 
-        // No AI backend is wired for this static export. Don't fake replies.
         await new Promise(resolve => setTimeout(resolve, 600));
-        setMessages(prev => [...prev, {
-            role: 'ai',
-            content: "The War Room is a UI demo - live AI isn't connected on a static build. Call +91 88510 05278 to talk to a real strategist or book a demo at brandverse.tech/contact."
-        }]);
+        const reply =
+            "Thanks for your message. This preview workspace isn't connected to a live assistant yet — for a hands-on demo, book a 30-minute call with our team: https://calendly.com/ayushsharmavlogs619/30min";
+        setMessages(prev => [...prev, { role: 'ai', content: reply }]);
         setLoading(false);
     }
 
@@ -43,12 +41,12 @@ export default function WorkroomPage() {
                     </div>
                     <div>
                         <h1 className="text-xl font-bold tracking-tight">BRANDVERSE <span className="text-red-500 font-light underline decoration-red-500/30">WAR ROOM</span></h1>
-                        <p className="text-xs text-zinc-500 uppercase tracking-widest font-semibold">Unlimited Tactical AI • Active</p>
+                        <p className="text-xs text-zinc-500 uppercase tracking-widest font-semibold">Client Preview Workspace</p>
                     </div>
                 </div>
-                <div className="px-3 py-1 rounded-full bg-zinc-700 text-white text-sm shadow-lg">
-                        Flash (Fast)
-                    </div>
+                <div className="hidden md:block text-sm bg-zinc-900/50 px-4 py-2 rounded-full border border-white/5 text-zinc-500">
+                    Book a demo call for a live assistant
+                </div>
             </header>
 
             {/* Chat Area */}
@@ -59,8 +57,8 @@ export default function WorkroomPage() {
                 {messages.length === 0 && (
                     <div className="h-full flex flex-col items-center justify-center text-center space-y-4 opacity-50">
                         <Bot size={64} className="text-red-500 mb-2 animate-bounce" />
-                        <h2 className="text-2xl font-bold">Welcome to the Inner Sanctum.</h2>
-                        <p className="max-w-md">The Season Ticket is active. No limits, no "upgrade" bullshit. Just work.</p>
+                        <h2 className="text-2xl font-bold">Client Workspace Preview</h2>
+                        <p className="max-w-md">A preview of the Brandverse client workspace. Messages aren't answered by a live assistant here — book a demo call to see the real thing.</p>
                     </div>
                 )}
 
@@ -111,7 +109,7 @@ export default function WorkroomPage() {
                     </button>
                 </form>
                 <p className="text-center text-[10px] text-zinc-600 mt-4 uppercase tracking-[0.2em]">
-                    Powered by Brandverse Engine • No Corporate Restrictions • 2025
+                    Powered by Brandverse
                 </p>
             </footer>
         </div>

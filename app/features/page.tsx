@@ -1,6 +1,13 @@
 
 import { Globe, Zap, ShieldCheck, MessageSquare, Clock, BarChart3, Lock, Users } from "lucide-react";
 import Link from "next/link";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Features — Brandverse AI Voice Agents for SMBs",
+  description: "Explore Brandverse features: 24/7 AI call answering, multilingual support, CRM integration, emergency triage, sentiment analysis, and enterprise-grade security.",
+  keywords: ["AI voice agent features", "24/7 call answering", "CRM integration", "multilingual AI", "enterprise security", "emergency triage"],
+};
 
 export default function FeaturesPage() {
     return (
@@ -28,7 +35,7 @@ export default function FeaturesPage() {
                     {[
                         {
                             t: "Native-Level Multilingual",
-                            d: "Don't leave money on the table. Our AI instantly detects language (English/Spanish/French) and switches fluently. Expand your market reach by 40% overnight without hiring bilingual staff.",
+                            d: "Don't leave money on the table. Our AI detects language (English/Spanish/French) and switches fluently. Reach customers who don't speak English without hiring bilingual staff.",
                             i: Globe
                         },
                         {
@@ -43,17 +50,17 @@ export default function FeaturesPage() {
                         },
                         {
                             t: "Sentiment Analysis",
-                            d: "Know exactly how your customers feel. After every call, the AI rates the caller's mood and flagging 'at-risk' clients so you can follow up personally. Its customer retention on autopilot.",
+                            d: "Know exactly how your customers feel. After every call, the AI rates the caller's mood and flags 'at-risk' clients so you can follow up personally. Customer retention runs on autopilot.",
                             i: BarChart3
                         },
                         {
-                            t: "Infinite Scalability",
-                            d: "Marketing campaign went viral? No problem. Brandverse can handle 10, 100, or 1,000 concurrent calls instantly. Never hear a busy signal again.",
+                            t: "Handles Call Spikes",
+                            d: "Marketing campaign went viral? No problem. Brandverse can handle many concurrent calls, so callers are never met with a busy signal.",
                             i: Users
                         },
                         {
-                            t: "HIPAA & SOC2 Compliant",
-                            d: "Security isn't an afterthought. Your data is encrypted at rest and in transit. We adhere to the strictest privacy standards, suitable for medical and legal practices.",
+                            t: "Enterprise-Grade Security",
+                            d: "Security isn't an afterthought. Your data is encrypted at rest and in transit. We build to strict privacy standards, suitable for medical and legal practices.",
                             i: Lock
                         }
                     ].map((f, i) => (
@@ -107,15 +114,15 @@ export default function FeaturesPage() {
                             <ul className="space-y-6">
                                 <li className="flex gap-4 text-white">
                                     <span className="text-blue-500 font-bold">✔</span>
-                                    <span>Instant pickup 24/7/365. Zero missed calls.</span>
+                                    <span>Instant pickup 24/7/365. No missed calls.</span>
                                 </li>
                                 <li className="flex gap-4 text-white">
                                     <span className="text-blue-500 font-bold">✔</span>
-                                    <span>Flat monthly rate. No benefits. No drama.</span>
+                                    <span>Flat monthly rate. No per-call surprises.</span>
                                 </li>
                                 <li className="flex gap-4 text-white">
                                     <span className="text-blue-500 font-bold">✔</span>
-                                    <span>Perfectly scripted, energetic responses every time.</span>
+                                    <span>Consistent, on-brand responses every time.</span>
                                 </li>
                                 <li className="flex gap-4 text-white">
                                     <span className="text-blue-500 font-bold">✔</span>

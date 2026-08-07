@@ -57,7 +57,7 @@ NEXT_PUBLIC_COOKIEBOT_ID=your_cookiebot_id_here
 
 ### Scheduling
 ```
-NEXT_PUBLIC_CALENDLY_URL=https://calendly.com/your-username/30min
+NEXT_PUBLIC_CALENDLY_URL=https://calendly.com/ayushsharmavlogs619/30min
 ```
 
 ### Voice AI

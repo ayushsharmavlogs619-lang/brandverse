@@ -1,25 +1,34 @@
-import Link from 'next/link';
+import ArticleLayout from '../../components/Article/ArticleLayout';
+import { getBlogPost } from '@/lib/blog-content';
+
+const post = getBlogPost('multilingual-outreach')!;
 
 export const metadata = {
-  title: 'Multilingual Outreach Strategies — Brandverse',
+  title: 'Multilingual Outreach Strategies | Brandverse',
   description: 'How to use multilingual AI agents to expand market reach and improve lead capture.',
+  keywords: ['multilingual AI outreach', 'language AI agents', 'multilingual lead generation', 'AI translation calls'],
+  openGraph: { title: 'Multilingual Outreach Strategies', description: post.excerpt, type: 'article' },
+  twitter: { card: 'summary_large_image', title: 'Multilingual Outreach Strategies', description: post.excerpt },
+    robots: { index: true, follow: true, googleBot: { index: true, follow: true, 'max-video-preview': -1, 'max-image-preview': 'large', 'max-snippet': -1 } },
+    alternates: { canonical: 'https://brandverse.tech/blog/multilingual-outreach' }
 };
 
 export default function Post() {
   return (
-    <div className="min-h-screen bg-[#020617] text-slate-200 selection:bg-blue-500/30">
-      <main className="pt-32 pb-20 px-6 max-w-4xl mx-auto">
-        <h1 className="text-4xl font-black text-white">Multilingual Outreach Strategies</h1>
-        <p className="text-slate-400 mt-4">By Ayush Sharma — Tactics for deploying Spanish and other language agents to capture more local leads.</p>
-
-        <section className="mt-8 space-y-4 text-slate-400">
-          <p>Language detection, fallback routing, and localized scripts help increase conversions in multilingual markets.</p>
-        </section>
-
-        <div className="mt-8">
-          <Link href="/blog" className="text-blue-400 font-bold">← Back to articles</Link>
-        </div>
-      </main>
-    </div>
+    <ArticleLayout
+      slug={post.slug}
+      title="Multilingual Outreach Strategies"
+      subtitle="How to use multilingual AI agents to expand market reach and improve lead capture."
+      description={post.excerpt}
+      date="Jan 3, 2025"
+      readTime="9 min read"
+      category={post.category}
+      accent="emerald"
+      keywords={metadata.keywords}
+      takeaways={post.takeaways}
+      faqs={post.faqs}
+    >
+      <section className="space-y-6" dangerouslySetInnerHTML={{ __html: post.content }} />
+    </ArticleLayout>
   );
 }

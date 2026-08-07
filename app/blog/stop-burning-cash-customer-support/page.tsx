@@ -1,3 +1,4 @@
+import ArticleSchema from '../../components/Article/ArticleSchema';
 import Link from 'next/link';
 import { ArrowLeft, DollarSign, Users, ShieldCheck, Zap, Headphones, BarChart, CheckCircle2 } from 'lucide-react';
 import RelatedArticles from '../../components/RelatedArticles';
@@ -6,11 +7,23 @@ export const metadata = {
     title: 'Stop Burning Cash on Customer Support: The AI Revolution | Brandverse',
     description: 'Manual customer support scales linearly and kills margins. Discover how AI Agents reduce cost-per-ticket by 97% while improving satisfaction.',
     keywords: ['AI customer support', 'reduce support costs', 'automated customer service', 'AI support agents', 'customer service automation ROI'],
+    robots: { index: true, follow: true, googleBot: { index: true, follow: true, 'max-video-preview': -1, 'max-image-preview': 'large', 'max-snippet': -1 } },
+    alternates: { canonical: 'https://brandverse.tech/blog/stop-burning-cash-customer-support' }
+,
+  openGraph: { title: 'Stop Burning Cash on Customer Support', description: 'Manual support is bleeding your margins. AI Agents resolve 90% of queries instantly for pennies.', type: 'article' as const, siteName: 'Brandverse' },
+  twitter: { card: 'summary_large_image' as const, title: 'Stop Burning Cash on Customer Support', description: 'Manual support is bleeding your margins. AI Agents resolve 90% of queries instantly for pennies.' }
 };
 
 export default function Post() {
     return (
         <div className="min-h-screen bg-[#020617] text-slate-200 selection:bg-blue-500/30">
+        <ArticleSchema
+          title={'Stop Burning Cash on Customer Support'}
+          description={'Manual support is bleeding your margins. AI Agents resolve 90% of queries instantly for pennies.'}
+          slug="stop-burning-cash-customer-support"
+          date="Jan 1, 2025"
+          category="Profit Protection"
+        />
             <header className="relative pt-32 pb-20 px-6 border-b border-white/5 overflow-hidden">
                 <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[400px] bg-red-600/10 blur-[100px] rounded-full -z-10" />
                 <div className="max-w-3xl mx-auto space-y-6">

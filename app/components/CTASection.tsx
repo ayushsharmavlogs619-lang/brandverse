@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react';
 import Link from 'next/link';
-import { config } from '@/lib/config';
 import { ArrowRight, Zap, Phone, Calendar } from 'lucide-react';
+import { config } from '../../lib/config';
 
 function isExternalHref(href: string) {
   return /^https?:\/\//i.test(href);
@@ -38,11 +38,11 @@ interface CTASectionProps {
 
 export default function CTASection({ 
   title = "Ready to Automate Your Business?",
-  subtitle = "Join 50+ businesses that have deployed AI voice agents with Brandverse",
+  subtitle = "See exactly what a Brandverse AI voice agent would do for your business — on a free, no-obligation call.",
   primaryText = "Book Your Free Audit",
-  primaryLink = 'https://calendly.com/ayushsharmavlogs619/30min',
-  secondaryText = "See Live Demo",
-  secondaryLink = '/portfolio',
+  primaryLink = config.calendlyUrl || 'https://calendly.com/ayushsharmavlogs619/30min',
+  secondaryText,
+  secondaryLink = '/case-studies',
   variant = 'default'
 }: CTASectionProps) {
   
@@ -51,11 +51,10 @@ export default function CTASection({
     ? "max-w-4xl mx-auto text-center space-y-8"
     : "max-w-6xl mx-auto text-center space-y-10";
 
-  // Set dynamic links based on variant. The primary button always drives to
-  // booking (Calendly) on the 'form' variant; the secondary link should honor
-  // the caller's secondaryLink for every variant.
-  const finalPrimaryLink = variant === 'form' ? 'https://calendly.com/ayushsharmavlogs619/30min' : primaryLink;
-  const finalSecondaryLink = secondaryLink;
+  // Set dynamic links based on variant
+  const calendlyFallback = config.calendlyUrl || 'https://calendly.com/ayushsharmavlogs619/30min';
+  const finalPrimaryLink = variant === 'form' ? calendlyFallback : primaryLink;
+  const finalSecondaryLink = variant === 'form' ? secondaryLink : (secondaryLink || '/contact');
 
   const titleClasses = variant === 'minimal'
     ? "text-3xl font-black text-white"
@@ -68,7 +67,7 @@ export default function CTASection({
     : "text-xl text-slate-300 max-w-3xl mx-auto font-bold leading-relaxed";
 
   const buttonClasses = variant === 'minimal'
-    ? "px-8 py-4 bg-brand-gradient text-white rounded-full font-black uppercase tracking-widest text-sm shadow-lg hover:scale-105 transition-all neon-glow"
+    ? "px-8 py-4 bg-brand-gradient text-white rounded-2xl font-black uppercase tracking-widest text-sm shadow-lg hover:scale-105 transition-all neon-glow"
     : "px-12 py-6 bg-brand-gradient text-white rounded-2xl font-black uppercase tracking-widest text-sm shadow-2xl shadow-blue-500/30 hover:scale-105 hover:shadow-blue-500/50 transition-all flex items-center justify-center gap-3 premium-card";
 
   const bgClasses = variant === 'minimal'
@@ -121,7 +120,7 @@ export default function CTASection({
             {variant === 'blog' && (
               <div className="pt-8 border-t border-white/10">
                 <p className="text-sm text-slate-500 font-bold uppercase tracking-widest">
-                  Limited to 3 new clients per month. Apply now to secure your spot.
+                  Free audit included. No long-term contract — cancel anytime.
                 </p>
               </div>
             )}
