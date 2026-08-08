@@ -34,7 +34,7 @@ export default function BlogStructuredData({
             '@type': 'Article',
             headline: title,
             description: description,
-            image: 'https://brandverse.tech/images/og-default.jpg',
+            image: 'https://brandverse.tech/og-image.png',
             datePublished: date,
             dateModified: modifiedDate || date,
             author: {
@@ -47,7 +47,7 @@ export default function BlogStructuredData({
                 name: 'Brandverse',
                 logo: {
                     '@type': 'ImageObject',
-                    url: 'https://brandverse.tech/logo.png',
+                    url: 'https://brandverse.tech/og-image.png',
                 },
             },
             mainEntityOfPage: {

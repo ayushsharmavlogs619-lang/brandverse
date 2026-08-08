@@ -101,7 +101,7 @@ const worker = {
       // previously served by Pages Functions (e.g. /api/subscribe,
       // /api/send-push, /api/mailchimp/subscribe, /api/push-stats,
       // /api/leads/apps-script) are proxied back to the Pages deployment so
-      // they keep working. Everything else is a genuine 404.
+      // they keep working. Everything else is a genuine 404 from Pages.
       return proxyToPages(request, env, ch);
 
     } catch (error) {
@@ -222,4 +222,44 @@ async function handleVapiOutboundCall(request, env, ch, log) {
     log.complete('/api/vapi/call', false, { error: error.message });
     return json({ error: 'Failed to initiate outbound call', message: error.message }, 500, ch);
   }
+}
+
+/**
+ * Forwards an unmatched /api/* request to the Cloudflare Pages deployment,
+ * which hosts the Pages Functions (e.g. /api/leads/apps-script). The
+ * upstream is the pages.dev host, NOT brandverse.tech — this Worker has a
+ * route on brandverse.tech/api/*, so fetching the apex would re-enter this
+ * Worker and loop forever. The pages.dev host is not covered by any Worker
+ * route, so it resolves straight to Pages Functions and static assets.
+ *
+ * Upstream override: env.PAGES_UPSTREAM (e.g. https://brandverse.pages.dev).
+ */
+async function proxyToPages(request, env, ch) {
+  const url = new URL(request.url);
+  const upstreamBase = env.PAGES_UPSTREAM || 'https://brandverse.pages.dev';
+  const targetUrl = new URL(url.pathname + url.search, upstreamBase);
+
+  const headers = new Headers(request.headers);
+  headers.delete('host');
+
+  const init = { method: request.method, headers, redirect: 'follow' };
+  if (request.method !== 'GET' && request.method !== 'HEAD') {
+    init.body = request.body;
+  }
+
+  const upstream = await fetch(targetUrl.toString(), init);
+
+  const responseHeaders = new Headers(upstream.headers);
+  // Browser callers need CORS even on upstream error responses.
+  if (!responseHeaders.has('Access-Control-Allow-Origin')) {
+    for (const [name, value] of Object.entries(ch)) {
+      responseHeaders.set(name, value);
+    }
+  }
+
+  return new Response(upstream.body, {
+    status: upstream.status,
+    statusText: upstream.statusText,
+    headers: responseHeaders,
+  });
 }
