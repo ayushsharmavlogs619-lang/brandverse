@@ -1,0 +1,90 @@
+{
+  "_notes": "CANONICAL DEMO CLIENT CONFIGURATION. Internally marked DEMO on purpose. Primary sales demo: ELECTRICAL CONTRACTOR niche. Sync with the demo object in services/client-config.js. Deployable standalone via the CLIENTS_CONFIG secret (JSON shape: an object containing a clients array).",
+  "id": "brandverse_demo_1",
+  "is_demo": true,
+  "name": "Brandverse Electrical Demo",
+  "niche": "electrician",
+  "timezone": "Australia/Melbourne",
+  "address": "Virtual office - remote sessions (demo configuration, no physical address)",
+  "business_description": "FICTIONAL DEMO business representing a brand residential electrical contractor (call-outs, troubleshooting, inspections, estimates). Used only for Brandverse product demonstrations - it is not a real company, does not take real jobs, and must never claim real coverage, pricing, or guarantees.",
+  "phone_number": "",
+  "calendar_id": "",
+  "sheet_id": "",
+  "subdomain": "edge.brandverse.tech",
+  "working_hours": {
+    "monday": {"start": "07:00", "end": "19:00"},
+    "tuesday": {"start": "07:00", "end": "19:00"},
+    "wednesday": {"start": "07:00", "end": "19:00"},
+    "thursday": {"start": "07:00", "end": "19:00"},
+    "friday": {"start": "07:00", "end": "19:00"},
+    "saturday": {"start": "08:00", "end": "14:00"},
+    "sunday": {"start": "closed", "end": "closed"}
+  },
+  "services": {
+    "Residential Electrical Call-Out": 60,
+    "Troubleshooting & Repairs": 60,
+    "Breakers & Power Outages": 60,
+    "Panel & Service Work": 120,
+    "Lighting & Fittings": 60,
+    "Outlets & Switches": 45,
+    "Safety Inspection": 60,
+    "Quote & Estimate Visit": 90,
+    "Emergency Electrical Callout": 60
+  },
+  "service_area": "",
+  "timezone_info": "Melbourne, Australia",
+  "booking_rules": {
+    "after_hours_booking": false,
+    "buffer_minutes": 10,
+    "max_booking_days_ahead": 14,
+    "require_confirmation_before_book": true,
+    "book_during_working_hours_only": false,
+    "allow_booking_for_next_open_day": true
+  },
+  "pricing": "not-published",
+  "pricing_info": "Pricing is not published in the assistant. Never quote prices, hourly rates, or call-out fees. The team confirms any estimate after the caller's situation is captured and a Quote & Estimate Visit is booked.",
+  "response_budget": 40,
+  "recommended_handoff_tool": true,
+  "faqs": [
+    { "question": "Is this a real electrical company?", "answer": "No - this is a demo run by Brandverse to show how an AI receptionist handles calls for an electrical contractor. It is fictional, no real jobs are booked from this line, and any attendance promised is only a demonstration." },
+    { "question": "What services does this demo cover?", "answer": "Residential work only: call-outs, troubleshooting and repairs, breakers and power issues, panel and service work, lighting, outlets and switches, safety inspections, and quote or estimate visits. Emergency electrical call-outs can be flagged but are always handled as an emergency protocol." },
+    { "question": "Can I get a price over the phone?", "answer": "No. Prices are never quoted over the phone in this demo. We capture what is happening and a Quote & Estimate Visit is the way the business would confirm costs and scope." },
+    { "question": "Can you send an electrician out right now?", "answer": "The demo does not dispatch anyone. If a caller describes danger to life or property, it is flagged as an emergency and recorded for the team with priority; the assistant never claims someone is on the way." },
+    { "question": "Can we speak to a person or the dispatcher?", "answer": "Live transfer is only offered when a transfer destination is configured for the demo. Otherwise the assistant captures a callback and the team follows up. The demo never pretends you are connected." }
+  ],
+  "human_handoff": {
+    "allowed": true,
+    "when_rules": [
+      "caller asks to speak to a person",
+      "caller asks for the dispatcher (for demo client, dispatcher = live operator)",
+      "caller is frustrated or escalating",
+      "conversation is complex",
+      "emergency escalation is required"
+    ],
+    "transfer_number": "",
+    "transfer_configured": false,
+    "callback_first_if_not_configured": true
+  },
+  "after_hours": {
+    "behaviour": "clearly_state_closed",
+    "allow_callback_request": true,
+    "booking": "next_open_day_only",
+    "emergency": "follow_emergency_protocol"
+  },
+  "emergency": {
+    "enabled": true,
+    "protocol": "urgent_escalation",
+    "scope": "When the caller describes danger to life or property (visible sparking, burning or smoking switchboard, exposed live wires, loss of power to medical equipment, fire), do NOT give technical instructions you are not trained for. Immediately: 1) Say clearly you are flagging this as an emergency, 2) Capture the caller name and number, 3) escalate via the configured destination if one exists, 4) if no escalation destination is configured, state honestly that you have flagged it and it will be picked up - never claim a dispatcher is on the way.",
+    "escalation_destination": "",
+    "configured": false,
+    "on_unconfigured": "say_flagged_not_immediate"
+  },
+  "callback_rules": {
+    "require_name": true,
+    "require_phone": true,
+    "require_reason": true,
+    "capture": ["name", "phone", "reason", "urgency", "service_preference", "notes"],
+    "claim_only_if_confirmed": true
+  },
+  "call_notes_env_vars": {}
+}

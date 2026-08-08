@@ -11,6 +11,19 @@ import { RateLimiter, validateBookingInput, validateLogInput, sanitizeStr } from
 
 const rateLimiter = new RateLimiter();
 
+// Authorize a server-side tool call (booking, callback, transfer, etc).
+// The Vapi-generated assistant config includes the X-Tool-Key header for
+// every server tool (see assistant-config.js), so legitimate calls carry
+// the key transparently. Requests without a valid key are rejected with
+// 401; if TOOL_API_KEY is not configured the endpoint refuses to act.
+function toolAuthorized(request, env) {
+  const key = env.TOOL_API_KEY;
+  if (!key) return false;
+  const supplied = request.headers.get('X-Tool-Key');
+  if (!supplied) return false;
+  return supplied === key;
+}
+
 function corsHeaders(request, env) {
   const origin = request.headers.get('Origin');
   const allowed = new Set([
@@ -86,7 +99,43 @@ const worker = {
       }
 
       if (path === `/api/${clientId}/book` && method === 'POST') {
+        // Authenticated: book creates real calendar events. Reject calls
+        // without the Vapi tool key / unconfigured key so actors cannot spike.
+        if (!toolAuthorized(request, env)) {
+          return json({ error: 'Unauthorized: missing or invalid X-Tool-Key' }, 401, ch);
+        }
         return await handleBooking(clientId, await request.json(), bookingEngine, loggingEngine, notificationService, ch, clientLog);
+      }
+
+      if (path === `/api/${clientId}/callback` && method === 'POST') {
+        // Callback requests are stored and (if configured) pushed to the
+        // notification webhook. Same auth requirement as booking.
+        if (!toolAuthorized(request, env)) {
+          return json({ error: 'Unauthorized: missing or invalid X-Tool-Key' }, 401, ch);
+        }
+        return await handleCallback(clientId, await request.json(), loggingEngine, clientConfig, notificationService, ch, clientLog);
+      }
+
+      if (path === `/api/${clientId}/transfer` && method === 'POST') {
+        // Real human handoff via Vapi. Gated by same tool key.
+        if (!toolAuthorized(request, env)) {
+          return json({ error: 'Unauthorized: missing or invalid X-Tool-Key' }, 401, ch);
+        }
+        return await handleTransfer(clientId, env, request, clientConfig, loggingEngine, ch, clientLog);
+      }
+
+      if (path === `/api/${clientId}/cancel` && method === 'POST') {
+        if (!toolAuthorized(request, env)) {
+          return json({ error: 'Unauthorized: missing or invalid X-Tool-Key' }, 401, ch);
+        }
+        return await handleCancel(clientId, await request.json(), bookingEngine, loggingEngine, ch, clientLog);
+      }
+
+      if (path === `/api/${clientId}/reschedule` && method === 'POST') {
+        if (!toolAuthorized(request, env)) {
+          return json({ error: 'Unauthorized: missing or invalid X-Tool-Key' }, 401, ch);
+        }
+        return await handleReschedule(clientId, await request.json(), bookingEngine, loggingEngine, ch, clientLog);
       }
 
       if (path === `/api/${clientId}/log` && method === 'POST') {
@@ -184,6 +233,148 @@ async function handleClientConfig(clientId, clientConfig, ch, log) {
   } catch (error) {
     log.complete(`/api/${clientId}/client-config`, false, { error: error.message });
     return json({ error: 'Failed to load client configuration', message: error.message }, 500, ch);
+  }
+}
+
+// Store a callback request. Returns { success, confirmed } - "confirmed" is
+// only true when a notification webhook actually acknowledged the request,
+// so the voice assistant never claims a human was notified when it wasn't.
+async function handleCallback(clientId, body, loggingEngine, clientConfig, notificationService, ch, log) {
+  const name = sanitizeStr(body.name, 200);
+  const phone = sanitizeStr(body.phone, 20);
+  const reason = sanitizeStr(body.reason, 1000);
+  const urgency = ['normal', 'urgent'].includes(body.urgency) ? body.urgency : 'normal';
+  const service = sanitizeStr(body.service, 100);
+  const notes = sanitizeStr(body.notes, 2000);
+
+  const errors = [];
+  if (!name) errors.push('name is required');
+  if (!phone) errors.push('phone is required');
+  if (!reason) errors.push('reason is required');
+  if (errors.length) return json({ error: 'Validation failed', details: errors }, 400, ch);
+
+  try {
+    const configResult = await clientConfig.getClientConfig(clientId);
+    if (!configResult) return json({ error: 'Client configuration not found' }, 404, ch);
+
+    // Persist the callback through the existing logging pipeline.
+    await loggingEngine.logInteraction(clientId, {
+      type: 'callback_request',
+      channel: 'phone',
+      name,
+      phone,
+      service,
+      intent: 'callback_request',
+      status: 'requested',
+      outcome: `Callback requested (${urgency}): ${reason}`,
+      notes: notes || '',
+      timestamp: new Date().toISOString(),
+    }).catch(() => {});
+
+    // Fire the notification pipeline (email/whatsapp/sheets) if configured.
+    // Returns confirmed only when the pipeline actually succeeded.
+    let confirmed = false;
+    if (notificationService) {
+      confirmed = await notificationService.sendCallbackNotification(configResult, {
+        name, phone, reason, urgency, service, notes,
+      }).then(r => !!r && r.confirmed === true).catch(() => false);
+    }
+
+    log.complete(`/api/${clientId}/callback`, true, { urgency });
+    return json({ success: true, confirmed, message: 'Callback request captured' }, 200, ch);
+  } catch (error) {
+    log.complete(`/api/${clientId}/callback`, false, { error: error.message });
+    return json({ error: 'Failed to capture callback', message: error.message }, 500, ch);
+  }
+}
+
+// Initiate a real human handoff via Vapi's call transfer API. Only exposes
+// the transfer when a destination number is configured (checked by the
+// caller - the assistant tool is only added when transfer_number exists).
+async function handleTransfer(clientId, env, request, clientConfig, loggingEngine, ch, log) {
+  try {
+    const client = await clientConfig.getClientConfig(clientId);
+    if (!client) return json({ error: 'Client configuration not found' }, 404, ch);
+
+    const transferNumber = client?.human_handoff?.transfer_number;
+    if (!transferNumber) {
+      log.complete(`/api/${clientId}/transfer`, false, { error: 'not_configured' });
+      return json({ success: false, confirmed: false, message: 'Human handoff is not configured for this client', reason: 'no_destination' }, 200, ch);
+    }
+
+    if (!env.VAPI_API_KEY) {
+      return json({ success: false, confirmed: false, message: 'VAPI_API_KEY is not configured - transfer unavailable' }, 200, ch);
+    }
+
+    // The callId comes from the Vapi request body or query (Vapi injects
+    // {{call.id}} into the server-call query parameters).
+    const body = await request.json().catch(() => ({}));
+    const callId = body.callId || body.call_id || new URL(request.url).searchParams.get('callId') || '';
+    if (!callId) {
+      log.complete(`/api/${clientId}/transfer`, false, { error: 'missing_call_id' });
+      return json({ success: false, confirmed: false, message: 'callId required to transfer this call' }, 400, ch);
+    }
+
+    const resp = await fetch(`https://api.vapi.ai/call/${encodeURIComponent(callId)}/transfer`, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${env.VAPI_API_KEY}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ destination: transferNumber }),
+      signal: AbortSignal.timeout(15000),
+    });
+
+    if (!resp.ok) {
+      const err = await resp.text().catch(() => '');
+      log.complete(`/api/${clientId}/transfer`, false, { error: `vapi_transfer_${resp.status}` });
+      return json({ success: false, confirmed: false, message: 'Transfer could not be completed', error: err.slice(0, 200) }, 502, ch);
+    }
+
+    await loggingEngine.logInteraction(clientId, {
+      type: 'human_transfer',
+      channel: 'phone',
+      intent: 'human_transfer',
+      status: 'transferred',
+      outcome: 'Call transferred to a human teammate',
+      timestamp: new Date().toISOString(),
+    }).catch(() => {});
+
+    log.complete(`/api/${clientId}/transfer`, true);
+    return json({ success: true, confirmed: true, message: 'Call transferred' }, 200, ch);
+  } catch (error) {
+    log.complete(`/api/${clientId}/transfer`, false, { error: error.message });
+    return json({ success: false, confirmed: false, message: 'Transfer failed', error: error.message }, 500, ch);
+  }
+}
+
+async function handleCancel(clientId, body, bookingEngine, loggingEngine, ch, log) {
+  const bookingId = sanitizeStr(body.bookingId, 100);
+  if (!bookingId) return json({ error: 'bookingId is required' }, 400, ch);
+
+  try {
+    const result = await bookingEngine.cancelBooking(clientId, bookingId, sanitizeStr(body.reason, 500));
+    log.complete(`/api/${clientId}/cancel`, result.success);
+    return json(result, result.success ? 200 : 400, ch);
+  } catch (error) {
+    log.complete(`/api/${clientId}/cancel`, false, { error: error.message });
+    return json({ error: 'Failed to cancel booking', message: error.message }, 500, ch);
+  }
+}
+
+async function handleReschedule(clientId, body, bookingEngine, loggingEngine, ch, log) {
+  const bookingId = sanitizeStr(body.bookingId, 100);
+  const dateTime = body.dateTime || '';
+  if (!bookingId || !dateTime || isNaN(new Date(dateTime).getTime())) {
+    return json({ error: 'bookingId and valid dateTime are required' }, 400, ch);
+  }
+
+  try {
+    const result = await bookingEngine.rescheduleBooking(clientId, bookingId, new Date(dateTime), sanitizeStr(body.service, 100) || null);
+    return json(result, result.success ? 200 : 400, ch);
+  } catch (error) {
+    log.complete(`/api/${clientId}/reschedule`, false, { error: error.message });
+    return json({ error: 'Failed to reschedule booking', message: error.message }, 500, ch);
   }
 }
 

@@ -1,61 +1,142 @@
 // Client Configuration Service - Multi-tenant client management
 // Handles loading and managing client configurations
 
-export class ClientConfigService {
-  constructor(env) {
-    this.env = env;
-    this.cache = new Map();
-    this.cacheTimeout = 5 * 60 * 1000; // 5 minutes
-  }
-
-  // Get client configuration by ID
-  async getClientConfig(clientId) {
-    try {
-      // Check cache first
-      const cached = this.cache.get(clientId);
-      if (cached && (Date.now() - cached.timestamp) < this.cacheTimeout) {
-        return cached.config;
-      }
-
-      // Load from clients.json (in production, this could be from a database)
-      const clientsData = await this.loadClientsData();
-      const client = clientsData.clients.find(c => c.id === clientId);
-
-      if (!client) {
-        console.warn(`Client configuration not found: ${clientId}`);
-        return null;
-      }
-
-      // Validate required fields
-      this.validateClientConfig(client);
-
-      // Cache the result
-      this.cache.set(clientId, {
-        config: client,
-        timestamp: Date.now()
-      });
-
-      return client;
-    } catch (error) {
-      console.error('Error getting client config:', error);
-      throw new Error(`Failed to load client configuration: ${error.message}`);
+// Canonical demo client (keep in sync with configs/demo-client.json).
+const demoClientJson = `{
+  "_notes": "CANONICAL DEMO CLIENT CONFIGURATION. Internally marked DEMO on purpose. Primary sales demo: ELECTRICAL CONTRACTOR niche. Sync with the demo object in services/client-config.js. Deployable standalone via the CLIENTS_CONFIG secret (JSON shape: an object containing a clients array).",
+  "id": "brandverse_demo_1",
+  "is_demo": true,
+  "name": "Brandverse Electrical Demo",
+  "niche": "electrician",
+  "timezone": "Australia/Melbourne",
+  "address": "Virtual office - remote sessions (demo configuration, no physical address)",
+  "business_description": "FICTIONAL DEMO business representing a brand residential electrical contractor (call-outs, troubleshooting, inspections, estimates). Used only for Brandverse product demonstrations - it is not a real company, does not take real jobs, and must never claim real coverage, pricing, or guarantees.",
+  "phone_number": "",
+  "calendar_id": "",
+  "sheet_id": "",
+  "subdomain": "edge.brandverse.tech",
+  "working_hours": {
+    "monday": {
+      "start": "07:00",
+      "end": "19:00"
+    },
+    "tuesday": {
+      "start": "07:00",
+      "end": "19:00"
+    },
+    "wednesday": {
+      "start": "07:00",
+      "end": "19:00"
+    },
+    "thursday": {
+      "start": "07:00",
+      "end": "19:00"
+    },
+    "friday": {
+      "start": "07:00",
+      "end": "19:00"
+    },
+    "saturday": {
+      "start": "08:00",
+      "end": "14:00"
+    },
+    "sunday": {
+      "start": "closed",
+      "end": "closed"
     }
-  }
+  },
+  "services": {
+    "Residential Electrical Call-Out": 60,
+    "Troubleshooting & Repairs": 60,
+    "Breakers & Power Outages": 60,
+    "Panel & Service Work": 120,
+    "Lighting & Fittings": 60,
+    "Outlets & Switches": 45,
+    "Safety Inspection": 60,
+    "Quote & Estimate Visit": 90,
+    "Emergency Electrical Callout": 60
+  },
+  "service_area": "",
+  "timezone_info": "Melbourne, Australia",
+  "booking_rules": {
+    "after_hours_booking": false,
+    "buffer_minutes": 10,
+    "max_booking_days_ahead": 14,
+    "require_confirmation_before_book": true,
+    "book_during_working_hours_only": false,
+    "allow_booking_for_next_open_day": true
+  },
+  "pricing": "not-published",
+  "pricing_info": "Pricing is not published in the assistant. Never quote prices, hourly rates, or call-out fees. The team confirms any estimate after the caller's situation is captured and a Quote & Estimate Visit is booked.",
+  "response_budget": 40,
+  "recommended_handoff_tool": true,
+  "faqs": [
+    {
+      "question": "Is this a real electrical company?",
+      "answer": "No - this is a demo run by Brandverse to show how an AI receptionist handles calls for an electrical contractor. It is fictional, no real jobs are booked from this line, and any attendance promised is only a demonstration."
+    },
+    {
+      "question": "What services does this demo cover?",
+      "answer": "Residential work only: call-outs, troubleshooting and repairs, breakers and power issues, panel and service work, lighting, outlets and switches, safety inspections, and quote or estimate visits. Emergency electrical call-outs can be flagged but are always handled as an emergency protocol."
+    },
+    {
+      "question": "Can I get a price over the phone?",
+      "answer": "No. Prices are never quoted over the phone in this demo. We capture what is happening and a Quote & Estimate Visit is the way the business would confirm costs and scope."
+    },
+    {
+      "question": "Can you send an electrician out right now?",
+      "answer": "The demo does not dispatch anyone. If a caller describes danger to life or property, it is flagged as an emergency and recorded for the team with priority; the assistant never claims someone is on the way."
+    },
+    {
+      "question": "Can we speak to a person or the dispatcher?",
+      "answer": "Live transfer is only offered when a transfer destination is configured for the demo. Otherwise the assistant captures a callback and the team follows up. The demo never pretends you are connected."
+    }
+  ],
+  "human_handoff": {
+    "allowed": true,
+    "when_rules": [
+      "caller asks to speak to a person",
+      "caller asks for the dispatcher (for demo client, dispatcher = live operator)",
+      "caller is frustrated or escalating",
+      "conversation is complex",
+      "emergency escalation is required"
+    ],
+    "transfer_number": "",
+    "transfer_configured": false,
+    "callback_first_if_not_configured": true
+  },
+  "after_hours": {
+    "behaviour": "clearly_state_closed",
+    "allow_callback_request": true,
+    "booking": "next_open_day_only",
+    "emergency": "follow_emergency_protocol"
+  },
+  "emergency": {
+    "enabled": true,
+    "protocol": "urgent_escalation",
+    "scope": "When the caller describes danger to life or property (visible sparking, burning or smoking switchboard, exposed live wires, loss of power to medical equipment, fire), do NOT give technical instructions you are not trained for. Immediately: 1) Say clearly you are flagging this as an emergency, 2) Capture the caller name and number, 3) escalate via the configured destination if one exists, 4) if no escalation destination is configured, state honestly that you have flagged it and it will be picked up - never claim a dispatcher is on the way.",
+    "escalation_destination": "",
+    "configured": false,
+    "on_unconfigured": "say_flagged_not_immediate"
+  },
+  "callback_rules": {
+    "require_name": true,
+    "require_phone": true,
+    "require_reason": true,
+    "capture": [
+      "name",
+      "phone",
+      "reason",
+      "urgency",
+      "service_preference",
+      "notes"
+    ],
+    "claim_only_if_confirmed": true
+  },
+  "call_notes_env_vars": {}
+}`;
 
-  // Load clients data from env var or embedded fallback
-  async loadClientsData() {
-    try {
-      // 1. Try environment variable (set via wrangler secret or dashboard)
-      if (this.env.CLIENTS_CONFIG) {
-        try {
-          return JSON.parse(this.env.CLIENTS_CONFIG);
-        } catch (e) {
-          console.warn('Failed to parse CLIENTS_CONFIG env var, falling back to embedded config');
-        }
-      }
-
-      // 2. Fall back to embedded configuration
-      const embeddedClientsJson = `{
+const embeddedClientsJson = `{
   "clients": [
     {
       "id": "dental_melbourne_1",
@@ -188,7 +269,90 @@ export class ClientConfigService {
   ]
 }`;
 
-      return JSON.parse(embeddedClientsJson);
+export class ClientConfigService {
+  constructor(env) {
+    this.env = env;
+    this.cache = new Map();
+    this.cacheTimeout = 5 * 60 * 1000; // 5 minutes
+  }
+
+  // Get client configuration by ID
+  async getClientConfig(clientId) {
+    try {
+      // Check cache first
+      const cached = this.cache.get(clientId);
+      if (cached && (Date.now() - cached.timestamp) < this.cacheTimeout) {
+        return cached.config;
+      }
+
+      // Load from CLIENTS_CONFIG env var or embedded fallback
+      const clientsData = await this.loadClientsData();
+      const client = clientsData.clients.find(c => c.id === clientId);
+
+      if (!client) {
+        console.warn(`Client configuration not found: ${clientId}`);
+        return null;
+      }
+
+      // Validate required fields
+      this.validateClientConfig(client);
+
+      // Cache the result
+      this.cache.set(clientId, {
+        config: client,
+        timestamp: Date.now()
+      });
+
+      return client;
+    } catch (error) {
+      console.error('Error getting client config:', error);
+      throw new Error(`Failed to load client configuration: ${error.message}`);
+    }
+  }
+
+  // Load clients data from env var or embedded fallback
+  async loadClientsData() {
+    try {
+      // 1. Try environment variable (set via wrangler secret or dashboard)
+      if (this.env.CLIENTS_CONFIG) {
+        try {
+          const parsed = JSON.parse(this.env.CLIENTS_CONFIG);
+          // Ensure the demo client exists even when a custom CLIENTS_CONFIG
+          // is provided (unless the override already includes its own demo).
+          if (!parsed.clients.some(c => c.is_demo === true)) {
+            parsed.clients.push(JSON.parse(demoClientJson));
+          }
+          // Apply env-based demo phone override (see embedded branch below).
+          parsed.clients.forEach(c => {
+            if (c.is_demo === true && this.env.DEMO_PHONE_NUMBER) {
+              c.phone_number = this.env.DEMO_PHONE_NUMBER;
+              c.human_handoff = c.human_handoff || {};
+              c.human_handoff.transfer_number = this.env.DEMO_HANDOFF_NUMBER || c.human_handoff.transfer_number || '';
+              c.human_handoff.transfer_configured = !!(c.human_handoff.transfer_number);
+            }
+          });
+          return parsed;
+        } catch (e) {
+          console.warn('Failed to parse CLIENTS_CONFIG env var, falling back to embedded config');
+        }
+      }
+
+      // 2. Fall back to embedded configuration
+      const parsed = JSON.parse(embeddedClientsJson);
+      if (!parsed.clients.some(c => c.is_demo === true)) {
+        parsed.clients.push(JSON.parse(demoClientJson));
+      }
+      // Apply env-based demo phone override so phone matching works when the
+      // demo client's phone_number is supplied at deploy time.
+      parsed.clients.forEach(c => {
+        if (c.is_demo === true && this.env.DEMO_PHONE_NUMBER) {
+          c.phone_number = this.env.DEMO_PHONE_NUMBER;
+          c.human_handoff = c.human_handoff || {};
+          c.human_handoff.transfer_number = this.env.DEMO_HANDOFF_NUMBER || c.human_handoff.transfer_number || '';
+          c.human_handoff.transfer_configured = !!(c.human_handoff.transfer_number);
+        }
+      });
+      return parsed;
     } catch (error) {
       console.error('Error loading clients data:', error);
       throw new Error('Failed to load clients data');
@@ -262,16 +426,16 @@ export class ClientConfigService {
     try {
       const currentConfig = await this.getClientConfig(clientId);
       const updatedConfig = { ...currentConfig, ...updates };
-      
+
       // Validate updated configuration
       this.validateClientConfig(updatedConfig);
-      
+
       // Clear cache
       this.cache.delete(clientId);
-      
+
       // In a real implementation, this would update the database or file
       console.log(`Client configuration updated: ${clientId}`, updatedConfig);
-      
+
       return updatedConfig;
     } catch (error) {
       console.error('Error updating client config:', error);
@@ -284,21 +448,18 @@ export class ClientConfigService {
     try {
       // Validate client data
       this.validateClientConfig(clientData);
-      
+
       // Check if client already exists
       const clientsData = await this.loadClientsData();
       const existingClient = clientsData.clients.find(c => c.id === clientData.id);
-      
+
       if (existingClient) {
         throw new Error(`Client with ID ${clientData.id} already exists`);
       }
-      
-      // Add client
+
       clientsData.clients.push(clientData);
-      
-      // In a real implementation, this would save to database or file
       console.log(`New client added: ${clientData.id}`, clientData);
-      
+
       return clientData;
     } catch (error) {
       console.error('Error adding client:', error);
@@ -311,20 +472,18 @@ export class ClientConfigService {
     try {
       const clientsData = await this.loadClientsData();
       const clientIndex = clientsData.clients.findIndex(c => c.id === clientId);
-      
+
       if (clientIndex === -1) {
         throw new Error(`Client not found: ${clientId}`);
       }
-      
-      // Remove client
+
       clientsData.clients.splice(clientIndex, 1);
-      
+
       // Clear cache
       this.cache.delete(clientId);
-      
-      // In a real implementation, this would update the database or file
+
       console.log(`Client deleted: ${clientId}`);
-      
+
       return true;
     } catch (error) {
       console.error('Error deleting client:', error);
@@ -335,27 +494,19 @@ export class ClientConfigService {
   // Get client working hours for a specific date
   async getWorkingHoursForDate(clientId, date) {
     try {
-      console.log(`[DEBUG] Getting working hours for client: ${clientId}, date: ${date.toISOString()}`);
       const client = await this.getClientConfig(clientId);
-      
-      // Get day name in lowercase - try multiple approaches
+
+      // Get day name in multiple formats
       const dayName1 = date.toLocaleDateString('en-US', { weekday: 'long' }).toLowerCase();
       const dayName2 = date.toLocaleDateString('en-US', { weekday: 'short' }).toLowerCase();
       const dayName3 = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'][date.getDay()];
-      
-      console.log(`[DEBUG] Day names: ${dayName1}, ${dayName2}, ${dayName3}`);
-      console.log(`[DEBUG] Available working hours keys:`, Object.keys(client.working_hours));
-      
-      // Try different day name formats
+
       let dayHours = client.working_hours[dayName1] || client.working_hours[dayName2] || client.working_hours[dayName3];
-      
-      console.log(`[DEBUG] Found working hours:`, dayHours);
-      
+
       if (!dayHours || dayHours.start === 'closed') {
-        console.log(`[DEBUG] Business is closed on this day`);
         return null; // Closed on this day
       }
-      
+
       return dayHours;
     } catch (error) {
       console.error('Error getting working hours for date:', error);
@@ -367,11 +518,11 @@ export class ClientConfigService {
   async isClientOpen(clientId, dateTime) {
     try {
       const workingHours = await this.getWorkingHoursForDate(clientId, dateTime);
-      
+
       if (!workingHours) {
         return false; // Closed
       }
-      
+
       const time = dateTime.toTimeString().slice(0, 5); // HH:MM format
       return time >= workingHours.start && time <= workingHours.end;
     } catch (error) {
@@ -385,11 +536,11 @@ export class ClientConfigService {
     try {
       const client = await this.getClientConfig(clientId);
       const duration = client.services[service];
-      
+
       if (!duration) {
         throw new Error(`Service not found: ${service}`);
       }
-      
+
       return duration;
     } catch (error) {
       console.error('Error getting service duration:', error);
@@ -409,19 +560,57 @@ export class ClientConfigService {
   }
 
   // Look up client by inbound phone number (for Vapi call routing)
+  // Handles E.164, national, and partially-stripped formats by comparing
+  // digit-only strings on the last 10 digits, with AU/NZ style variants
+  // (leading 0 national vs 61/64 country code).
   async getClientByPhoneNumber(inboundNumber) {
     try {
       const clientsData = await this.loadClientsData();
-      const normalized = inboundNumber.replace(/\D/g, '');
+      const normalized = this.normalizePhone(inboundNumber);
+      if (!normalized) return null;
+
       const client = clientsData.clients.find(c => {
-        const clientPhone = (c.phone_number || '').replace(/\D/g, '');
-        return clientPhone && normalized.endsWith(clientPhone.slice(-10));
+        const clientPhone = this.normalizePhone(c.phone_number);
+        if (!clientPhone) return false;
+        return this.phoneNumbersMatch(normalized, clientPhone);
       });
+
+      // If no specific phone match but a demo client exists, only fall back to
+      // the demo client when DEMO_PHONE_NUMBER env var matches the inbound
+      // number (so the demo client never answers random calls).
+      if (!client && this.env.DEMO_PHONE_NUMBER && this.phoneNumbersMatch(normalized, this.normalizePhone(this.env.DEMO_PHONE_NUMBER))) {
+        const demo = clientsData.clients.find(c => c.is_demo === true);
+        return demo || null;
+      }
+
       return client || null;
     } catch (error) {
       console.error('Error looking up client by phone:', error);
       return null;
     }
+  }
+
+  // Compare two digit-only strings, accounting for country code vs
+  // leading-zero national formats (e.g. 61412345678 vs 0412345678).
+  phoneNumbersMatch(a, b) {
+    if (!a || !b) return false;
+    if (a === b) return true;
+    if (a.length >= 10 && b.length >= 10 && a.slice(-10) === b.slice(-10)) return true;
+    return this.normalizeCountry(a) === this.normalizeCountry(b);
+  }
+
+  // Convert a 10-digit '0'-prefixed national number to its country-code
+  // form (e.g. 0412345678 -> 61412345678) so AU/NZ numbers match in either
+  // format. Country-code numbers and other locales pass through unchanged.
+  normalizeCountry(digits) {
+    if (digits.length === 10 && digits.startsWith('0')) return '61' + digits.slice(1);
+    return digits;
+  }
+
+  // Normalize a phone number to digits only (E.164 or national formats)
+  normalizePhone(phone) {
+    if (!phone || typeof phone !== 'string') return '';
+    return phone.replace(/\D/g, '');
   }
 
   // Clear cache

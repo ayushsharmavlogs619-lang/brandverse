@@ -15,6 +15,12 @@ vars = [
 #   wrangler secret put GOOGLE_CLIENT_EMAIL --env production
 #   wrangler secret put GOOGLE_PRIVATE_KEY --env production
 #
+# Demo receptionist (the dedicated Brandverse demo client):
+#   wrangler secret put DEMO_PHONE_NUMBER --env production   # actual Vapi/Twilio demo number (E.164)
+#   wrangler secret put DEMO_HANDOFF_NUMBER --env production # human transfer destination (optional)
+#   wrangler secret put TOOL_API_KEY --env production        # shared key for server-side tools (book/callback/transfer/cancel/reschedule)
+#   wrangler secret put VAPI_WEBHOOK_SECRET --env production # Vapi webhook secret (dashboard: webhook secret)
+#
 # Optional secrets (for booking email notifications via Google Apps Script):
 #   wrangler secret put GOOGLE_APPS_SCRIPT_WEBHOOK_URL --env production
 #   wrangler secret put GOOGLE_APPS_SCRIPT_SECRET --env production
@@ -22,7 +28,7 @@ vars = [
 # Vapi (for outbound calls):
 #   wrangler secret put VAPI_API_KEY --env production
 #
-# Client config override (JSON string, optional — falls back to embedded config):
+# Client config override (JSON string, optional ? falls back to embedded config):
 #   wrangler secret put CLIENTS_CONFIG --env production
 
 [env.staging]

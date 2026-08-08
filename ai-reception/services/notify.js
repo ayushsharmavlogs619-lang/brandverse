@@ -69,4 +69,46 @@ export class NotificationService {
       console.warn('Call notification failed (non-blocking):', error.message);
     }
   }
+
+  // Send a callback request notification. Resolves with { confirmed: true }
+  // ONLY when the delivery actually succeeded, so the voice assistant can
+  // truthfully tell callers whether the team was actually notified.
+  async sendCallbackNotification(client, callbackData) {
+    if (!this.webhookUrl || !this.secret) {
+      return { confirmed: false, reason: 'notification_webhook_not_configured' };
+    }
+
+    try {
+      const payload = {
+        secret: this.secret,
+        type: 'callback_request',
+        date: new Date().toISOString(),
+        client_id: client?.id || '',
+        client_name: client?.name || '',
+        name: callbackData.name || '',
+        phone: callbackData.phone || '',
+        reason: callbackData.reason || '',
+        urgency: callbackData.urgency || 'normal',
+        service: callbackData.service || '',
+        notes: callbackData.notes || '',
+      };
+
+      const response = await fetch(this.webhookUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+        signal: AbortSignal.timeout(10000),
+      });
+
+      if (!response.ok) {
+        console.warn('Callback notification webhook returned', response.status);
+        return { confirmed: false, reason: `webhook_http_${response.status}` };
+      }
+
+      return { confirmed: true };
+    } catch (error) {
+      console.warn('Callback notification failed (non-blocking):', error.message);
+      return { confirmed: false, reason: 'webhook_error' };
+    }
+  }
 }

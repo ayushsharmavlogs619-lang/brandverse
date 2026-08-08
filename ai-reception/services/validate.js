@@ -49,7 +49,11 @@ export function validateLogInput(body) {
   return errors;
 }
 
+// Sanitize free-text fields for logs. Strips HTML/script-worthy characters
+// but KEEPS '&' — service names legitimately contain ampersands
+// ("Breakers & Power Outages"). Removing "<", ">", quotes already
+// neutralizes markup-style injection.
 export function sanitizeStr(val, maxLen = 1000) {
   if (typeof val !== 'string') return '';
-  return val.trim().substring(0, maxLen).replace(/[<>&"']/g, '');
+  return val.trim().substring(0, maxLen).replace(/[<>"']/g, '');
 }

@@ -1,6 +1,8 @@
 // Vapi Service - Voice AI integration
 // Handles Vapi webhooks, outbound calls, and assistant configuration
 
+import { buildAssistantConfig } from './assistant-config.js';
+
 const VAPI_BASE = 'https://api.vapi.ai';
 
 export class VapiService {
@@ -12,11 +14,17 @@ export class VapiService {
     this.notificationService = notificationService || null;
   }
 
-  // Verify webhook signature (if VAPI_WEBHOOK_SECRET is configured)
+  // Verify webhook signature. Vapi sends the configured webhook secret in
+  // the "x-vapi-secret" header. For compatibility, "x-vapi-signature" is
+  // also accepted. If no secret is configured, allow (dev) only when
+  // ALLOW_INSECURE_WEBHOOKS=true; otherwise the webhook is rejected.
   verifySignature(request) {
     const secret = this.env.VAPI_WEBHOOK_SECRET;
-    if (!secret) return true; // skip verification if not configured
-    const signature = request.headers.get('x-vapi-signature') || '';
+    if (!secret) {
+      if (this.env.ALLOW_INSECURE_WEBHOOKS === 'true') return true;
+      return false;
+    }
+    const signature = request.headers.get('x-vapi-secret') || request.headers.get('x-vapi-signature') || '';
     if (!signature) return false;
     return signature === secret;
   }
@@ -24,7 +32,7 @@ export class VapiService {
   // Handle incoming Vapi webhook
   async handleWebhook(request) {
     if (!this.verifySignature(request)) {
-      return { status: 401, body: { error: 'Invalid webhook signature' } };
+      return { status: 401, body: { error: 'Invalid webhook signature (VAPI_WEBHOOK_SECRET mismatch)' } };
     }
     const body = await request.json();
     const message = body.message || body;
@@ -47,14 +55,20 @@ export class VapiService {
     }
   }
 
-  // Handle assistant-request: return dynamic assistant config for the client
+  // Handle assistant-request: return the assistant config for the client
+  // matched to the inbound number. The demo client is resolved through
+  // DEMO_PHONE_NUMBER (set in client config), so the demo number NEVER
+  // falls through to the generic fallback assistant.
   async handleAssistantRequest(message) {
     const call = message.call || {};
     const calledNumber = call.phoneNumber?.number || '';
     const customerNumber = call.customer?.number || '';
 
     const client = await this.clientConfigService.getClientByPhoneNumber(calledNumber);
+
     if (!client) {
+      // No client matched this number. Provide a minimal, honest fallback so
+      // unconfigured numbers are never handled as a specific business.
       console.warn(`No client found for inbound number: ${calledNumber}`);
       return {
         status: 200,
@@ -62,126 +76,26 @@ export class VapiService {
           assistant: {
             name: 'Brandverse Receptionist',
             model: { provider: 'openai', model: 'gpt-4o-mini' },
-            firstMessage: 'Hello, thank you for calling. How can I help you today?',
+            firstMessage: this.env.DEMO_FALLBACK_FIRST_MESSAGE || 'Hello, thank you for calling. How can I help you today?',
             voice: 'jennifer-playht',
             transcriber: { provider: 'deepgram', model: 'nova-2' },
+            messages: [
+              {
+                type: 'system-message',
+                message: 'You are a Brandverse receptionist. The business for this number could not be identified. Be honest, take the caller name and phone number, and offer that a team member will call them back. Do not book, do not promise transfers, do not invent a business name.',
+              },
+            ],
           },
         },
       };
     }
 
-    const services = Object.entries(client.services || {}).map(([name, duration]) => ({
-      name,
-      durationMinutes: duration,
-    }));
+    if (client.is_demo) {
+      console.log(`[demo] Demo client matched via phone: ${calledNumber}`);
+    }
 
-    const baseUrl = this.env.APP_BASE_URL || `https://edge.brandverse.tech`;
-
-    return {
-      status: 200,
-      body: {
-        assistant: {
-          name: `${client.name} AI Receptionist`,
-          model: { provider: 'openai', model: 'gpt-4o-mini' },
-          firstMessage: `Hello, thank you for calling ${client.name}. How can I help you today?`,
-          voice: 'jennifer-playht',
-          transcriber: { provider: 'deepgram', model: 'nova-2' },
-          recordingEnabled: true,
-          semanticMemory: {
-            enabled: true,
-          },
-          analysisPlan: {
-            summaryPlan: { enabled: true },
-            successEvaluationPlan: { enabled: true },
-          },
-          tools: [
-            {
-              type: 'function',
-              function: {
-                name: 'check_availability',
-                description: 'Check available appointment slots for a given date and service.',
-                parameters: {
-                  type: 'object',
-                  properties: {
-                    date: { type: 'string', description: 'Date in YYYY-MM-DD format' },
-                    service: { type: 'string', enum: Object.keys(client.services) },
-                  },
-                  required: ['date', 'service'],
-                },
-              },
-              server: {
-                url: `${baseUrl}/api/${client.id}/availability`,
-                method: 'GET',
-                queryParameters: {
-                  date: '{{date}}',
-                  service: '{{service}}',
-                },
-              },
-            },
-            {
-              type: 'function',
-              function: {
-                name: 'book_appointment',
-                description: 'Book an appointment for a customer.',
-                parameters: {
-                  type: 'object',
-                  properties: {
-                    name: { type: 'string' },
-                    phone: { type: 'string' },
-                    email: { type: 'string' },
-                    service: { type: 'string', enum: Object.keys(client.services) },
-                    dateTime: { type: 'string', description: 'ISO 8601 date-time' },
-                    notes: { type: 'string' },
-                  },
-                  required: ['name', 'phone', 'service', 'dateTime'],
-                },
-              },
-              server: {
-                url: `${baseUrl}/api/${client.id}/book`,
-                method: 'POST',
-                body: {
-                  name: '{{name}}',
-                  phone: '{{phone}}',
-                  email: '{{email}}',
-                  service: '{{service}}',
-                  dateTime: '{{dateTime}}',
-                  notes: '{{notes}}',
-                },
-              },
-            },
-            {
-              type: 'function',
-              function: {
-                name: 'get_business_hours',
-                description: 'Get the business hours and available services.',
-                parameters: {
-                  type: 'object',
-                  properties: {},
-                  required: [],
-                },
-              },
-              server: {
-                url: `${baseUrl}/api/${client.id}/client-config`,
-                method: 'GET',
-              },
-            },
-          ],
-          messages: [
-            {
-              type: 'system-message',
-              message: `You are the AI receptionist for ${client.name}. ` +
-                `Business hours: ${JSON.stringify(client.working_hours)}. ` +
-                `Available services: ${services.map(s => `${s.name} (${s.durationMinutes} min)`).join(', ')}. ` +
-                `Address: ${client.address || 'Not provided'}. ` +
-                `Be polite, professional, and efficient. Collect caller's name and phone number. ` +
-                `Use check_availability to find slots, then book_appointment to schedule. ` +
-                `If the caller has an emergency or urgent need and the business supports emergency services, ` +
-                `prioritize getting them help immediately.`,
-            },
-          ],
-        },
-      },
-    };
+    const config = buildAssistantConfig(client, this.env);
+    return { status: 200, body: config };
   }
 
   // Handle status-update: log call state changes
@@ -248,11 +162,10 @@ export class VapiService {
     return { status: 200, body: { received: true } };
   }
 
-  // Handle function-call: execute a custom function requested by Vapi
+  // Handle function-call: used only for custom backend actions. All other
+  // tools execute through their server URLs directly.
   async handleFunctionCall(message) {
     const functionName = message.functionCall?.name;
-    const args = message.functionCall?.parameters || {};
-
     return {
       status: 200,
       body: {
@@ -281,7 +194,7 @@ export class VapiService {
           customerNumber: customerNumber,
         },
         assistant: {
-          name: `${client.name} AI Receptionist`,
+          name: `${client.name} Receptionist`,
           model: { provider: 'openai', model: 'gpt-4o-mini' },
           firstMessage: assistantOverrides.firstMessage || `Hello, this is ${client.name}. How can I help you today?`,
           voice: 'jennifer-playht',
