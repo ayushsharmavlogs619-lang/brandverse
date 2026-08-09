@@ -9,6 +9,7 @@ interface AppConfig {
   analytics: {
     gaId: string;
     metaPixelId: string;
+    gtmId: string;
   };
   // Other services
   vapiPublicKey: string;
@@ -21,6 +22,24 @@ interface AppConfig {
 }
 
 const warnedKeys = new Set<string>();
+
+/**
+ * Neutralizes placeholder/fake GA4 measurement IDs so they can never fire
+ * analytics. Real GA4 IDs look like G-XXXXXXXX (letters + digits only).
+ */
+const sanitizeGa4Id = (raw: string): string => {
+  const id = raw.trim();
+  const isPlaceholder =
+    !id ||
+    id.toUpperCase().includes('XXXXXXXX') ||
+    id.toUpperCase().includes('PLACEHOLDER') ||
+    /^GA_MEASUREMENT_ID$/i.test(id) ||
+    !/^G-[A-Z0-9]{8,}$/i.test(id);
+  if (isPlaceholder && raw !== '') {
+    console.warn('Invalid or placeholder GA4 measurement ID detected. Analytics will be disabled.');
+  }
+  return isPlaceholder ? '' : id;
+};
 
 const getEnvVar = (key: string, defaultValue: string = ''): string => {
   const value = process.env[key];
@@ -36,8 +55,9 @@ const getEnvVar = (key: string, defaultValue: string = ''): string => {
 
 export const config: AppConfig = {
   analytics: {
-    gaId: getEnvVar('NEXT_PUBLIC_GA_MEASUREMENT_ID', ''),
+    gaId: sanitizeGa4Id(getEnvVar('NEXT_PUBLIC_GA_MEASUREMENT_ID', '')),
     metaPixelId: getEnvVar('NEXT_PUBLIC_META_PIXEL_ID', ''),
+    gtmId: getEnvVar('NEXT_PUBLIC_GTM_ID', 'GTM-KZS5WRBB'),
   },
   vapiPublicKey: getEnvVar('NEXT_PUBLIC_VAPI_PUBLIC_KEY', ''),
   vapiAssistantId: getEnvVar('NEXT_PUBLIC_VAPI_ASSISTANT_ID', ''),
