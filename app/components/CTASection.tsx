@@ -1,7 +1,10 @@
+'use client';
+
 import type { ReactNode } from 'react';
 import Link from 'next/link';
 import { ArrowRight, Zap, Phone, Calendar } from 'lucide-react';
 import { config } from '../../lib/config';
+import { trackCalendlyClick } from '../../lib/analytics-events';
 
 function isExternalHref(href: string) {
   return /^https?:\/\//i.test(href);
@@ -11,14 +14,22 @@ function CtaLink({
   href,
   className,
   children,
+  onTrack,
 }: {
   href: string;
   className: string;
   children: ReactNode;
+  onTrack?: (label: string) => void;
 }) {
   if (isExternalHref(href)) {
     return (
-      <a href={href} target="_blank" rel="noopener noreferrer" className={className}>
+      <a
+        href={href}
+        target="_blank"
+        rel="noopener noreferrer"
+        className={className}
+        onClick={() => onTrack?.('cta_section')}
+      >
         {children}
       </a>
     );
@@ -55,6 +66,12 @@ export default function CTASection({
   const calendlyFallback = config.calendlyUrl || 'https://calendly.com/ayushsharmavlogs619/30min';
   const finalPrimaryLink = variant === 'form' ? calendlyFallback : primaryLink;
   const finalSecondaryLink = variant === 'form' ? secondaryLink : (secondaryLink || '/contact');
+
+  const trackIfCalendly = (label: string) => {
+    if (/calendly\.com/i.test(finalPrimaryLink) || /calendly\.com/i.test(finalSecondaryLink)) {
+      trackCalendlyClick(label);
+    }
+  };
 
   const titleClasses = variant === 'minimal'
     ? "text-3xl font-black text-white"
@@ -99,6 +116,7 @@ export default function CTASection({
               <CtaLink 
                 href={finalPrimaryLink}
                 className={`${buttonClasses} group relative overflow-hidden`}
+                onTrack={trackIfCalendly}
               >
                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 {variant === 'form' ? <Phone className="w-5 h-5 relative z-10" /> : <Zap className="w-5 h-5 relative z-10" />}
@@ -110,6 +128,7 @@ export default function CTASection({
                 <CtaLink 
                   href={finalSecondaryLink}
                   className="text-sm font-black uppercase tracking-widest text-blue-400 hover:text-white transition-colors flex items-center gap-2"
+                  onTrack={trackIfCalendly}
                 >
                   {variant === 'form' ? <Calendar className="w-4 h-4" /> : null}
                   {secondaryText}

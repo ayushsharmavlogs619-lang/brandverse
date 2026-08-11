@@ -4,6 +4,8 @@ import Link from 'next/link';
 import { ArrowLeft, CheckCircle2, AlertTriangle, Phone, Mail, ArrowRight, ShieldCheck } from 'lucide-react';
 import { useState } from 'react';
 import LeadForm, { SuccessMessage } from '../components/LeadForm';
+import { config } from '@/lib/config';
+import { trackAuditRequest, trackCalendlyClick } from '@/lib/analytics-events';
 
 export default function AuditPage() {
     const [showSuccess, setShowSuccess] = useState(false);
@@ -11,6 +13,9 @@ export default function AuditPage() {
     const handleFormSubmit = async (result: any) => {
         if (result.success) {
             setShowSuccess(true);
+            trackAuditRequest('audit_page', true);
+        } else {
+            trackAuditRequest('audit_page', false);
         }
     };
     return (
@@ -114,7 +119,7 @@ export default function AuditPage() {
                                             name="phone"
                                             required
                                             className="w-full bg-white/5 border border-white/10 rounded-xl pl-12 pr-4 py-4 text-white placeholder:text-slate-600 focus:outline-none focus:border-blue-500 transition-colors font-medium"
-                                            placeholder="+91 88510 05278"
+                                            placeholder="e.g. (555) 123-4567"
                                         />
                                     </div>
                                 </div>
@@ -173,6 +178,9 @@ export default function AuditPage() {
                 <SuccessMessage 
                     title="Audit Requested!"
                     message="We'll contact you within 24 hours to set up your tracking line."
+                    redirectUrl={config.calendlyUrl}
+                    redirectLabel="Book Your Strategy Call"
+                    onRedirect={() => trackCalendlyClick('audit_success')}
                     onDismiss={() => setShowSuccess(false)}
                 />
             )}

@@ -3,6 +3,7 @@
 import { useEffect, useState, useRef } from 'react';
 import { X, Mail } from 'lucide-react';
 import { leadService } from '../../lib/lead-service';
+import { trackLeadFormSubmit } from '../../lib/analytics-events';
 
 interface LeadPopupProps {
   delay?: number;
@@ -86,6 +87,7 @@ export default function LeadPopup({
       source_form: 'lead_popup',
     }, 1);
     setStatus('success');
+    trackLeadFormSubmit('lead_popup', true);
     setTimeout(dismiss, 3000);
   };
 

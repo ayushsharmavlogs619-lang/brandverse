@@ -2,6 +2,7 @@
 
 import { useState, FormEvent } from 'react';
 import { leadService, LeadData, type LeadSubmissionResult, LeadService } from '../../lib/lead-service';
+import { trackLeadFormSubmit } from '../../lib/analytics-events';
 
 interface LeadFormProps {
     children: React.ReactNode;
@@ -58,6 +59,7 @@ export default function LeadForm({
             
             if (result.success) {
                 setSubmitStatus('success');
+                trackLeadFormSubmit(sourceForm, true);
                 
                 // Call the optional onSubmit callback
                 if (onSubmit) {
@@ -69,6 +71,7 @@ export default function LeadForm({
             } else {
                 setSubmitStatus('error');
                 setErrorMessage(result.error || 'Submission failed. Please try again.');
+                trackLeadFormSubmit(sourceForm, false);
                 
                 if (onSubmit) {
                     onSubmit(result);
@@ -78,6 +81,7 @@ export default function LeadForm({
             setSubmitStatus('error');
             setErrorMessage('An unexpected error occurred. Please try again.');
             console.error('Form submission error:', error);
+            trackLeadFormSubmit(sourceForm, false);
             
             if (onSubmit) {
                 onSubmit({
@@ -177,13 +181,17 @@ interface SuccessMessageProps {
     message?: string;
     onDismiss?: () => void;
     redirectUrl?: string;
+    redirectLabel?: string;
+    onRedirect?: () => void;
 }
 
 export function SuccessMessage({
     title = "Success!",
     message = "Your information has been submitted successfully.",
     onDismiss,
-    redirectUrl
+    redirectUrl,
+    redirectLabel = "Continue",
+    onRedirect,
 }: SuccessMessageProps) {
     return (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
@@ -195,13 +203,16 @@ export function SuccessMessage({
                 </div>
                 <h3 className="text-white font-bold text-lg mb-2">{title}</h3>
                 <p className="text-slate-400 text-sm mb-6">{message}</p>
-                <div className="flex gap-3">
+                <div className="flex flex-col gap-3">
                     {redirectUrl ? (
                         <button
-                            onClick={() => window.location.href = redirectUrl}
-                            className="flex-1 px-6 py-3 bg-green-500 text-white rounded-lg font-medium hover:bg-green-600 transition-colors"
+                            onClick={() => {
+                                if (onRedirect) onRedirect();
+                                window.open(redirectUrl, '_blank', 'noopener,noreferrer');
+                            }}
+                            className="px-6 py-3 bg-green-500 text-white rounded-lg font-medium hover:bg-green-600 transition-colors"
                         >
-                            Continue
+                            {redirectLabel}
                         </button>
                     ) : null}
                     {onDismiss ? (

@@ -1,5 +1,6 @@
 import { Shield, Zap, Target, Lock } from 'lucide-react';
 import TeamMember from '../components/TeamMember';
+import CTASection from '../components/CTASection';
 
 export const metadata = {
   title: 'About — Brandverse',
@@ -167,6 +168,12 @@ export default function AboutPage() {
         </div>
       </main>
 
+      <CTASection
+        title="Let's Build Your Engine"
+        subtitle="See exactly what a Brandverse AI voice agent would do for your business — on a free, no-obligation call."
+        primaryText="Book Your Free Strategy Call"
+        variant="minimal"
+      />
 
     </div>
   );

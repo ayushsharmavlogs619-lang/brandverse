@@ -2,9 +2,10 @@
 
 import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
-import { ArrowLeft, Mic, MicOff, Phone, PhoneOff, Settings, AlertCircle } from 'lucide-react';
+import { ArrowLeft, Mic, MicOff, Phone, PhoneOff, Settings, AlertCircle, Calendar } from 'lucide-react';
 import Vapi from '@vapi-ai/web';
 import { config } from '../../../lib/config';
+import { trackCalendlyClick } from '@/lib/analytics-events';
 
 // Initialize Vapi only when API key is available to prevent errors
 const vapiKey = config.vapiPublicKey; // Vapi public key for voice API
@@ -161,6 +162,16 @@ export default function VoiceDemo() {
                             </button>
                         )}
                     </div>
+
+                    <a
+                        href={config.calendlyUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={() => trackCalendlyClick('voice_demo')}
+                        className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-blue-600 text-white font-bold text-sm hover:bg-blue-500 transition-all shadow-lg shadow-blue-500/25"
+                    >
+                        <Calendar className="w-4 h-4" /> Book a Live Demo Call Instead
+                    </a>
                 </div>
             </main>
 

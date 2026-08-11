@@ -1,7 +1,9 @@
 'use client'
 
 import { useState, useRef, useEffect } from 'react';
-import { Send, Bot, User, Loader2, Sparkles } from 'lucide-react';
+import { Send, Bot, User, Loader2, Sparkles, Calendar } from 'lucide-react';
+import { config } from '@/lib/config';
+import { trackCalendlyClick } from '@/lib/analytics-events';
 
 export default function WorkroomPage() {
     const [messages, setMessages] = useState<{ role: 'user' | 'ai', content: string }[]>([]);
@@ -13,6 +15,8 @@ export default function WorkroomPage() {
             scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
         }
     }, [messages]);
+
+    const bookingHref = config.calendlyUrl;
 
     async function handleChatSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
@@ -26,7 +30,7 @@ export default function WorkroomPage() {
 
         await new Promise(resolve => setTimeout(resolve, 600));
         const reply =
-            "Thanks for your message. This preview workspace isn't connected to a live assistant yet — for a hands-on demo, book a 30-minute call with our team: https://calendly.com/ayushsharmavlogs619/30min";
+            "Thanks for your message. This preview workspace isn't connected to a live assistant yet — for a hands-on demo, book a 30-minute call with our team below.";
         setMessages(prev => [...prev, { role: 'ai', content: reply }]);
         setLoading(false);
     }
@@ -44,9 +48,15 @@ export default function WorkroomPage() {
                         <p className="text-xs text-zinc-500 uppercase tracking-widest font-semibold">Client Preview Workspace</p>
                     </div>
                 </div>
-                <div className="hidden md:block text-sm bg-zinc-900/50 px-4 py-2 rounded-full border border-white/5 text-zinc-500">
-                    Book a demo call for a live assistant
-                </div>
+                <a
+                    href={bookingHref}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => trackCalendlyClick('workroom_header')}
+                    className="hidden md:flex items-center gap-2 text-sm bg-red-600 hover:bg-red-500 text-white px-4 py-2 rounded-full font-semibold transition-all shadow-lg shadow-red-600/20"
+                >
+                    <Calendar className="w-4 h-4" /> Book a Demo Call
+                </a>
             </header>
 
             {/* Chat Area */}
@@ -73,6 +83,17 @@ export default function WorkroomPage() {
                             </div>
                             <div className={`p-4 rounded-2xl ${msg.role === 'user' ? 'bg-red-600 text-white rounded-tr-none' : 'bg-zinc-900 border border-white/5 rounded-tl-none'} shadow-xl`}>
                                 <p className="leading-relaxed whitespace-pre-wrap">{msg.content}</p>
+                                {msg.role === 'ai' && (
+                                    <a
+                                        href={bookingHref}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        onClick={() => trackCalendlyClick('workroom_chat')}
+                                        className="mt-4 inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-red-600 hover:bg-red-500 text-white text-sm font-bold transition-all shadow-lg shadow-red-600/20"
+                                    >
+                                        <Calendar className="w-4 h-4" /> Book a 30-Minute Call
+                                    </a>
+                                )}
                             </div>
                         </div>
                     </div>

@@ -4,6 +4,8 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Menu, X } from 'lucide-react';
+import { config } from '../../lib/config';
+import { trackCalendlyClick } from '../../lib/analytics-events';
 
 export default function Navbar() {
     const pathname = usePathname();
@@ -30,9 +32,15 @@ export default function Navbar() {
                 </div>
                 
                 <div className="hidden md:block">
-                    <Link href="/contact" className="px-5 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-full text-sm font-semibold transition-all shadow-lg shadow-blue-500/20">
+                    <a
+                        href={config.calendlyUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={() => trackCalendlyClick('navbar')}
+                        className="px-5 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-full text-sm font-semibold transition-all shadow-lg shadow-blue-500/20"
+                    >
                         Book Demo
-                    </Link>
+                    </a>
                 </div>
 
                 {/* Mobile Menu Button */}
@@ -84,13 +92,18 @@ export default function Navbar() {
                         >
                             FAQ
                         </Link>
-                        <Link 
-                            href="/contact" 
+                        <a
+                            href={config.calendlyUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            onClick={() => {
+                                setMobileMenuOpen(false);
+                                trackCalendlyClick('navbar_mobile');
+                            }}
                             className="block py-3 px-4 bg-blue-600 hover:bg-blue-700 text-white rounded-full text-sm font-semibold transition-all text-center mt-4"
-                            onClick={() => setMobileMenuOpen(false)}
                         >
                             Book Demo
-                        </Link>
+                        </a>
                     </div>
                 </div>
             )}

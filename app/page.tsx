@@ -44,6 +44,7 @@ import {
 import ChatWidget from './components/ChatWidget';
 import CTASection from './components/CTASection';
 import { articles } from './lib/articles';
+import { trackAuditRequest } from '../lib/analytics-events';
 
 export default function Page() {
   const [calculatorValue, setCalculatorValue] = useState(10);
@@ -74,8 +75,10 @@ export default function Page() {
       setAuditStatus('success');
       setEmail('');
       setAuditName('');
+      trackAuditRequest('homepage_audit_cta', true);
     } catch {
       setAuditStatus('idle');
+      trackAuditRequest('homepage_audit_cta', false);
     }
   };
 

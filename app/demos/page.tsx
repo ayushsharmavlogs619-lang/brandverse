@@ -1,7 +1,9 @@
 'use client';
 
 import Link from 'next/link';
-import { Mic, ArrowRight } from 'lucide-react';
+import { Mic, ArrowRight, Calendar } from 'lucide-react';
+import { config } from '@/lib/config';
+import { trackCalendlyClick } from '@/lib/analytics-events';
 
 export default function DemosPage() {
     const demos = [
@@ -56,6 +58,22 @@ export default function DemosPage() {
                             </div>
                         </Link>
                     ))}
+                </div>
+
+                <div className="mt-20 bg-gradient-to-r from-blue-900/40 to-purple-900/40 p-10 rounded-3xl border border-blue-500/30 text-center space-y-6">
+                    <h3 className="text-3xl font-black text-white italic">Want a Demo Built for Your Business?</h3>
+                    <p className="text-slate-300 max-w-lg mx-auto">
+                        See a live AI agent trained on your services, pricing, and call flow — on a free 30-minute call.
+                    </p>
+                    <a
+                        href={config.calendlyUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={() => trackCalendlyClick('demos_page')}
+                        className="inline-flex items-center gap-2 bg-blue-500 text-white px-8 py-4 rounded-xl font-black uppercase tracking-widest text-sm hover:bg-blue-400 transition-colors shadow-lg shadow-blue-500/25"
+                    >
+                        Book a Free Strategy Call <Calendar className="w-4 h-4" />
+                    </a>
                 </div>
             </main>
         </div>

@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { MessageSquare, X, Zap, Calendar, Phone } from 'lucide-react';
 import { config } from '../../lib/config';
+import { trackCalendlyClick, trackPhoneClick } from '../../lib/analytics-events';
 
 const FAQ_STEPS: { label: string; answer: string }[] = [
     {
@@ -80,6 +81,7 @@ export default function ChatWidget() {
                                     href={config.calendlyUrl}
                                     target="_blank"
                                     rel="noopener noreferrer"
+                                    onClick={() => trackCalendlyClick('chat_widget_main')}
                                     className="flex items-center justify-center gap-2 w-full px-4 py-3 rounded-xl bg-blue-600 text-white text-sm font-bold hover:bg-blue-500 transition-all"
                                 >
                                     <Calendar className="w-4 h-4" /> Book a Free 30-Minute Call
@@ -99,12 +101,14 @@ export default function ChatWidget() {
                                             href={config.calendlyUrl}
                                             target="_blank"
                                             rel="noopener noreferrer"
+                                            onClick={() => trackCalendlyClick('chat_widget_human')}
                                             className="flex items-center justify-center gap-2 w-full px-4 py-3 rounded-xl bg-blue-600 text-white text-sm font-bold hover:bg-blue-500 transition-all"
                                         >
                                             <Calendar className="w-4 h-4" /> Book a Free 30-Minute Call
                                         </a>
                                         <a
                                             href="tel:+918851005278"
+                                            onClick={() => trackPhoneClick('chat_widget')}
                                             className="flex items-center justify-center gap-2 w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white text-sm font-bold hover:bg-white/10 transition-all"
                                         >
                                             <Phone className="w-4 h-4" /> Call +91 88510 05278

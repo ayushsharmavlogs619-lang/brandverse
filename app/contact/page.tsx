@@ -1,11 +1,11 @@
 'use client';
 
-import Navbar from '../components/Navbar';
 import CalendlyEmbed from '../components/CalendlyEmbed';
 import { Mail, MessageSquare, Phone, Calendar } from 'lucide-react';
 import { config } from '@/lib/config';
 import { useState } from 'react';
 import LeadForm, { SuccessMessage } from '../components/LeadForm';
+import { trackCalendlyClick, trackPhoneClick } from '@/lib/analytics-events';
 
 // Declare global types for analytics
 declare global {
@@ -57,6 +57,7 @@ export default function ContactPage() {
                                 href={config.calendlyUrl}
                                 target="_blank"
                                 rel="noopener noreferrer"
+                                onClick={() => trackCalendlyClick('contact_open_booking')}
                                 className="mt-4 flex items-center justify-center gap-2 w-full py-3 rounded-xl bg-blue-500/10 border border-blue-500/30 text-blue-400 text-sm font-bold hover:bg-blue-500/20 transition-all"
                             >
                                 <Calendar className="w-4 h-4" /> Open Booking Page Instead
@@ -84,7 +85,7 @@ export default function ContactPage() {
                                 </div>
                                 <div>
                                     <div className="text-sm text-slate-500 font-bold uppercase tracking-wider">Phone</div>
-                                    <a href="tel:+918851005278" className="text-white hover:text-emerald-400 transition-colors">+91 88510 05278</a>
+                                    <a href="tel:+918851005278" onClick={() => trackPhoneClick('contact_page')} className="text-white hover:text-emerald-400 transition-colors">+91 88510 05278</a>
                                 </div>
                             </div>
 
@@ -163,7 +164,7 @@ export default function ContactPage() {
                                             type="tel" 
                                             name="phone"
                                             className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder:text-slate-500 focus:outline-none focus:border-blue-500 transition-colors"
-                                            placeholder="+91 88510 05278"
+                                            placeholder="e.g. (555) 123-4567"
                                         />
                                     </div>
                                 </div>
@@ -183,13 +184,12 @@ export default function ContactPage() {
                                 </div>
 
                                 <div>
-                                    <label className="block text-sm font-medium text-slate-300 mb-2">Message</label>
+                                    <label className="block text-sm font-medium text-slate-300 mb-2">Message <span className="text-slate-500">(optional)</span></label>
                                     <textarea 
                                         name="message"
                                         rows={4}
-                                        required
                                         className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder:text-slate-500 focus:outline-none focus:border-blue-500 transition-colors resize-none"
-                                        placeholder="Tell us about your project..."
+                                        placeholder="Tell us about your project (optional)..."
                                     />
                                 </div>
 
@@ -209,6 +209,9 @@ export default function ContactPage() {
                 <SuccessMessage 
                     title="Message Sent!"
                     message="We'll get back to you within 24 hours."
+                    redirectUrl={config.calendlyUrl}
+                    redirectLabel="Book Your Strategy Call"
+                    onRedirect={() => trackCalendlyClick('contact_success')}
                     onDismiss={() => setShowSuccess(false)}
                 />
             )}
