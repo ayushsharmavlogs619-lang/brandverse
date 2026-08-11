@@ -8,6 +8,76 @@ export interface Article {
 
 export const articles: Article[] = [
     {
+        slug: 'roofing-storm-lead-capture',
+        title: 'Storm Season Lead Capture: How Roofing Contractors Win the Call Rush',
+        excerpt: 'A hailstorm can send hundreds of roofing leads to voicemail in one afternoon. Here is how contractors answer every storm call, qualify insurance jobs, and book inspections before competitors do.',
+        date: 'Aug 5, 2026',
+        category: 'Industry Focus'
+    },
+    {
+        slug: 'google-business-profile-calls',
+        title: 'Your Google Business Profile Generates Calls You Are Not Answering',
+        excerpt: 'For most local businesses, Google Maps is the #1 source of phone leads — and the most ignored. Track profile-driven calls, measure what they are worth, and stop leaking them.',
+        date: 'Aug 5, 2026',
+        category: 'Lead Generation'
+    },
+    {
+        slug: 'website-lead-capture-fixes',
+        title: 'Your Website Is Leaking Leads: 9 Fixes That Pay for Themselves',
+        excerpt: 'You do not need a redesign to capture more leads. These nine conversion fixes — forms, call buttons, speed, follow-up — recover revenue your website already generates.',
+        date: 'Aug 5, 2026',
+        category: 'Growth Strategy'
+    },
+    {
+        slug: 'choose-crm-service-business',
+        title: 'How to Choose a CRM for Your Service Business: A Practical Buying Guide',
+        excerpt: 'The right CRM becomes your revenue backbone; the wrong one becomes an expensive spreadsheet. Compare field-service platforms, sales CRMs, and light options on the criteria that actually matter.',
+        date: 'Aug 5, 2026',
+        category: 'Guides'
+    },
+    {
+        slug: 'chatbot-vs-ai-voice-agent',
+        title: 'Website Chatbot vs AI Voice Agent: Which One Does Your Business Need First?',
+        excerpt: 'Chatbots answer questions on your website; voice agents answer calls. Compare coverage, cost, and conversion impact to decide where your first automation dollar goes.',
+        date: 'Aug 5, 2026',
+        category: 'Comparison'
+    },
+    {
+        slug: 'reduce-no-shows-guide',
+        title: 'The No-Show System: How to Cut Missed Appointments by More Than Half',
+        excerpt: 'No-shows quietly cost service businesses five figures a year. A practical system of confirmations, reminders, waitlists, and instant rebooking that closes the gap.',
+        date: 'Aug 5, 2026',
+        category: 'Operations'
+    },
+    {
+        slug: 'automated-reviews-referrals',
+        title: 'Reviews and Referrals on Autopilot: Turn Happy Customers Into Your Marketing Team',
+        excerpt: 'Timing is everything: ask for the review while the experience is fresh. How automated SMS follow-ups multiply reviews and referrals without nagging.',
+        date: 'Aug 5, 2026',
+        category: 'Growth Strategy'
+    },
+    {
+        slug: 'call-triage-and-routing',
+        title: 'Inbound Call Triage: How to Qualify, Route, Book, and Escalate Every Call',
+        excerpt: 'Every inbound call should end in a defined outcome — inspection booked, routed to a human, or handled. A blueprint for call flows that protect margin and customer experience.',
+        date: 'Aug 5, 2026',
+        category: 'Technical Guide'
+    },
+    {
+        slug: 'ai-automation-90-day-rollout',
+        title: 'The 90-Day AI Rollout: A Realistic Automation Roadmap for Service Businesses',
+        excerpt: 'Which automation first? A week-by-week roadmap for deploying AI call handling, appointment setting, and follow-up — with the metrics that prove it is working.',
+        date: 'Aug 5, 2026',
+        category: 'Guides'
+    },
+    {
+        slug: 'measure-call-driven-revenue',
+        title: 'Phone Calls Are Revenue Data: How to Measure What Your Inbound Calls Are Worth',
+        excerpt: 'Most owners cannot answer one question: how much revenue came from the phone last month? A practical system for call tracking, conversion, and revenue per call.',
+        date: 'Aug 5, 2026',
+        category: 'Analytics'
+    },
+    {
         slug: 'scaling-vs-swelling-automation',
         title: 'Scaling vs. Swelling: The Difference That Kills Companies',
         excerpt: 'Most businesses don\'t scale; they swell. Learn how to grow your revenue without bloating your payroll.',
