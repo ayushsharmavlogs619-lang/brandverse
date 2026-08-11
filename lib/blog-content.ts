@@ -91,6 +91,136 @@ function industryCaseStudyMap(article: Article): string | null {
 
 /** Rich HTML overrides (optional). Falls back to a full article template from metadata. */
 const CONTENT_OVERRIDES: Record<string, string> = {
+    'chiropractic-ai-patient-intake': `
+    <section class="space-y-6">
+      <p class="text-slate-400 leading-8 text-lg">It is 9:40 on a Tuesday morning. Dr. Mehta is three minutes into a new patient's first adjustment when the phone rings at the front desk. The front desk associate is mid-checkout with the patient before her, explaining a care plan. The call — a potential new patient asking about appointment availability and whether the practice accepts their insurance — rolls to voicemail. The front desk calls back at 12:45. By then, the caller has booked a first visit with the practice two blocks away.</p>
+      <p class="text-slate-400 leading-8 text-lg">Nobody did anything wrong. The chiropractor was treating a patient. The front desk was serving a patient. The practice was running exactly as it should — and still leaked a new patient.</p>
+      <p class="text-slate-400 leading-8 text-lg">This article is about the repetitive front-desk communication work that creates these leaks, which parts of it can be automated, and — just as important — which parts should always stay with your team.</p>
+    </section>
+
+    <section class="space-y-6">
+      <h2 class="text-2xl font-black text-white uppercase italic tracking-wide">Why Chiropractic Front Desks Get Overloaded</h2>
+      <p class="text-slate-400 leading-8 text-lg">A chiropractic front desk is not one job — it is several. In a single hour, the same person may check in an existing patient, verify insurance details for a new caller, collect payment for a care package, reschedule a patient, and answer the phone — repeatedly.</p>
+      <p class="text-slate-400 leading-8 text-lg">Chiropractic practices add two structural pressures that most businesses do not have:</p>
+      <ul class="list-disc ml-6 space-y-2 text-slate-400 leading-relaxed">
+        <li><strong class="text-white">High-frequency appointments.</strong> Treatment plans commonly involve multiple visits per week, which means the appointment calendar is constantly in motion — bookings, reschedules, cancellations, and rebooking happen all day, not in one morning block.</li>
+        <li><strong class="text-white">Clinical time is the scarce resource.</strong> The person patients want to speak to is often physically treating someone else. Questions that sound simple — "when can I come in?" — cannot be answered while the chiropractor's hands are with a patient.</li>
+      </ul>
+      <p class="text-slate-400 leading-8 text-lg">The result is a front desk that is perpetually interrupt-driven — every phone call is a context switch away from the patient standing at the counter. This is not a staffing problem you can hire your way out of: the workload spikes unpredictably and overlaps with patient care hours.</p>
+    </section>
+
+    <section class="space-y-6">
+      <h2 class="text-2xl font-black text-white uppercase italic tracking-wide">Where New Patient Calls Get Lost</h2>
+      <p class="text-slate-400 leading-8 text-lg">New patient calls are the most fragile calls a chiropractic practice receives, and they tend to arrive at the worst possible times:</p>
+      <ul class="list-disc ml-6 space-y-2 text-slate-400 leading-relaxed">
+        <li><strong class="text-white">During treatment sessions.</strong> The adjusting room is not a call center, and it should not be. Calls arrive while the doctor is with a patient — often exactly when a new patient chooses to call.</li>
+        <li><strong class="text-white">During checkout and payment conversations.</strong> Insurance discussions at the counter can take several minutes. Meanwhile, the phone is ringing.</li>
+        <li><strong class="text-white">After hours and during lunch.</strong> Evening and weekend inquiries are when many prospective patients do their research — and when most practices are closed.</li>
+        <li><strong class="text-white">When the front desk is chasing incomplete intake.</strong> The associate is already on the phone collecting a missing insurance card number, so the incoming call goes unanswered.</li>
+      </ul>
+      <p class="text-slate-400 leading-8 text-lg">The problem with a missed new patient call is that the caller likely phoned several practices. A patient who reaches voicemail rarely waits for a callback — they move down the list until someone answers. By the time you call back, the decision may already be made.</p>
+      <p class="text-slate-400 leading-8 text-lg">The operational fix is not "answer faster." It is removing the parts of phone handling that compete with patient care, so the front desk's attention goes to people in the room while the phone is still covered.</p>
+    </section>
+
+    <section class="space-y-6">
+      <h2 class="text-2xl font-black text-white uppercase italic tracking-wide">What AI Can Actually Automate in a Chiropractic Practice</h2>
+      <p class="text-slate-400 leading-8 text-lg">The right way to think about AI in a chiropractic practice is as a second set of administrative hands, not a replacement for your people. AI should handle repetitive front-desk communication and scheduling work so the human team can focus on patients. Concretely, that covers:</p>
+      <h3 class="text-xl font-bold text-white mt-8 mb-4">New Patient Intake</h3>
+      <p class="text-slate-400 leading-8 text-lg">When a new patient calls, an AI receptionist can collect the basic administrative information a practice needs before the first visit: name, contact details, reason for the visit, how they heard about the practice, and insurance carrier name. This information is collected and logged into your intake workflow so the front desk starts from a filled-in record instead of an empty one. Collecting information is not the same as making clinical decisions — that distinction matters and is covered below.</p>
+      <h3 class="text-xl font-bold text-white mt-8 mb-4">Appointment Scheduling</h3>
+      <p class="text-slate-400 leading-8 text-lg">Where an AI receptionist is integrated with the practice's scheduling system, it can check availability, propose appointment times, and book or request confirmation — 24/7, including the evening hours when new patients do their research. The practice sets the rules: which visit types are bookable by AI, how far in advance, and what happens when a slot requires staff approval.</p>
+      <h3 class="text-xl font-bold text-white mt-8 mb-4">After-Hours Calls</h3>
+      <p class="text-slate-400 leading-8 text-lg">Evening and weekend inquiries currently go to voicemail or wait until Monday. An AI receptionist can capture those calls when they happen: collect the caller's information, answer approved questions, and book or flag the request for the next business day. The Monday morning queue starts as confirmed appointments instead of unanswered voicemails.</p>
+      <h3 class="text-xl font-bold text-white mt-8 mb-4">Routine Questions</h3>
+      <p class="text-slate-400 leading-8 text-lg">"What are your hours?" "Where are you located?" "What should I bring to my first visit?" "Do you treat [condition]?" These are answered from an approved list of business information the practice controls. When the question is outside that list, the AI should not guess — it should hand off to a human or take a message.</p>
+      <h3 class="text-xl font-bold text-white mt-8 mb-4">Callbacks, Cancellations, and Rescheduling</h3>
+      <p class="text-slate-400 leading-8 text-lg">Existing patients cancel and reschedule constantly, often by phone during clinic hours. An AI receptionist can capture the request, confirm the new time when the calendar allows, or log a callback request for the front desk. When a cancellation opens a slot, the same system can trigger the waitlist — the <a href="/blog/reduce-no-shows-guide" class="text-blue-400 underline hover:text-blue-300">no-show and cancellation system guide</a> covers that machinery in detail, and <a href="/blog/healthcare-no-show-cure" class="text-blue-400 underline hover:text-blue-300">clinic-specific reminder mechanics</a> apply directly to chiropractic care plans.</p>
+    </section>
+
+    <section class="space-y-6">
+      <h2 class="text-2xl font-black text-white uppercase italic tracking-wide">What AI Should NOT Handle</h2>
+      <p class="text-slate-400 leading-8 text-lg">This boundary is the most important part of the design. AI in a chiropractic practice must never be presented as a medical professional. The following stays with your clinical team, permanently:</p>
+      <ul class="list-disc ml-6 space-y-2 text-slate-400 leading-relaxed">
+        <li><strong class="text-white">Diagnosis and clinical assessment.</strong> No AI should interpret symptoms, decide whether a patient needs care, or evaluate whether a condition is appropriate for chiropractic treatment.</li>
+        <li><strong class="text-white">Treatment recommendations.</strong> Care plans, visit frequency, modalities, and any advice tied to a patient's condition are clinical decisions.</li>
+        <li><strong class="text-white">Medical advice and emergency decisions.</strong> If a caller describes an emergency, the AI's only job is to escalate quickly and appropriately to a human — or direct the caller to emergency services.</li>
+        <li><strong class="text-white">Complex insurance interpretation.</strong> Whether a specific plan covers a specific service is a determination for your team and your verification processes, not for automation.</li>
+        <li><strong class="text-white">Anything requiring professional judgment.</strong> If a conversation reaches a point where a human's judgment is needed, that is the trigger for a human handoff — every time.</li>
+      </ul>
+      <p class="text-slate-400 leading-8 text-lg">This is not a limitation of AI; it is the entire point. A well-configured system escalates the moment a conversation crosses this line.</p>
+    </section>
+
+    <section class="space-y-6">
+      <h2 class="text-2xl font-black text-white uppercase italic tracking-wide">Can AI Really Handle Insurance Questions?</h2>
+      <p class="text-slate-400 leading-8 text-lg">Insurance is the highest-stakes administrative topic in a chiropractic practice, so it deserves precision. There are two very different things that get lumped together under "insurance questions":</p>
+      <p class="text-slate-400 leading-8 text-lg"><strong class="text-white">Collecting insurance information and routing administrative questions — yes, this can be automated.</strong> An AI receptionist can ask a caller for their insurance carrier, plan name, and member ID, log it into the intake record, and answer approved administrative questions like "do you accept [carrier]?" — where "accepted carriers" is a factual list the practice maintains, not a judgment call.</p>
+      <p class="text-slate-400 leading-8 text-lg"><strong class="text-white">Determining what a plan covers — no, this should not be automated.</strong> Whether a particular plan covers a particular service, at what rate, and under what conditions is determined by your team's verification process, the patient's actual plan documents, and, when needed, the payer. If a caller asks for a coverage determination, the right behavior is to collect the information and hand the question to a human. Practices should ensure their implementation never implies otherwise.</p>
+      <p class="text-slate-400 leading-8 text-lg">The practical win is smaller but real: insurance intake is one of the longest calls a front desk handles. Offloading the collection portion — carrier, plan, member ID — shortens every one of those calls and keeps the determination work exactly where it belongs.</p>
+    </section>
+
+    <section class="space-y-6">
+      <h2 class="text-2xl font-black text-white uppercase italic tracking-wide">How an AI Receptionist Could Fit Into a Chiropractic Workflow</h2>
+      <p class="text-slate-400 leading-8 text-lg">Depending on the systems and integrations in use, a typical new patient call could flow like this:</p>
+      <ul class="list-disc ml-6 space-y-2 text-slate-400 leading-relaxed">
+        <li><strong class="text-white">The AI receptionist answers the call</strong> immediately — no hold, no voicemail.</li>
+        <li><strong class="text-white">It identifies whether the caller is new or existing</strong> and asks the appropriate opening questions.</li>
+        <li><strong class="text-white">For a new patient, it collects permitted administrative information</strong> — name, contact details, reason for the visit, and insurance carrier.</li>
+        <li><strong class="text-white">It answers approved FAQ questions</strong> from the practice's configured knowledge: hours, location, first-visit instructions, accepted carriers.</li>
+        <li><strong class="text-white">If the practice has enabled scheduling integration, it checks available slots</strong> and books — or, if the visit type needs staff approval, it captures the request.</li>
+        <li><strong class="text-white">When anything requires a human — clinical questions, emergencies, complex insurance topics, or an explicit request to speak to a person — it escalates</strong> to the front desk or the on-call team.</li>
+      </ul>
+      <p class="text-slate-400 leading-8 text-lg">Each step is configurable — the practice decides what the AI may say, what it may collect, when it may book, and when it must hand off. Administrative workflows can be automated; the practice's rules control the boundaries.</p>
+      <p class="text-slate-400 leading-8 text-lg">A closely related walkthrough — <a href="/blog/physical-therapy-ai-patient-intake" class="text-blue-400 underline hover:text-blue-300">AI patient intake in physical therapy clinics</a> — shows the same intake-and-booking pattern applied to a similar practice type, which can help you picture it in your own front desk.</p>
+    </section>
+
+    <section class="space-y-6">
+      <h2 class="text-2xl font-black text-white uppercase italic tracking-wide">What to Look for Before Choosing an AI Receptionist</h2>
+      <p class="text-slate-400 leading-8 text-lg">Not all AI phone systems are built the same, and a chiropractic practice needs a specific set of capabilities and guardrails:</p>
+      <ul class="list-disc ml-6 space-y-2 text-slate-400 leading-relaxed">
+        <li><strong class="text-white">Natural conversation.</strong> Callers should not feel like they are navigating a phone tree. Listen to samples before you buy.</li>
+        <li><strong class="text-white">Configurable knowledge.</strong> Hours, accepted carriers, first-visit instructions, and service descriptions must be business-controlled and editable, with the system answering only from that approved set.</li>
+        <li><strong class="text-white">Scheduling integration.</strong> If you want AI booking, the system must connect to your actual calendar with safeguards against double-booking.</li>
+        <li><strong class="text-white">Human handoff.</strong> Transfers to a person must be instant and reliable — including the trigger points where clinical judgment becomes involved.</li>
+        <li><strong class="text-white">After-hours behavior.</strong> Decide how the system handles evening and weekend calls, and verify it matches your policy.</li>
+        <li><strong class="text-white">Error handling.</strong> What does the system do when it does not understand the caller? Good systems ask again, offer a human, or take a message — they never guess.</li>
+        <li><strong class="text-white">Privacy and security controls.</strong> Practices should ensure their implementation meets applicable privacy and healthcare requirements, including HIPAA where it applies. The <a href="/blog/hipaa-compliance-ai-healthcare" class="text-blue-400 underline hover:text-blue-300">HIPAA guide for AI voice systems</a> walks through the questions to ask a vendor.</li>
+        <li><strong class="text-white">Auditability and logging.</strong> You should be able to review every call transcript to catch mistakes, tune answers, and confirm the system is staying inside its boundaries.</li>
+        <li><strong class="text-white">Ability to update business information.</strong> When hours, carriers, or services change, updating the AI should be simple — otherwise it will start giving stale answers.</li>
+        <li><strong class="text-white">Truthful handling of unavailable capabilities.</strong> The system should say "I am not sure — let me get someone to help" rather than improvising an answer it cannot support.</li>
+      </ul>
+    </section>
+
+    <section class="space-y-6">
+      <h2 class="text-2xl font-black text-white uppercase italic tracking-wide">A Practical 90-Day Approach to Automating a Chiropractic Front Desk</h2>
+      <p class="text-slate-400 leading-8 text-lg">Automation does not need to be a big-bang project. A measured rollout protects your patients and your front desk:</p>
+      <h3 class="text-xl font-bold text-white mt-8 mb-4">Phase 1: Map calls and repetitive tasks</h3>
+      <p class="text-slate-400 leading-8 text-lg">For two weeks, categorize every incoming call: new patient inquiries, scheduling, reschedules, insurance, billing, clinical questions. Count how often each happens and when. Most practices find that a small number of call types make up most of the volume — and those same types are the most repetitive.</p>
+      <h3 class="text-xl font-bold text-white mt-8 mb-4">Phase 2: Automate low-risk administrative workflows</h3>
+      <p class="text-slate-400 leading-8 text-lg">Start with the lowest-risk, highest-volume work: answering after-hours calls, collecting new patient intake information, and handling routine scheduling requests. Keep clinical and insurance judgment calls firmly with your team. Involve the front desk in writing the approved answers — they know the questions better than anyone.</p>
+      <h3 class="text-xl font-bold text-white mt-8 mb-4">Phase 3: Measure results and expand only where appropriate</h3>
+      <p class="text-slate-400 leading-8 text-lg">After 30 days, compare: how many after-hours calls were captured, how many new patient requests were booked or logged, how many handoffs happened, and whether the front desk reports fewer interruptions. Expand into adjacent workflows — reminders, waitlist fills, follow-ups — only where the first phase demonstrably worked. The <a href="/blog/ai-automation-90-day-rollout" class="text-blue-400 underline hover:text-blue-300">90-day automation roadmap</a> provides the full phased playbook for service businesses.</p>
+    </section>
+
+    <section class="space-y-6">
+      <h2 class="text-2xl font-black text-white uppercase italic tracking-wide">Is AI Right for Your Chiropractic Practice?</h2>
+      <p class="text-slate-400 leading-8 text-lg">A quick checklist to decide whether this is worth exploring:</p>
+      <ul class="list-disc ml-6 space-y-2 text-slate-400 leading-relaxed">
+        <li>Do incoming calls arrive during treatment and checkout — i.e., when nobody can answer?</li>
+        <li>Do evening and weekend inquiries currently go to voicemail?</li>
+        <li>Does the front desk regularly leave patients at the counter to answer the phone?</li>
+        <li>Are incomplete intake records a recurring headache?</li>
+        <li>Do cancellations and reschedules consume a meaningful part of the day?</li>
+        <li>Is new patient intake information collected manually, on paper or over the phone?</li>
+        <li>Would your team welcome a system that reduces interruptions rather than one that adds monitoring?</li>
+      </ul>
+      <p class="text-slate-400 leading-8 text-lg">If several of these are true, automation is worth evaluating — not because the front desk is failing, but because the workload pattern is structurally impossible to keep up with by hand. If most are false, you may not need it yet, and that is a fine answer too.</p>
+    </section>
+
+    <section class="space-y-6">
+      <h2 class="text-2xl font-black text-white uppercase italic tracking-wide">The Patient-First Case for Automation</h2>
+      <p class="text-slate-400 leading-8 text-lg">Every improvement above is ultimately about patient experience. The new patient who calls at 7 p.m. gets an immediate, professional response instead of a voicemail. The patient at the front desk gets the associate's full attention instead of watching them answer the phone. The chiropractor keeps treating — which is the job only a person can do.</p>
+      <p class="text-slate-400 leading-8 text-lg">AI in a chiropractic practice is not about replacing anyone. It is about removing the administrative noise that competes with patient care, so the humans can spend their time on the work that actually needs human judgment. If you want to see whether this applies to your practice, we can look at where calls, intake, scheduling, and follow-up are currently creating friction and identify which parts are worth automating. <a href="/audit" class="text-blue-400 underline hover:text-blue-300">Start with a free Brandverse audit</a>, <a href="tel:+918851005278" class="text-blue-400 underline hover:text-blue-300">call us at +91 88510 05278</a>, or <a href="https://calendly.com/ayushsharmavlogs619/30min" target="_blank" rel="noopener noreferrer" class="text-blue-400 underline hover:text-blue-300">book a free strategy call</a> — whichever is easiest for you.</p>
+    </section>`,
     'automated-reviews-referrals': `
     <section class="space-y-6">
       <p class="text-slate-400 leading-8 text-lg">Your best customers cost you nothing to acquire, and they are already marketing for you — imperfectly. They leave good reviews a fraction of the time they could, and they mention you to friends only when asked. The fix is not better service (though that helps). The fix is asking at the exact right moment, every time, with zero friction.</p>
@@ -2860,6 +2990,13 @@ const CONTENT_OVERRIDES: Record<string, string> = {
 };
 
 const FAQ_OVERRIDES: Record<string, { question: string; answer: string }[]> = {
+  'chiropractic-ai-patient-intake': [
+    { question: 'Can an AI receptionist collect new patient information before the first visit?', answer: 'Yes. An AI receptionist can collect permitted administrative information such as name, contact details, reason for the visit, and insurance carrier, then log it into your intake workflow so the front desk starts from a filled-in record. Clinical questions are not collected or answered by AI — they are escalated to your team.' },
+    { question: 'Will AI handle insurance verification for my practice?', answer: 'AI can collect insurance information and answer approved administrative questions like whether your practice accepts a given carrier. Determining what a specific plan covers is a judgment for your team and verification processes — a well-configured system never makes coverage determinations.' },
+    { question: 'Do I need an AI receptionist if I already have a front desk team?', answer: 'The purpose is not to replace your front desk. It is to cover the calls that arrive while your team is with patients, at checkout, and after hours — the calls that currently go to voicemail or wait until the team is free. Most practices use it as overflow and after-hours coverage.' },
+    { question: 'Is using AI in a chiropractic practice a compliance concern?', answer: 'Practices should ensure their implementation meets applicable privacy and healthcare requirements, including HIPAA where it applies. Ask any vendor about access controls, data handling, logging, and what documentation they provide — and keep diagnosis, treatment, and coverage determinations with your clinical team.' },
+    { question: 'Can AI book appointments directly into my chiropractic calendar?', answer: 'When the AI receptionist is integrated with your scheduling system, it can check availability and book or request confirmation for the visit types you authorize, with safeguards against double-booking. Until integration is in place, it captures the request for staff to complete.' },
+  ],
   'reduce-no-shows-guide': [
     { question: 'What is a normal no-show rate for a service business?', answer: 'Typical no-show rates range from about 5-15% depending on industry, booking lead time, and whether reminders are sent. Long-lead and low-commitment bookings have the highest rates.' },
     { question: 'Do text reminders actually reduce no-shows?', answer: 'Yes — confirmation and reminder messages are the highest-leverage fix. A confirmation at booking plus a 24-hour reminder cuts no-show rates substantially in most businesses. The effect is largest for bookings made more than a few days out.' },
@@ -3079,6 +3216,15 @@ export function getBlogPost(slug: string): BlogPost | null {
   const customFAQs = FAQ_OVERRIDES[slug];
 
   const takeawaysMap: Record<string, string[]> = {
+    'chiropractic-ai-patient-intake': [
+      'Chiropractic front desks are overloaded because calls overlap with patient care, not because of staffing failures',
+      'Repetitive administrative communication — intake info, scheduling, FAQs, callbacks — is the automatable layer',
+      'Diagnosis, treatment recommendations, and complex insurance determinations never leave the human team',
+      'Collecting insurance information is automatable; deciding what a plan covers is not',
+      'A sound flow: answer, identify new vs. existing, collect permitted info, answer approved FAQs, book or request a callback, escalate when a human is required',
+      'Evaluate vendors on human handoff, error handling, privacy controls, auditability, and truthful answers over polish',
+      'Roll out in phases over 90 days and expand only where results justify it',
+    ],
     'roofing-storm-lead-capture': [
       'Storm calls are the highest-value calls a roofer can receive — and the most often missed',
       'Answer, qualify, book, reassure: four outcomes every storm call must reach',

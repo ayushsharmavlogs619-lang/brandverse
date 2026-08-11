@@ -8,6 +8,13 @@ export interface Article {
 
 export const articles: Article[] = [
     {
+        slug: 'chiropractic-ai-patient-intake',
+        title: 'AI for Chiropractic Practices: Automate New Patient Intake, Insurance Verification, and Appointment Scheduling',
+        excerpt: 'Chiropractors and front-desk teams lose new patients to repetitive intake, scheduling, and insurance calls — not to bad care. Here is what AI can (and should) automate in a chiropractic practice, and where humans stay in control.',
+        date: 'Aug 12, 2026',
+        category: 'Industry Focus'
+    },
+    {
         slug: 'roofing-storm-lead-capture',
         title: 'Storm Season Lead Capture: How Roofing Contractors Win the Call Rush',
         excerpt: 'A hailstorm can send hundreds of roofing leads to voicemail in one afternoon. Here is how contractors answer every storm call, qualify insurance jobs, and book inspections before competitors do.',
