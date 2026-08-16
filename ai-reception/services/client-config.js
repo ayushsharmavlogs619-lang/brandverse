@@ -184,6 +184,35 @@ export class ClientConfigService {
       "buffer_minutes": 30,
       "max_booking_days_ahead": 60,
       "consultation_required": true
+    },
+    {
+      "id": "brandverse_demo_1",
+      "name": "Brandverse Demo",
+      "niche": "universal-demo",
+      "timezone": "Australia/Melbourne",
+      "services": {
+        "Consultation": 30,
+        "Service Call": 60,
+        "Emergency Service": 60
+      },
+      "working_hours": {
+        "monday": {"start": "07:00", "end": "20:00"},
+        "tuesday": {"start": "07:00", "end": "20:00"},
+        "wednesday": {"start": "07:00", "end": "20:00"},
+        "thursday": {"start": "07:00", "end": "20:00"},
+        "friday": {"start": "07:00", "end": "20:00"},
+        "saturday": {"start": "08:00", "end": "18:00"},
+        "sunday": {"start": "closed", "end": "closed"}
+      },
+      "calendar_id": "",
+      "sheet_id": "",
+      "phone_number": "",
+      "address": "Demo Mode - Brandverse AI Receptionist",
+      "subdomain": "edge.brandverse.tech",
+      "business_description": "Universal demo mode for electrician, chiropractic, and podiatry industries",
+      "after_hours_booking": true,
+      "buffer_minutes": 10,
+      "max_booking_days_ahead": 30
     }
   ]
 }`;
