@@ -1,6 +1,6 @@
 'use client';
 
-import { Component, ReactNode } from 'react';
+import { Component, ReactNode, ErrorInfo as ReactErrorInfo } from 'react';
 import { AlertTriangle, RefreshCw } from 'lucide-react';
 
 interface Props {
@@ -8,9 +8,24 @@ interface Props {
   fallback?: ReactNode;
 }
 
+interface ErrorDiagnostics {
+  timestamp: string;
+  error_message: string;
+  error_stack: string | undefined;
+  component_stack: string | null | undefined;
+  location: string;
+  user_agent: string;
+  platform: string;
+  ready_state: string;
+  notification_api: boolean;
+  service_worker: boolean;
+}
+
 interface State {
   hasError: boolean;
   error?: Error;
+  errorInfo?: ReactErrorInfo | null;
+  diagnostics?: ErrorDiagnostics | null;
 }
 
 /**
@@ -25,12 +40,28 @@ export default class ErrorBoundary extends Component<Props, State> {
 
   static getDerivedStateFromError(error: Error): State {
     // Update state so the next render will show the fallback UI
-    return { hasError: true, error };
+    return { hasError: true, error, errorInfo: null };
   }
 
-  componentDidCatch(error: Error, errorInfo: any) {
+  componentDidCatch(error: Error, errorInfo: ReactErrorInfo) {
     // Log error to console (in production, send to error tracking service)
     console.error('Error Boundary caught an error:', error, errorInfo);
+
+    // Capture diagnostic information for debugging
+    const diagnostics: ErrorDiagnostics = {
+      timestamp: new Date().toISOString(),
+      error_message: error.message,
+      error_stack: error.stack,
+      component_stack: errorInfo.componentStack,
+      location: typeof window !== 'undefined' ? window.location.href : 'N/A',
+      user_agent: typeof navigator !== 'undefined' ? navigator.userAgent : 'N/A',
+      platform: typeof navigator !== 'undefined' ? navigator.platform : 'N/A',
+      ready_state: typeof document !== 'undefined' ? document.readyState : 'N/A',
+      notification_api: typeof window !== 'undefined' && typeof window.Notification !== 'undefined',
+      service_worker: typeof navigator !== 'undefined' && typeof navigator.serviceWorker !== 'undefined',
+    };
+
+    this.setState({ errorInfo, diagnostics });
   }
 
   handleReset = () => {
@@ -58,10 +89,25 @@ export default class ErrorBoundary extends Component<Props, State> {
             {this.state.error && (
               <details className="text-left mb-6">
                 <summary className="text-zinc-500 text-xs cursor-pointer hover:text-zinc-400">
-                  Error details
+                  Error details (tap to expand)
                 </summary>
-                <pre className="mt-2 text-xs text-red-400 bg-black/50 p-3 rounded overflow-auto max-h-32">
-                  {this.state.error.message}
+                <pre className="mt-2 text-xs text-red-400 bg-black/50 p-3 rounded overflow-auto max-h-64 text-left whitespace-pre-wrap break-all">
+                  {this.state.diagnostics ? (
+                    <>
+                      Timestamp: {this.state.diagnostics.timestamp}
+                      Error: {this.state.diagnostics.error_message}
+                      Stack: {this.state.diagnostics.error_stack}
+                      Component Stack: {this.state.diagnostics.component_stack}
+                      Location: {this.state.diagnostics.location}
+                      User Agent: {this.state.diagnostics.user_agent}
+                      Platform: {this.state.diagnostics.platform}
+                      Ready State: {this.state.diagnostics.ready_state}
+                      Notification API: {this.state.diagnostics.notification_api ? 'Yes' : 'No'}
+                      Service Worker: {this.state.diagnostics.service_worker ? 'Yes' : 'No'}
+                    </>
+                  ) : (
+                    this.state.error.message
+                  )}
                 </pre>
               </details>
             )}
