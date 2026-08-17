@@ -12,6 +12,24 @@ const ROOT = join(__dirname, '..');
 
 const results = { checks: [], passes: 0, warnings: 0, failures: 0 };
 
+function loadLocalEnv() {
+  const out = {};
+  const envPath = join(ROOT, '.env.local');
+  if (existsSync(envPath)) {
+    readFileSync(envPath, 'utf8').split('\n').forEach(l => {
+      const m = l.match(/^([^#\s=]+)=(.*)$/);
+      if (m) out[m[1].trim()] = m[2].trim().replace(/^['"](.*)['"]$/, '$1');
+    });
+  }
+  return out;
+}
+
+const LOCAL_ENV = loadLocalEnv();
+const TOOL_KEY = process.argv.find(a => a.startsWith('--tool-key='))?.split('=')[1]
+  || process.env.TOOL_API_KEY
+  || LOCAL_ENV.TOOL_API_KEY
+  || '';
+
 function check(name, status, detail, meta) {
   results.checks.push({ name, status, detail, ...meta });
   if (status === 'PASS') results.passes++;
@@ -37,14 +55,7 @@ async function fetchJson(url, opts = {}) {
 
 // === 1. ENVIRONMENT VARIABLES ===
 function checkEnv() {
-  const envPath = join(ROOT, '.env.local');
-  const env = {};
-  if (existsSync(envPath)) {
-    readFileSync(envPath, 'utf8').split('\n').forEach(l => {
-      const m = l.match(/^([^#\s=]+)=(.*)$/);
-      if (m) env[m[1].trim()] = m[2].trim().replace(/^['"](.*)['"]$/, '$1');
-    });
-  }
+  const env = LOCAL_ENV;
 
   // Required worker secrets (should be in wrangler secret, not .env.local)
   // .env.local is for Pages build-time vars
@@ -58,6 +69,8 @@ function checkEnv() {
     { name: 'GOOGLE_CLIENT_EMAIL', required: true },
     { name: 'GOOGLE_PRIVATE_KEY', required: true },
     { name: 'VAPI_API_KEY', required: false },
+    { name: 'VAPI_WEBHOOK_SECRET', required: false },
+    { name: 'TOOL_API_KEY', required: false },
     { name: 'GOOGLE_APPS_SCRIPT_WEBHOOK_URL', required: false },
     { name: 'GOOGLE_APPS_SCRIPT_SECRET', required: false },
     { name: 'CLIENTS_CONFIG', required: false },
@@ -92,10 +105,14 @@ async function checkWorker() {
 
 // === 3. GOOGLE CALENDAR ===
 async function checkCalendar() {
+  if (!TOOL_KEY) {
+    check('Calendar', 'WARN', 'Skipped: no TOOL_API_KEY for X-Tool-Key (run with --tool-key=<key> or add TOOL_API_KEY to .env.local)');
+    return;
+  }
   // Test via booking endpoint (infer calendar connectivity from response)
   const r = await fetchJson(`${BASE}/api/dental_melbourne_1/book`, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: { 'Content-Type': 'application/json', 'X-Tool-Key': TOOL_KEY },
     body: JSON.stringify({
       name: 'Doctor Check', phone: '+12125551234', service: 'consultation',
       dateTime: new Date(Date.now() + 86400000 * 14).toISOString(),
@@ -243,13 +260,18 @@ async function checkRoutes() {
     { path: '/api/nonexistent/client-config', method: 'GET', label: 'Client config (404)', expect: 404 },
     { path: '/api/dental_melbourne_1/availability?date=2026-08-15&service=consultation', method: 'GET', label: 'Availability', expect: [200, 400] },
     { path: '/api/vapi/webhook', method: 'POST', label: 'Vapi webhook', expect: [200, 401], body: { message: { type: 'status-update' } } },
-    { path: '/api/dental_melbourne_1/book', method: 'POST', label: 'Booking (validation)', expect: 400, body: { name: 'x', phone: '+1', service: 'x', dateTime: 'x' } },
+    { path: '/api/dental_melbourne_1/book', method: 'POST', label: 'Booking (validation)', expect: 400, body: { name: 'x', phone: '+1', service: 'x', dateTime: 'x' }, auth: true },
     { path: '/api/dental_melbourne_1/log', method: 'POST', label: 'Log', expect: 200, body: { name: 'test' } },
   ];
 
   for (const route of routes) {
+    if (route.auth && !TOOL_KEY) {
+      check(`Route: ${route.label}`, 'WARN', 'Skipped: no TOOL_API_KEY for X-Tool-Key (run with --tool-key=<key>)');
+      continue;
+    }
     const opts = { method: route.method };
     if (route.body) { opts.headers = { 'Content-Type': 'application/json' }; opts.body = JSON.stringify(route.body); }
+    if (route.auth) opts.headers = { ...opts.headers, 'X-Tool-Key': TOOL_KEY };
     const r = await fetchJson(`${BASE}${route.path}`, opts);
     const expected = Array.isArray(route.expect) ? route.expect : [route.expect];
     const ok = expected.includes(r.status);
