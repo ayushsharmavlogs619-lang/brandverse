@@ -88,6 +88,8 @@ function generateAndPrint(client) {
     },
     calendar_id: client.calendar_id || '',
     sheet_id: client.sheet_id || '',
+    sheet_webhook_url: client.sheet_webhook_url || '',
+    sheet_webhook_secret: client.sheet_webhook_secret || '',
     phone_number: client.phone_number || '',
     subdomain: 'edge.brandverse.tech',
     business_description: client.business_description || `${client.name || id} — ${client.niche || 'other'}`,
@@ -110,6 +112,7 @@ function generateAndPrint(client) {
   console.log(`  Services:      ${Object.keys(clean.services).join(', ')}`);
   console.log(`  Calendar ID:   ${clean.calendar_id || '(not set)'}`);
   console.log(`  Sheet ID:      ${clean.sheet_id || '(not set)'}`);
+  console.log(`  Sheet Webhook: ${clean.sheet_webhook_url || '(not set — legacy sheet_id path)'}`);
   console.log();
 
   console.log('───────────────────────────────────────────────────────────────');
@@ -149,8 +152,13 @@ function generateAndPrint(client) {
   console.log('    npx wrangler secret put GOOGLE_CLIENT_EMAIL --env production');
   console.log('    npx wrangler secret put GOOGLE_PRIVATE_KEY --env production');
   console.log('    npx wrangler secret put GOOGLE_APPS_SCRIPT_WEBHOOK_URL --env production (optional)');
-  console.log('    npx wrangler secret put GOOGLE_APPS_SCRIPT_SECRET --env production (optional)');
+  console.log('    npx wrangler secret put GOOGLE_APPS_SCRIPT_SECRET --env production (optional, needed for per-client sheet webhooks without their own secret)');
   console.log('    npx wrangler secret put VAPI_API_KEY --env production (optional)');
+  console.log();
+  console.log('  Per-client Google Sheet logging (Apps Script webhook — see docs/client-sheet-onboarding.md):');
+  console.log();
+  console.log('    Deploy docs/client-sheet-logger.gs bound to the client\'s private Sheet,');
+  console.log('    then set "sheet_webhook_url" (and "sheet_webhook_secret") in the client config above.');
   console.log();
   console.log('  Test your new client with:');
   console.log();

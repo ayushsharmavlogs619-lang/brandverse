@@ -28,7 +28,13 @@ vars = [
 # Vapi (for outbound calls):
 #   wrangler secret put VAPI_API_KEY --env production
 #
-# Client config override (JSON string, optional ? falls back to embedded config):
+# Client config override (JSON string, optional ? falls back to embedded config).
+# Per-client optional fields for Google Sheet logging via Apps Script webhook:
+#   sheet_webhook_url     — per-client web app URL; when set, session/call logs
+#                           are appended to the client's own Sheet through it
+#                           (see docs/client-sheet-onboarding.md).
+#   sheet_webhook_secret  — per-client secret; falls back to the shared
+#                           GOOGLE_APPS_SCRIPT_SECRET below.
 #   wrangler secret put CLIENTS_CONFIG --env production
 
 [env.staging]

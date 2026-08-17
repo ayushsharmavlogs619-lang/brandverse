@@ -10,6 +10,8 @@
   "phone_number": "",
   "calendar_id": "",
   "sheet_id": "",
+  "sheet_webhook_url": "",
+  "sheet_webhook_secret": "",
   "subdomain": "edge.brandverse.tech",
   "working_hours": {
     "monday": {"start": "07:00", "end": "19:00"},

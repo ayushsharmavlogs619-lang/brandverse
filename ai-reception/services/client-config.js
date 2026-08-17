@@ -14,6 +14,8 @@ const demoClientJson = `{
   "phone_number": "",
   "calendar_id": "",
   "sheet_id": "",
+  "sheet_webhook_url": "",
+  "sheet_webhook_secret": "",
   "subdomain": "edge.brandverse.tech",
   "working_hours": {
     "monday": {
@@ -162,6 +164,7 @@ const embeddedClientsJson = `{
       },
       "calendar_id": "",
       "sheet_id": "",
+      "sheet_webhook_url": "",
       "phone_number": "",
       "address": "123 Dental Street, Melbourne, VIC 3000",
       "subdomain": "edge.brandverse.tech",
@@ -193,6 +196,7 @@ const embeddedClientsJson = `{
       },
       "calendar_id": "",
       "sheet_id": "",
+      "sheet_webhook_url": "",
       "phone_number": "",
       "address": "456 Service Road, Sydney, NSW 2000",
       "subdomain": "edge.brandverse.tech",
@@ -225,6 +229,7 @@ const embeddedClientsJson = `{
       },
       "calendar_id": "",
       "sheet_id": "",
+      "sheet_webhook_url": "",
       "phone_number": "",
       "address": "789 Circuit Lane, Brisbane, QLD 4000",
       "subdomain": "edge.brandverse.tech",
@@ -257,6 +262,7 @@ const embeddedClientsJson = `{
       },
       "calendar_id": "",
       "sheet_id": "",
+      "sheet_webhook_url": "",
       "phone_number": "",
       "address": "321 Cosmetic Avenue, Melbourne, VIC 3000",
       "subdomain": "edge.brandverse.tech",
@@ -376,6 +382,16 @@ export class ClientConfigService {
 
     if (!client.sheet_id || client.sheet_id.trim() === '') {
       console.warn(`WARNING: sheet_id is empty for client "${client.id}". Sheets logging will fail until set.`);
+    }
+
+    // Per-client Apps Script sheet webhook (primary logging path when set).
+    if (client.sheet_webhook_url) {
+      if (typeof client.sheet_webhook_url !== 'string' || !client.sheet_webhook_url.startsWith('https://')) {
+        console.warn(`WARNING: sheet_webhook_url for client "${client.id}" must be an https URL - logging will fall back to sheet_id.`);
+      }
+      if (!client.sheet_webhook_secret) {
+        console.warn(`WARNING: sheet_webhook_url is set for client "${client.id}" without a per-client sheet_webhook_secret - it will fall back to GOOGLE_APPS_SCRIPT_SECRET.`);
+      }
     }
 
     // Validate services

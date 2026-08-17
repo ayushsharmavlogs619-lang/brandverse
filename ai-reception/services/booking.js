@@ -2,11 +2,21 @@
 // Handles creating, confirming, and managing appointments
 
 export class BookingEngine {
-  constructor(calendarService, sheetsService, smsService, clientConfigService) {
+  constructor(calendarService, sheetsService, smsService, clientConfigService, clientSheetWriter) {
     this.calendarService = calendarService;
     this.sheetsService = sheetsService;
     this.clientConfigService = clientConfigService;
     this.smsService = smsService || null;
+    this.clientSheetWriter = clientSheetWriter || null;
+  }
+
+  // Log through the preference-aware writer (per-client Apps Script webhook
+  // when configured, service-account Sheets API otherwise).
+  async logToClientSheet(clientId, clientConfig, logData) {
+    if (this.clientSheetWriter) {
+      return this.clientSheetWriter.writeFor(clientConfig, clientId, logData);
+    }
+    return this.sheetsService.logInteraction((clientConfig && clientConfig.sheet_id) || '', logData);
   }
 
   // Create a new booking
@@ -147,7 +157,7 @@ export class BookingEngine {
         duration: serviceDuration
       };
 
-      await this.sheetsService.logInteraction(clientConfig.sheet_id, logData);
+      await this.logToClientSheet(clientId, clientConfig, logData);
 
       return {
         success: true,
@@ -229,7 +239,7 @@ export class BookingEngine {
         duration: eventDetails?.duration || 0
       };
 
-      await this.sheetsService.logInteraction(clientConfig.sheet_id, logData);
+      await this.logToClientSheet(clientId, clientConfig, logData);
 
       return {
         success: true,
@@ -364,7 +374,7 @@ export class BookingEngine {
         duration: serviceDuration
       };
 
-      await this.sheetsService.logInteraction(clientConfig.sheet_id, logData);
+      await this.logToClientSheet(clientId, clientConfig, logData);
 
       return {
         success: true,

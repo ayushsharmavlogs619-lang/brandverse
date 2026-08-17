@@ -1,10 +1,16 @@
 // Logging Engine - Comprehensive interaction tracking
 // Logs all calls, bookings, and interactions for follow-up and analytics
 
+import { ClientSheetWriter } from './sheet-logger.js';
+
 export class LoggingEngine {
-  constructor(sheetsService, clientConfigService) {
+  constructor(sheetsService, clientConfigService, clientSheetWriter) {
     this.sheetsService = sheetsService;
     this.clientConfigService = clientConfigService;
+    // Preference-aware writer: Apps Script webhook when the client has
+    // sheet_webhook_url configured, service-account Sheets API otherwise.
+    this.clientSheetWriter = clientSheetWriter
+      || new ClientSheetWriter(clientConfigService, sheetsService, null);
   }
 
   // Log any interaction (calls, bookings, inquiries, etc.)
@@ -45,14 +51,16 @@ export class LoggingEngine {
         logEntry.smsSent = interactionData.smsSent;
       }
 
-      // Log to Google Sheets
-      const result = await this.sheetsService.logInteraction(
-        clientConfig.sheet_id,
-        logEntry
-      );
+      // Log to the client's own Google Sheet (Apps Script webhook when
+      // configured, service-account fallback otherwise). Failures are logged
+      // and never crash the request.
+      const result = await this.clientSheetWriter.write(clientId, {
+        ...logEntry,
+        type: interactionData.type || 'session_log',
+      });
 
       if (!result.success) {
-        console.error('Failed to log interaction to sheets:', result.error);
+        console.error('Failed to log interaction to sheets:', result.error || result.message);
         // Continue with local logging even if sheets fail
       }
 
@@ -61,7 +69,7 @@ export class LoggingEngine {
 
       return {
         success: true,
-        logId: result.row || 'local',
+        logId: result.logId || result.row || 'local',
         message: 'Interaction logged successfully',
         followUpRequired: logEntry.followUpRequired
       };

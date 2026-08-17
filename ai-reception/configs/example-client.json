@@ -23,6 +23,8 @@
       },
       "calendar_id": "",
       "sheet_id": "",
+      "sheet_webhook_url": "",
+      "sheet_webhook_secret": "",
       "phone_number": "+12125551234",
       "address": "123 Main St, New York, NY 10001",
       "subdomain": "edge.brandverse.tech",

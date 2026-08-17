@@ -8,6 +8,9 @@ import { VapiService } from '../services/vapi.js';
 import { NotificationService } from '../services/notify.js';
 import { createLogger } from '../services/logger.js';
 import { RateLimiter, validateBookingInput, validateLogInput, sanitizeStr } from '../services/validate.js';
+import { API_VERSION, buildRouteIndex } from '../services/route-registry.js';
+import { SheetLogWriter, ClientSheetWriter, probeWebhook } from '../services/sheet-logger.js';
+import { GoogleAuth } from '../services/google-auth.js';
 
 const rateLimiter = new RateLimiter();
 
@@ -71,8 +74,23 @@ const worker = {
       if (path === '/health') {
         log.info('health_check');
         return json({
-          status: 'healthy', timestamp: new Date().toISOString(), version: '1.1.0',
+          status: 'healthy', timestamp: new Date().toISOString(), version: API_VERSION,
         }, 200, ch);
+      }
+
+      // Self-documenting /api/ index - intentionally no auth and no clientId.
+      if (path === '/api' || path === '/api/') {
+        if (method === 'GET') {
+          log.info('api_index');
+          return json(buildRouteIndex(), 200, ch);
+        }
+        return json({ error: 'Method not allowed' }, 405, { ...ch, 'Allow': 'GET' });
+      }
+
+      // Dependency health for the API layer - no auth. Reuses the route
+      // registry from the /api/ index above.
+      if (path === '/api/health' && method === 'GET') {
+        return await handleApiHealth(request, env, ch, log);
       }
 
       if (path === '/api/vapi/webhook' && method === 'POST') {
@@ -89,9 +107,11 @@ const worker = {
       const clientConfig = new ClientConfigService(env);
       const calendarService = new GoogleCalendarService(env);
       const sheetsService = new GoogleSheetsService(env);
+      const sheetLogWriter = new SheetLogWriter(clientConfig, env);
+      const clientSheetWriter = new ClientSheetWriter(clientConfig, sheetsService, sheetLogWriter);
       const availabilityEngine = new AvailabilityEngine(calendarService, clientConfig);
-      const bookingEngine = new BookingEngine(calendarService, sheetsService, null, clientConfig);
-      const loggingEngine = new LoggingEngine(sheetsService, clientConfig);
+      const bookingEngine = new BookingEngine(calendarService, sheetsService, null, clientConfig, clientSheetWriter);
+      const loggingEngine = new LoggingEngine(sheetsService, clientConfig, clientSheetWriter);
       const notificationService = new NotificationService(env);
 
       if (path === `/api/${clientId}/availability` && method === 'GET') {
@@ -382,7 +402,9 @@ async function handleVapiWebhook(request, env, ch, log) {
   try {
     const clientConfig = new ClientConfigService(env);
     const sheetsService = new GoogleSheetsService(env);
-    const loggingEngine = new LoggingEngine(sheetsService, clientConfig);
+    const sheetLogWriter = new SheetLogWriter(clientConfig, env);
+    const clientSheetWriter = new ClientSheetWriter(clientConfig, sheetsService, sheetLogWriter);
+    const loggingEngine = new LoggingEngine(sheetsService, clientConfig, clientSheetWriter);
     const notificationService = new NotificationService(env);
     const vapiService = new VapiService(env, clientConfig, loggingEngine, notificationService);
     const result = await vapiService.handleWebhook(request);
@@ -403,7 +425,9 @@ async function handleVapiOutboundCall(request, env, ch, log) {
     }
     const clientConfig = new ClientConfigService(env);
     const sheetsService = new GoogleSheetsService(env);
-    const loggingEngine = new LoggingEngine(sheetsService, clientConfig);
+    const sheetLogWriter = new SheetLogWriter(clientConfig, env);
+    const clientSheetWriter = new ClientSheetWriter(clientConfig, sheetsService, sheetLogWriter);
+    const loggingEngine = new LoggingEngine(sheetsService, clientConfig, clientSheetWriter);
     const notificationService = new NotificationService(env);
     const vapiService = new VapiService(env, clientConfig, loggingEngine, notificationService);
     const callResult = await vapiService.triggerOutboundCall(clientId, customerNumber, overrides);
@@ -412,6 +436,148 @@ async function handleVapiOutboundCall(request, env, ch, log) {
   } catch (error) {
     log.complete('/api/vapi/call', false, { error: error.message });
     return json({ error: 'Failed to initiate outbound call', message: error.message }, 500, ch);
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Dependency health: verifies the actual things the API layer relies on,
+// one status per dependency. Statuses: "ok" | "down" | "not_configured".
+// Any "down" dependency flips the overall status to "degraded" + HTTP 503.
+// The response embeds the /api/ route index (single source of truth from
+// services/route-registry.js) so this endpoint never drifts from /api/.
+// ---------------------------------------------------------------------------
+async function handleApiHealth(request, env, ch, log) {
+  const started = Date.now();
+  const clientConfigService = new ClientConfigService(env);
+
+  const [clientsConfig, googleAuth, vapi, sheetsWebhook, twilio] = await Promise.all([
+    checkClientsConfig(clientConfigService),
+    checkGoogleAuth(env),
+    checkVapi(env),
+    checkSheetsWebhooks(clientConfigService),
+    checkTwilio(env),
+  ]);
+
+  const dependencies = {
+    clients_config: clientsConfig,
+    google_auth: googleAuth,
+    vapi,
+    sheets_webhook: sheetsWebhook,
+    twilio,
+  };
+
+  const down = Object.values(dependencies).filter(d => d.status === 'down');
+  const status = down.length ? 'degraded' : 'ok';
+  const durationMs = Date.now() - started;
+
+  log.info('api_health', {
+    status,
+    durationMs,
+    deps: Object.fromEntries(Object.entries(dependencies).map(([k, v]) => [k, v.status])),
+  });
+
+  const body = {
+    status,
+    timestamp: new Date().toISOString(),
+    version: API_VERSION,
+    durationMs,
+    dependencies,
+    routes: buildRouteIndex().endpoints,
+  };
+  return json(body, down.length ? 503 : 200, ch);
+}
+
+async function checkClientsConfig(clientConfigService) {
+  try {
+    const clients = await clientConfigService.getAllClients();
+    const withWebhook = clients.filter(c => c.sheet_webhook_url).length;
+    return {
+      status: 'ok',
+      detail: `${clients.length} client(s) loaded, ${withWebhook} with a sheet webhook configured`,
+    };
+  } catch (error) {
+    return { status: 'down', detail: `config load failed: ${error.message}` };
+  }
+}
+
+async function checkGoogleAuth(env) {
+  if (!env.GOOGLE_CLIENT_EMAIL || !env.GOOGLE_PRIVATE_KEY) {
+    return { status: 'not_configured', detail: 'GOOGLE_CLIENT_EMAIL / GOOGLE_PRIVATE_KEY not set (service-account path inactive)' };
+  }
+  try {
+    const auth = new GoogleAuth(env);
+    const token = await auth.getAccessToken('https://www.googleapis.com/auth/spreadsheets');
+    return { status: token ? 'ok' : 'down', detail: 'service-account token acquired' };
+  } catch (error) {
+    return { status: 'down', detail: `token fetch failed: ${error.message}` };
+  }
+}
+
+async function checkVapi(env) {
+  try {
+    if (env.VAPI_API_KEY) {
+      const resp = await fetch('https://api.vapi.ai/call?limit=1', {
+        headers: { Authorization: `Bearer ${env.VAPI_API_KEY}` },
+        signal: AbortSignal.timeout(5000),
+      });
+      if (resp.status === 401 || resp.status === 403) {
+        return { status: 'down', detail: `Vapi rejected the API key (http ${resp.status})` };
+      }
+      if (!resp.ok) return { status: 'down', detail: `Vapi API error (http ${resp.status})` };
+      return { status: 'ok', detail: 'Vapi API reachable, key accepted' };
+    }
+    const resp = await fetch('https://api.vapi.ai/', { signal: AbortSignal.timeout(5000) });
+    return { status: 'ok', detail: `Vapi reachable (http ${resp.status}, no VAPI_API_KEY set)` };
+  } catch (error) {
+    return { status: 'down', detail: `Vapi unreachable: ${error.message}` };
+  }
+}
+
+async function checkSheetsWebhooks(clientConfigService) {
+  let clients;
+  try {
+    clients = await clientConfigService.getAllClients();
+  } catch (error) {
+    return { status: 'down', detail: `client config load failed: ${error.message}` };
+  }
+  const webhooks = [...new Set(clients.filter(c => c.sheet_webhook_url).map(c => c.sheet_webhook_url))];
+  if (!webhooks.length) {
+    return { status: 'not_configured', detail: 'no client has sheet_webhook_url set' };
+  }
+
+  const results = await Promise.all(webhooks.map(url => probeWebhook(url)));
+  const failed = results.filter(r => !r.reachable);
+  const verified = results.filter(r => r.verified).length;
+  if (failed.length) {
+    return {
+      status: 'down',
+      detail: `${failed.length}/${results.length} webhook(s) unreachable; ${verified}/${results.length} verified`,
+      webhooks: results.map(r => ({
+        url: r.url,
+        reachable: r.reachable,
+        verified: r.verified,
+        status: r.status || 0,
+        ms: r.ms,
+        error: r.error || null,
+      })),
+    };
+  }
+  return {
+    status: 'ok',
+    detail: `${results.length} webhook(s) reachable, ${verified} verified via doGet`,
+    webhooks: results.map(r => ({ url: r.url, verified: r.verified, status: r.status, ms: r.ms })),
+  };
+}
+
+async function checkTwilio(env) {
+  if (!env.TWILIO_ACCOUNT_SID && !env.TWILIO_AUTH_TOKEN) {
+    return { status: 'not_configured', detail: 'no TWILIO_ACCOUNT_SID / TWILIO_AUTH_TOKEN (Vapi owns the phone numbers)' };
+  }
+  try {
+    const resp = await fetch('https://api.twilio.com/', { signal: AbortSignal.timeout(5000) });
+    return { status: 'ok', detail: `Twilio reachable (http ${resp.status})` };
+  } catch (error) {
+    return { status: 'down', detail: `Twilio unreachable: ${error.message}` };
   }
 }
 

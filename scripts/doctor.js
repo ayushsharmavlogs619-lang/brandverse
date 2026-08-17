@@ -200,6 +200,13 @@ function checkClientConfig() {
   if (missingSheet.length) check('Config: missing sheet_id', 'WARN', `${missingSheet.length} clients (${missingSheet.map(c => c.id).join(', ')})`);
   else check('Config: missing sheet_id', 'PASS', 'All set');
 
+  // Per-client Apps Script sheet webhook config
+  const withWebhook = clients.filter(c => c.sheet_webhook_url);
+  const missingWebhookSecret = withWebhook.filter(c => !c.sheet_webhook_secret);
+  if (!withWebhook.length) check('Config: sheet webhooks', 'WARN', 'No client has sheet_webhook_url (per-client Sheets logging inactive)');
+  else if (missingWebhookSecret.length) check('Config: sheet webhooks', 'WARN', `${withWebhook.length} configured; ${missingWebhookSecret.length} rely on shared GOOGLE_APPS_SCRIPT_SECRET (${missingWebhookSecret.map(c => c.id).join(', ')})`);
+  else check('Config: sheet webhooks', 'PASS', `${withWebhook.length} client(s) with per-client sheet webhook + secret`);
+
   // Check for invalid timezones
   const badTz = clients.filter(c => { try { Intl.DateTimeFormat(undefined, { timeZone: c.timezone }); return false; } catch { return true; } });
   if (badTz.length) check('Config: invalid timezones', 'FAIL', `${badTz.map(c => `${c.id} (${c.timezone})`).join(', ')}`);
@@ -230,6 +237,8 @@ function checkClientConfig() {
 async function checkRoutes() {
   const routes = [
     { path: '/health', method: 'GET', label: 'Health', expect: 200 },
+    { path: '/api/', method: 'GET', label: 'API route index', expect: 200 },
+    { path: '/api/health', method: 'GET', label: 'API dependency health', expect: [200, 503] },
     { path: '/api/dental_melbourne_1/client-config', method: 'GET', label: 'Client config (valid)', expect: 200 },
     { path: '/api/nonexistent/client-config', method: 'GET', label: 'Client config (404)', expect: 404 },
     { path: '/api/dental_melbourne_1/availability?date=2026-08-15&service=consultation', method: 'GET', label: 'Availability', expect: [200, 400] },

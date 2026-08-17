@@ -33,6 +33,11 @@ function record(name, pass, detail) {
   console.log(`${pass ? 'PASS' : 'FAIL'}  ${name}${detail ? `  — ${detail}` : ''}`);
 }
 
+// Normalize to an array (assistant.tools can be undefined/missing).
+function arr(value) {
+  return Array.isArray(value) ? value : [];
+}
+
 async function call(path, { method = 'GET', headers = {}, body } = {}) {
   const init = { method, headers };
   if (body !== undefined) {
@@ -284,6 +289,151 @@ const ctx = {};
       !demo.human_handoff.transfer_configured && !demo.human_handoff.transfer_number &&
       demo.emergency.configured === false,
     'fiction disclaimer present; transfer/emergency escalation honestly unconfigured'
+  );
+}
+
+// ---------------------------------------------------------------------------
+// 14. Self-documenting /api/ index (no auth, replaces the old bare 400)
+// ---------------------------------------------------------------------------
+{
+  const r = await call('/api/');
+  const endpoints = r.json?.endpoints || [];
+  record(
+    'S24: GET /api/ returns the route index (was a bare 400)',
+    r.status === 200 && Array.isArray(endpoints) && endpoints.length >= 10 &&
+      endpoints.some(e => e.path === '/api/health' && e.method === 'GET'),
+    `endpoints=${endpoints.length} health=${endpoints.some(e => e.path === '/api/health')}`
+  );
+  const rBase = await call('/api'); // no trailing slash
+  record('S25: /api (no slash) also serves the index', rBase.status === 200 && Array.isArray(rBase.json?.endpoints));
+
+  const rPost = await call('/api/', { method: 'POST', body: {} });
+  record('S26: non-GET on the index is 405', rPost.status === 405, `status=${rPost.status}`);
+
+  const r404 = await call('/api/notaclient/log', { method: 'POST', body: {} });
+  record('S27: unknown client log still 200 (graceful non-crash path)', r404.status === 200, `status=${r404.status}`);
+}
+
+// ---------------------------------------------------------------------------
+// 15. /api/health — per-dependency statuses, reuses the route index
+// ---------------------------------------------------------------------------
+{
+  const realFetch = globalThis.fetch;
+  globalThis.fetch = async (url, opts) => {
+    const u = String(url);
+    if (u.startsWith('https://api.vapi.ai') || u.startsWith('https://api.twilio.com')) {
+      return new Response('{ }', { status: 200 });
+    }
+    return realFetch(url, opts);
+  };
+  const h = await call('/api/health');
+  globalThis.fetch = realFetch;
+
+  const deps = h.json?.dependencies || {};
+  record(
+    'S28: /api/health returns per-dependency statuses (no creds => not_configured; vapi reachable)',
+    h.status === 200 && h.json?.status === 'ok' &&
+      deps.clients_config?.status === 'ok' &&
+      deps.google_auth?.status === 'not_configured' &&
+      deps.sheets_webhook?.status === 'not_configured' &&
+      deps.twilio?.status === 'not_configured' &&
+      deps.vapi?.status === 'ok',
+    `status=${h.status} ${JSON.stringify(Object.fromEntries(Object.entries(deps).map(([k, v]) => [k, v.status])))}`
+  );
+  record(
+    'S29: /api/health reuses the route index (routes embedded)',
+    Array.isArray(h.json?.routes) && h.json.routes.length >= 10 && h.json?.version,
+    `routes=${h.json?.routes?.length}`
+  );
+}
+
+// ---------------------------------------------------------------------------
+// 16. Per-client sheet webhook logging — isolation + graceful failure
+// ---------------------------------------------------------------------------
+function isolationWeek() {
+  return {
+    monday: { start: '09:00', end: '17:00' }, tuesday: { start: '09:00', end: '17:00' },
+    wednesday: { start: '09:00', end: '17:00' }, thursday: { start: '09:00', end: '17:00' },
+    friday: { start: '09:00', end: '17:00' }, saturday: { start: 'closed', end: 'closed' },
+    sunday: { start: 'closed', end: 'closed' },
+  };
+}
+function isolationClient(id, webhookUrl) {
+  return {
+    id, name: `Isolation ${id}`, niche: 'dental', timezone: 'Australia/Melbourne',
+    services: { cleaning: 30 }, working_hours: isolationWeek(),
+    calendar_id: '', sheet_id: '', sheet_webhook_url: webhookUrl, phone_number: '+61400000001',
+  };
+}
+{
+  const realFetch = globalThis.fetch;
+  const calls = [];
+  globalThis.fetch = async (url, opts) => {
+    calls.push({ url: String(url), body: opts?.body ? JSON.parse(opts.body) : null });
+    return new Response(JSON.stringify({ success: true, row: 3 }), {
+      status: 200, headers: { 'Content-Type': 'application/json' },
+    });
+  };
+
+  const envIsolated = {
+    ...env,
+    GOOGLE_APPS_SCRIPT_SECRET: 'shared-secret-for-tests',
+    CLIENTS_CONFIG: JSON.stringify({
+      clients: [
+        { ...isolationClient('isolation_a', 'https://script.google.com/macros/s/A/exec'), sheet_webhook_secret: 'a-secret' },
+        isolationClient('isolation_b', 'https://script.google.com/macros/s/B/exec'),
+      ],
+    }),
+  };
+
+  const r = await worker.fetch(new Request('https://edge.brandverse.tech/api/isolation_a/log', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ name: 'Tester', phone: '0412345678', intent: 'session_test', notes: 'isolation check' }),
+  }), envIsolated, ctx);
+  globalThis.fetch = realFetch;
+
+  const webhookCalls = calls.filter(c => c.url.startsWith('https://script.google.com'));
+  const onlyA = webhookCalls.length === 1 && webhookCalls[0].url === 'https://script.google.com/macros/s/A/exec';
+  record(
+    'S30: client A log goes ONLY to A\'s webhook with server-side client_id (isolation)',
+    r.status === 200 && onlyA && webhookCalls[0].body?.client_id === 'isolation_a' && webhookCalls[0].body?.secret === 'a-secret',
+    `webhookCalls=${webhookCalls.length} url=${webhookCalls[0]?.url || 'none'} client_id=${webhookCalls[0]?.body?.client_id || 'n/a'}`
+  );
+}
+
+{
+  // Webhook down (5xx): retried, logged, request still succeeds - never crashes.
+  const realFetch = globalThis.fetch;
+  let attempts = 0;
+  globalThis.fetch = async (url, opts) => {
+    if (String(url).startsWith('https://script.google.com')) {
+      attempts++;
+      return new Response(JSON.stringify({ success: false, error: 'boom' }), { status: 500 });
+    }
+    return realFetch(url, opts);
+  };
+
+  const envIsolated = {
+    ...env,
+    GOOGLE_APPS_SCRIPT_SECRET: 'shared-secret-for-tests',
+    CLIENTS_CONFIG: JSON.stringify({
+      clients: [isolationClient('isolation_c', 'https://script.google.com/macros/s/C/exec')],
+    }),
+  };
+
+  const r = await worker.fetch(new Request('https://edge.brandverse.tech/api/isolation_c/log', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ name: 'Tester', phone: '0412345678', intent: 'session_test' }),
+  }), envIsolated, ctx);
+  globalThis.fetch = realFetch;
+  const body = await r.json().catch(() => null);
+
+  record(
+    'S31: webhook 5xx is retried (3 attempts) but the request still succeeds',
+    r.status === 200 && body?.success === true && attempts === 3,
+    `status=${r.status} attempts=${attempts}`
   );
 }
 
