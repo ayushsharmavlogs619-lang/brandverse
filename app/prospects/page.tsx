@@ -3,33 +3,37 @@ import { ArrowLeft, AlertTriangle, TrendingUp, Clock, Phone, CheckCircle2 } from
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Lead-Loss Audits — Brandverse | San Antonio Dominance Campaign',
-  description: 'Digital triage reports for San Antonio electrical contractors showing revenue leakage and AI automation opportunities.',
+  title: 'Lead-Loss Analysis — Brandverse',
+  description: 'How missed calls impact service business revenue and how AI receptionists can recover those opportunities.',
+  robots: {
+    index: false,
+    follow: false,
+  },
 };
 
 export default function ProspectsPage() {
     const prospects = [
         {
-            name: 'Citywide Electric',
-            slug: 'citywide-electric',
+            name: 'Electrical Contractor A',
+            slug: 'electrical-contractor-a',
             lostRevenue: '$2,500+',
-            status: 'Audit Complete',
+            status: 'Analysis Complete',
             issues: 4,
             opportunity: 'High'
         },
         {
-            name: 'Gueldner Electric Company',
-            slug: 'gueldner-electric',
+            name: 'Electrical Contractor B',
+            slug: 'electrical-contractor-b',
             lostRevenue: '$3,200+',
-            status: 'Audit Complete',
+            status: 'Analysis Complete',
             issues: 4,
             opportunity: 'Very High'
         },
         {
-            name: 'Bolt Electric',
-            slug: 'bolt-electric',
+            name: 'Electrical Contractor C',
+            slug: 'electrical-contractor-c',
             lostRevenue: '$2,800+',
-            status: 'Audit Complete',
+            status: 'Analysis Complete',
             issues: 4,
             opportunity: 'High'
         }
@@ -44,14 +48,14 @@ export default function ProspectsPage() {
                 </Link>
 
                 <div className="text-center mb-16">
-                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-500/10 border border-red-500/20 text-red-400 text-xs font-black uppercase tracking-widest mb-6">
-                        San Antonio Dominance Campaign
+                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-black uppercase tracking-widest mb-6">
+                        Lead-Loss Analysis
                     </div>
                     <h1 className="text-5xl md:text-7xl font-black text-white tracking-tight mb-6">
-                        Lead-Loss <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-orange-500">Audits</span>
+                        How Missed Calls Cost You Money
                     </h1>
                     <p className="text-xl text-slate-400 max-w-3xl mx-auto">
-                        Digital triage reports for San Antonio electrical contractors showing revenue leakage and AI automation opportunities
+                        Illustrative analysis showing how service businesses lose revenue through unanswered calls and how AI receptionists can recover those opportunities.
                     </p>
                 </div>
 

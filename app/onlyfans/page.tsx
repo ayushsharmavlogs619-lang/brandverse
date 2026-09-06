@@ -572,53 +572,6 @@ export default function OnlyFansLandingPage() {
         </div>
       </section>
 
-      {/* TESTIMONIALS */}
-      <section className="py-24 md:py-32 px-6 max-w-7xl mx-auto relative z-10 border-t border-white/5">
-        <div className="max-w-3xl mb-16 text-center mx-auto">
-          <span className="text-xs uppercase tracking-widest text-indigo-400 font-semibold mb-3 block">Results</span>
-          <h2 className="text-3xl md:text-5xl font-black tracking-tight text-white mb-4">
-            Real numbers from real partnerships
-          </h2>
-          <p className="text-slate-400 text-sm leading-relaxed">
-            Here is what happens when creators stop leaving money in their DMs.
-          </p>
-        </div>
-
-        <div className="grid md:grid-cols-2 gap-8">
-          {[
-            {
-              quote: "I was averaging $8k/mo but knew I was leaving money on the table because I physically couldn't keep up with DMs. After routing my overflow to Brandverse on a 50/50 split, my total monthly revenue went to $14k in 6 weeks. That's $3k in my pocket from subs I was ignoring before.",
-              author: "Creator, Top 1%",
-              category: "Revenue: $8k → $14k/mo"
-            },
-            {
-              quote: "Security was my biggest worry. I didn't want to share my account with anyone. The 1Password setup was clean — I never shared my actual password. And the rev-share model meant I had zero risk. If they didn't perform, I paid nothing. They performed.",
-              author: "Established Creator",
-              category: "Top 0.5% Account"
-            }
-          ].map((test, idx) => (
-            <div
-              key={idx}
-              className="p-8 md:p-12 rounded-3xl bg-white/[0.01] border border-white/5 flex flex-col justify-between relative overflow-hidden"
-            >
-              <div className="absolute top-0 left-0 w-12 h-12 bg-indigo-500/5 rounded-br-3xl pointer-events-none" />
-              <p className="text-slate-300 text-lg italic leading-relaxed mb-8 relative z-10">
-                "{test.quote}"
-              </p>
-              <div className="pt-6 border-t border-white/5 flex items-center justify-between">
-                <div>
-                  <h4 className="font-bold text-white tracking-tight">{test.author}</h4>
-                  <p className="text-slate-500 text-xs mt-1 uppercase tracking-wider">{test.category}</p>
-                </div>
-                <div className="w-10 h-10 rounded-full bg-slate-900 border border-white/10 flex items-center justify-center text-xs font-bold text-indigo-400">
-                  {test.author.charAt(0)}
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
       {/* FAQ */}
       <section id="faq" className="py-24 md:py-32 px-6 max-w-4xl mx-auto relative z-10 border-t border-white/5">
         <div className="text-center mb-16">

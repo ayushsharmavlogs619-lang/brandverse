@@ -5,7 +5,7 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Pricing — Brandverse AI Voice Agents | No Contracts, Cancel Anytime",
-  description: "AI voice agent pricing starting at $497/mo. No long-term contracts. 30-day happiness guarantee. Unlimited minutes on Growth plan. Cancel anytime.",
+  description: "AI voice agent pricing starting at $497/mo. No long-term contracts. 7-day money-back guarantee. Unlimited minutes on Growth plan. Cancel anytime.",
   keywords: ["AI voice agent pricing", "AI receptionist cost", "voice AI monthly", "24/7 call answering price", "no contract AI agent"],
 };
 
@@ -44,7 +44,6 @@ export default function PricingPage() {
             <h3 className="text-3xl font-bold mb-2 text-white">Growth</h3>
             <div className="text-sm text-indigo-200 font-medium mb-6">For Established Teams</div>
             <div className="text-6xl font-black mb-2 text-white">$997<span className="text-lg text-indigo-200 font-normal">/mo</span></div>
-            <div className="text-xs text-indigo-200 mb-8 uppercase tracking-widest font-semibold">No Setup Fees This Week</div>
             <ul className="text-white space-y-5 mb-12 text-left">
               <li className="flex items-center gap-3"><Check className="w-5 h-5 text-indigo-200" /> <strong>Everything in Starter</strong></li>
               <li className="flex items-center gap-3"><Check className="w-5 h-5 text-indigo-200" /> <strong>Full CRM Integration</strong> (2-way)</li>
@@ -79,8 +78,8 @@ export default function PricingPage() {
             <ShieldCheck className="w-12 h-12 text-emerald-500" />
           </div>
           <div className="text-left">
-            <h3 className="text-2xl font-bold text-white mb-2">Our 30-Day Happiness Guarantee</h3>
-            <p className="text-slate-400">We are so confident that Brandverse will increase your booking rate that if you don't generate at least 3x your monthly ROI in the first 30 days, we'll refund your subscription in full. No questions asked.</p>
+            <h3 className="text-2xl font-bold text-white mb-2">Our 7-Day Money-Back Guarantee</h3>
+            <p className="text-slate-400">Try Brandverse risk-free. If you're not satisfied within the first 7 days, we'll refund your subscription in full. No questions asked.</p>
           </div>
         </div>
 

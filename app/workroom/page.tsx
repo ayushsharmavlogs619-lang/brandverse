@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect } from 'react';
 import { Send, Bot, User, Loader2, Sparkles } from 'lucide-react';
+import Head from 'next/head';
 
 export default function WorkroomPage() {
     const [messages, setMessages] = useState<{ role: 'user' | 'ai', content: string }[]>([]);
@@ -34,7 +35,13 @@ export default function WorkroomPage() {
     }
 
     return (
-        <div className="flex flex-col h-screen bg-[#050505] text-white font-sans">
+        <>
+            <Head>
+                <title>Workroom — Brandverse</title>
+                <meta name="description" content="Internal workspace for Brandverse." />
+                <meta name="robots" content="noindex, nofollow" />
+            </Head>
+            <div className="flex flex-col h-screen bg-[#050505] text-white font-sans">
             {/* Header */}
             <header className="p-6 border-b border-white/10 flex justify-between items-center backdrop-blur-md sticky top-0 z-10">
                 <div className="flex items-center gap-3">
@@ -133,5 +140,6 @@ export default function WorkroomPage() {
                 </p>
             </footer>
         </div>
+        </>
     );
 }

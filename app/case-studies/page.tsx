@@ -31,12 +31,15 @@ export default function CaseStudiesPage() {
             <header className="relative pt-32 pb-20 px-6 border-b border-white/5 overflow-hidden">
                 <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-blue-600/5 blur-[120px] rounded-full -z-10" />
                 <div className="max-w-5xl mx-auto text-center space-y-6">
+                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-400 text-xs font-semibold tracking-widest uppercase mb-4">
+                        Illustrative Deployment Playbooks
+                    </div>
                     <h1 className="text-5xl md:text-6xl font-black text-white leading-tight">
-                        Real Results, <br />
-                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400">Every Industry</span>
+                        How Brandverse Works <br />
+                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400">Across Industries</span>
                     </h1>
                     <p className="text-lg text-slate-400 max-w-3xl mx-auto leading-relaxed font-medium">
-                        See how businesses across industries use Brandverse AI voice agents to increase revenue, reduce costs, and provide 24/7 customer service.
+                        These are illustrative deployment playbooks showing how Brandverse could be implemented in each industry. They demonstrate the system's capabilities and are not claimed customer results.
                     </p>
                 </div>
             </header>
@@ -58,29 +61,6 @@ export default function CaseStudiesPage() {
                                     icon={iconMap[study.industry]}
                                 />
                             ))}
-                        </div>
-                    </section>
-
-                    {/* Real Case Studies Note */}
-                    <section className="p-8 rounded-3xl bg-gradient-to-r from-amber-900/20 to-orange-900/20 border border-amber-500/20">
-                        <h2 className="text-2xl font-black text-white uppercase italic tracking-wide mb-4">Real Client Results</h2>
-                        <p className="text-slate-300 mb-6">We also have detailed case studies from actual Brandverse clients:</p>
-                        <div className="grid md:grid-cols-3 gap-4">
-                            <Link href="/blog/case-study-elite-climate" className="p-5 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition-all">
-                                <p className="text-xs text-blue-400 font-black uppercase tracking-widest mb-1">HVAC</p>
-                                <p className="font-bold text-white">Elite Climate Control</p>
-                                <p className="text-xs text-slate-400 mt-1">70% more emergency calls captured</p>
-                            </Link>
-                            <Link href="/blog/case-study-apex-property" className="p-5 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition-all">
-                                <p className="text-xs text-blue-400 font-black uppercase tracking-widest mb-1">Real Estate</p>
-                                <p className="font-bold text-white">Apex Property Group</p>
-                                <p className="text-xs text-slate-400 mt-1">2x conversion rate improvement</p>
-                            </Link>
-                            <Link href="/blog/case-study-brightsmile-dental" className="p-5 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition-all">
-                                <p className="text-xs text-blue-400 font-black uppercase tracking-widest mb-1">Dental</p>
-                                <p className="font-bold text-white">Brightsmile Dental</p>
-                                <p className="text-xs text-slate-400 mt-1">60% fewer no-shows</p>
-                            </Link>
                         </div>
                     </section>
                 </div>

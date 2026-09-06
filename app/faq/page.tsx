@@ -14,7 +14,7 @@ export default function FAQPage() {
       items: [
         {
           q: "Does it actually sound human? Be honest.",
-          a: "Yes. It sounds 99% human. We use 'ultra-low latency' voice synthesis that includes breaths, pauses, and natural intonation. We've had clients tell us their own mothers couldn't tell the difference. You have to hear it to believe it."
+          a: "Yes. It sounds 99% human. We use 'ultra-low latency' voice synthesis that includes breaths, pauses, and natural intonation. Most callers just think they're talking to a very sharp dispatcher."
         },
         {
           q: "What voices and accents do you have?",
@@ -23,6 +23,14 @@ export default function FAQPage() {
         {
           q: "Can it handle angry customers?",
           a: "Surprisingly, yes. The AI never loses its temper. It is programmed to de-escalate situations, listen patiently, and apologize sincerely. It then flags the call as 'Urgent' so you can handle it personally."
+        },
+        {
+          q: "What if the AI makes a mistake?",
+          a: "Our agents are programmed with 'Safe Handoff' protocols. If a caller asks something complex or gets frustrated, the AI instantly forwards the call to your personal cell or an emergency backup line. You're always in control."
+        },
+        {
+          q: "Will my customers know it's AI?",
+          a: "They might suspect it because it's polite, efficient, and never puts them on hold. But the voice quality is indistinguishable from a human on a slightly grainy cell connection. Most callers just think they're talking to a very sharp dispatcher."
         }
       ]
     },
@@ -36,6 +44,22 @@ export default function FAQPage() {
         {
           q: "Does it integrate with ServiceTitan / Housecall Pro?",
           a: "Yes. We have deep native integrations. The AI can look up your real-time availability and inject bookings directly into your dispatch board. No manual data entry required."
+        },
+        {
+          q: "How long does setup take?",
+          a: "We move fast. Kickoff to Go-Live is typically 48–72 hours. We build your infrastructure, test it, and hand you the keys."
+        },
+        {
+          q: "Do I need technical skills?",
+          a: "No. We handle all the technical implementation. You just provide your business information, service menu, and preferred workflows. We take care of the rest."
+        },
+        {
+          q: "What happens when it cannot answer?",
+          a: "The AI is programmed to recognize when it doesn't know the answer. It will either transfer to a human, take a message, or provide a clear next step. It never guesses or makes up information."
+        },
+        {
+          q: "Can it transfer or escalate?",
+          a: "Yes. You define escalation rules—emergency calls, VIP customers, specific questions—the AI instantly routes these to your designated staff or your personal phone."
         }
       ]
     },
@@ -49,6 +73,26 @@ export default function FAQPage() {
         {
           q: "What happens if I go over my minutes?",
           a: "If you're on the Starter plan, we simply bill a small per-minute overage fee (similar to a cell carrier). However, most growing businesses switch to our Unlimited plan to avoid thinking about limits."
+        },
+        {
+          q: "What's your refund policy?",
+          a: "We offer a 7-day money-back guarantee. If you're not satisfied within the first 7 days, we'll refund your subscription in full. No questions asked."
+        },
+        {
+          q: "Why not build this myself?",
+          a: "You could, but it requires AI engineering, voice integration, CRM connections, ongoing maintenance, and continuous optimization. We've already built and tested the infrastructure. You get the benefit immediately without the development cost and time."
+        },
+        {
+          q: "Why not use a cheaper AI tool?",
+          a: "Generic AI tools don't understand your business, your service menu, your pricing, or your customers. We build custom-trained agents specific to your industry, integrated with your existing systems, and optimized for your actual workflows."
+        },
+        {
+          q: "What does Brandverse actually manage?",
+          a: "We handle the entire AI infrastructure: voice training, integration with your CRM/calendar, ongoing optimization, monitoring, and support. You focus on running your business; we ensure your AI works perfectly."
+        },
+        {
+          q: "What happens after the system goes live?",
+          a: "We monitor performance, analyze call data, and continuously optimize the AI's responses. We also provide regular reports on call volume, lead capture, and areas for improvement."
         }
       ]
     }

@@ -112,58 +112,58 @@ export default function Page() {
   const industries = [
     {
       icon: Home,
-      name: "Residential Electricians",
-      description: "Deploy AI dispatch that captures panel upgrade and rewiring inquiries 24/7, auto-quotes based on job type, and confirms appointments via SMS.",
+      name: "Home Service Businesses",
+      description: "Capture after-hours calls, qualify leads, and book appointments automatically. Perfect for plumbers, HVAC, electricians, and contractors.",
       results: "+42% Revenue",
       color: "from-blue-500 to-cyan-500"
     },
     {
       icon: Building2,
-      name: "Commercial Electrical Contractors",
-      description: "Launch intake automation that screens project scope, checks against licensing/bonding requirements, and routes to the right estimator.",
-      results: "3x Pipeline Velocity",
+      name: "Medical & Dental Practices",
+      description: "Handle appointment scheduling, insurance verification, and patient inquiries 24/7 without adding front desk staff.",
+      results: "60% Fewer No-Shows",
       color: "from-purple-500 to-pink-500"
     },
     {
       icon: Zap,
-      name: "Emergency / 24-Hour Electricians",
-      description: "Instant triage that separates true emergencies (sparking outlet, total power loss, exposed wiring) from routine calls, and dispatches your on-call tech immediately with GPS-based assignment.",
-      results: "+65% Emergency Capture Rate",
+      name: "Emergency Service Providers",
+      description: "Instant triage that separates true emergencies from routine calls, dispatches on-call staff, and provides safety instructions.",
+      results: "+65% Emergency Capture",
       color: "from-red-500 to-orange-500"
     },
     {
       icon: Car,
-      name: "EV Charger Installers",
-      description: "A lead-qualification engine that screens for panel capacity, permit requirements, and rebate eligibility before booking a site visit.",
-      results: "28% Faster Close",
+      name: "Automotive & Repair Shops",
+      description: "Book service appointments, provide estimates, and handle customer inquiries about repairs and maintenance.",
+      results: "35% More Appointments",
       color: "from-green-500 to-emerald-500"
     },
     {
       icon: Sparkles,
-      name: "Solar & Panel Upgrade Specialists",
-      description: "Voice AI that qualifies leads by home age, panel size, and utility provider, then books a site assessment straight to your calendar.",
-      results: "91% Booked Rate",
+      name: "Professional Services",
+      description: "Intake automation for law firms, consultants, and agencies. Screen inquiries, qualify leads, and schedule consultations.",
+      results: "3x Pipeline Velocity",
       color: "from-yellow-500 to-orange-500"
     },
     {
       icon: Wrench,
-      name: "Low Voltage & Smart Home Electricians",
-      description: "Scheduling that checks technician certifications (security, AV, home automation) before confirming a job type.",
-      results: "+52% Review Growth",
+      name: "Property Management",
+      description: "Handle tenant inquiries, maintenance requests, and showings 24/7. Route urgent issues to on-call staff automatically.",
+      results: "+52% Tenant Satisfaction",
       color: "from-teal-500 to-green-400"
     },
     {
       icon: ShieldCheck,
-      name: "Master Electricians / Inspections",
-      description: "Automated inspection scheduling, permit status updates, and no-show reduction with SMS reminders for code compliance visits.",
-      results: "35% More New Clients",
+      name: "Restaurants & Hospitality",
+      description: "Manage reservations, take orders, and handle customer inquiries during peak hours without missing calls.",
+      results: "40% More Capacity",
       color: "from-rose-400 to-pink-600"
     },
     {
       icon: Briefcase,
-      name: "Industrial Electrical Contractors",
-      description: "Manage high-volume maintenance contract inquiries with AI that pre-screens for facility type, urgency, and union/licensing requirements.",
-      results: "$12k/mo Added Revenue",
+      name: "Salons & Spas",
+      description: "Book appointments, handle cancellations, and send reminders automatically. Reduce no-shows and fill empty slots.",
+      results: "55% Fewer No-Shows",
       color: "from-slate-500 to-gray-600"
     }
   ];
@@ -180,39 +180,18 @@ export default function Page() {
   const capabilities = [
     {
       title: "Proprietary Voice Models",
-      description: "We don't resell Vapi templates. We train custom LLM fine-tunes on YOUR scripts, YOUR brand voice, and YOUR service menu — panel upgrades, EV charger installs, emergency repairs, code inspections.",
+      description: "We don't resell templates. We train custom LLM fine-tunes on YOUR scripts, YOUR brand voice, and YOUR service menu.",
       icon: Terminal
     },
     {
       title: "Headless API Architecture",
-      description: "Every automation we build exposes a REST API. Integrate with ServiceTitan, Housecall Pro, Jobber, QuickBooks — doesn't matter.",
+      description: "Every automation we build exposes a REST API. Integrate with your existing CRM, dispatch software, or calendar system.",
       icon: Layers
     },
     {
       title: "White-Label Deployment",
       description: "Launch under your domain. Your customers never see 'Powered by Brandverse' unless you want them to.",
       icon: Globe
-    }
-  ];
-
-  const testimonials = [
-    {
-      quote: "We were losing 20+ emergency calls a week overnight. Brandverse's Voice Agent picked them all up and our after-hours booking rate doubled. The triage is scary accurate.",
-      author: "Dave Reyes",
-      role: "Owner, Reyes Electrical Services",
-      metric: "$38k/mo Added Revenue",
-    },
-    {
-      quote: "I was skeptical about AI answering emergency electrical calls. But it flags true emergencies vs. routine work correctly every time. It never calls in sick.",
-      author: "Marcus Lee",
-      role: "Owner, Lee & Sons Electric",
-      metric: "ZERO Missed Emergency Calls",
-    },
-    {
-      quote: "The automated follow-up system resurrects old panel-upgrade quotes from months back and puts them straight on my calendar.",
-      author: "Priya Nair",
-      role: "Owner, Nair Electrical Contracting",
-      metric: "3x More Booked Estimates",
     }
   ];
 
@@ -278,26 +257,25 @@ export default function Page() {
             </div>
             <h1 className="text-6xl md:text-[8rem] font-black text-white leading-[0.8] tracking-tighter uppercase italic holographic-text">
               We Engineer <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500 animate-gradient">Digital Immortality</span><br />
-              For <span className="text-cyan-400 text-glow drop-shadow-glow">Electrical Contractors</span>
             </h1>
             <p className="text-slate-300 text-lg md:text-2xl max-w-4xl mx-auto font-bold leading-relaxed pt-6 glass-morphism p-8 rounded-3xl border border-white/10">
-              <span className="text-cyan-400">⚡ Forget answering services. Forget missed emergency calls.</span> We build <span className="text-purple-400 font-bold">proprietary AI voice infrastructure</span> that answers <span className="text-cyan-400">every service call, panel upgrade inquiry, and after-hours breaker emergency</span>—deployed in <span className="text-glow font-black bg-gradient-to-r from-cyan-500 to-purple-500 bg-clip-text text-transparent px-2 py-1 rounded-lg">48 hours</span>.
+              <span className="text-cyan-400">⚡ Forget answering services. Forget missed calls.</span> We build <span className="text-purple-400 font-bold">proprietary AI voice infrastructure</span> that answers <span className="text-cyan-400">every customer call, captures every lead, and books every appointment</span>—deployed in <span className="text-glow font-black bg-gradient-to-r from-cyan-500 to-purple-500 bg-clip-text text-transparent px-2 py-1 rounded-lg">48 hours</span>.
             </p>
             <div className="flex flex-col sm:flex-row justify-center items-center gap-6 pt-12">
               <Link href="/contact" className="w-full sm:w-auto px-10 py-6 bg-brand-gradient text-white rounded-3xl font-black uppercase tracking-widest text-sm shadow-2xl shadow-blue-500/30 hover:scale-105 hover:shadow-blue-500/50 transition-all flex items-center justify-center gap-3">
                 Deploy Your Stack <ArrowRight className="w-5 h-5" />
               </Link>
-              <Link href="/portfolio" className="text-sm font-black uppercase tracking-widest text-slate-400 hover:text-white transition-colors flex items-center gap-2">
-                <Code2 className="w-4 h-4" /> View Source Code
+              <Link href="/case-studies" className="text-sm font-black uppercase tracking-widest text-slate-400 hover:text-white transition-colors flex items-center gap-2">
+                <Code2 className="w-4 h-4" /> See How It Works
               </Link>
             </div>
           </div>
         </section>
 
         {/* 🎯 FIRST CTA - After Hero */}
-        <CTASection 
-          title="Stop Losing Calls. Start Capturing Revenue."
-          subtitle="Every missed call is a service call handed to the electrician down the street. Our AI agents capture 100% of your calls, 24/7 — including the 2am emergencies that turn into your best-paying jobs."
+        <CTASection
+          title="Your Next Customer Shouldn't Go To Your Competitor."
+          subtitle="Every missed call is revenue handed to your competition. Our AI agents capture 100% of your calls, 24/7 — including the after-hours inquiries that turn into your best customers."
           primaryText="Deploy Your AI Agent"
           variant="minimal"
         />
@@ -675,12 +653,11 @@ export default function Page() {
               <div className="p-12 rounded-[2.5rem] bg-indigo-600 border border-indigo-400 relative shadow-2xl shadow-indigo-500/30 -translate-y-6 z-10">
                 <div className="absolute top-0 right-1/2 translate-x-1/2 -translate-y-1/2 bg-white text-indigo-700 px-6 py-2 rounded-full text-xs font-black tracking-widest uppercase border border-indigo-200">Best ROI</div>
                 <h3 className="text-3xl font-bold mb-2 text-white">Growth</h3>
-                <div className="text-sm text-indigo-200 font-medium mb-6">For Established Electrical Contractors</div>
+                <div className="text-sm text-indigo-200 font-medium mb-6">For Established Teams</div>
                 <div className="text-6xl font-black mb-2 text-white">$997<span className="text-lg text-indigo-200 font-normal">/mo</span></div>
-                <div className="text-xs text-indigo-200 mb-8 uppercase tracking-widest font-semibold">No Setup Fees This Week</div>
                 <ul className="text-white space-y-5 mb-12 text-left">
                   <li className="flex items-center gap-3"><Check className="w-5 h-5 text-indigo-200" /> <strong>Everything in Starter</strong></li>
-                  <li className="flex items-center gap-3"><Check className="w-5 h-5 text-indigo-200" /> <strong>Full CRM/Dispatch Integration</strong> (2-way)</li>
+                  <li className="flex items-center gap-3"><Check className="w-5 h-5 text-indigo-200" /> <strong>Full CRM Integration</strong> (2-way)</li>
                   <li className="flex items-center gap-3"><Check className="w-5 h-5 text-indigo-200" /> Custom Voice Cloning</li>
                   <li className="flex items-center gap-3"><Check className="w-5 h-5 text-indigo-200" /> Unlimited Minutes</li>
                   <li className="flex items-center gap-3"><Check className="w-5 h-5 text-indigo-200" /> Multilingual (ES/FR)</li>
@@ -692,7 +669,7 @@ export default function Page() {
               {/* Enterprise */}
               <div className="p-10 rounded-3xl bg-[#0b1121] border border-white/10 text-center hover:border-blue-500/30 transition-all">
                 <h3 className="text-2xl font-bold mb-2 text-white">Enterprise</h3>
-                <div className="text-sm text-slate-500 font-medium mb-6">Multi-Crew & Multi-Location Electrical Companies</div>
+                <div className="text-sm text-slate-500 font-medium mb-6">Multi-Location Businesses</div>
                 <div className="text-5xl font-black mb-2 text-white">Custom</div>
                 <div className="text-xs text-slate-500 mb-8 uppercase tracking-widest font-semibold">White Glove Service</div>
                 <ul className="text-slate-400 space-y-4 mb-10 text-left text-sm">
@@ -712,16 +689,16 @@ export default function Page() {
                 <ShieldCheck className="w-12 h-12 text-emerald-500" />
               </div>
               <div className="text-left">
-                <h3 className="text-2xl font-bold text-white mb-2">Our 30-Day Happiness Guarantee</h3>
-                <p className="text-slate-400">We are so confident that Brandverse will increase your booking rate that if you don't generate at least 3x your monthly ROI in the first 30 days, we'll refund your subscription in full. No questions asked.</p>
+                <h3 className="text-2xl font-bold text-white mb-2">Our 7-Day Money-Back Guarantee</h3>
+                <p className="text-slate-400">Try Brandverse risk-free. If you're not satisfied within the first 7 days, we'll refund your subscription in full. No questions asked.</p>
               </div>
             </div>
           </div>
         </section>
 
         {/* 🎯 SIXTH CTA - After Pricing */}
-        <CTASection 
-          title="Ready to Automate Your Electrical Business?"
+        <CTASection
+          title="Ready to Automate Your Business?"
           subtitle="We build custom AI infrastructure that becomes your competitive advantage."
           primaryText="Get Started"
           secondaryText="View Pricing"
@@ -735,7 +712,7 @@ export default function Page() {
               <h2 className="text-4xl md:text-6xl font-black text-white uppercase italic tracking-tighter">
                 CALCULATE YOUR <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400">ALPHA</span>
               </h2>
-              <p className="text-slate-500 font-bold uppercase tracking-widest text-xs">Quantify the cost of missed electrical service calls</p>
+              <p className="text-slate-500 font-bold uppercase tracking-widest text-xs">Quantify the cost of missed customer calls</p>
             </div>
 
             <div className="bg-gradient-to-br from-slate-900/80 to-slate-900/40 rounded-[3.5rem] border border-white/5 p-8 md:p-16 shadow-2xl relative overflow-hidden">
@@ -769,13 +746,13 @@ export default function Page() {
 
                   <div className="space-y-4">
                     <div className="flex justify-between items-end">
-                      <label className="text-sm text-slate-300 font-black uppercase tracking-tighter">Avg Job Value ($)</label>
+                      <label className="text-sm text-slate-300 font-black uppercase tracking-tighter">Avg Customer Value ($)</label>
                       <div className="text-2xl font-black text-purple-500">${avgJobValue}</div>
                     </div>
                     <input
                       type="range"
-                      title="Adjust Average Job Value"
-                      aria-label="Adjust Average Job Value"
+                      title="Adjust Average Customer Value"
+                      aria-label="Adjust Average Customer Value"
                       min="100"
                       max="2000"
                       step="50"
@@ -848,32 +825,9 @@ export default function Page() {
           <div className="max-w-7xl mx-auto space-y-16">
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
               <div className="space-y-4">
-                <h2 className="text-4xl md:text-5xl font-black text-white uppercase italic tracking-tighter">Verified <span className="text-purple-500">Performance</span></h2>
-                <p className="text-slate-400 text-lg">Don't take our word for it.</p>
+                <h2 className="text-4xl md:text-5xl font-black text-white uppercase italic tracking-tighter">How It Works</h2>
+                <p className="text-slate-400 text-lg">Simple setup, powerful results.</p>
               </div>
-              <div className="flex items-center gap-2 p-3 bg-white/5 rounded-full border border-white/10">
-                <div className="flex text-yellow-500">
-                  <Star className="w-4 h-4 fill-current" /><Star className="w-4 h-4 fill-current" /><Star className="w-4 h-4 fill-current" /><Star className="w-4 h-4 fill-current" /><Star className="w-4 h-4 fill-current" />
-                </div>
-                <span className="text-xs font-bold text-white uppercase tracking-widest">5.0 Star Average</span>
-              </div>
-            </div>
-
-            <div className="grid md:grid-cols-3 gap-6">
-              {testimonials.map((t, idx) => (
-                <div key={idx} className="p-8 rounded-3xl bg-slate-900/50 border border-white/5 space-y-6">
-                  <div className="text-slate-300 italic leading-relaxed">"{t.quote}"</div>
-                  <div className="flex items-center justify-between pt-6 border-t border-white/5">
-                    <div>
-                      <div className="font-bold text-white">{t.author}</div>
-                      <div className="text-xs text-slate-500 uppercase tracking-wider">{t.role}</div>
-                    </div>
-                    <div className="text-right">
-                      <div className="text-green-400 text-xs font-black uppercase tracking-widest">{t.metric}</div>
-                    </div>
-                  </div>
-                </div>
-              ))}
             </div>
           </div>
         </section>
