@@ -200,7 +200,7 @@ async function handleClientConfig(clientId, clientConfig, ch, log) {
 async function handleVapiWebhook(request, env, ch, log) {
   try {
     const rawBody = await request.text();
-    const signature = request.headers.get('x-vapi-signature') || '';
+    const signature = request.headers.get('x-signature') || '';
     const verification = await verifyVapiSignature(env, rawBody, signature);
 
     if (verification !== 'ok') {

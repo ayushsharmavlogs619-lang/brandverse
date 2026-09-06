@@ -4,9 +4,9 @@ import Link from "next/link";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Pricing — Brandverse AI Voice Agents | No Contracts, Cancel Anytime",
-  description: "AI voice agent pricing starting at $497/mo. No long-term contracts. 7-day money-back guarantee. Unlimited minutes on Growth plan. Cancel anytime.",
-  keywords: ["AI voice agent pricing", "AI receptionist cost", "voice AI monthly", "24/7 call answering price", "no contract AI agent"],
+  title: "Pricing — Brandverse AI Voice Agents | Managed Service for Service Businesses",
+  description: "Brandverse managed service pricing starting at $497/mo for the Starter plan. Recurring monthly fee covers ongoing system management, optimization, and support. Growth plan at $997/mo includes full CRM integration and custom voice cloning.",
+  keywords: ["AI voice agent pricing", "managed service", "service business automation", "24/7 call answering"],
 };
 
 export default function PricingPage() {
@@ -16,8 +16,8 @@ export default function PricingPage() {
         <div className="text-center max-w-3xl mx-auto mb-20">
           <h1 className="text-4xl md:text-6xl font-black text-white mb-6">Invest In Growth, Not Overhead</h1>
           <p className="text-xl text-slate-400">
-            A full-time receptionist costs ~$45,000/year. Brandverse costs less than a coffee a day.
-            <span className="text-blue-400 font-bold"> No contracts. Cancel anytime.</span>
+            A full-time receptionist costs ~$45,000/year. Brandverse managed service costs less than a coffee a day.
+            <span className="text-blue-400 font-bold"> Recurring monthly fee includes ongoing management and optimization.</span>
           </p>
         </div>
 

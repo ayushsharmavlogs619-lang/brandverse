@@ -59,8 +59,8 @@ export default function FeaturesPage() {
                             i: Users
                         },
                         {
-                            t: "HIPAA & SOC2 Compliant",
-                            d: "Security isn't an afterthought. Your data is encrypted at rest and in transit. We adhere to the strictest privacy standards, suitable for medical and legal practices.",
+                            t: "Encrypted Communications",
+                            d: "All call data and customer interactions are encrypted end-to-end. We implement access controls and audit logs to protect your business data.",
                             i: Lock
                         }
                     ].map((f, i) => (

@@ -114,7 +114,10 @@ export default function LeadForm({
                             </svg>
                         </div>
                         <h3 className="text-white font-bold text-lg mb-2">Success!</h3>
-                        <p className="text-slate-400 text-sm mb-6">Your information has been submitted successfully.</p>
+                        <p className="text-slate-400 text-sm mb-6">
+{/* Lead capture uses multi-layer fallback: Google Sheets → FormSubmit → mailto + localStorage */}
+Your information has been submitted via our lead capture system.
+</p>
                         <button
                             onClick={() => setSubmitStatus('idle')}
                             className="px-6 py-3 bg-green-500 text-white rounded-lg font-medium hover:bg-green-600 transition-colors"

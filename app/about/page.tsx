@@ -148,22 +148,6 @@ export default function AboutPage() {
             </div>
           </section>
 
-          {/* Leadership Team */}
-          <section className="space-y-16">
-            <div className="text-center space-y-4">
-              <h2 className="text-3xl md:text-5xl font-black text-white uppercase italic tracking-tighter">Leadership</h2>
-              <p className="text-slate-400 max-w-2xl mx-auto">The minds building the infrastructure of tomorrow.</p>
-            </div>
-
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {team.map((member, idx) => (
-                <div key={idx} className={member.name === "Amit Tiwari" ? "lg:col-span-3 lg:w-1/3 lg:mx-auto" : ""}>
-                  <TeamMember {...member} color={member.color} />
-                </div>
-              ))}
-            </div>
-          </section>
-
           {/* Vision Statement */}
           <section className="relative p-12 rounded-[3rem] overflow-hidden border border-white/10">
             <div className="absolute inset-0 bg-gradient-to-br from-blue-900/20 to-slate-900 -z-10" />

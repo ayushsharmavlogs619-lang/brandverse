@@ -399,11 +399,11 @@ export default function Page() {
         </section>
 
         {/* 🎯 SECOND CTA - After Platform Capabilities */}
-        <CTASection 
-          title="This Isn't SaaS. It's Your Infrastructure."
-          subtitle="We build custom AI systems that become your competitive advantage. No monthly subscriptions, no vendor lock-in."
-          primaryText="Build My Stack"
-          secondaryText="View Case Studies"
+<CTASection
+          title="A Managed Service for Your Business"
+          subtitle="Brandverse is a managed customer-response system for service businesses. You pay a recurring monthly fee for the ongoing system, management, optimization, and support — not a bloated self-serve platform."
+          primaryText="Get Started"
+          secondaryText="View Pricing"
           variant="minimal"
         />
 
@@ -466,8 +466,8 @@ export default function Page() {
               {/* Row 1 */}
               <div className="grid grid-cols-3 p-6 border-b border-white/5 hover:bg-white/5 transition-colors">
                 <div className="font-bold text-white">Cost Per Month</div>
-                <div className="text-center text-red-400">$3,500+</div>
-                <div className="text-center text-green-400 font-bold">$497 - $997</div>
+                <div className="text-center">Premium managed service</div>
+                <div className="text-center text-blue-400 font-bold">Custom infrastructure for your business</div>
               </div>
               {/* Row 2 */}
               <div className="grid grid-cols-3 p-6 border-b border-white/5 hover:bg-white/5 transition-colors">
@@ -489,9 +489,9 @@ export default function Page() {
               </div>
               {/* Row 5 */}
               <div className="grid grid-cols-3 p-6 hover:bg-white/5 transition-colors">
-                <div className="font-bold text-white">Training Time</div>
-                <div className="text-center text-slate-400">3-4 Weeks</div>
-                <div className="text-center text-blue-400 font-bold">Instant Download</div>
+                <div className="font-bold text-white">Training Period</div>
+                <div className="text-center">Fast implementation</div>
+                <div className="text-center text-blue-400 font-bold">Your AI is live in 2-3 weeks</div>
               </div>
             </div>
           </div>
@@ -510,10 +510,10 @@ export default function Page() {
         <section id="industries" className="py-32 px-6">
           <div className="max-w-7xl mx-auto space-y-16">
             <div className="text-center space-y-6">
-              <h2 className="text-5xl md:text-7xl font-black text-white uppercase italic tracking-tighter">
-                Built For How <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">Electrical Contractors</span><br />
-                Actually Run Calls
-              </h2>
+<h2 className="text-5xl md:text-7xl font-black text-white uppercase italic tracking-tighter">
+                  Built For How <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">Service Businesses</span><br />
+                  Actually Run Calls
+                </h2>
               <p className="text-slate-400 text-lg max-w-3xl mx-auto font-bold">
                 We don't ship generic templates. Every deployment is engineered for emergency triage, code compliance, and permit timing.
               </p>
@@ -898,7 +898,7 @@ export default function Page() {
             <div className="relative z-10 space-y-10">
               <h2 className="text-4xl md:text-6xl font-black text-white uppercase italic tracking-tighter">Ready to Deploy?</h2>
               <p className="text-slate-300 text-lg font-bold max-w-2xl mx-auto">
-                We take on <strong className="text-white">3 new infrastructure builds per month</strong>. Current availability for approved partners deploying in <strong className="text-blue-400">Q3 2026</strong>.
+                We are currently accepting new partners. Contact us to discuss your deployment timeline.
               </p>
               <Link href="/contact" className="inline-block px-12 py-6 bg-brand-gradient text-white rounded-2xl font-black uppercase tracking-widest text-sm shadow-2xl shadow-blue-500/30 hover:scale-105 hover:shadow-blue-500/50 transition-all">
                 Apply for Partnership

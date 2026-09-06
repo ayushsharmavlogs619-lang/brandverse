@@ -26,9 +26,7 @@ export default function AuditPage() {
                     <Link href="/" className="flex items-center gap-2 text-sm font-bold uppercase tracking-widest text-slate-500 hover:text-white transition-colors">
                         <ArrowLeft className="w-4 h-4" /> Back into the Matrix
                     </Link>
-                    <div className="px-4 py-1.5 rounded-full bg-red-500/10 border border-red-500/20 text-red-400 text-[10px] font-black uppercase tracking-[0.2em] animate-pulse">
-                        ● Limited Availability: 3 Spots Left
-                    </div>
+                    
                 </div>
 
                 <div className="grid lg:grid-cols-2 gap-20 items-center">
@@ -42,8 +40,7 @@ export default function AuditPage() {
                             </h1>
                             <p className="text-xl text-slate-300 font-medium leading-relaxed max-w-lg">
                                 The Brandverse "Trojan Horse" Audit. We monitor your missed calls for one day.
-                                If we don't find at least <strong className="text-green-400">$500</strong> in lost revenue opportunities,
-                                <span className="text-white border-b-2 border-red-500/50"> we pay you $100</span>.
+                                We provide a detailed "Lost Revenue Report" based on our analysis.
                             </p>
                         </div>
 
@@ -62,8 +59,8 @@ export default function AuditPage() {
                                     <ShieldCheck className="w-5 h-5 text-blue-400" />
                                 </div>
                                 <div>
-                                    <div className="text-white font-bold">Risk Reversal Guarantee</div>
-                                    <div className="text-slate-400 text-sm">If we waste your time, we literally pay you.</div>
+                                    <div className="text-white font-bold">Risk Reversal</div>
+                                    <div className="text-slate-400 text-sm">We only proceed with audits we can genuinely help with.</div>
                                 </div>
                             </div>
                         </div>
@@ -157,9 +154,9 @@ export default function AuditPage() {
                                     Get My Free Audit <ArrowRight className="w-5 h-5" />
                                 </button>
 
-                                <p className="text-center text-xs text-slate-500 font-medium">
-                                    🔒 100% Risk-Free • If we don't find $500 in lost revenue, we pay you $100
-                                </p>
+<p className="text-center text-xs text-slate-500 font-medium">
+                                100% Passive Test
+                            </p>
                             </LeadForm>
                         </div>
                     </div>

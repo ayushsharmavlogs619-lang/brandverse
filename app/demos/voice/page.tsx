@@ -8,6 +8,7 @@ import { config } from '../../../lib/config';
 
 // Initialize Vapi only when API key is available to prevent errors
 const vapiKey = config.vapiPublicKey; // Vapi public key for voice API
+const vapiAssistantId = config.vapiAssistantId; // Vapi assistant ID for voice API
 const vapi = vapiKey ? new Vapi(vapiKey) : null;
 
 export default function VoiceDemo() {
@@ -15,7 +16,7 @@ export default function VoiceDemo() {
     const [isMuted, setIsMuted] = useState(false);
     const [volume, setVolume] = useState(0);
     const [errorMsg, setErrorMsg] = useState('');
-    const [apiKeyMissing, setApiKeyMissing] = useState(!vapiKey);
+    const [apiKeyMissing, setApiKeyMissing] = useState(!vapiKey || !vapiAssistantId);
 
     const animationFrameRef = useRef<number | undefined>(undefined);
     const vapiRef = useRef<typeof vapi | null>(vapi || null);
