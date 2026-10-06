@@ -335,6 +335,7 @@ export default function Page() {
           title="Hear It For Yourself."
           subtitle="Talk to Nexus live and experience the receptionist before you book a demo. No sales pitch. Just the product."
           primaryText="Talk to Nexus"
+          primaryLink="/demos/voice"
           variant="minimal"
         />
 
