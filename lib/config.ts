@@ -59,8 +59,13 @@ export const config: AppConfig = {
     metaPixelId: getEnvVar('NEXT_PUBLIC_META_PIXEL_ID', ''),
     gtmId: getEnvVar('NEXT_PUBLIC_GTM_ID', 'GTM-KZS5WRBB'),
   },
-  vapiPublicKey: getEnvVar('NEXT_PUBLIC_VAPI_PUBLIC_KEY', ''),
-  vapiAssistantId: getEnvVar('NEXT_PUBLIC_VAPI_ASSISTANT_ID', ''),
+
+  // IMPORTANT: These are consumed by a client component. Next.js only
+  // statically inlines NEXT_PUBLIC_* variables when the process.env access
+  // uses the literal variable name. Do not route these through process.env[key].
+  vapiPublicKey: process.env.NEXT_PUBLIC_VAPI_PUBLIC_KEY || '',
+  vapiAssistantId: process.env.NEXT_PUBLIC_VAPI_ASSISTANT_ID || '',
+
   razorpayKeyId: getEnvVar('NEXT_PUBLIC_RAZORPAY_KEY_ID', ''),
   calendlyUrl: getEnvVar('NEXT_PUBLIC_CALENDLY_URL', 'https://calendly.com/ayushsharmavlogs619/30min'),
   linkedInPartnerId: getEnvVar('NEXT_PUBLIC_LINKEDIN_PARTNER_ID', ''),
