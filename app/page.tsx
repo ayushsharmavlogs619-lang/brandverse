@@ -218,7 +218,7 @@ export default function Page() {
             <span className="text-xl font-black uppercase tracking-tighter text-white">Brandverse</span>
           </div>
           <nav className="hidden lg:flex items-center gap-8 text-[11px] font-black uppercase tracking-widest text-slate-400">
-            <Link href="#platform" className="hover:text-blue-400 transition-colors">Platform</Link>
+            <Link href="#platform" className="hover:text-blue-400 transition-colors">AI Receptionist</Link>
             <Link href="#hiring" className="hover:text-blue-400 transition-colors">Comparison</Link>
             <Link href="#industries" className="hover:text-blue-400 transition-colors">Industries</Link>
             <Link href="#roi" className="hover:text-blue-400 transition-colors">ROI Engine</Link>
@@ -255,12 +255,12 @@ export default function Page() {
             <p className="text-slate-300 text-lg md:text-2xl max-w-4xl mx-auto font-bold leading-relaxed glass-morphism p-8 rounded-3xl border border-white/10">
               Brandverse answers <span className="text-cyan-400">every customer call</span>, qualifies <span className="text-cyan-400">every lead</span>, and books appointments <span className="text-cyan-400">automatically</span>, so your electrical business <span className="text-glow font-black bg-gradient-to-r from-cyan-500 to-purple-500 bg-clip-text text-transparent px-2 py-1 rounded-lg">never misses another opportunity</span>.
             </p>
-            <div className="flex flex-col sm:flex-row justify-center items-center gap-6 pt-12">
-              <Link href="/contact" className="w-full sm:w-auto px-10 py-6 bg-brand-gradient text-white rounded-3xl font-black uppercase tracking-widest text-sm shadow-2xl shadow-blue-500/30 hover:scale-105 hover:shadow-blue-500/50 transition-all flex items-center justify-center gap-3">
-                Book a Free Demo <Calendar className="w-5 h-5" />
+            <div className="flex flex-col sm:flex-row justify-center items-center gap-4 pt-12">
+              <Link href="/demos/voice" className="w-full sm:w-auto px-10 py-6 bg-brand-gradient text-white rounded-3xl font-black uppercase tracking-widest text-sm shadow-2xl shadow-blue-500/30 hover:scale-105 hover:shadow-blue-500/50 transition-all flex items-center justify-center gap-3">
+                Talk to Nexus <Mic className="w-5 h-5" />
               </Link>
-              <Link href="#platform" className="text-sm font-black uppercase tracking-widest text-slate-400 hover:text-white transition-colors flex items-center gap-2">
-                <Play className="w-4 h-4" /> See How It Works
+              <Link href="/contact" className="w-full sm:w-auto px-10 py-6 rounded-3xl border border-white/15 bg-white/5 text-white font-black uppercase tracking-widest text-sm hover:bg-white/10 transition-all flex items-center justify-center gap-3">
+                Book a Free Demo <Calendar className="w-5 h-5" />
               </Link>
             </div>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 pt-8 max-w-3xl mx-auto">
@@ -280,11 +280,61 @@ export default function Page() {
           </div>
         </section>
 
+        {/* 🎙️ NEXUS: THE PRODUCT */}
+        <section id="platform" className="py-28 px-6 bg-[#020617] border-y border-white/5 relative overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-b from-blue-600/10 via-transparent to-purple-600/10 pointer-events-none" />
+          <div className="max-w-7xl mx-auto relative z-10">
+            <div className="max-w-3xl mx-auto text-center space-y-5 mb-16">
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-cyan-400/10 border border-cyan-400/20 text-cyan-300 text-[10px] font-black uppercase tracking-[0.2em]">
+                <Mic className="w-4 h-4" /> Meet Nexus
+              </div>
+              <h2 className="text-4xl md:text-6xl font-black text-white uppercase italic tracking-tighter">
+                Your AI Receptionist <span className="text-cyan-400">Actually Does Things.</span>
+              </h2>
+              <p className="text-slate-400 text-lg md:text-xl leading-relaxed">
+                Nexus can answer natural conversations, understand what callers need, capture their details, and guide them toward the next action instead of sending them to voicemail.
+              </p>
+              <div className="pt-3">
+                <Link href="/demos/voice" className="inline-flex items-center gap-3 px-7 py-4 rounded-2xl bg-white text-black font-black uppercase tracking-widest text-xs hover:scale-105 transition-all">
+                  <Phone className="w-4 h-4" /> Talk to Nexus Live
+                </Link>
+              </div>
+            </div>
+
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5">
+              {[
+                { icon: Phone, title: 'Answer Calls', text: 'Handle customer conversations instead of sending callers straight to voicemail.' },
+                { icon: MessageSquare, title: 'Understand Intent', text: 'Let customers explain the problem naturally and capture what matters.' },
+                { icon: Calendar, title: 'Handle Appointments', text: 'Guide callers through availability and booking workflows when configured.' },
+                { icon: Clock, title: 'Work After Hours', text: 'Keep capturing opportunities when your team is unavailable.' },
+                { icon: Target, title: 'Capture Lead Details', text: 'Collect names, phone numbers, reasons for calling and useful notes.' },
+                { icon: ShieldCheck, title: 'Follow Safety Rules', text: 'Recognize configured emergency scenarios and avoid pretending an escalation happened when it did not.' },
+                { icon: CheckCircle2, title: 'Request Callbacks', text: 'Capture callback requests when a caller needs a human follow-up.' },
+                { icon: Bot, title: 'Summarize Calls', text: 'Turn completed conversations into structured call information for the business.' },
+              ].map((item, i) => (
+                <div key={i} className="p-7 rounded-3xl bg-white/[0.03] border border-white/8 hover:border-cyan-400/30 hover:bg-white/[0.05] transition-all">
+                  <div className="w-12 h-12 rounded-2xl bg-cyan-400/10 flex items-center justify-center mb-5">
+                    <item.icon className="w-6 h-6 text-cyan-400" />
+                  </div>
+                  <h3 className="text-lg font-black text-white mb-2">{item.title}</h3>
+                  <p className="text-sm text-slate-400 leading-relaxed">{item.text}</p>
+                </div>
+              ))}
+            </div>
+
+            <div className="mt-10 max-w-4xl mx-auto p-6 rounded-3xl bg-blue-500/5 border border-blue-500/15 text-center">
+              <p className="text-xs md:text-sm text-slate-400">
+                <span className="text-white font-bold">Built for real business workflows.</span> Calendar booking, human transfer, emergency escalation and other actions are enabled only when the corresponding business integration is configured and confirmed.
+              </p>
+            </div>
+          </div>
+        </section>
+
         {/* 🎯 FIRST CTA - After Hero */}
         <CTASection 
-          title="Stop Losing Calls. Start Capturing Revenue."
-          subtitle="Every missed call is a service call handed to the electrician down the street. Our AI agents answer every call, 24/7 — including the 2am emergencies that turn into your best-paying jobs."
-          primaryText="Deploy Your AI Agent"
+          title="Hear It For Yourself."
+          subtitle="Talk to Nexus live and experience the receptionist before you book a demo. No sales pitch. Just the product."
+          primaryText="Talk to Nexus"
           variant="minimal"
         />
 
