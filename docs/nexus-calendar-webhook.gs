@@ -81,10 +81,10 @@ function doPost(e) {
           id: event.getId(),
           summary: event.getTitle(),
           description: event.getDescription(),
-          start: event.getStartTime().toISOString(),
-          end: event.getEndTime().toISOString(),
+          start: { dateTime: event.getStartTime().toISOString() },
+          end: { dateTime: event.getEndTime().toISOString() },
           location: event.getLocation(),
-          status: event.isDeletedEvent ? 'cancelled' : 'confirmed',
+          status: 'confirmed',
         };
       });
       return ok_({ events: events });
