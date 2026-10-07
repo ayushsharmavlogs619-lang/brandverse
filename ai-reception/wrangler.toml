@@ -11,9 +11,14 @@ vars = [
   { name = "DEFAULT_TIMEZONE", value = "Australia/Melbourne" }
 ]
 
-# Required secrets (set via dashboard or wrangler secret):
+# Calendar authentication options. Nexus can use the service-account path OR the
+# Apps Script calendar webhook path below. The Apps Script path avoids service-account keys.
 #   wrangler secret put GOOGLE_CLIENT_EMAIL --env production
 #   wrangler secret put GOOGLE_PRIVATE_KEY --env production
+#
+# Preferred keyless calendar path:
+#   wrangler secret put NEXUS_CALENDAR_WEBHOOK_URL --env production
+#   wrangler secret put NEXUS_CALENDAR_WEBHOOK_SECRET --env production
 #
 # Demo receptionist (the dedicated Brandverse demo client):
 #   wrangler secret put DEMO_PHONE_NUMBER --env production   # actual Vapi/Twilio demo number (E.164)
