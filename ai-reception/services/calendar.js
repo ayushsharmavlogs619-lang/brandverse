@@ -7,11 +7,19 @@ export class GoogleCalendarService {
     this.env = env;
     this.auth = new GoogleAuth(env);
     this.baseURL = 'https://www.googleapis.com/calendar/v3';
+    this.appsScriptWebhookUrl = this.env.NEXUS_CALENDAR_WEBHOOK_URL || '';
+    this.appsScriptWebhookSecret = this.env.NEXUS_CALENDAR_WEBHOOK_SECRET || '';
   }
 
   async getEvents(calendarId, startTime, endTime, timezone = 'UTC') {
     if (!calendarId || !calendarId.trim()) {
       throw new Error('Calendar ID is required');
+    }
+    if (this.appsScriptWebhookUrl && this.appsScriptWebhookSecret) {
+      const result = await this.callAppsScript('get_events', {
+        calendarId, startTime: startTime.toISOString(), endTime: endTime.toISOString(), timezone,
+      });
+      return result.events || [];
     }
     const token = await this.auth.getAccessToken(CALENDAR_SCOPE);
     const params = new URLSearchParams({
@@ -33,6 +41,18 @@ export class GoogleCalendarService {
 
   async createEvent(calendarId, eventData) {
     try {
+      if (this.appsScriptWebhookUrl && this.appsScriptWebhookSecret) {
+        return await this.callAppsScript('create_event', {
+          calendarId,
+          summary: eventData.summary || `Appointment - ${eventData.service}`,
+          description: eventData.description || '',
+          startTime: eventData.startTime.toISOString(),
+          endTime: eventData.endTime.toISOString(),
+          timezone: eventData.timezone || 'UTC',
+          location: eventData.location || '',
+          guests: (eventData.attendees || []).map(a => a.email).filter(Boolean),
+        });
+      }
       const token = await this.auth.getAccessToken(CALENDAR_SCOPE);
       const event = {
         summary: eventData.summary || `Appointment - ${eventData.service}`,
@@ -66,6 +86,10 @@ export class GoogleCalendarService {
   async getEvent(calendarId, eventId) {
     if (!calendarId || !eventId) return null;
     try {
+      if (this.appsScriptWebhookUrl && this.appsScriptWebhookSecret) {
+        const result = await this.callAppsScript('get_event', { calendarId, eventId });
+        return result.event || null;
+      }
       const token = await this.auth.getAccessToken(CALENDAR_SCOPE);
       const resp = await fetch(`${this.baseURL}/calendars/${encodeURIComponent(calendarId)}/events/${encodeURIComponent(eventId)}`, {
         headers: { Authorization: `Bearer ${token}` },
@@ -88,6 +112,24 @@ export class GoogleCalendarService {
       return null;
     }
   }
+  async callAppsScript(action, payload = {}) {
+    const resp = await fetch(this.appsScriptWebhookUrl, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        secret: this.appsScriptWebhookSecret,
+        action,
+        ...payload,
+      }),
+      signal: AbortSignal.timeout(15000),
+    });
+    const data = await resp.json().catch(() => ({}));
+    if (!resp.ok || data.success !== true) {
+      throw new Error(data.message || data.error || `Apps Script calendar error: ${resp.status}`);
+    }
+    return data;
+  }
+
 
   async isSlotAvailable(calendarId, startTime, endTime, timezone = 'UTC') {
     const events = await this.getEvents(calendarId, startTime, endTime, timezone);
@@ -101,6 +143,9 @@ export class GoogleCalendarService {
 
   async deleteEvent(calendarId, eventId) {
     try {
+      if (this.appsScriptWebhookUrl && this.appsScriptWebhookSecret) {
+        return await this.callAppsScript('delete_event', { calendarId, eventId });
+      }
       const token = await this.auth.getAccessToken(CALENDAR_SCOPE);
       const resp = await fetch(`${this.baseURL}/calendars/${encodeURIComponent(calendarId)}/events/${encodeURIComponent(eventId)}`, {
         method: 'DELETE', headers: { Authorization: `Bearer ${token}` }, signal: AbortSignal.timeout(10000),
@@ -114,6 +159,17 @@ export class GoogleCalendarService {
 
   async updateEvent(calendarId, eventId, updateData) {
     try {
+      if (this.appsScriptWebhookUrl && this.appsScriptWebhookSecret) {
+        return await this.callAppsScript('update_event', {
+          calendarId,
+          eventId,
+          startTime: updateData.start?.dateTime,
+          endTime: updateData.end?.dateTime,
+          summary: updateData.summary,
+          description: updateData.description,
+          location: updateData.location,
+        });
+      }
       const token = await this.auth.getAccessToken(CALENDAR_SCOPE);
       const resp = await fetch(`${this.baseURL}/calendars/${encodeURIComponent(calendarId)}/events/${encodeURIComponent(eventId)}`, {
         method: 'PATCH', headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
