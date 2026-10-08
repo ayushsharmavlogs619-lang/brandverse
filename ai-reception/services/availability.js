@@ -9,7 +9,7 @@ export class AvailabilityEngine {
     if (isNaN(targetDate.getTime())) throw new Error('Invalid date format');
 
     const client = await this.clientConfigService.getClientConfig(clientId);
-    if (!client.calendar_id?.trim()) throw new Error('Calendar integration required - calendar_id is empty');
+    const calendarId = await this.calendarService.getCalendarId(clientId, client.calendar_id);
 
     const serviceDuration = client.services[service];
     if (!serviceDuration) throw new Error(`Service not found: ${service}`);
