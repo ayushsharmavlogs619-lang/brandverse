@@ -188,12 +188,13 @@ export class BookingEngine {
       const calendarId = await this.calendarService.getCalendarId(clientId, clientConfig.calendar_id);
       
       // Get event details before deleting
-      const eventDetails = await this.getEventDetails(calendarId, bookingId);
+      const eventDetails = await this.getEventDetails(calendarId, bookingId, clientId);
       
       // Delete calendar event
       const deleteResult = await this.calendarService.deleteEvent(
         calendarId,
-        bookingId
+        bookingId,
+        clientId
       );
 
       if (!deleteResult.success) {
@@ -259,7 +260,7 @@ export class BookingEngine {
       const calendarId = await this.calendarService.getCalendarId(clientId, clientConfig.calendar_id);
       
       // Get current event details
-      const eventDetails = await this.getEventDetails(calendarId, bookingId);
+      const eventDetails = await this.getEventDetails(calendarId, bookingId, clientId);
       
       if (!eventDetails) {
         return {
@@ -326,7 +327,8 @@ export class BookingEngine {
       const updateResult = await this.calendarService.updateEvent(
         calendarId,
         bookingId,
-        updateData
+        updateData,
+        clientId
       );
 
       if (!updateResult.success) {
@@ -420,9 +422,9 @@ export class BookingEngine {
     }
   }
 
-  async getEventDetails(calendarId, eventId) {
+  async getEventDetails(calendarId, eventId, clientId = null) {
     try {
-      return await this.calendarService.getEvent(calendarId, eventId);
+      return await this.calendarService.getEvent(calendarId, eventId, clientId);
     } catch (error) {
       console.error('Error getting event details:', error);
       return null;
@@ -446,7 +448,8 @@ export class BookingEngine {
         calendarId,
         startTime,
         endTime,
-        clientConfig.timezone
+        clientConfig.timezone,
+        clientId
       );
 
       const bookings = events.map(event => ({
@@ -490,11 +493,13 @@ export class BookingEngine {
       const bookingDateTime = new Date(dateTime);
       const endTime = new Date(bookingDateTime.getTime() + (serviceDuration * 60 * 1000));
 
+      const calendarId = await this.calendarService.getCalendarId(clientId, clientConfig.calendar_id);
       const events = await this.calendarService.getEvents(
-        clientConfig.calendar_id,
+        calendarId,
         bookingDateTime,
         endTime,
-        clientConfig.timezone
+        clientConfig.timezone,
+        clientId
       );
 
       // Filter out the excluded booking if provided
