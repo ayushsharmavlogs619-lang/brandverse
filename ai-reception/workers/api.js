@@ -108,6 +108,19 @@ const worker = {
         return await handleOAuthDisconnect(clientId, request, env, ch, log.child(clientId));
       }
 
+      // Dashboard users may query availability with their short-lived D1 session.
+      // Vapi continues to use the HMAC token below. This keeps both paths secure.
+      if (path === `/api/${clientId}/availability` && method === 'GET' &&
+          (url.searchParams.has('session_token') || request.headers.has('X-Session-Token'))) {
+        const sessionValidation = await validateDashboardSession(request, env, clientId);
+        if (sessionValidation.valid) {
+          const clientConfig = new ClientConfigService(env);
+          const calendarService = new GoogleCalendarService(env);
+          const availabilityEngine = new AvailabilityEngine(calendarService, clientConfig);
+          return await handleAvailability(clientId, url.searchParams, availabilityEngine, ch, log.child(clientId));
+        }
+      }
+
       // Every /api/{clientId}/* route is protected by a short-lived HMAC
       // token that the worker embeds in the Vapi assistant tool URLs.
       const token = url.searchParams.get('token') || '';
