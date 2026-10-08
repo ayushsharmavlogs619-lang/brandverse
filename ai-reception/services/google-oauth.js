@@ -14,7 +14,7 @@ export class GoogleOAuthService {
   /**
    * Generate OAuth authorization URL
    */
-  getAuthorizationUrl(clientId, sessionToken, redirectUri) {
+  async getAuthorizationUrl(clientId, sessionToken, redirectUri) {
     if (!this.env.GOOGLE_OAUTH_CLIENT_ID) {
       throw new Error('GOOGLE_OAUTH_CLIENT_ID not configured');
     }
@@ -32,9 +32,9 @@ export class GoogleOAuthService {
     });
 
     // Store state for CSRF protection
-    this.storage.storeOAuthState(state, clientId, sessionToken, 10).catch(err => {
-      console.error('Failed to store OAuth state:', err);
-    });
+    // Persist state before returning the authorization URL so the callback
+    // cannot beat the D1 write in a fast browser/Google redirect.
+    await this.storage.storeOAuthState(state, clientId, sessionToken, 10);
 
     return {
       authUrl: `https://accounts.google.com/o/oauth2/v2/auth?${params.toString()}`,
@@ -85,7 +85,7 @@ export class GoogleOAuthService {
    * Exchange authorization code for access and refresh tokens
    */
   async exchangeCodeForTokens(code) {
-    const redirectUri = this.env.GOOGLE_OAUTH_REDIRECT_URI || `${this.env.APP_BASE_URL}/dashboard/auth/callback`;
+    const redirectUri = this.env.GOOGLE_OAUTH_REDIRECT_URI || `${this.env.APP_BASE_URL}/api/auth/google/callback`;
 
     const response = await fetch(TOKEN_ENDPOINT, {
       method: 'POST',
