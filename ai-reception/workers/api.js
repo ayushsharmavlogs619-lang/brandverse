@@ -89,6 +89,24 @@ const worker = {
 
       if (!clientId) return json({ error: 'Client ID required' }, 400, ch);
 
+      // Dashboard OAuth routes use the D1-backed dashboard session, not the
+      // Vapi HMAC token used by call/booking endpoints.
+      if (path === `/api/${clientId}/oauth/status` && method === 'GET') {
+        return await handleOAuthStatus(clientId, request, env, ch, log.child(clientId));
+      }
+
+      if (path === `/api/${clientId}/oauth/calendars` && method === 'GET') {
+        return await handleOAuthCalendars(clientId, request, env, ch, log.child(clientId));
+      }
+
+      if (path === `/api/${clientId}/oauth/select-calendar` && method === 'POST') {
+        return await handleSelectCalendar(clientId, await request.json(), request, env, ch, log.child(clientId));
+      }
+
+      if (path === `/api/${clientId}/oauth/disconnect` && method === 'POST') {
+        return await handleOAuthDisconnect(clientId, request, env, ch, log.child(clientId));
+      }
+
       // Every /api/{clientId}/* route is protected by a short-lived HMAC
       // token that the worker embeds in the Vapi assistant tool URLs.
       const token = url.searchParams.get('token') || '';
@@ -125,23 +143,6 @@ const worker = {
 
       if (path === `/api/${clientId}/client-config` && method === 'GET') {
         return await handleClientConfig(clientId, clientConfig, ch, clientLog);
-      }
-
-      // OAuth calendar endpoints (require dashboard session validation)
-      if (path === `/api/${clientId}/oauth/status` && method === 'GET') {
-        return await handleOAuthStatus(clientId, request, env, ch, clientLog);
-      }
-
-      if (path === `/api/${clientId}/oauth/calendars` && method === 'GET') {
-        return await handleOAuthCalendars(clientId, request, env, ch, clientLog);
-      }
-
-      if (path === `/api/${clientId}/oauth/select-calendar` && method === 'POST') {
-        return await handleSelectCalendar(clientId, await request.json(), request, env, ch, clientLog);
-      }
-
-      if (path === `/api/${clientId}/oauth/disconnect` && method === 'POST') {
-        return await handleOAuthDisconnect(clientId, request, env, ch, clientLog);
       }
 
       clientLog.warn('route_not_found', { path, method });
@@ -303,9 +304,9 @@ async function handleGoogleAuth(request, env, ch, log) {
     }
 
     const oauthService = new GoogleOAuthService(env);
-    const redirectUri = env.GOOGLE_OAUTH_REDIRECT_URI || `${env.APP_BASE_URL}/dashboard/auth/callback`;
+    const redirectUri = env.GOOGLE_OAUTH_REDIRECT_URI || `${env.APP_BASE_URL}/api/auth/google/callback`;
 
-    const { authUrl } = oauthService.getAuthorizationUrl(clientId, sessionToken, redirectUri);
+    const { authUrl } = await oauthService.getAuthorizationUrl(clientId, sessionToken, redirectUri);
 
     log.complete('/api/auth/google', true, { clientId });
     return json({ authUrl }, 200, ch);
