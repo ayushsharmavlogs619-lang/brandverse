@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { Calendar, CheckCircle, XCircle, Loader2, AlertCircle } from 'lucide-react';
 
-const API_BASE = process.env.NEXT_PUBLIC_API_BASE_URL || 'https://edge.brandverse.tech';
+const API_BASE = process.env.NEXT_PUBLIC_API_BASE_URL || 'https://ai-receptionist-prod.ayushsharmavlogs619.workers.dev';
 
 interface OAuthStatus {
   connected: boolean;
