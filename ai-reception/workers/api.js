@@ -23,7 +23,7 @@ function corsHeaders(request, env) {
     'https://edge.brandverse.tech',
     'https://brandverse.pages.dev',
   ].filter(Boolean));
-  const allow = origin && allowed.has(origin) ? origin : 'https://brandverse.tech';
+  const allow = origin && allowed.has(origin) ? origin : 'https://brandverse.pages.dev';
   return {
     'Access-Control-Allow-Origin': allow,
     'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
