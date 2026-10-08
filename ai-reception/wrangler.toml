@@ -7,7 +7,7 @@ name = "ai-receptionist-prod"
 workers_dev = true
 
 vars = [
-  { name = "APP_BASE_URL", value = "https://ai-receptionist-prod.workers.dev" },
+  { name = "APP_BASE_URL", value = "https://ai-receptionist-prod.ayushsharmavlogs619.workers.dev" },
   { name = "APP_DASHBOARD_URL", value = "https://brandverse.pages.dev" },
   { name = "APP_SUBDOMAIN", value = "edge.brandverse.tech" },
   { name = "DEFAULT_TIMEZONE", value = "Australia/Melbourne" }
