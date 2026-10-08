@@ -22,7 +22,7 @@ This document explains how to set up the multi-tenant Google OAuth calendar inte
    - Application type: "Web application"
    - Name: "Nexus AI Receptionist"
    - Authorized redirect URIs:
-     - Production: `https://edge.brandverse.tech/dashboard/auth/callback`
+     - Production: `https://edge.brandverse.tech/api/auth/google/callback`
      - Development: `http://localhost:3000/dashboard/auth/callback`
    - Click "Create"
 5. Copy the **Client ID** and **Client Secret**
@@ -54,7 +54,7 @@ database_id = "YOUR_DATABASE_ID_HERE"  # Replace with actual ID from step 2
 
 ```bash
 # Apply the migration
-wrangler d1 execute nexus_oauth --file migrations/0001_init_oauth.sql --env production
+wrangler d1 migrations apply nexus_oauth --remote --env production
 ```
 
 ## Step 5: Set Cloudflare Worker Secrets
@@ -73,7 +73,7 @@ wrangler secret put GOOGLE_TOKEN_ENCRYPTION_KEY --env production
 
 # Set OAuth redirect URI (optional, defaults to APP_BASE_URL/dashboard/auth/callback)
 wrangler secret put GOOGLE_OAUTH_REDIRECT_URI --env production
-# Paste: https://edge.brandverse.tech/dashboard/auth/callback
+# Paste: https://edge.brandverse.tech/api/auth/google/callback
 ```
 
 ## Step 6: Deploy Worker
