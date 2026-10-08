@@ -6,7 +6,7 @@ compatibility_date = "2024-01-01"
 name = "ai-receptionist-prod"
 
 vars = [
-  { name = "APP_BASE_URL", value = "https://edge.brandverse.tech" },
+  { name = "APP_BASE_URL", value = "https://ai-receptionist-prod.workers.dev" },
   { name = "APP_DASHBOARD_URL", value = "https://brandverse.pages.dev" },
   { name = "APP_SUBDOMAIN", value = "edge.brandverse.tech" },
   { name = "DEFAULT_TIMEZONE", value = "Australia/Melbourne" }
@@ -54,14 +54,8 @@ vars = [
   { name = "DEFAULT_TIMEZONE", value = "Australia/Melbourne" }
 ]
 
-# Routes
-[[env.production.routes]]
-pattern = "edge.brandverse.tech/api/*"
-zone_name = "brandverse.tech"
-
-[[env.production.routes]]
-pattern = "edge.brandverse.tech/health"
-zone_name = "brandverse.tech"
+[env.production]
+workers_dev = true
 
 [[env.staging.routes]]
 pattern = "staging-edge.brandverse.tech/api/*"
