@@ -15,17 +15,29 @@ export class GoogleCalendarService {
    * Get access token - tries OAuth first, falls back to service account
    */
   async getAccessToken(clientId = null) {
-    // If clientId provided, try OAuth (multi-tenant)
+    // A client with stored OAuth credentials must use those credentials.
+    // Never silently fall back to a global service account after OAuth has
+    // been configured or revoked, or one tenant could touch another tenant's
+    // calendar.
     if (clientId) {
-      try {
+      const credentials = await this.oauth.storage.getCredentials(clientId);
+      if (credentials) {
         return await this.oauth.getAccessToken(clientId);
-      } catch (error) {
-        console.warn('OAuth token fetch failed, falling back to service account:', error.message);
       }
     }
 
-    // Fallback to service account (legacy)
+    // Legacy clients without OAuth credentials may still use the service account.
     return await this.auth.getAccessToken(CALENDAR_SCOPE);
+  }
+
+  async getCalendarId(clientId, fallbackCalendarId = null) {
+    if (clientId) {
+      const credentials = await this.oauth.storage.getCredentials(clientId);
+      if (credentials?.calendar_id) return credentials.calendar_id;
+    }
+
+    if (fallbackCalendarId?.trim()) return fallbackCalendarId.trim();
+    throw new Error('Calendar integration required - no calendar selected for this client');
   }
 
   async getEvents(calendarId, startTime, endTime, timezone = 'UTC', clientId = null) {
