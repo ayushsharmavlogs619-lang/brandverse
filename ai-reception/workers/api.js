@@ -453,8 +453,17 @@ async function handleSelectCalendar(clientId, body, request, env, ch, log) {
       return json({ error: 'calendarId is required' }, 400, ch);
     }
 
+    const calendarService = new GoogleCalendarService(env);
+    const entry = await calendarService.getCalendarListEntry(String(calendarId).trim(), clientId);
+    if (!entry) {
+      return json({ error: 'Calendar not found for the connected Google account', message: 'Pick a calendar from the list instead of typing the ID.' }, 400, ch);
+    }
+    if (entry.accessRole !== 'owner' && entry.accessRole !== 'writer') {
+      return json({ error: 'Calendar is read-only', accessRole: entry.accessRole }, 400, ch);
+    }
+
     const oauthStorage = new OAuthStorage(env);
-    await oauthStorage.updateCalendarId(clientId, calendarId);
+    await oauthStorage.updateCalendarId(clientId, entry.id);
 
     log.complete(`/api/${clientId}/oauth/select-calendar`, true, { calendarId });
     return json({ success: true, calendarId }, 200, ch);

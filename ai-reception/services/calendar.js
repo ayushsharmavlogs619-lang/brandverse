@@ -40,6 +40,21 @@ export class GoogleCalendarService {
     throw new Error('Calendar integration required - no calendar selected for this client');
   }
 
+  /**
+   * Look up a calendar in the tenant's own calendarList using the tenant's
+   * OAuth token. Returns null if Google does not know this calendar ID.
+   */
+  async getCalendarListEntry(calendarId, clientId) {
+    if (!calendarId || !calendarId.trim()) return null;
+    const token = await this.getAccessToken(clientId);
+    const resp = await fetch(`${this.baseURL}/users/me/calendarList/${encodeURIComponent(calendarId)}`, {
+      headers: { Authorization: `Bearer ${token}` },
+      signal: AbortSignal.timeout(15000),
+    });
+    if (resp.status === 404) return null;
+    if (!resp.ok) throw new Error(`Calendar API error: ${resp.status}`);
+    return await resp.json();
+  }
   async getEvents(calendarId, startTime, endTime, timezone = 'UTC', clientId = null) {
     if (!calendarId || !calendarId.trim()) {
       throw new Error('Calendar ID is required');
@@ -78,7 +93,7 @@ export class GoogleCalendarService {
         attendees: eventData.attendees || [],
         location: eventData.location || '',
         extendedProperties: {
-          private: { client_id: eventData.clientId, service: eventData.service, phone: eventData.phone, source: 'ai-receptionist' },
+          private: { client_id: eventData.clientId, service: eventData.service, phone: eventData.phone, name: eventData.name || '', email: eventData.email || '', duration: String(eventData.duration || ''), source: 'ai-receptionist' },
         },
       };
 
