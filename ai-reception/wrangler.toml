@@ -4,6 +4,7 @@ compatibility_date = "2024-01-01"
 
 [env.production]
 name = "ai-receptionist-prod"
+workers_dev = true
 
 vars = [
   { name = "APP_BASE_URL", value = "https://ai-receptionist-prod.workers.dev" },
