@@ -3,6 +3,7 @@ import { OAuthStorage } from './oauth-storage.js';
 import { encryptRefreshToken, decryptRefreshToken } from './google-token-crypto.js';
 
 const CALENDAR_SCOPE = 'https://www.googleapis.com/auth/calendar';
+const IDENTITY_SCOPES = ['openid', 'email', 'profile'];
 const TOKEN_ENDPOINT = 'https://oauth2.googleapis.com/token';
 
 export class GoogleOAuthService {
@@ -23,7 +24,7 @@ export class GoogleOAuthService {
     const params = new URLSearchParams({
       client_id: this.env.GOOGLE_OAUTH_CLIENT_ID,
       redirect_uri: redirectUri,
-      scope: CALENDAR_SCOPE,
+      scope: [CALENDAR_SCOPE, ...IDENTITY_SCOPES].join(' '),
       response_type: 'code',
       access_type: 'offline', // Request refresh token
       include_granted_scopes: 'true',
