@@ -54,8 +54,7 @@ vars = [
   { name = "DEFAULT_TIMEZONE", value = "Australia/Melbourne" }
 ]
 
-[env.production]
-workers_dev = true
+  workers_dev = true
 
 [[env.staging.routes]]
 pattern = "staging-edge.brandverse.tech/api/*"
