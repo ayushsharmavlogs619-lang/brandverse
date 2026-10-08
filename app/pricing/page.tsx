@@ -60,7 +60,7 @@ export default function PricingPage() {
           <div className="p-10 rounded-3xl bg-[#0b1121] border border-white/10 text-center hover:border-blue-500/30 transition-all">
             <h3 className="text-2xl font-bold mb-2 text-white">Enterprise</h3>
             <div className="text-sm text-slate-500 font-medium mb-6">Franchises & Multi-Location</div>
-            <div className="text-5xl font-black mb-2 text-white">Custom</div>
+            <div className="text-5xl font-black mb-2 text-white">$1,497<span className="text-lg text-slate-500 font-normal">/mo</span></div>
             <div className="text-xs text-slate-500 mb-8 uppercase tracking-widest font-semibold">White Glove Service</div>
             <ul className="text-slate-400 space-y-4 mb-10 text-left text-sm">
               <li className="flex items-center gap-3"><Check className="w-5 h-5 text-blue-500" /> Multi-location Routing Logic</li>
