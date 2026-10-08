@@ -3,7 +3,17 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, MessageCircle } from 'lucide-react';
+
+const WHATSAPP_URL = 'https://wa.me/918851005278?text=Hi%20Brandverse%20-%20I%27d%20like%20to%20learn%20more';
+
+function trackClick(label: string) {
+  try {
+    if (typeof window !== 'undefined' && typeof (window as any).trackConversion === 'function') {
+      (window as any).trackConversion('nav_click', label);
+    }
+  } catch {}
+}
 
 export default function Navbar() {
     const pathname = usePathname();
@@ -30,9 +40,21 @@ export default function Navbar() {
                 </div>
                 
                 <div className="hidden md:block">
-                    <Link href="/contact" className="px-5 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-full text-sm font-semibold transition-all shadow-lg shadow-blue-500/20">
-                        Book Demo
-                    </Link>
+                    <div className="flex items-center gap-3">
+                        <a
+                            href={WHATSAPP_URL}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            onClick={() => trackClick('whatsapp_nav')}
+                            className="flex items-center gap-2 px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-full text-sm font-semibold transition-all shadow-lg shadow-green-500/20"
+                            title="Chat on WhatsApp"
+                        >
+                            <MessageCircle className="w-4 h-4" /> WhatsApp
+                        </a>
+                        <Link href="/contact" className="px-5 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-full text-sm font-semibold transition-all shadow-lg shadow-blue-500/20">
+                            Book Demo
+                        </Link>
+                    </div>
                 </div>
 
                 {/* Mobile Menu Button */}

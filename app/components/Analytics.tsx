@@ -1,19 +1,49 @@
 'use client';
 
 import Script from 'next/script';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { config } from '../../lib/config';
 
 export default function Analytics() {
   const GA_ID = config.analytics.gaId;
   const META_PIXEL_ID = config.analytics.metaPixelId;
 
-  // Safe window.location access to prevent hydration mismatch
   const [pagePath, setPagePath] = useState('/');
 
   useEffect(() => {
     setPagePath(window.location.pathname);
   }, []);
+
+  // Track conversions for GA4 and Meta Pixel
+  const trackConversion = useCallback((action: string, label: string = 'contact', value: number = 1) => {
+    if (typeof window === 'undefined') return;
+    try {
+      if (typeof (window as any).gtag === 'function') {
+        (window as any).gtag('event', action, {
+          event_category: 'Conversion',
+          event_label: label,
+          value: value,
+          currency: 'USD',
+        });
+      }
+      if (typeof (window as any).fbq === 'function') {
+        (window as any).fbq('track', 'Lead', {
+          content_name: action,
+          content_category: 'Acquisition',
+          content_ids: [label],
+          value: value,
+          currency: 'USD',
+        });
+      }
+    } catch {}
+  }, []);
+
+  // Expose globally for use in other components
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      (window as any).trackConversion = trackConversion;
+    }
+  }, [trackConversion]);
 
   return (
     <>

@@ -73,7 +73,8 @@ export class BookingEngine {
         clientConfig.calendar_id,
         bookingDateTime,
         endTime,
-        clientConfig.timezone
+        clientConfig.timezone,
+        clientId
       );
 
       if (!isAvailable) {
@@ -95,12 +96,14 @@ export class BookingEngine {
         attendees: email ? [{ email: email, displayName: name }] : [],
         clientId: clientId,
         service: service,
-        phone: validPhone
+        phone: validPhone,
+        dateTime: bookingDateTime
       };
 
       const calendarResult = await this.calendarService.createEvent(
         clientConfig.calendar_id,
-        eventData
+        eventData,
+        clientId
       );
 
       if (!calendarResult.success) {

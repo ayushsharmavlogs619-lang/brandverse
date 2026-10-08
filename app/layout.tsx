@@ -9,6 +9,7 @@ import StructuredData from "./components/StructuredData";
 import ErrorBoundary from "./components/ErrorBoundary";
 import LeadPopup from "./components/LeadPopup";
 import ReadingProgress from "./components/ui/ReadingProgress";
+import WhatsAppButton from "./components/WhatsAppButton";
 import { config } from "../lib/config";
 
 const geistSans = Geist({
@@ -156,6 +157,9 @@ export default function RootLayout({
         </ErrorBoundary>
         <ErrorBoundary fallback={null}>
           <LeadPopup delay={30000} enableExitIntent={true} />
+        </ErrorBoundary>
+        <ErrorBoundary fallback={null}>
+          <WhatsAppButton />
         </ErrorBoundary>
       </body>
     </html>

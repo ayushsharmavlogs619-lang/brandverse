@@ -7,23 +7,52 @@ function isExternalHref(href: string) {
   return /^https?:\/\//i.test(href);
 }
 
+function addUtm(url: string, source: string) {
+  const utm = `?utm_source=${source}&utm_medium=website&utm_campaign=brandverse_cta`;
+  if (url.includes('?')) return `${url}&${utm}`;
+  return `${url}${utm}`;
+}
+
+function trackCta(action: string, label: string) {
+  try {
+    if (typeof window !== 'undefined' && typeof (window as any).trackConversion === 'function') {
+      (window as any).trackConversion(action, label);
+    }
+  } catch {}
+}
+
 function CtaLink({
   href,
   className,
   children,
+  onClick,
+  trackLabel,
 }: {
   href: string;
   className: string;
   children: ReactNode;
+  onClick?: () => void;
+  trackLabel?: string;
 }) {
+  const handleClick = () => {
+    trackCta('cta_click', trackLabel || 'cta');
+    onClick?.();
+  };
+
+  const hrefWithUtm = isExternalHref(href) ? addUtm(href, 'brandverse') : href;
+
   if (isExternalHref(href)) {
     return (
-      <a href={href} target="_blank" rel="noopener noreferrer" className={className}>
+      <a href={hrefWithUtm} target="_blank" rel="noopener noreferrer" className={className} onClick={handleClick}>
         {children}
       </a>
     );
   }
-  return <Link href={href} className={className}>{children}</Link>;
+  return (
+    <Link href={hrefWithUtm} className={className} onClick={handleClick}>
+      {children}
+    </Link>
+  );
 }
 
 interface CTASectionProps {
@@ -38,7 +67,7 @@ interface CTASectionProps {
 
 export default function CTASection({ 
   title = "Ready to Automate Your Business?",
-  subtitle = "Join 50+ businesses that have deployed AI voice agents with Brandverse",
+  subtitle = "We build custom AI infrastructure that becomes your competitive advantage.",
   primaryText = "Book Your Free Audit",
   primaryLink = config.calendlyUrl || 'https://calendly.com/ayushsharmavlogs619/30min',
   secondaryText,
@@ -96,31 +125,31 @@ export default function CTASection({
             )}
 
             <div className="flex flex-col sm:flex-row justify-center items-center gap-6">
-              <CtaLink 
-                href={finalPrimaryLink}
-                className={`${buttonClasses} group relative overflow-hidden`}
-              >
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                {variant === 'form' ? <Phone className="w-5 h-5 relative z-10" /> : <Zap className="w-5 h-5 relative z-10" />}
-                <span className="relative z-10">{primaryText}</span>
-                <ArrowRight className="w-5 h-5 relative z-10 group-hover:translate-x-1 transition-transform duration-300" />
-              </CtaLink>
-              
-              {secondaryText && (
-                <CtaLink 
-                  href={finalSecondaryLink}
-                  className="text-sm font-black uppercase tracking-widest text-blue-400 hover:text-white transition-colors flex items-center gap-2"
+                <CtaLink
+                  href={finalPrimaryLink}
+                  className={`${buttonClasses} group relative overflow-hidden`}
                 >
-                  {variant === 'form' ? <Calendar className="w-4 h-4" /> : null}
-                  {secondaryText}
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  {variant === 'form' ? <Phone className="w-5 h-5 relative z-10" /> : <Zap className="w-5 h-5 relative z-10" />}
+                  <span className="relative z-10">{primaryText}</span>
+                  <ArrowRight className="w-5 h-5 relative z-10 group-hover:translate-x-1 transition-transform duration-300" />
                 </CtaLink>
-              )}
-            </div>
+
+                {secondaryText && (
+                  <CtaLink
+                    href={finalSecondaryLink}
+                    className="text-sm font-black uppercase tracking-widest text-blue-400 hover:text-white transition-colors flex items-center gap-2"
+                  >
+                    {variant === 'form' ? <Calendar className="w-4 h-4" /> : null}
+                    {secondaryText}
+                  </CtaLink>
+                )}
+              </div>
 
             {variant === 'blog' && (
               <div className="pt-8 border-t border-white/10">
                 <p className="text-sm text-slate-500 font-bold uppercase tracking-widest">
-                  Limited to 3 new clients per month. Apply now to secure your spot.
+                  Apply now to secure your spot.
                 </p>
               </div>
             )}

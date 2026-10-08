@@ -26,7 +26,7 @@ export class AvailabilityEngine {
     startTime.setHours(parseInt(startHour), parseInt(startMinute), 0, 0);
     endTime.setHours(parseInt(endHour), parseInt(endMinute), 0, 0);
 
-    const events = await this.calendarService.getEvents(client.calendar_id, startTime, endTime, client.timezone);
+    const events = await this.calendarService.getEvents(client.calendar_id, startTime, endTime, client.timezone, clientId);
     const availableSlots = this.calculateSlots(startTime, endTime, events, serviceDuration, client.buffer_minutes || 10);
 
     return { date, service, availableSlots, workingHours, serviceDuration, timezone: client.timezone, totalEvents: events.length };

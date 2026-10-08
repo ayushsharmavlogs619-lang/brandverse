@@ -11,6 +11,11 @@ vars = [
   { name = "DEFAULT_TIMEZONE", value = "Australia/Melbourne" }
 ]
 
+[[env.production.d1_databases]]
+binding = "DB"
+database_name = "nexus_oauth"
+database_id = "ad428419-9021-441e-9855-1561503aa21d"
+
 # Required secrets (set via dashboard or wrangler secret):
 #   wrangler secret put GOOGLE_CLIENT_EMAIL --env production
 #   wrangler secret put GOOGLE_PRIVATE_KEY --env production
@@ -22,6 +27,12 @@ vars = [
 #   wrangler secret put VAPI_WEBHOOK_SECRET --env production
 #     Mirror this exact value in the Vapi dashboard (Webhook Secret).
 #     Without it /api/vapi/webhook returns 503 (fail closed, never open).
+#
+# Google OAuth (for multi-tenant calendar integration):
+#   wrangler secret put GOOGLE_OAUTH_CLIENT_ID --env production
+#   wrangler secret put GOOGLE_OAUTH_CLIENT_SECRET --env production
+#   wrangler secret put GOOGLE_TOKEN_ENCRYPTION_KEY --env production
+#     AES-256 key for encrypting Google refresh tokens in D1.
 #
 # Optional secrets (for booking email notifications via Google Apps Script):
 #   wrangler secret put GOOGLE_APPS_SCRIPT_WEBHOOK_URL --env production

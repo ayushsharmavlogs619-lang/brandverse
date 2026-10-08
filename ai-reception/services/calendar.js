@@ -1,4 +1,5 @@
 import { GoogleAuth } from './google-auth.js';
+import { GoogleOAuthService } from './google-oauth.js';
 
 const CALENDAR_SCOPE = 'https://www.googleapis.com/auth/calendar';
 
@@ -6,14 +7,32 @@ export class GoogleCalendarService {
   constructor(env) {
     this.env = env;
     this.auth = new GoogleAuth(env);
+    this.oauth = new GoogleOAuthService(env);
     this.baseURL = 'https://www.googleapis.com/calendar/v3';
   }
 
-  async getEvents(calendarId, startTime, endTime, timezone = 'UTC') {
+  /**
+   * Get access token - tries OAuth first, falls back to service account
+   */
+  async getAccessToken(clientId = null) {
+    // If clientId provided, try OAuth (multi-tenant)
+    if (clientId) {
+      try {
+        return await this.oauth.getAccessToken(clientId);
+      } catch (error) {
+        console.warn('OAuth token fetch failed, falling back to service account:', error.message);
+      }
+    }
+
+    // Fallback to service account (legacy)
+    return await this.auth.getAccessToken(CALENDAR_SCOPE);
+  }
+
+  async getEvents(calendarId, startTime, endTime, timezone = 'UTC', clientId = null) {
     if (!calendarId || !calendarId.trim()) {
       throw new Error('Calendar ID is required');
     }
-    const token = await this.auth.getAccessToken(CALENDAR_SCOPE);
+    const token = await this.getAccessToken(clientId);
     const params = new URLSearchParams({
       timeMin: startTime.toISOString(),
       timeMax: endTime.toISOString(),
@@ -31,10 +50,15 @@ export class GoogleCalendarService {
     return data.items || [];
   }
 
-  async createEvent(calendarId, eventData) {
+  async createEvent(calendarId, eventData, clientId = null) {
     try {
-      const token = await this.auth.getAccessToken(CALENDAR_SCOPE);
+      const token = await this.getAccessToken(clientId);
+      
+      // Generate deterministic event ID for idempotency
+      const eventId = await this.generateEventId(eventData, calendarId);
+      
       const event = {
+        id: eventId,
         summary: eventData.summary || `Appointment - ${eventData.service}`,
         description: eventData.description || '',
         start: { dateTime: eventData.startTime.toISOString(), timeZone: eventData.timezone || 'UTC' },
@@ -52,6 +76,15 @@ export class GoogleCalendarService {
         body: JSON.stringify(event),
         signal: AbortSignal.timeout(15000),
       });
+      
+      // Handle 409 conflict (event already exists)
+      if (resp.status === 409) {
+        const existing = await this.getEvent(calendarId, eventId, clientId);
+        if (existing) {
+          return { success: true, eventId: existing.id, eventLink: existing.htmlLink, message: 'Appointment already booked', existing: true };
+        }
+      }
+      
       if (!resp.ok) {
         const err = await resp.json().catch(() => ({}));
         throw new Error(err.error?.message || `Calendar API error: ${resp.status}`);
@@ -63,10 +96,10 @@ export class GoogleCalendarService {
     }
   }
 
-  async getEvent(calendarId, eventId) {
+  async getEvent(calendarId, eventId, clientId = null) {
     if (!calendarId || !eventId) return null;
     try {
-      const token = await this.auth.getAccessToken(CALENDAR_SCOPE);
+      const token = await this.getAccessToken(clientId);
       const resp = await fetch(`${this.baseURL}/calendars/${encodeURIComponent(calendarId)}/events/${encodeURIComponent(eventId)}`, {
         headers: { Authorization: `Bearer ${token}` },
         signal: AbortSignal.timeout(10000),
@@ -83,14 +116,15 @@ export class GoogleCalendarService {
         phone: priv.phone || '', email: priv.email || '', service: priv.service || '',
         duration: priv.duration ? parseInt(priv.duration) : 0, status: event.status,
         created: event.created, updated: event.updated,
+        htmlLink: event.htmlLink,
       };
     } catch (error) {
       return null;
     }
   }
 
-  async isSlotAvailable(calendarId, startTime, endTime, timezone = 'UTC') {
-    const events = await this.getEvents(calendarId, startTime, endTime, timezone);
+  async isSlotAvailable(calendarId, startTime, endTime, timezone = 'UTC', clientId = null) {
+    const events = await this.getEvents(calendarId, startTime, endTime, timezone, clientId);
     for (const ev of events) {
       const es = new Date(ev.start.dateTime || ev.start.date);
       const ee = new Date(ev.end.dateTime || ev.end.date);
@@ -99,9 +133,9 @@ export class GoogleCalendarService {
     return true;
   }
 
-  async deleteEvent(calendarId, eventId) {
+  async deleteEvent(calendarId, eventId, clientId = null) {
     try {
-      const token = await this.auth.getAccessToken(CALENDAR_SCOPE);
+      const token = await this.getAccessToken(clientId);
       const resp = await fetch(`${this.baseURL}/calendars/${encodeURIComponent(calendarId)}/events/${encodeURIComponent(eventId)}`, {
         method: 'DELETE', headers: { Authorization: `Bearer ${token}` }, signal: AbortSignal.timeout(10000),
       });
@@ -112,9 +146,9 @@ export class GoogleCalendarService {
     }
   }
 
-  async updateEvent(calendarId, eventId, updateData) {
+  async updateEvent(calendarId, eventId, updateData, clientId = null) {
     try {
-      const token = await this.auth.getAccessToken(CALENDAR_SCOPE);
+      const token = await this.getAccessToken(clientId);
       const resp = await fetch(`${this.baseURL}/calendars/${encodeURIComponent(calendarId)}/events/${encodeURIComponent(eventId)}`, {
         method: 'PATCH', headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
         body: JSON.stringify(updateData), signal: AbortSignal.timeout(10000),
@@ -125,5 +159,19 @@ export class GoogleCalendarService {
     } catch (error) {
       return { success: false, error: 'Failed to update event', message: error.message };
     }
+  }
+
+  /**
+   * Generate deterministic event ID for idempotency
+   */
+  async generateEventId(eventData, calendarId) {
+    const data = `${calendarId}:${eventData.clientId}:${eventData.phone}:${eventData.service}:${eventData.dateTime.toISOString()}`;
+    const encoder = new TextEncoder();
+    const hash = await crypto.subtle.digest('SHA-256', encoder.encode(data));
+    const bytes = new Uint8Array(hash);
+    return Array.from(bytes)
+      .map(b => b.toString(16).padStart(2, '0'))
+      .join('')
+      .substring(0, 26); // Google event IDs max 26 chars
   }
 }
