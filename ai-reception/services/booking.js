@@ -25,6 +25,7 @@ export class BookingEngine {
 
       // Get client configuration
       const clientConfig = await this.getClientConfig(clientId);
+      const calendarId = await this.calendarService.getCalendarId(clientId, clientConfig.calendar_id);
       
       // Validate phone number (basic validation if no SMS service)
       const validPhone = phone.trim();
@@ -70,7 +71,7 @@ export class BookingEngine {
 
       // Check if slot is still available
       const isAvailable = await this.calendarService.isSlotAvailable(
-        clientConfig.calendar_id,
+        calendarId,
         bookingDateTime,
         endTime,
         clientConfig.timezone,
@@ -101,7 +102,7 @@ export class BookingEngine {
       };
 
       const calendarResult = await this.calendarService.createEvent(
-        clientConfig.calendar_id,
+        calendarId,
         eventData,
         clientId
       );
@@ -184,13 +185,14 @@ export class BookingEngine {
   async cancelBooking(clientId, bookingId, reason = '') {
     try {
       const clientConfig = await this.getClientConfig(clientId);
+      const calendarId = await this.calendarService.getCalendarId(clientId, clientConfig.calendar_id);
       
       // Get event details before deleting
-      const eventDetails = await this.getEventDetails(clientConfig.calendar_id, bookingId);
+      const eventDetails = await this.getEventDetails(calendarId, bookingId);
       
       // Delete calendar event
       const deleteResult = await this.calendarService.deleteEvent(
-        clientConfig.calendar_id,
+        calendarId,
         bookingId
       );
 
@@ -254,9 +256,10 @@ export class BookingEngine {
   async rescheduleBooking(clientId, bookingId, newDateTime, newService = null) {
     try {
       const clientConfig = await this.getClientConfig(clientId);
+      const calendarId = await this.calendarService.getCalendarId(clientId, clientConfig.calendar_id);
       
       // Get current event details
-      const eventDetails = await this.getEventDetails(clientConfig.calendar_id, bookingId);
+      const eventDetails = await this.getEventDetails(calendarId, bookingId);
       
       if (!eventDetails) {
         return {
@@ -293,7 +296,7 @@ export class BookingEngine {
 
       // Check if new slot is available
       const isAvailable = await this.calendarService.isSlotAvailable(
-        clientConfig.calendar_id,
+        calendarId,
         newBookingDateTime,
         newEndTime,
         clientConfig.timezone
@@ -321,7 +324,7 @@ export class BookingEngine {
       };
 
       const updateResult = await this.calendarService.updateEvent(
-        clientConfig.calendar_id,
+        calendarId,
         bookingId,
         updateData
       );
@@ -391,7 +394,8 @@ export class BookingEngine {
   async getBookingDetails(clientId, bookingId) {
     try {
       const clientConfig = await this.getClientConfig(clientId);
-      const eventDetails = await this.getEventDetails(clientConfig.calendar_id, bookingId);
+      const calendarId = await this.calendarService.getCalendarId(clientId, clientConfig.calendar_id);
+      const eventDetails = await this.getEventDetails(calendarId, bookingId);
       
       if (!eventDetails) {
         return {
@@ -437,8 +441,9 @@ export class BookingEngine {
       const endTime = new Date();
       endTime.setDate(endTime.getDate() + days);
 
+      const calendarId = await this.calendarService.getCalendarId(clientId, clientConfig.calendar_id);
       const events = await this.calendarService.getEvents(
-        clientConfig.calendar_id,
+        calendarId,
         startTime,
         endTime,
         clientConfig.timezone
