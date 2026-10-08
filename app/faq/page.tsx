@@ -72,7 +72,7 @@ export default function FAQPage() {
         },
         {
           q: "What happens if I go over my minutes?",
-          a: "If you're on the Starter plan, we simply bill a small per-minute overage fee (similar to a cell carrier). However, most growing businesses switch to our Unlimited plan to avoid thinking about limits."
+          a: "Starter includes 500 AI minutes per month, with additional usage available when needed. Growth includes 2,500 AI minutes per month, with higher-volume usage available as an add-on. Enterprise plans are configured around each deployment's expected volume."
         },
         {
           q: "What's your refund policy?",

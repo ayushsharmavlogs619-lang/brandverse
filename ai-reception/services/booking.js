@@ -69,6 +69,35 @@ export class BookingEngine {
       // Calculate end time
       const endTime = new Date(bookingDateTime.getTime() + (serviceDuration * 60 * 1000));
 
+      // Idempotency: a retry of the same booking returns the existing event
+      // instead of failing the availability check against its own event.
+      const dedupeId = await this.calendarService.generateEventId(
+        { clientId, phone: validPhone, service, dateTime: bookingDateTime },
+        calendarId
+      );
+      const existingEvent = await this.calendarService.getEvent(calendarId, dedupeId, clientId);
+      if (existingEvent && existingEvent.status !== 'cancelled') {
+        return {
+          success: true,
+          alreadyBooked: true,
+          bookingId: existingEvent.id,
+          calendarEventId: existingEvent.id,
+          eventLink: existingEvent.htmlLink,
+          message: 'Appointment already booked',
+          confirmationSent: false,
+          bookingDetails: {
+            name: existingEvent.name || name,
+            phone: existingEvent.phone || validPhone,
+            email: existingEvent.email || email || '',
+            service: existingEvent.service || service,
+            dateTime: bookingDateTime.toISOString(),
+            duration: existingEvent.duration || serviceDuration,
+            businessName: clientConfig.name,
+            address: clientConfig.address
+          }
+        };
+      }
+
       // Check if slot is still available
       const isAvailable = await this.calendarService.isSlotAvailable(
         calendarId,
@@ -98,7 +127,10 @@ export class BookingEngine {
         clientId: clientId,
         service: service,
         phone: validPhone,
-        dateTime: bookingDateTime
+        dateTime: bookingDateTime,
+        name: name,
+        email: email || '',
+        duration: serviceDuration
       };
 
       const calendarResult = await this.calendarService.createEvent(

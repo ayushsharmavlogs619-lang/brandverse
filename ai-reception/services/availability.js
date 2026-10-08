@@ -1,3 +1,22 @@
+function tzOffsetMs(date, tz) {
+  const parts = new Intl.DateTimeFormat('en-US', {
+    timeZone: tz, hourCycle: 'h23', year: 'numeric', month: '2-digit', day: '2-digit',
+    hour: '2-digit', minute: '2-digit', second: '2-digit',
+  }).formatToParts(date);
+  const p = Object.fromEntries(parts.map(x => [x.type, x.value]));
+  return Date.UTC(+p.year, +p.month - 1, +p.day, +p.hour, +p.minute, +p.second) - date.getTime();
+}
+
+// Convert a wall-clock time in the given IANA timezone to a real UTC Date.
+function zonedTimeToUtc(dateStr, hour, minute, tz) {
+  const [y, m, d] = dateStr.split('-').map(Number);
+  const guess = Date.UTC(y, m - 1, d, hour, minute, 0);
+  const off1 = tzOffsetMs(new Date(guess), tz);
+  let utc = guess - off1;
+  const off2 = tzOffsetMs(new Date(utc), tz);
+  if (off2 !== off1) utc = guess - off2;
+  return new Date(utc);
+}
 export class AvailabilityEngine {
   constructor(calendarService, clientConfigService) {
     this.calendarService = calendarService;
@@ -19,12 +38,13 @@ export class AvailabilityEngine {
       return { date, service, availableSlots: [], message: 'Business is closed on this date' };
     }
 
-    const startTime = new Date(targetDate);
-    const endTime = new Date(targetDate);
+    // Working hours are wall-clock times in the CLIENT's timezone, not UTC.
+    const tz = client.timezone || 'UTC';
+    const dateStr = /^\d{4}-\d{2}-\d{2}/.test(String(date)) ? String(date).slice(0, 10) : targetDate.toISOString().slice(0, 10);
     const [startHour, startMinute] = workingHours.start.split(':');
     const [endHour, endMinute] = workingHours.end.split(':');
-    startTime.setHours(parseInt(startHour), parseInt(startMinute), 0, 0);
-    endTime.setHours(parseInt(endHour), parseInt(endMinute), 0, 0);
+    const startTime = zonedTimeToUtc(dateStr, parseInt(startHour), parseInt(startMinute), tz);
+    const endTime = zonedTimeToUtc(dateStr, parseInt(endHour), parseInt(endMinute), tz);
 
     const events = await this.calendarService.getEvents(calendarId, startTime, endTime, client.timezone, clientId);
     const availableSlots = this.calculateSlots(startTime, endTime, events, serviceDuration, client.buffer_minutes || 10);

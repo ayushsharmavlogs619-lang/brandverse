@@ -5,7 +5,7 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Pricing — Brandverse AI Voice Agents | Managed Service for Service Businesses",
-  description: "Brandverse managed service pricing starting at $497/mo for the Starter plan. Recurring monthly fee covers ongoing system management, optimization, and support. Growth plan at $997/mo includes full CRM integration and custom voice cloning.",
+  description: "Brandverse managed service pricing starts at $497/mo. Starter includes 500 AI minutes, Growth includes 2,500 AI minutes, and Enterprise includes custom usage for multi-location deployments.",
   keywords: ["AI voice agent pricing", "managed service", "service business automation", "24/7 call answering"],
 };
 
@@ -48,8 +48,9 @@ export default function PricingPage() {
               <li className="flex items-center gap-3"><Check className="w-5 h-5 text-indigo-200" /> <strong>Everything in Starter</strong></li>
               <li className="flex items-center gap-3"><Check className="w-5 h-5 text-indigo-200" /> <strong>Full CRM Integration</strong> (2-way)</li>
               <li className="flex items-center gap-3"><Check className="w-5 h-5 text-indigo-200" /> Custom Voice Cloning</li>
-              <li className="flex items-center gap-3"><Check className="w-5 h-5 text-indigo-200" /> Unlimited Minutes</li>
+              <li className="flex items-center gap-3"><Check className="w-5 h-5 text-indigo-200" /> 2,500 AI Minutes / mo</li>
               <li className="flex items-center gap-3"><Check className="w-5 h-5 text-indigo-200" /> Multilingual (ES/FR)</li>
+              <li className="flex items-center gap-3"><Check className="w-5 h-5 text-indigo-200" /> Additional usage available</li>
               <li className="flex items-center gap-3"><Check className="w-5 h-5 text-indigo-200" /> Priority Support Line</li>
             </ul>
             <Link href="/contact" className="block w-full py-5 text-center rounded-2xl bg-white text-indigo-700 font-black text-lg hover:bg-slate-100 transition-all shadow-xl">Get Growth Plan</Link>
@@ -59,7 +60,7 @@ export default function PricingPage() {
           <div className="p-10 rounded-3xl bg-[#0b1121] border border-white/10 text-center hover:border-blue-500/30 transition-all">
             <h3 className="text-2xl font-bold mb-2 text-white">Enterprise</h3>
             <div className="text-sm text-slate-500 font-medium mb-6">Franchises & Multi-Location</div>
-            <div className="text-5xl font-black mb-2 text-white">Custom</div>
+            <div className="text-5xl font-black mb-2 text-white">$1,497<span className="text-lg text-slate-500 font-normal">/mo</span></div>
             <div className="text-xs text-slate-500 mb-8 uppercase tracking-widest font-semibold">White Glove Service</div>
             <ul className="text-slate-400 space-y-4 mb-10 text-left text-sm">
               <li className="flex items-center gap-3"><Check className="w-5 h-5 text-blue-500" /> Multi-location Routing Logic</li>

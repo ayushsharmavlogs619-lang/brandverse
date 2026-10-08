@@ -21,8 +21,9 @@ function corsHeaders(request, env) {
     'https://brandverse.tech',
     'https://www.brandverse.tech',
     'https://edge.brandverse.tech',
+    'https://brandverse.pages.dev',
   ].filter(Boolean));
-  const allow = origin && allowed.has(origin) ? origin : 'https://brandverse.tech';
+  const allow = origin && allowed.has(origin) ? origin : 'https://brandverse.pages.dev';
   return {
     'Access-Control-Allow-Origin': allow,
     'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
@@ -105,6 +106,19 @@ const worker = {
 
       if (path === `/api/${clientId}/oauth/disconnect` && method === 'POST') {
         return await handleOAuthDisconnect(clientId, request, env, ch, log.child(clientId));
+      }
+
+      // Dashboard users may query availability with their short-lived D1 session.
+      // Vapi continues to use the HMAC token below. This keeps both paths secure.
+      if (path === `/api/${clientId}/availability` && method === 'GET' &&
+          (url.searchParams.has('session_token') || request.headers.has('X-Session-Token'))) {
+        const sessionValidation = await validateDashboardSession(request, env, clientId);
+        if (sessionValidation.valid) {
+          const clientConfig = new ClientConfigService(env);
+          const calendarService = new GoogleCalendarService(env);
+          const availabilityEngine = new AvailabilityEngine(calendarService, clientConfig);
+          return await handleAvailability(clientId, url.searchParams, availabilityEngine, ch, log.child(clientId));
+        }
       }
 
       // Every /api/{clientId}/* route is protected by a short-lived HMAC
@@ -332,12 +346,14 @@ async function handleGoogleCallback(request, env, ch, log) {
     log.complete('/api/auth/google/callback', true, { clientId: result.clientId });
 
     // Redirect to dashboard with success
-    const dashboardUrl = `${env.APP_BASE_URL}/dashboard?oauth=success&email=${encodeURIComponent(result.googleAccountEmail)}`;
+    const dashboardBase = env.APP_DASHBOARD_URL || 'https://brandverse.pages.dev';
+    const dashboardUrl = `${dashboardBase}/dashboard?oauth=success&email=${encodeURIComponent(result.googleAccountEmail)}`;
     return Response.redirect(dashboardUrl, 302);
   } catch (error) {
     log.complete('/api/auth/google/callback', false, { error: error.message });
     // Redirect to dashboard with error
-    const dashboardUrl = `${env.APP_BASE_URL}/dashboard?oauth=error&message=${encodeURIComponent(error.message)}`;
+    const dashboardBase = env.APP_DASHBOARD_URL || 'https://brandverse.pages.dev';
+    const dashboardUrl = `${dashboardBase}/dashboard?oauth=error&message=${encodeURIComponent(error.message)}`;
     return Response.redirect(dashboardUrl, 302);
   }
 }
@@ -437,8 +453,17 @@ async function handleSelectCalendar(clientId, body, request, env, ch, log) {
       return json({ error: 'calendarId is required' }, 400, ch);
     }
 
+    const calendarService = new GoogleCalendarService(env);
+    const entry = await calendarService.getCalendarListEntry(String(calendarId).trim(), clientId);
+    if (!entry) {
+      return json({ error: 'Calendar not found for the connected Google account', message: 'Pick a calendar from the list instead of typing the ID.' }, 400, ch);
+    }
+    if (entry.accessRole !== 'owner' && entry.accessRole !== 'writer') {
+      return json({ error: 'Calendar is read-only', accessRole: entry.accessRole }, 400, ch);
+    }
+
     const oauthStorage = new OAuthStorage(env);
-    await oauthStorage.updateCalendarId(clientId, calendarId);
+    await oauthStorage.updateCalendarId(clientId, entry.id);
 
     log.complete(`/api/${clientId}/oauth/select-calendar`, true, { calendarId });
     return json({ success: true, calendarId }, 200, ch);
