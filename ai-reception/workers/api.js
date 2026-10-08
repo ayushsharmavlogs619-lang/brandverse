@@ -21,6 +21,7 @@ function corsHeaders(request, env) {
     'https://brandverse.tech',
     'https://www.brandverse.tech',
     'https://edge.brandverse.tech',
+    'https://brandverse.pages.dev',
   ].filter(Boolean));
   const allow = origin && allowed.has(origin) ? origin : 'https://brandverse.tech';
   return {
@@ -332,12 +333,14 @@ async function handleGoogleCallback(request, env, ch, log) {
     log.complete('/api/auth/google/callback', true, { clientId: result.clientId });
 
     // Redirect to dashboard with success
-    const dashboardUrl = `${env.APP_BASE_URL}/dashboard?oauth=success&email=${encodeURIComponent(result.googleAccountEmail)}`;
+    const dashboardBase = env.APP_DASHBOARD_URL || 'https://brandverse.pages.dev';
+    const dashboardUrl = `${dashboardBase}/dashboard?oauth=success&email=${encodeURIComponent(result.googleAccountEmail)}`;
     return Response.redirect(dashboardUrl, 302);
   } catch (error) {
     log.complete('/api/auth/google/callback', false, { error: error.message });
     // Redirect to dashboard with error
-    const dashboardUrl = `${env.APP_BASE_URL}/dashboard?oauth=error&message=${encodeURIComponent(error.message)}`;
+    const dashboardBase = env.APP_DASHBOARD_URL || 'https://brandverse.pages.dev';
+    const dashboardUrl = `${dashboardBase}/dashboard?oauth=error&message=${encodeURIComponent(error.message)}`;
     return Response.redirect(dashboardUrl, 302);
   }
 }
