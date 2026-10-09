@@ -8,7 +8,7 @@ import { trackCalendlyClick, trackPhoneClick } from '../../lib/analytics-events'
 const FAQ_STEPS: { label: string; answer: string }[] = [
     {
         label: 'What does it cost?',
-        answer: "Plans start at $497/month (Starter), $997/month (Growth), and $1,497/month (Enterprise). No setup fees, no long-term contracts — cancel anytime. A 30-day money-back guarantee covers your first month."
+        answer: "Starter is $497/month and includes 500 AI minutes/month. Growth is $997/month and includes 2,500 AI minutes/month. Enterprise is $1,497/month with custom high-volume usage scoped to your needs. No setup fees or long-term contracts — cancel anytime."
     },
     {
         label: 'How fast can I go live?',

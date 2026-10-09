@@ -240,9 +240,9 @@ export interface PricingLine {
 }
 
 export const PRICING_PRESETS: { name: string; type: PricingLine['type']; amount: number; description: string }[] = [
-  { name: 'AI Voice Agent — Starter', type: 'monthly', amount: 399, description: 'Up to 1,000 minutes/mo, 1 flow' },
-  { name: 'AI Voice Agent — Pro', type: 'monthly', amount: 799, description: 'Unlimited minutes, 3 flows' },
-  { name: 'AI Voice Agent — Enterprise', type: 'monthly', amount: 1499, description: 'Multi-location, custom flows' },
+  { name: 'AI Voice Agent — Starter', type: 'monthly', amount: 497, description: '500 AI minutes/mo, 1 flow' },
+  { name: 'AI Voice Agent — Growth', type: 'monthly', amount: 997, description: '2,500 AI minutes/mo, 3 flows' },
+  { name: 'AI Voice Agent — Enterprise', type: 'monthly', amount: 1497, description: 'Custom high-volume usage, multi-location, custom flows' },
   { name: 'Setup & Onboarding', type: 'one-time', amount: 499, description: 'One-time setup fee' },
   { name: 'Business Automation', type: 'monthly', amount: 299, description: 'CRM + booking automation' },
   { name: 'Website Development', type: 'one-time', amount: 1500, description: '5-page lead-gen site' },

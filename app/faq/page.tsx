@@ -44,7 +44,7 @@ export default function FAQPage() {
       items: [
         {
           q: "How much does it cost?",
-          a: "Starter is $497/mo, Growth is $997/mo, and Enterprise is $1,497/mo. Growth and Enterprise include unlimited minutes; Starter includes 500 AI minutes with transparent per-minute overage. No contracts, no setup fees."
+          a: "Starter is $497/mo with 500 AI minutes/month. Growth is $997/mo with 2,500 AI minutes/month. Enterprise is $1,497/mo with custom high-volume usage scoped to your needs. Starter usage beyond the included 500 minutes is billed at a transparent per-minute rate. No contracts, no setup fees."
         },
         {
           q: "Is there a long-term contract?",
@@ -52,7 +52,7 @@ export default function FAQPage() {
         },
         {
           q: "What happens if I go over my minutes?",
-          a: "If you're on the Starter plan, we bill a transparent per-minute rate for anything beyond your 500 included minutes — no surprise charges. Most growing businesses switch to Growth for unlimited minutes."
+          a: "Starter includes 500 AI minutes/month; usage beyond that is billed at a transparent per-minute rate. Growth includes 2,500 AI minutes/month. Enterprise usage is scoped for custom, high-volume needs."
         },
         {
           q: "How fast do I go live after signing up?",

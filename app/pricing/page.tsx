@@ -5,7 +5,7 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Pricing — Brandverse AI Voice Agents | No Contracts, Cancel Anytime",
-  description: "AI voice agent pricing starting at $497/mo. No long-term contracts. 30-day happiness guarantee. Unlimited minutes on Growth plan. Cancel anytime.",
+  description: "AI voice agent pricing starting at $497/mo. No long-term contracts. 30-day happiness guarantee. 2,500 AI minutes/month on Growth; custom high-volume usage for Enterprise. Cancel anytime.",
   keywords: ["AI voice agent pricing", "AI receptionist cost", "voice AI monthly", "24/7 call answering price", "no contract AI agent"],
 };
 
@@ -49,7 +49,7 @@ export default function PricingPage() {
               <li className="flex items-center gap-3"><Check className="w-5 h-5 text-indigo-200" /> <strong>Everything in Starter</strong></li>
               <li className="flex items-center gap-3"><Check className="w-5 h-5 text-indigo-200" /> <strong>Full CRM Integration</strong> (2-way)</li>
               <li className="flex items-center gap-3"><Check className="w-5 h-5 text-indigo-200" /> Custom Voice Cloning</li>
-              <li className="flex items-center gap-3"><Check className="w-5 h-5 text-indigo-200" /> Unlimited Minutes</li>
+              <li className="flex items-center gap-3"><Check className="w-5 h-5 text-indigo-200" /> 2,500 AI Minutes / mo</li>
               <li className="flex items-center gap-3"><Check className="w-5 h-5 text-indigo-200" /> Multilingual (ES/FR)</li>
               <li className="flex items-center gap-3"><Check className="w-5 h-5 text-indigo-200" /> Priority Support Line</li>
             </ul>
@@ -68,6 +68,7 @@ export default function PricingPage() {
               <li className="flex items-center gap-3"><Check className="w-5 h-5 text-blue-500" /> Custom API Development</li>
               <li className="flex items-center gap-3"><Check className="w-5 h-5 text-blue-500" /> White Label Portal</li>
               <li className="flex items-center gap-3"><Check className="w-5 h-5 text-blue-500" /> SLA Guarantees</li>
+              <li className="flex items-center gap-3"><Check className="w-5 h-5 text-blue-500" /> Custom high-volume AI usage</li>
             </ul>
             <Link href="/contact" className="block w-full py-4 text-center rounded-xl bg-white/5 border border-white/10 font-bold hover:bg-white/10 transition-all text-white">Contact Sales</Link>
           </div>

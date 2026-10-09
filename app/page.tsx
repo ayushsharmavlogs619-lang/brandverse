@@ -721,7 +721,7 @@ export default function Page() {
                   <li className="flex items-center gap-3"><Check className="w-5 h-5 text-indigo-200" /> <strong>Everything in Starter</strong></li>
                   <li className="flex items-center gap-3"><Check className="w-5 h-5 text-indigo-200" /> <strong>Full CRM/Dispatch Integration</strong> (2-way)</li>
                   <li className="flex items-center gap-3"><Check className="w-5 h-5 text-indigo-200" /> Custom Voice Cloning</li>
-                  <li className="flex items-center gap-3"><Check className="w-5 h-5 text-indigo-200" /> Unlimited Minutes</li>
+                  <li className="flex items-center gap-3"><Check className="w-5 h-5 text-indigo-200" /> 2,500 AI Minutes / mo</li>
                   <li className="flex items-center gap-3"><Check className="w-5 h-5 text-indigo-200" /> Multilingual (ES/FR)</li>
                   <li className="flex items-center gap-3"><Check className="w-5 h-5 text-indigo-200" /> Priority Support Line</li>
                 </ul>
@@ -740,6 +740,7 @@ export default function Page() {
                   <li className="flex items-center gap-3"><Check className="w-5 h-5 text-blue-500" /> Custom API Development</li>
                   <li className="flex items-center gap-3"><Check className="w-5 h-5 text-blue-500" /> White Label Portal</li>
                   <li className="flex items-center gap-3"><Check className="w-5 h-5 text-blue-500" /> SLA Guarantees</li>
+                  <li className="flex items-center gap-3"><Check className="w-5 h-5 text-blue-500" /> Custom high-volume AI usage</li>
                 </ul>
                 <Link href="/contact" className="block w-full py-4 text-center rounded-xl bg-white/5 border border-white/10 font-bold hover:bg-white/10 transition-all text-white">Contact Sales</Link>
               </div>
