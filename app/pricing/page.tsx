@@ -1,5 +1,4 @@
-
-import { Check, HelpCircle, ShieldCheck } from "lucide-react";
+import { Check, ShieldCheck } from "lucide-react";
 import Link from "next/link";
 import type { Metadata } from "next";
 
