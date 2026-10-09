@@ -42,7 +42,7 @@ export default function PricingPage() {
             <div className="absolute top-0 right-1/2 translate-x-1/2 -translate-y-1/2 bg-white text-indigo-700 px-6 py-2 rounded-full text-xs font-black tracking-widest uppercase border border-indigo-200">Best ROI</div>
             <h3 className="text-3xl font-bold mb-2 text-white">Growth</h3>
             <div className="text-sm text-indigo-200 font-medium mb-6">For Established Teams</div>
-            <div className="text-6xl font-black mb-2 text-white">$1,000<span className="text-lg text-indigo-200 font-normal">/mo</span></div>
+            <div className="text-6xl font-black mb-2 text-white">$997<span className="text-lg text-indigo-200 font-normal">/mo</span></div>
             <ul className="text-white space-y-5 mb-12 text-left">
               <li className="flex items-center gap-3"><Check className="w-5 h-5 text-indigo-200" /> <strong>Everything in Starter</strong></li>
               <li className="flex items-center gap-3"><Check className="w-5 h-5 text-indigo-200" /> <strong>Full CRM Integration</strong> (2-way)</li>
