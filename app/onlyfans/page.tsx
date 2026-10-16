@@ -744,7 +744,7 @@ export default function OnlyFansLandingPage() {
               />
             </div>
 
-            <p className="text-xs text-slate-500 leading-relaxed">Your application details are used to review and respond to your inquiry and are sent to our form-processing providers. See the <Link href="/privacy" className="text-indigo-300 underline">Privacy Policy</Link>. Do not include passwords, account credentials, or intimate images/content.</p>
+            <p className="text-xs text-slate-500 leading-relaxed">Your application details are used to review and respond to your inquiry and are sent to our form-processing providers. See the <Link href="/onlyfans/privacy/" className="text-indigo-300 underline">Creator Privacy Notice</Link>. Do not include passwords, account credentials, or intimate images/content.</p>
 
             <div className="pt-2">
               <button
