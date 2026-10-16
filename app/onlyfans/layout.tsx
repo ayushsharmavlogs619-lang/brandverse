@@ -3,8 +3,8 @@ import Script from "next/script";
 
 export const metadata: Metadata = {
   title: "Brandverse OnlyFans Operations — Premium Chatting & Operational Support",
-  description: "Brandverse is the trusted operations partner for professional OnlyFans creators. We manage subscriber chatting, vault organization, PPV scheduling, and daily workflows securely so you can focus on content creation.",
-  metadataBase: new URL("https://onlyfans.brandverse.tech"),
+  description: "Brandverse offers subscriber communication and creator-operations support. Scope, access, and reporting are agreed before work begins.",
+  metadataBase: new URL("https://brandverse.pages.dev/onlyfans/"),
   keywords: [
     "OnlyFans Operations",
     "OnlyFans Chatting Support",
@@ -18,9 +18,9 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://onlyfans.brandverse.tech",
+    url: "https://brandverse.pages.dev/onlyfans/",
     title: "Brandverse OnlyFans Operations — Premium Support for Professional Creators",
-    description: "Reclaim your freedom. 24/7 subscriber communication support, PPV workflow systems, and vault organization for top OnlyFans creators.",
+    description: "Subscriber communication and creator-operations support for OnlyFans creators.",
     siteName: "Brandverse",
     images: [
       {
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Brandverse OnlyFans Operations — Premium Support",
-    description: "24/7 subscriber communication support, PPV workflow systems, and vault organization.",
+    description: "Subscriber communication and creator-operations support.",
     images: ["https://brandverse.tech/favicon.ico"],
   },
 };
@@ -49,8 +49,8 @@ export default function OnlyFansLayout({
     "@type": "Organization",
     "name": "Brandverse OnlyFans Operations",
     "alternateName": "Brandverse OnlyFans Support",
-    "description": "Trusted operations and subscriber communication support partner for OnlyFans creators.",
-    "url": "https://onlyfans.brandverse.tech",
+    "description": "Subscriber communication and creator-operations support for OnlyFans creators.",
+    "url": "https://brandverse.pages.dev/onlyfans/",
     "logo": "https://brandverse.tech/favicon.ico",
     "sameAs": [
       "https://twitter.com/brandverse_tech",
@@ -83,8 +83,8 @@ export default function OnlyFansLayout({
           "@type": "Offer",
           "itemOffered": {
             "@type": "Service",
-            "name": "24/7 Chatting & Inbox Management",
-            "description": "Professional subscriber chatting and filter systems."
+            "name": "Chatting & Inbox Management",
+            "description": "Subscriber chatting and inbox workflows agreed with the creator."
           }
         },
         {
@@ -92,7 +92,7 @@ export default function OnlyFansLayout({
           "itemOffered": {
             "@type": "Service",
             "name": "Vault & PPV Organization",
-            "description": "Meticulous folder structuring and release schedules."
+            "description": "Vault organization and release planning agreed with the creator."
           }
         }
       ]
