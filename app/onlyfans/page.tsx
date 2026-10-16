@@ -35,7 +35,7 @@ import { leadService, LeadData } from '../../lib/lead-service';
 const FAQS = [
   {
     question: "How does the revenue share work exactly?",
-    answer: "You refer your overflow chatting traffic to us. We handle all the DMs — engagement, upselling, PPV drops, renewals. The revenue those subs generate gets split: 50% to you, 50% to us (or 60/40 depending on volume). You keep 100% of your existing income — this is purely new money from subs you couldn't service before."
+    answer: "You refer your overflow chatting traffic to us. We handle all the DMs — engagement, upselling, PPV drops, renewals. The revenue those subs generate gets split: The proposed split is 50/50 on revenue attributable to agreed overflow conversations we manage. Attribution, deductions, reporting, payout timing, and exclusions must be agreed in writing before work starts."
   },
   {
     question: "Do I need to send you my login credentials?",
@@ -51,7 +51,7 @@ const FAQS = [
   },
   {
     question: "How much more could I actually make?",
-    answer: "Most creators we partner with see a 40-80% increase in monthly revenue within 60 days. Not from us being better than you — from us being awake and responding when you're sleeping, shooting, or living your life. Every unanswered DM is money left on the table."
+    answer: "Most creators we partner with see a There is no reliable way to predict additional revenue. Results vary by account and audience; no outcome is guaranteed."
   },
   {
     question: "How fast can we start?",
@@ -106,17 +106,17 @@ const FEATURES = [
   },
   {
     title: "Strict Confidentiality",
-    description: "Mandatory NDAs for all team members. IP-restricted access. Encrypted credential handover. Your identity and content stay completely secure.",
+    description: "Discuss confidentiality, access controls, and content handling before granting access. Specific safeguards will be confirmed in writing rather than assumed.",
     icon: Shield
   },
   {
     title: "Scale on Demand",
-    description: "Got a viral post and 500 new subs overnight? We scale up instantly. No hiring, no training, no burnout. Your traffic becomes your asset.",
+    description: "If message volume changes, we can discuss capacity and any revised scope before taking on additional work.",
     icon: Rocket
   },
   {
     title: "Proven System",
-    description: "We've built and refined our chatting operations across multiple creator accounts. This isn't our first rodeo — the playbook works.",
+    description: "We will explain the proposed workflow, coverage, and reporting before you decide whether it fits your account.",
     icon: CheckCircle2
   },
   {
@@ -126,7 +126,7 @@ const FEATURES = [
   },
   {
     title: "Transparent Reporting",
-    description: "Real-time earnings dashboard. Every dollar generated is tracked and reported. No hidden fees, no fuzzy math.",
+    description: "We will agree on the reporting format and cadence before work begins, including how managed conversations and attributable revenue are identified.",
     icon: Globe
   }
 ];
@@ -159,7 +159,7 @@ export default function OnlyFansLandingPage() {
       service_interest: `Monthly Revenue: ${formData.revenue}`,
       website: formData.website,
       message: formData.message,
-      source_page: 'onlyfans.brandverse.tech',
+      source_page: 'brandverse.pages.dev/onlyfans/',
       source_form: 'onlyfans_revshare_contact'
     };
 
@@ -300,7 +300,7 @@ export default function OnlyFansLandingPage() {
             <h3 className="text-xl font-bold text-white tracking-tight">You Create. We Chat. Both Get Paid.</h3>
             <p className="text-slate-400 text-sm leading-relaxed">
               No retainers. No monthly fees. We handle your overflow subscriber DMs and split the new revenue.<br />
-              <span className="text-emerald-400 font-semibold">50/50 split. Zero risk. Pure upside.</span>
+              <span className="text-emerald-400 font-semibold">Proposed 50/50 split on agreed overflow revenue.</span>
             </p>
           </div>
           <div className="absolute bottom-6 left-6 right-6 flex items-center justify-between text-xs text-slate-600 font-mono tracking-wider">
@@ -331,7 +331,7 @@ export default function OnlyFansLandingPage() {
             },
             {
               title: "Missed Revenue",
-              description: "Every unanswered 'hey' is a missed upsell opportunity. Creators we partner with typically recover $2k-$10k+/mo in uncaptured revenue.",
+              description: "Every unanswered 'hey' is a missed upsell opportunity. Unanswered messages may represent an opportunity, but we cannot estimate or promise recovered revenue without account-specific evidence.",
               icon: DollarSign
             },
             {
@@ -412,7 +412,7 @@ export default function OnlyFansLandingPage() {
                 Say you have 50 subs who DM regularly and you can only get to half of them. That's 25 subs generating zero additional revenue beyond their sub fee.
               </p>
               <p className="text-slate-400 text-sm leading-relaxed">
-                We handle those 25. At $200/sub/month in DMs/PPVs, that's <span className="text-white font-bold">$5,000/mo in new revenue</span>. Your cut at 50%? <span className="text-emerald-400 font-bold">$2,500/mo</span> for doing nothing.
+                Illustration only, not a forecast: if 25 managed subscribers each generated $200 in attributable monthly sales, that would be $5,000 gross before agreed deductions; a 50% share would be $2,500. Actual results may be zero or vary substantially.
               </p>
             </div>
 
@@ -474,7 +474,7 @@ export default function OnlyFansLandingPage() {
         <div className="max-w-3xl mb-20">
           <span className="text-xs uppercase tracking-widest text-indigo-400 font-semibold mb-3 block">How It Works</span>
           <h2 className="text-3xl md:text-5xl font-black tracking-tight text-white mb-6">
-            From overflow to income in 3 days.
+            A clear process before any work begins.
           </h2>
           <p className="text-lg text-slate-400 leading-relaxed">
             Getting started is simple. No complex contracts, no long onboarding. Just a quick alignment and we start generating revenue from your overflow traffic.
@@ -487,9 +487,9 @@ export default function OnlyFansLandingPage() {
           {[
             { step: "01", title: "Quick Sync", desc: "30-min discovery call. We learn your vibe, your pricing, your boundaries. Simple." },
             { step: "02", title: "Playbook Build", desc: "We create your custom chatting guide — tone, PPV strategy, limits. You approve everything." },
-            { step: "03", title: "Secure Handover", desc: "Encrypted credential setup via 1Password. Your password is never exposed." },
-            { step: "04", title: "Overflow Redirect", desc: "You route overflow traffic to us. We start handling DMs immediately." },
-            { step: "05", title: "Revenue Split", desc: "New revenue rolls in. We track every dollar. You get paid your share weekly." }
+            { step: "03", title: "Secure Handover", desc: "We agree on an access method and boundaries before any account access is granted." },
+            { step: "04", title: "Overflow Redirect", desc: "Work begins only after scope, access, and start date are agreed." },
+            { step: "05", title: "Revenue Split", desc: "Reporting and payout timing are set out in the written agreement." }
           ].map((item, idx) => (
             <div
               key={idx}
@@ -572,53 +572,27 @@ export default function OnlyFansLandingPage() {
         </div>
       </section>
 
-      {/* TESTIMONIALS */}
+      {/* PARTNERSHIP TERMS */}
       <section className="py-24 md:py-32 px-6 max-w-7xl mx-auto relative z-10 border-t border-white/5">
-        <div className="max-w-3xl mb-16 text-center mx-auto">
-          <span className="text-xs uppercase tracking-widest text-indigo-400 font-semibold mb-3 block">Results</span>
-          <h2 className="text-3xl md:text-5xl font-black tracking-tight text-white mb-4">
-            Real numbers from real partnerships
-          </h2>
-          <p className="text-slate-400 text-sm leading-relaxed">
-            Here is what happens when creators stop leaving money in their DMs.
-          </p>
+        <div className="max-w-3xl mb-16">
+          <span className="text-xs uppercase tracking-widest text-indigo-400 font-semibold mb-3 block">Before you start</span>
+          <h2 className="text-3xl md:text-5xl font-black tracking-tight text-white mb-6">Clear terms before account access.</h2>
+          <p className="text-lg text-slate-400 leading-relaxed">We’ll confirm scope and operating details in writing. You can review them before deciding whether to proceed.</p>
         </div>
-
-        <div className="grid md:grid-cols-2 gap-8">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
           {[
-            {
-              quote: "I was averaging $8k/mo but knew I was leaving money on the table because I physically couldn't keep up with DMs. After routing my overflow to Brandverse on a 50/50 split, my total monthly revenue went to $14k in 6 weeks. That's $3k in my pocket from subs I was ignoring before.",
-              author: "Creator, Top 1%",
-              category: "Revenue: $8k → $14k/mo"
-            },
-            {
-              quote: "Security was my biggest worry. I didn't want to share my account with anyone. The 1Password setup was clean — I never shared my actual password. And the rev-share model meant I had zero risk. If they didn't perform, I paid nothing. They performed.",
-              author: "Established Creator",
-              category: "Top 0.5% Account"
-            }
-          ].map((test, idx) => (
-            <div
-              key={idx}
-              className="p-8 md:p-12 rounded-3xl bg-white/[0.01] border border-white/5 flex flex-col justify-between relative overflow-hidden"
-            >
-              <div className="absolute top-0 left-0 w-12 h-12 bg-indigo-500/5 rounded-br-3xl pointer-events-none" />
-              <p className="text-slate-300 text-lg italic leading-relaxed mb-8 relative z-10">
-                "{test.quote}"
-              </p>
-              <div className="pt-6 border-t border-white/5 flex items-center justify-between">
-                <div>
-                  <h4 className="font-bold text-white tracking-tight">{test.author}</h4>
-                  <p className="text-slate-500 text-xs mt-1 uppercase tracking-wider">{test.category}</p>
-                </div>
-                <div className="w-10 h-10 rounded-full bg-slate-900 border border-white/10 flex items-center justify-center text-xs font-bold text-indigo-400">
-                  {test.author.charAt(0)}
-                </div>
-              </div>
+            ["Scope & coverage", "Agree which conversations we handle, coverage hours, response boundaries, and what stays with you."],
+            ["Voice & limits", "You approve the tone guide, pricing boundaries, topics, and escalation rules before chatting begins."],
+            ["Attribution & payout", "Agree how managed revenue is attributed, what deductions apply, how it is reported, and when payouts happen."],
+            ["Access & exit", "Confirm access permissions, confidentiality, content handling, account ownership, and how access ends."]
+          ].map(([title, description]) => (
+            <div key={title} className="p-6 rounded-2xl bg-white/[0.01] border border-white/5">
+              <h3 className="font-bold text-white mb-3">{title}</h3>
+              <p className="text-slate-400 text-sm leading-relaxed">{description}</p>
             </div>
           ))}
         </div>
       </section>
-
       {/* FAQ */}
       <section id="faq" className="py-24 md:py-32 px-6 max-w-4xl mx-auto relative z-10 border-t border-white/5">
         <div className="text-center mb-16">
@@ -678,7 +652,7 @@ export default function OnlyFansLandingPage() {
             Ready to turn overflow into income?
           </h2>
           <p className="text-slate-400 text-sm max-w-lg mx-auto">
-            Fill out the form below. We'll review your account and reach out within 24 hours to set up your discovery call.
+            Share a few details and we’ll review your fit. We’ll reply by email if the opportunity is a match.
           </p>
         </div>
 
@@ -770,6 +744,8 @@ export default function OnlyFansLandingPage() {
               />
             </div>
 
+            <p className="text-xs text-slate-500 leading-relaxed">Your application details are used to review and respond to your inquiry and are sent to our form-processing providers. See the <Link href="/privacy" className="text-indigo-300 underline">Privacy Policy</Link>. Do not include passwords, account credentials, or intimate images/content.</p>
+
             <div className="pt-2">
               <button
                 type="submit"
@@ -796,7 +772,7 @@ export default function OnlyFansLandingPage() {
                 animate={{ opacity: 1, y: 0 }}
                 className="p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-sm text-center font-semibold"
               >
-                ✓ Application submitted! We'll review and reach out within 24 hours.
+                ✓ Application submitted! We’ll review your details and reply by email if the opportunity is a match.
               </motion.div>
             )}
 
@@ -825,7 +801,7 @@ export default function OnlyFansLandingPage() {
           </div>
 
           <div className="flex flex-wrap gap-8 justify-center text-xs text-slate-500">
-            <Link href="/privacy" className="hover:text-slate-300 transition-colors">Privacy Policy</Link>
+            <Link href="/onlyfans/privacy/" className="hover:text-slate-300 transition-colors">Creator Privacy Notice</Link>
             <Link href="/terms" className="hover:text-slate-300 transition-colors">Terms of Service</Link>
             <a href="mailto:ayush@brandverse.tech" className="hover:text-slate-300 transition-colors">ayush@brandverse.tech</a>
           </div>
