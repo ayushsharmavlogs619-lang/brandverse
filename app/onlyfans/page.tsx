@@ -68,7 +68,7 @@ const SERVICES = [
   },
   {
     title: "Revenue Share Model",
-    description: "No upfront cost. We earn when you earn. 50/50 split on revenue from subs we manage. You keep 100% of your existing income untouched.",
+    description: "A proposed 50/50 split applies only to overflow revenue attributed under terms agreed in writing. Any fees, exclusions, and payout details are confirmed before work begins.",
     icon: DollarSign,
     glow: "rgba(16, 185, 129, 0.15)"
   },
@@ -80,19 +80,19 @@ const SERVICES = [
   },
   {
     title: "PPV Sales & Upsells",
-    description: "We don't just reply — we sell. Trained in your pricing, your vault, and your upselling style to maximize per-subscriber revenue.",
+    description: "We use the pricing and sales approach you approve, within your stated boundaries.",
     icon: TrendingUp,
     glow: "rgba(234, 179, 8, 0.15)"
   },
   {
-    title: "Personality Matching",
-    description: "We study your voice and build a custom playbook. Your subs won't know the difference because the tone, style, and energy match yours exactly.",
+    title: "Creator-approved Voice",
+    description: "We follow a tone guide you approve, along with your pricing boundaries and escalation rules. Decide how assistance is disclosed to your audience.",
     icon: FileText,
     glow: "rgba(168, 85, 247, 0.15)"
   },
   {
-    title: "Full Transparency",
-    description: "Daily reports on who was chatted with, what was sold, and how much revenue was generated. You're always in the loop with zero surprises.",
+    title: "Agreed Reporting",
+    description: "The reporting format and cadence are agreed in writing, including how managed conversations and attributed revenue are identified.",
     icon: CheckCircle2,
     glow: "rgba(249, 115, 22, 0.15)"
   }
@@ -100,8 +100,8 @@ const SERVICES = [
 
 const FEATURES = [
   {
-    title: "Zero Upfront Cost",
-    description: "We only make money when you make money. No monthly retainers, no setup fees — pure performance-based partnership.",
+    title: "Proposed Revenue Share",
+    description: "The proposed model is a revenue share. Any fees, expenses, and payment terms are confirmed in writing before work begins.",
     icon: DollarSign
   },
   {
@@ -121,7 +121,7 @@ const FEATURES = [
   },
   {
     title: "You Stay in Control",
-    description: "You set the boundaries, the pricing, the limits. We operate within your exact guidelines. Final say is always yours.",
+    description: "You approve the tone, boundaries, and escalation rules before work begins.",
     icon: Lock
   },
   {
@@ -260,7 +260,7 @@ export default function OnlyFansLandingPage() {
           transition={{ duration: 0.6, delay: 0.3 }}
           className="text-lg md:text-xl text-slate-400 max-w-3xl leading-relaxed mb-12"
         >
-          You have subs flooding your inbox and you can't keep up. Unanswered messages can be an opportunity, but outcomes vary.<br />
+          If high message volume makes it hard to respond consistently, we can discuss handling agreed overflow. Outcomes vary and are not guaranteed.<br />
           We take over your overflow chatting on a revenue share basis. <span className="text-white font-semibold">Proposed revenue share. Scope and terms agreed in writing.</span>
         </motion.p>
 
@@ -299,7 +299,7 @@ export default function OnlyFansLandingPage() {
             </div>
             <h3 className="text-xl font-bold text-white tracking-tight">You Create. We Chat. Both Get Paid.</h3>
             <p className="text-slate-400 text-sm leading-relaxed">
-              No retainers. No monthly fees. We handle your overflow subscriber DMs and split the new revenue.<br />
+              We handle agreed overflow conversations under written terms. The proposed model is a revenue share.<br />
               <span className="text-emerald-400 font-semibold">Proposed 50/50 split on agreed overflow revenue.</span>
             </p>
           </div>
@@ -318,7 +318,7 @@ export default function OnlyFansLandingPage() {
             You are leaving money in your DMs.
           </h2>
           <p className="text-lg text-slate-400 leading-relaxed">
-            You have hundreds of subs paying for access. Some are active in your DMs right now. But you can only reply to so many before you run out of hours in the day. Every message you don't respond to is a missed PPV sale, a missed renewal, a missed tip.
+            High message volume can make it harder to respond consistently. Delays may mean missed opportunities, though results depend on the account and audience.
           </p>
         </div>
 
@@ -331,7 +331,7 @@ export default function OnlyFansLandingPage() {
             },
             {
               title: "Missed Revenue",
-              description: "Every unanswered 'hey' is a missed upsell opportunity. Unanswered messages may represent an opportunity, but we cannot estimate or promise recovered revenue without account-specific evidence.",
+              description: "Unanswered conversations may be an opportunity, but we cannot estimate or promise recovered revenue without account-specific evidence.",
               icon: DollarSign
             },
             {
@@ -438,7 +438,7 @@ export default function OnlyFansLandingPage() {
             Full-service DM monetization.
           </h2>
           <p className="text-lg text-slate-400 leading-relaxed">
-            We don't just reply. We engage, upsell, and maximize every subscriber interaction so your overflow traffic becomes your biggest revenue stream.
+            We handle agreed overflow conversations using the tone, boundaries, and workflow you approve.
           </p>
         </div>
 
@@ -477,7 +477,7 @@ export default function OnlyFansLandingPage() {
             A clear process before any work begins.
           </h2>
           <p className="text-lg text-slate-400 leading-relaxed">
-            Getting started is simple. No complex contracts, no long onboarding. Just a quick alignment and we start generating revenue from your overflow traffic.
+            Getting started is simple. No complex contracts, no long onboarding. We confirm scope, access, and operating terms before any work begins.
           </p>
         </div>
 
@@ -485,7 +485,7 @@ export default function OnlyFansLandingPage() {
           <div className="absolute top-[28px] left-[8%] right-[8%] h-[1px] bg-white/10 -z-10" />
 
           {[
-            { step: "01", title: "Quick Sync", desc: "30-min discovery call. We learn your vibe, your pricing, your boundaries. Simple." },
+            { step: "01", title: "Intro Call", desc: "We discuss your goals, workflow, availability, pricing, and boundaries." },
             { step: "02", title: "Playbook Build", desc: "We create your custom chatting guide — tone, PPV strategy, limits. You approve everything." },
             { step: "03", title: "Secure Handover", desc: "We agree on an access method and boundaries before any account access is granted." },
             { step: "04", title: "Overflow Redirect", desc: "Work begins only after scope, access, and start date are agreed." },
