@@ -73,8 +73,8 @@ const SERVICES = [
     glow: "rgba(16, 185, 129, 0.15)"
   },
   {
-    title: "24/7 Chat Coverage",
-    description: "Your subs get responses while you sleep. Structured shifts ensure fast reply times across all time zones — no more 'she hasn't replied in 8 hours' complaints.",
+    title: "Agreed Chat Coverage",
+    description: "Coverage hours and response expectations are agreed with you before the service begins.",
     icon: Clock,
     glow: "rgba(6, 182, 212, 0.15)"
   },
@@ -336,7 +336,7 @@ export default function OnlyFansLandingPage() {
             },
             {
               title: "Subscriber Churn",
-              description: "Slow reply times = un happy subs. Unhappy subs don't renew. You're losing monthly income simply because you can't be online 24/7.",
+              description: "Slow reply times = un happy subs. Unhappy subs don't renew. Limited availability can affect response times and renewals.",
               icon: Users
             },
             {
@@ -522,7 +522,7 @@ export default function OnlyFansLandingPage() {
           {[
             { step: "01", title: "Quick Sync", desc: "30-min discovery call. We learn your vibe, your pricing, your boundaries." },
             { step: "02", title: "Playbook Build", desc: "We create your custom chatting guide — tone, PPV strategy, limits." },
-            { step: "03", title: "Secure Handover", desc: "Encrypted credential setup via 1Password. Your password is never exposed." },
+            { step: "03", title: "Secure Handover", desc: "We agree on an access method and boundaries before account access is granted." },
             { step: "04", title: "Overflow Redirect", desc: "Route overflow traffic to us. We start handling DMs immediately." },
             { step: "05", title: "Revenue Split", desc: "New revenue rolls in. Tracked transparently. Paid weekly." }
           ].map((item, idx) => (
