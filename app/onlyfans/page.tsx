@@ -39,11 +39,11 @@ const FAQS = [
   },
   {
     question: "Do I need to send you my login credentials?",
-    answer: "No. We use secure credential managers (1Password) where you grant delegated access through encrypted vaults. Your password is never shared or visible to our team. You retain full ownership and control of your account at all times."
+    answer: "Access requirements depend on the platform and agreed workflow. We will explain the access method and limits before work begins. Never share a password through this application form."
   },
   {
     question: "How do you protect my privacy and content?",
-    answer: "All team members sign legally binding NDAs. We restrict account access to specific verified IPs, never download or store your content outside your official platform, and maintain absolute confidentiality about our client roster. Your brand identity is completely protected."
+    answer: "Before access is granted, discuss confidentiality, team access, content handling, and any written protections you require. Do not assume a particular safeguard is in place until confirmed in writing."
   },
   {
     question: "What kind of creators do you work with?",
@@ -260,8 +260,8 @@ export default function OnlyFansLandingPage() {
           transition={{ duration: 0.6, delay: 0.3 }}
           className="text-lg md:text-xl text-slate-400 max-w-3xl leading-relaxed mb-12"
         >
-          You have subs flooding your inbox and you can't keep up. Every unanswered DM is lost income.<br />
-          We take over your overflow chatting on a revenue share basis. <span className="text-white font-semibold">You earn. We earn. No upfront cost.</span>
+          You have subs flooding your inbox and you can't keep up. Unanswered messages can be an opportunity, but outcomes vary.<br />
+          We take over your overflow chatting on a revenue share basis. <span className="text-white font-semibold">Proposed revenue share. Scope and terms agreed in writing.</span>
         </motion.p>
 
         <motion.div
@@ -388,9 +388,9 @@ export default function OnlyFansLandingPage() {
             <ul className="space-y-4 pt-4">
               {[
                 "Zero upfront cost — no monthly fees, no retainers",
-                "50/50 revenue split on subs we manage",
-                "You keep 100% of your existing subscriber income",
-                "Full transparency with daily earnings reports"
+                "Proposed 50/50 split on agreed, attributable overflow conversations",
+                "Existing income is excluded only as specified in the written agreement",
+                "Agree the reporting format and cadence in writing before work begins"
               ].map((bullet, idx) => (
                 <li key={idx} className="flex items-start gap-3 text-slate-300">
                   <CheckCircle2 className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />
@@ -802,7 +802,7 @@ export default function OnlyFansLandingPage() {
 
           <div className="flex flex-wrap gap-8 justify-center text-xs text-slate-500">
             <Link href="/onlyfans/privacy/" className="hover:text-slate-300 transition-colors">Creator Privacy Notice</Link>
-            <Link href="/terms" className="hover:text-slate-300 transition-colors">Terms of Service</Link>
+            <Link href="/onlyfans/terms/" className="hover:text-slate-300 transition-colors">Partnership Terms</Link>
             <a href="mailto:ayush@brandverse.tech" className="hover:text-slate-300 transition-colors">ayush@brandverse.tech</a>
           </div>
 
