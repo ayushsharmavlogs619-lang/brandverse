@@ -84,11 +84,13 @@ class LeadValidator {
     }
 
     static detectSpam(data: LeadData): boolean {
+        const message = (data.message || '').trim().toLowerCase();
         const spamPatterns = [
-            /test/i, /spam/i, /xxx/i, /viagra/i, /casino/i, /lottery/i, /winner/i
+            /\bspam\b/i, /\bxxx\b/i, /\bviagra\b/i, /\bcasino\b/i, /\blottery\b/i, /\bwinner\b/i
         ];
-        const message = (data.message || '').toLowerCase();
+        const testOnlyMessage = /^(?:test|testing|test message|this is (?:a )?test)[.!?\s]*$/i.test(message);
         const fullName = (data.full_name || '').toLowerCase();
+        if (testOnlyMessage) return true;
         for (const pattern of spamPatterns) {
             if (pattern.test(message)) return true;
         }
