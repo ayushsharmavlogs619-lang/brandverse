@@ -1,12 +1,31 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useCallback, useEffect, useState, useSyncExternalStore } from 'react';
 import { articles } from '../../lib/articles';
 import { Send, CheckCircle2, Zap, Users, TrendingUp, Lock, LogOut, Eye, EyeOff, ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
 
+const ADMIN_AUTH_EVENT = 'brandverse-admin-auth-change';
+
+function subscribeToAdminAuth(onChange: () => void) {
+    window.addEventListener(ADMIN_AUTH_EVENT, onChange);
+    return () => window.removeEventListener(ADMIN_AUTH_EVENT, onChange);
+}
+
+function getAdminAuthSnapshot() {
+    return typeof window !== 'undefined' && window.sessionStorage.getItem('adminAuth') === 'true';
+}
+
+function getServerAdminAuthSnapshot() {
+    return false;
+}
+
 export default function AdminPanel() {
-    const [authenticated, setAuthenticated] = useState(false);
+    const authenticated = useSyncExternalStore(
+        subscribeToAdminAuth,
+        getAdminAuthSnapshot,
+        getServerAdminAuthSnapshot,
+    );
     const [password, setPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
     const [authError, setAuthError] = useState(false);
@@ -14,17 +33,7 @@ export default function AdminPanel() {
     const [result, setResult] = useState<{ success: boolean; count?: number; total?: number; error?: string } | null>(null);   
     const [stats, setStats] = useState({ subscribers: 0, sent: 0 });
 
-    useEffect(() => {
-        // Check if already authenticated in session
-        const isAuth = sessionStorage.getItem('adminAuth') === 'true';
-        setAuthenticated(isAuth);
-
-        if (isAuth) {
-            fetchStats();
-        }
-    }, []);
-
-    const fetchStats = async () => {
+    const fetchStats = useCallback(async () => {
         try {
             const response = await fetch('/api/push-stats');
             if (response.ok) {
@@ -40,7 +49,13 @@ export default function AdminPanel() {
         } catch (error) {
             console.error('Failed to fetch stats:', error);
         }
-    };
+    }, []);
+
+    useEffect(() => {
+        if (authenticated) {
+            void fetchStats();
+        }
+    }, [authenticated, fetchStats]);
 
     const handleLogin = (e: React.FormEvent) => {
         e.preventDefault();
@@ -54,15 +69,14 @@ export default function AdminPanel() {
             return;
         }
 
-        setAuthenticated(true);
         sessionStorage.setItem('adminAuth', 'true');
+        window.dispatchEvent(new Event(ADMIN_AUTH_EVENT));
         setAuthError(false);
-        fetchStats();
     };
 
     const handleLogout = () => {
-        setAuthenticated(false);
         sessionStorage.removeItem('adminAuth');
+        window.dispatchEvent(new Event(ADMIN_AUTH_EVENT));
         setPassword('');
     };
 
