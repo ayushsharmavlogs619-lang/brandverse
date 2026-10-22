@@ -4,6 +4,7 @@ import { CheckCircle2, Mail } from "lucide-react";
 export const metadata = {
   title: "Strategy call request received — Brandverse",
   description: "Thank you for requesting a Brandverse strategy call.",
+  robots: { index: false, follow: false },
 };
 
 export default function LeadMagnetThankYouPage() {
