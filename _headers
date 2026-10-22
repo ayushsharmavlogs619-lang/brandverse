@@ -44,6 +44,4 @@
 /*.html
   Cache-Control: public, max-age=0, must-revalidate
 
-# Enable Brotli compression
-/*
-  Content-Encoding: br
+# Cloudflare negotiates compression per request. Do not set Content-Encoding here.
