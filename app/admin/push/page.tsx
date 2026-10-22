@@ -53,6 +53,8 @@ export default function AdminPanel() {
 
     useEffect(() => {
         if (authenticated) {
+            // Fetching stats synchronizes with the API after authentication.
+            // eslint-disable-next-line react-hooks/set-state-in-effect
             void fetchStats();
         }
     }, [authenticated, fetchStats]);
@@ -315,3 +317,4 @@ export default function AdminPanel() {
         </div>
     );
 }
+
