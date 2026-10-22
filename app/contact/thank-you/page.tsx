@@ -4,6 +4,7 @@ import { CheckCircle2 } from "lucide-react";
 export const metadata = {
   title: "Message received — Brandverse",
   description: "Thanks for contacting Brandverse. We will reply shortly.",
+  robots: { index: false, follow: false },
 };
 
 export default function ContactThankYouPage() {
