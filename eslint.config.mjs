@@ -1,10 +1,5 @@
-import { FlatCompat } from "@eslint/eslintrc";
-import path from "path";
-import { fileURLToPath } from "url";
-
-const compat = new FlatCompat({
-  baseDirectory: path.dirname(fileURLToPath(import.meta.url)),
-});
+import nextCoreWebVitals from "eslint-config-next/core-web-vitals";
+import nextTypeScript from "eslint-config-next/typescript";
 
 const eslintConfig = [
   {
@@ -15,22 +10,23 @@ const eslintConfig = [
       "next-env.d.ts",
       "node_modules/**",
       ".vercel/**",
-      ".wrangler/**"
-    ]
+      ".wrangler/**",
+    ],
   },
-  ...compat.extends("next/core-web-vitals", "next/typescript"),
+  ...nextCoreWebVitals,
+  ...nextTypeScript,
   {
     rules: {
       "react/no-unescaped-entities": "off",
       "@typescript-eslint/no-unused-vars": "warn",
-      "@typescript-eslint/no-explicit-any": "warn"
-    }
+      "@typescript-eslint/no-explicit-any": "warn",
+    },
   },
   {
     files: ["scripts/**/*.js", "deploy-*.js"],
     rules: {
-      "@typescript-eslint/no-require-imports": "off"
-    }
+      "@typescript-eslint/no-require-imports": "off",
+    },
   },
 ];
 
