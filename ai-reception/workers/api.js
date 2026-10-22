@@ -98,6 +98,11 @@ const worker = {
       }
 
       if (path === '/api/vapi/call' && method === 'POST') {
+        // Outbound calls spend the configured Vapi account balance; require the
+        // same server-side tool key used by other actions with external effects.
+        if (!toolAuthorized(request, env)) {
+          return json({ error: 'Unauthorized: missing or invalid X-Tool-Key' }, 401, ch);
+        }
         return await handleVapiOutboundCall(request, env, ch, log);
       }
 
