@@ -29,7 +29,7 @@ export const API_ROUTES = [
   {
     path: '/api/vapi/call',
     method: 'POST',
-    auth: 'none (server uses VAPI_API_KEY)',
+    auth: 'X-Tool-Key header (TOOL_API_KEY)',
     params: 'clientId, customerNumber (body)',
     description: 'Trigger an outbound call through the Vapi API',
   },
