@@ -1,190 +1,39 @@
-# 🔑 API KEYS NEEDED FOR BRANDVERSE.TECH
+# Brandverse configuration checklist
 
-Copy this checklist and start collecting these keys. I've ordered them by priority.
+Use this as a deployment reference. The committed `env.example` is the source of truth for current variable names. Configure public values at build time and server-only values in the relevant Cloudflare dashboard or Worker secrets. Never put a secret in a `NEXT_PUBLIC_*` variable or commit a real value.
 
----
+## Website build values (optional unless a feature is enabled)
 
-## ✅ TIER 1: CRITICAL (Do These First)
+- `NEXT_PUBLIC_CALENDLY_URL` — booking link; defaults to the current Brandverse Calendly URL.
+- `NEXT_PUBLIC_VAPI_PUBLIC_KEY` and `NEXT_PUBLIC_VAPI_ASSISTANT_ID` — enable the browser voice demo at `/demos/voice/`. These are public client configuration values, not server API credentials.
+- `NEXT_PUBLIC_GA_MEASUREMENT_ID`, `NEXT_PUBLIC_META_PIXEL_ID`, `NEXT_PUBLIC_LINKEDIN_PARTNER_ID` — analytics/ad tracking IDs. Configure consent and privacy disclosures before enabling non-essential tracking.
+- `NEXT_PUBLIC_COOKIEBOT_ID` — Cookiebot domain group, if Cookiebot is used.
+- `NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION` — Search Console verification token.
 
-### 1. **Supabase** (Database for Push Notifications)
-- **What it does**: Stores push notification subscribers
-- **Cost**: FREE (up to 500MB database)
-- **Get it from**: https://supabase.com
-- **Steps**:
-  1. Create account
-  2. Create new project
-  3. Go to Settings → API
-  4. Copy:
-     - **Project URL** → `NEXT_PUBLIC_SUPABASE_URL`
-     - **anon public key** → (not needed)
-     - **service_role secret** → `SUPABASE_SERVICE_KEY`
-- **Add to `.env.local`**:
-  ```
-  NEXT_PUBLIC_SUPABASE_URL=https://xxx.supabase.co
-  SUPABASE_SERVICE_KEY=eyJxxx...
-  ```
+## Cloudflare Pages Function values
 
-### 2. **VAPID Keys** (For Push Notifications)
-- **What it does**: Enables browser push notifications
-- **Cost**: FREE (built-in browser API)
-- **Get it from**: Your terminal
-- **Steps**:
-  1. Run: `npx web-push generate-vapid-keys`
-  2. Copy the output
-- **Add to `.env.local`**:
-  ```
-  NEXT_PUBLIC_VAPID_PUBLIC_KEY=BHxxx...
-  VAPID_PRIVATE_KEY=oQxxx...
-  ```
+Set these in the Pages project's environment variables for production and preview as appropriate:
 
-### 3. **Admin Password**
-- **What it does**: Protects your `/admin/push` panel
-- **Cost**: FREE
-- **Get it from**: Your brain
-- **Steps**:
-  1. Think of a strong password (e.g., `Brandverse2025!Secure`)
-  2. Remember it (you'll use it to login)
-- **Add to `.env.local`**:
-  ```
-  NEXT_PUBLIC_ADMIN_PASSWORD=YourStrongPasswordHere
-  ```
+- `GOOGLE_APPS_SCRIPT_WEBHOOK_URL` and `GOOGLE_APPS_SCRIPT_SECRET` — required for the website lead form's Google Sheets path (`POST /api/leads/apps-script`). The secret stays in the Pages Function environment.
+- `MAILCHIMP_API_KEY` and `MAILCHIMP_AUDIENCE_ID` — optional newsletter integration.
+- `ADMIN_PUSH_PASSWORD` — server-side only. Do not use `NEXT_PUBLIC_ADMIN_PASSWORD`. The push delivery endpoint is currently a placeholder and returns 501, so configuring a password does not make push notifications operational.
 
----
+Website lead forms also submit to FormSubmit as a fallback. Confirm the destination inbox with FormSubmit before relying on that path.
 
-## ✅ TIER 2: IMPORTANT (Do Within 48 Hours)
+## AI receptionist Worker values
 
-### 4. **Cookiebot** (Cookie Consent / GDPR Compliance)
-- **What it does**: Shows cookie consent banner, tracks user consent
-- **Cost**: FREE for <100 pages (then $9/mo)
-- **Get it from**: https://www.cookiebot.com
-- **Steps**:
-  1. Create account
-  2. Add your domain: `brandverse.tech`
-  3. Copy the **Domain Group ID**
-- **Add to `.env.local`**:
-  ```
-  NEXT_PUBLIC_COOKIEBOT_ID=abc123-xyz-...
-  ```
+Set secrets on the Worker using Wrangler secrets or the Cloudflare dashboard; do not put them in the static website build:
 
-### 5. **Google Analytics 4** (Traffic Analytics)
-- **What it does**: Tracks website visitors, page views, conversions
-- **Cost**: FREE
-- **Get it from**: https://analytics.google.com
-- **Steps**:
-  1. Create account
-  2. Create new GA4 property
-  3. Get Measurement ID (looks like `G-XXXXXXXXXX`)
-- **Add to `.env.local`**:
-  ```
-  NEXT_PUBLIC_GA_MEASUREMENT_ID=G-XXXXXXXXXX
-  ```
+- `TOOL_API_KEY` — required to authorize outbound calls and booking, callback, transfer, cancellation, and rescheduling actions.
+- `VAPI_WEBHOOK_SECRET` — required to validate incoming Vapi webhooks.
+- `VAPI_API_KEY` — server-side Vapi API credential, needed for outbound calls and live call transfer.
+- Google Calendar access: configure either `GOOGLE_CLIENT_EMAIL` + `GOOGLE_PRIVATE_KEY`, or the keyless Apps Script pair `NEXUS_CALENDAR_WEBHOOK_URL` + `NEXUS_CALENDAR_WEBHOOK_SECRET`.
+- `CLIENTS_CONFIG` or the embedded client configuration, plus any per-client calendar IDs and sheet/notification settings. Keep client-specific secrets in Worker secrets, not the repo.
 
-### 6. **Meta Pixel** (Facebook/Instagram Ads Tracking)
-- **What it does**: Tracks conversions from Facebook/Instagram ads
-- **Cost**: FREE
-- **Get it from**: https://business.facebook.com/events_manager
-- **Steps**:
-  1. Create Meta Business account
-  2. Events Manager → Create Pixel
-  3. Copy Pixel ID (16-digit number)
-- **Add to `.env.local`**:
-  ```
-  NEXT_PUBLIC_META_PIXEL_ID=123456789012345
-  ```
+See `ai-reception/wrangler.toml`, `ai-reception/docs/deployment.md` when present, and `env.example` for details. Verify integrations with the Worker health endpoint after its custom domain resolves.
 
----
+## Domain and launch checks
 
-## ✅ TIER 3: OPTIONAL (For Voice Demo - Do Later)
+The Pages default host is `brandverse.pages.dev`. Add the chosen custom domain in the Cloudflare Pages project after registering and connecting the domain; do not use `brandverse.pages.tech` unless that is a domain you own and configure. Worker routes in this repository target `brandverse.tech` and `edge.brandverse.tech`, so they require that zone and DNS setup.
 
-### 7. **Vapi.ai** (AI Voice Agent Demo)
-- **What it does**: Powers the `/demos/voice` page
-- **Cost**: $10 trial credit (then pay-as-you-go)
-- **Get it from**: https://vapi.ai
-- **Steps**:
-  1. Create account
-  2. Dashboard → API Keys → Copy Public Key
-  3. Create an Assistant → Copy Assistant ID
-- **Add to `.env.local`**:
-  ```
-  NEXT_PUBLIC_VAPI_KEY=sk_xxx...
-  NEXT_PUBLIC_VAPI_ASSISTANT_ID=asst_xxx...
-  ```
-
-### 8. **Cerebras API** (For Ultra-Fast AI Brain)
-- **What it does**: Makes Vapi voice agent respond 10x faster
-- **Cost**: FREE tier available
-- **Get it from**: https://cerebras.ai
-- **Steps**:
-  1. Sign up for API access
-  2. Get API key
-  3. Configure in Vapi Dashboard (not .env)
-
----
-
-### 9. **Calendly** (Meeting Booking)
-- **What it does**: Lets clients book appointments directly on your site
-- **Cost**: FREE (Basic plan is enough)
-- **Get it from**: https://calendly.com
-- **Steps**:
-  1. Create account
-  2. Create a "30 Minute Meeting" event
-  3. Copy the event link (e.g. `calendly.com/yourname/30min`)
-- **Add to `.env.local`**:
-  ```
-  NEXT_PUBLIC_CALENDLY_URL=https://calendly.com/yourusername/call
-  ```
-
-### 10. **Social Media Accounts** (To Create)
-- **LinkedIn**: Create "Brandverse Tech" Company Page
-- **X (Twitter)**: Create `@brandverse_tech`
-- **Instagram**: Create `@brandverse.tech`
-- **YouTube**: Create Brandverse Channel (for video demos)
-
----
-
-## 📋 FINAL CHECKLIST
-
-Your complete `.env.local` should look like this:
-
-```bash
-# === CRITICAL (Do First) ===
-NEXT_PUBLIC_SUPABASE_URL=https://xxx.supabase.co
-SUPABASE_SERVICE_KEY=eyJxxx...
-NEXT_PUBLIC_VAPID_PUBLIC_KEY=BHxxx...
-VAPID_PRIVATE_KEY=oQxxx...
-NEXT_PUBLIC_ADMIN_PASSWORD=YourStrongPassword
-NEXT_PUBLIC_CALENDLY_URL=https://calendly.com/yourname/call
-
-# === IMPORTANT (Do Next) ===
-NEXT_PUBLIC_COOKIEBOT_ID=abc123-xyz...
-NEXT_PUBLIC_GA_MEASUREMENT_ID=G-XXXXXXXXXX
-NEXT_PUBLIC_META_PIXEL_ID=123456789012345
-
-# === OPTIONAL (Do Later) ===
-NEXT_PUBLIC_VAPI_KEY=sk_xxx...
-NEXT_PUBLIC_VAPI_ASSISTANT_ID=asst_xxx...
-
-# === EXISTING (Already Set) ===
-# (Firebase keys were removed from this repo in a security cleanup —
-#  rotate any previously shared Firebase web config and keep it only in a
-#  secret manager / Cloudflare Pages env, never in tracked files.)
-```
-
----
-
-## 🚨 ALSO: Add to Vercel
-
-After adding to `.env.local`, also add to Vercel:
-1. Vercel Dashboard → Your Project → Settings → Environment Variables
-2. Add each variable above
-3. Deploy
-
----
-
-## 💡 ESTIMATED TOTAL COST
-
-- **Tier 1 (Critical)**: $0/month
-- **Tier 2 (Important)**: $0/month (Cookie consent free tier)
-- **Tier 3 (Optional)**: $0-$20/month (depends on Vapi usage)
-
-**Grand Total**: $0-$20/month for a fully operational system.
+The repository currently has no AdSense publisher ID or ad-unit integration. Add AdSense only after account approval, consent/privacy review, and the correct publisher ID are available; then add the publisher-specific `ads.txt` entry.
