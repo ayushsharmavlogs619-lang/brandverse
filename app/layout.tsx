@@ -34,9 +34,6 @@ export const metadata: Metadata = {
   authors: [{ name: 'Brandverse' }],
   creator: 'Brandverse',
   publisher: 'Brandverse',
-  alternates: {
-    canonical: 'https://brandverse.tech',
-  },
   icons: {
     icon: [
       { url: '/favicon.ico', sizes: 'any' },
